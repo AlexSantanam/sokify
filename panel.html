@@ -90,6 +90,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="firebase-config.js"></script>
   <script src="firebase-init.js"></script>
+
+  <!-- Leaflet Maps para Coberturas & Zonas de Delivery por KM -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body class="bg-canvas text-slate-800 antialiased min-h-screen font-sans selection:bg-brand-600 selection:text-white flex flex-col md:flex-row overflow-x-hidden">
 
@@ -3298,15 +3302,18 @@
             </div>
 
             <!-- SUB-TABS INTERNOS DE CONFIG GENERAL -->
-            <div class="border-b border-slate-200 flex items-center gap-6 text-xs sm:text-sm">
-              <button class="pb-3 font-bold text-blue-600 border-b-2 border-blue-600 cursor-pointer">Canales de venta</button>
-              <button class="pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer">Tipos de servicio</button>
-              <button class="pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer">Coberturas y repartidores</button>
-              <button class="pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer">Impulso de ventas</button>
+            <div class="border-b border-slate-200 flex items-center gap-6 text-xs sm:text-sm overflow-x-auto no-scrollbar">
+              <button onclick="setCfgGeneralSubtab('canales')" id="subtabGenCanales" class="pb-3 font-bold text-blue-600 border-b-2 border-blue-600 cursor-pointer whitespace-nowrap transition-colors">Canales de venta</button>
+              <button onclick="setCfgGeneralSubtab('servicios')" id="subtabGenServicios" class="pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer whitespace-nowrap transition-colors">Tipos de servicio</button>
+              <button onclick="setCfgGeneralSubtab('coberturas')" id="subtabGenCoberturas" class="pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer whitespace-nowrap transition-colors flex items-center gap-1.5">
+                <span>🛵</span>
+                <span>Coberturas y repartidores</span>
+              </button>
+              <button onclick="setCfgGeneralSubtab('impulso')" id="subtabGenImpulso" class="pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer whitespace-nowrap transition-colors">Impulso de ventas</button>
             </div>
 
-            <!-- LISTA DE CARDS DE CANALES DE VENTA (EXACTO A IMAGEN 1) -->
-            <div class="space-y-3.5">
+            <!-- SUBVIEW A: CANALES DE VENTA -->
+            <div id="subviewGenCanales" class="space-y-3.5">
               
               <!-- CARD 1: MENÚ DIGITAL -->
               <div class="bg-white rounded-2xl border border-borderLight p-4 sm:p-5 shadow-soft flex flex-wrap items-center justify-between gap-4">
@@ -3448,6 +3455,313 @@
                 </div>
               </div>
 
+            </div>
+            <!-- FIN SUBVIEW A: CANALES DE VENTA -->
+
+            <!-- ============================================================= -->
+            <!-- SUBVIEW B: TIPOS DE SERVICIO -->
+            <!-- ============================================================= -->
+            <div id="subviewGenServicios" class="space-y-4 hidden">
+              <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft space-y-4">
+                <div class="space-y-0.5">
+                  <h3 class="font-black text-sm text-slate-900">Modalidades de Atención Activas</h3>
+                  <p class="text-xs text-slate-500">Activa o desactiva cómo pueden comprar tus clientes.</p>
+                </div>
+                <div class="grid sm:grid-cols-3 gap-3 text-xs">
+                  <div class="p-4 rounded-xl border border-borderLight bg-slate-50 flex items-center justify-between">
+                    <div>
+                      <div class="font-bold text-slate-900">🛵 Delivery a Domicilio</div>
+                      <div class="text-[11px] text-slate-500">Envíos con repartidores propios o externos</div>
+                    </div>
+                    <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">Activo</span>
+                  </div>
+                  <div class="p-4 rounded-xl border border-borderLight bg-slate-50 flex items-center justify-between">
+                    <div>
+                      <div class="font-bold text-slate-900">🛍️ Para Retirar / Takeout</div>
+                      <div class="text-[11px] text-slate-500">Cliente retira en el local</div>
+                    </div>
+                    <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">Activo</span>
+                  </div>
+                  <div class="p-4 rounded-xl border border-borderLight bg-slate-50 flex items-center justify-between">
+                    <div>
+                      <div class="font-bold text-slate-900">🍽️ Consumo en Mesa / Salón</div>
+                      <div class="text-[11px] text-slate-500">Pedidos mediante código QR en mesa</div>
+                    </div>
+                    <span class="text-[10px] font-black bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">Activo</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- SUBVIEW C: COBERTURAS Y REPARTIDORES (CON MAPA VISUAL Y RANGOS KM) -->
+            <!-- ============================================================= -->
+            <div id="subviewGenCoberturas" class="space-y-6 hidden">
+
+              <!-- CARD 1: DIRECCIÓN DEL NEGOCIO (PUNTO DE ORIGEN) -->
+              <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                  <div>
+                    <h3 class="font-black text-sm text-slate-900 flex items-center gap-2">
+                      <span>📍</span>
+                      <span>Dirección del negocio</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Ubicación de tu negocio y punto de origen de tus envíos a domicilio.</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="detectarUbicacionGPS()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                      <span>🎯</span>
+                      <span>Usar mi GPS</span>
+                    </button>
+                    <button type="button" onclick="geocodificarDireccion()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+                      <span>🔍</span>
+                      <span>Fijar en Mapa</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="grid sm:grid-cols-12 gap-3 text-xs">
+                  <div class="sm:col-span-8">
+                    <label class="block font-bold text-slate-700 mb-1">Calle, Número, Comuna / Ciudad:</label>
+                    <input type="text" id="cfgBusinessAddress" value="Av. San Martín 820, Viña del Mar, Valparaíso" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-medium focus:bg-white focus:outline-none focus:border-blue-600 transition" placeholder="Ej: Av. Providencia 1234, Santiago" />
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label class="block font-bold text-slate-700 mb-1">Latitud:</label>
+                    <input type="number" step="0.000001" id="cfgBusinessLat" value="-33.0152" onchange="actualizarCoordsDesdeInputs()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-mono text-xs focus:bg-white focus:outline-none focus:border-blue-600" />
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label class="block font-bold text-slate-700 mb-1">Longitud:</label>
+                    <input type="number" step="0.000001" id="cfgBusinessLng" value="-71.5516" onchange="actualizarCoordsDesdeInputs()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-mono text-xs focus:bg-white focus:outline-none focus:border-blue-600" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD 2: PRECIOS Y COBERTURAS DE ENVÍO -->
+              <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h3 class="font-black text-sm text-slate-900 flex items-center gap-2">
+                      <span>🛵</span>
+                      <span>Precios y coberturas de envío</span>
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Configura cómo se calcula el costo de envío para tus clientes.</p>
+                  </div>
+                  <div class="inline-flex p-1 rounded-xl bg-slate-100 text-xs font-bold">
+                    <button type="button" onclick="setDeliveryMode('rangos')" id="btnDelivModeRangos" class="px-3 py-1.5 rounded-lg transition bg-white text-blue-600 shadow-sm cursor-pointer">
+                      🗺️ Rangos por KM
+                    </button>
+                    <button type="button" onclick="setDeliveryMode('distancia')" id="btnDelivModeDistancia" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 cursor-pointer">
+                      📏 Precio por KM ($/km)
+                    </button>
+                    <button type="button" onclick="setDeliveryMode('plana')" id="btnDelivModePlana" class="px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 cursor-pointer">
+                      🏷️ Tarifa Fija
+                    </button>
+                  </div>
+                </div>
+
+                <!-- CONTENEDOR DEL MAPA VISUAL INTERACTIVO CON CÍRCULOS CONCÉNTRICOS -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-slate-700 flex items-center gap-1.5">
+                      <span>🗺️</span>
+                      <span>Mapa de Cobertura en Vivo (Anillos concéntricos de entrega):</span>
+                    </span>
+                    <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      <span>Arrastra el pin 🏪 para mover el local o haz clic para simular distancia</span>
+                    </span>
+                  </div>
+
+                  <div class="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
+                    <!-- Mapa Leaflet -->
+                    <div id="deliveryCoverageMap" style="height: 380px; width: 100%; z-index: 1;"></div>
+
+                    <!-- Overlay de Leyenda Rápida -->
+                    <div class="absolute top-3 right-3 z-[1000] bg-white/95 backdrop-blur-sm p-2.5 rounded-xl shadow-md border border-slate-200 text-[11px] space-y-1.5 max-w-[210px]">
+                      <span class="font-bold text-slate-800 block border-b border-slate-100 pb-1">Radios de Cobertura</span>
+                      <div id="mapLegendItems" class="space-y-1">
+                        <!-- Generado dinámicamente -->
+                      </div>
+                    </div>
+
+                    <!-- Simulador de Clic en el Mapa -->
+                    <div id="mapSimFeedback" class="hidden absolute bottom-3 left-3 right-3 z-[1000] bg-slate-900/90 backdrop-blur-sm text-white px-4 py-2.5 rounded-xl text-xs flex items-center justify-between gap-3 shadow-lg animate-in fade-in">
+                      <div class="flex items-center gap-2">
+                        <span class="text-base">📍</span>
+                        <span id="mapSimText">Punto seleccionado</span>
+                      </div>
+                      <button type="button" onclick="cerrarFeedbackSimulador()" class="text-slate-400 hover:text-white text-xs">✕</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SECCIÓN A: TABLA DE RANGOS DE KILÓMETROS (CONFIGURABLE) -->
+                <div id="panelRangosKm" class="space-y-4 pt-2">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="font-black text-xs text-slate-900 uppercase tracking-wider">Rangos de Distancia & Precios de Delivery</h4>
+                      <p class="text-[11px] text-slate-500">Cada anillo define el costo según los kilómetros desde tu restaurante.</p>
+                    </div>
+                    <button type="button" onclick="agregarNuevoRangoKm()" class="px-3.5 py-1.5 rounded-xl border border-blue-600 text-blue-600 hover:bg-blue-50 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                      <span>+</span>
+                      <span>Agregar rango</span>
+                    </button>
+                  </div>
+
+                  <!-- TABLA DE RANGOS -->
+                  <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-left text-xs">
+                      <thead class="bg-slate-50 text-slate-500 uppercase font-mono text-[10px] border-b border-slate-200">
+                        <tr>
+                          <th class="py-2.5 px-3">Color</th>
+                          <th class="py-2.5 px-3">Nombre Zona</th>
+                          <th class="py-2.5 px-3">Distancia (KM)</th>
+                          <th class="py-2.5 px-3">Costo Delivery ($)</th>
+                          <th class="py-2.5 px-3">Envío Gratis desde ($)</th>
+                          <th class="py-2.5 px-3 text-center">Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody id="tbodyRangosKm" class="divide-y divide-slate-100 bg-white">
+                        <!-- Filas generadas dinámicamente -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- BOTÓN GUARDAR -->
+                  <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="guardarConfiguracionDelivery()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-sm transition flex items-center gap-2 cursor-pointer">
+                      <span>💾</span>
+                      <span>Guardar Coberturas de Delivery</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- SECCIÓN B: PRECIO POR DISTANCIA RECORRIDA ($ BASE + $/KM - MODAL OLACLICK) -->
+                <div id="panelDistanciaKm" class="space-y-4 pt-2 hidden">
+                  <div class="p-4 rounded-2xl bg-blue-50/50 border border-blue-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="space-y-1">
+                      <div class="flex items-center gap-2">
+                        <span class="text-base">🛵</span>
+                        <h4 class="font-black text-xs text-slate-900">Tarifa Dinámica por Kilómetro Recorrido</h4>
+                        <span class="text-[10px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full">Automático</span>
+                      </div>
+                      <p class="text-xs text-slate-600 leading-relaxed">
+                        Calcula el costo sumando un precio base más una tarifa proporcional por cada kilómetro recorrido desde el local.
+                      </p>
+                      <div class="text-xs font-mono font-bold text-blue-900 pt-1" id="summaryDistanciaRecorrida">
+                        Precio base: $1.500 · Por KM: $500 · Distancia máxima: 6 km
+                      </div>
+                    </div>
+                    <button type="button" onclick="abrirModalDistanciaRecorrida()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs whitespace-nowrap shadow-sm transition cursor-pointer">
+                      ✏️ Editar distancia recorrida
+                    </button>
+                  </div>
+                </div>
+
+                <!-- SECCIÓN C: TARIFA PLANA FIJA -->
+                <div id="panelTarifaPlana" class="space-y-4 pt-2 hidden">
+                  <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Costo Fijo de Delivery ($):</label>
+                      <input type="number" id="cfgTarifaPlanaMonto" value="2500" step="100" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-mono font-bold text-slate-900 text-xs" />
+                    </div>
+                    <div>
+                      <label class="block font-bold text-slate-700 mb-1">Radio Máximo de Cobertura (KM):</label>
+                      <input type="number" id="cfgTarifaPlanaRadio" value="5" step="0.5" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-mono font-bold text-slate-900 text-xs" />
+                    </div>
+                  </div>
+                  <div class="flex justify-end">
+                    <button type="button" onclick="guardarConfiguracionDelivery()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-sm transition cursor-pointer">
+                      <span>💾</span>
+                      <span>Guardar Tarifa Fija</span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- CARD 3: REPARTIDORES (PROPIOS Y EXTERNOS - EXACTO A OLACLICK) -->
+              <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                  <div class="flex items-center gap-3">
+                    <button type="button" onclick="setRepartidoresTab('propios')" id="tabRepartidoresPropios" class="pb-1 font-bold text-blue-600 border-b-2 border-blue-600 text-xs sm:text-sm cursor-pointer flex items-center gap-1.5">
+                      <span>🏍️</span>
+                      <span>Repartidores propios</span>
+                    </button>
+                    <button type="button" onclick="setRepartidoresTab('externos')" id="tabRepartidoresExternos" class="pb-1 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-xs sm:text-sm cursor-pointer flex items-center gap-1.5">
+                      <span>🛵</span>
+                      <span>Repartidores externos</span>
+                    </button>
+                  </div>
+                  <button type="button" onclick="abrirModalAgregarRepartidor()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition cursor-pointer">
+                    <span>+</span>
+                    <span>Agregar repartidor</span>
+                  </button>
+                </div>
+
+                <!-- CONTENEDOR REPARTIDORES PROPIOS -->
+                <div id="viewRepartidoresPropios">
+                  <!-- Empty State Idéntico a OlaClick -->
+                  <div id="emptyRepartidoresState" class="py-10 px-4 text-center max-w-md mx-auto space-y-4">
+                    <div class="relative w-24 h-24 mx-auto flex items-center justify-center">
+                      <div class="w-20 h-20 rounded-full bg-slate-100 border-2 border-slate-200 flex items-center justify-center text-4xl shadow-inner">
+                        🪖
+                      </div>
+                      <div class="absolute top-1 right-2 w-7 h-7 rounded-full bg-blue-600 text-white font-bold text-base flex items-center justify-center shadow-md">
+                        +
+                      </div>
+                    </div>
+                    <div class="space-y-1">
+                      <h4 class="font-black text-sm text-slate-900">Aún no tienes repartidores propios</h4>
+                      <p class="text-xs text-slate-500 leading-relaxed">
+                        Agrégalos para asignarlos a tus pedidos y coordinar entregas más rápidas directamente por WhatsApp.
+                      </p>
+                    </div>
+                    <div>
+                      <button type="button" onclick="abrirModalAgregarRepartidor()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition cursor-pointer inline-flex items-center gap-1.5">
+                        <span>+</span>
+                        <span>Agregar repartidor</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Lista de Repartidores (cuando existen) -->
+                  <div id="listRepartidoresGrid" class="hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <!-- Cards dinámicas -->
+                  </div>
+                </div>
+
+                <!-- CONTENEDOR REPARTIDORES EXTERNOS -->
+                <div id="viewRepartidoresExternos" class="hidden py-8 px-4 text-center max-w-md mx-auto space-y-3">
+                  <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-3xl mx-auto">
+                    🛵
+                  </div>
+                  <h4 class="font-black text-sm text-slate-900">Flotas Externas y Riders Compartidos</h4>
+                  <p class="text-xs text-slate-500 leading-relaxed">
+                    Conecta tus envíos con flotas tercerizadas o redes de riders independientes disponibles en tu zona.
+                  </p>
+                  <span class="inline-block text-[10px] font-mono font-black text-amber-700 bg-amber-100 px-3 py-1 rounded-full border border-amber-200">
+                    Próximamente disponible
+                  </span>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- ============================================================= -->
+            <!-- SUBVIEW D: IMPULSO DE VENTAS -->
+            <!-- ============================================================= -->
+            <div id="subviewGenImpulso" class="space-y-4 hidden">
+              <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft space-y-3">
+                <h3 class="font-black text-sm text-slate-900">Herramientas de Impulso y Retención</h3>
+                <p class="text-xs text-slate-500">Crea promociones y cupones de descuento automáticos para aumentar el ticket promedio de compra.</p>
+                <div class="pt-2">
+                  <button type="button" onclick="mostrarNotificacion('Módulo de cupones listo para configurar')" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">
+                    Crear cupón de descuento
+                  </button>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -5577,6 +5891,123 @@
 
     </div>
 
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: EDITAR DISTANCIA RECORRIDA (EXACTO A OLACLICK) -->
+  <!-- ========================================================================= -->
+  <div id="modalDistanciaRecorrida" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl border border-slate-100 overflow-hidden space-y-5 p-6 animate-in fade-in zoom-in-95">
+      <!-- HEADER -->
+      <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+        <button type="button" onclick="cerrarModalDistanciaRecorrida()" class="w-8 h-8 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-700 transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </button>
+        <h3 class="font-extrabold text-base text-slate-900">Editar distancia recorrida</h3>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <h4 class="font-bold text-sm text-slate-800">Configura el precio por distancia recorrida</h4>
+          <p class="text-xs text-slate-500 mt-0.5">El sistema calculará automáticamente la tarifa sumando el valor base más los kilómetros de trayecto.</p>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3 text-xs">
+          <div>
+            <label class="block font-bold text-slate-600 mb-1">Precio base</label>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-slate-400 font-bold">$</span>
+              <input type="number" id="inputDistPrecioBase" value="1500" step="100" class="w-full pl-7 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 font-mono font-bold text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600" />
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-600 mb-1">Precio por KM</label>
+            <div class="relative">
+              <span class="absolute left-3 top-2.5 text-slate-400 font-bold">$</span>
+              <input type="number" id="inputDistPrecioKm" value="500" step="50" class="w-full pl-7 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 font-mono font-bold text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600" />
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-600 mb-1">Distancia máxima (KM)</label>
+            <input type="number" id="inputDistMaxKm" value="4" step="0.5" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 font-mono font-bold text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600" />
+          </div>
+        </div>
+
+        <!-- Banner Azul con ícono (Exacto a captura de pantalla de OlaClick) -->
+        <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-900 text-xs flex items-start gap-3">
+          <div class="w-5 h-5 rounded-full bg-blue-200 text-blue-700 flex items-center justify-center shrink-0 font-bold text-xs mt-0.5">
+            ℹ
+          </div>
+          <p class="leading-relaxed">
+            Los pedidos mostrarán el precio total de entrega, calculado como la suma del precio base y la distancia total multiplicada por el precio por kilómetro.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+        <button type="button" onclick="cerrarModalDistanciaRecorrida()" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition cursor-pointer">
+          Cancelar
+        </button>
+        <button type="button" onclick="guardarDistanciaRecorrida()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-sm transition cursor-pointer">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: AGREGAR REPARTIDOR -->
+  <!-- ========================================================================= -->
+  <div id="modalAgregarRepartidor" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden space-y-5 p-6 animate-in fade-in zoom-in-95">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="text-2xl">🏍️</span>
+          <div>
+            <h3 class="font-extrabold text-base text-slate-900">Agregar Repartidor</h3>
+            <p class="text-xs text-slate-500">Asigna entregas y coordina despachos por WhatsApp</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalAgregarRepartidor()" class="text-slate-400 hover:text-slate-600 text-sm">✕</button>
+      </div>
+
+      <form id="formAgregarRepartidor" onsubmit="guardarNuevoRepartidor(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nombre completo *</label>
+          <input type="text" id="inputRepartidorNombre" required placeholder="Ej: Carlos Muñoz" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600" />
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Teléfono WhatsApp *</label>
+          <input type="tel" id="inputRepartidorPhone" required placeholder="+56 9 1234 5678" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tipo de Vehículo</label>
+            <select id="inputRepartidorVehiculo" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600">
+              <option value="Moto">🏍️ Moto</option>
+              <option value="Bicicleta">🚲 Bicicleta</option>
+              <option value="Auto">🚗 Auto</option>
+              <option value="Scooter">🛴 Scooter</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Patente / Placa (opcional)</label>
+            <input type="text" id="inputRepartidorPlaca" placeholder="Ej: JJ-1234" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 focus:bg-white focus:outline-none focus:border-blue-600 uppercase" />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" onclick="cerrarModalAgregarRepartidor()" class="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-bold text-xs transition cursor-pointer">
+            Cancelar
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-sm transition cursor-pointer">
+            Guardar Repartidor
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- ========================================================================= -->
@@ -14414,9 +14845,680 @@
     }
 
     // --- CONFIGURACIÓN GENERAL ---
+    let cfgGeneralSubtab = 'canales';
+
+    function setCfgGeneralSubtab(subtab) {
+      cfgGeneralSubtab = subtab || 'canales';
+
+      const tabs = [
+        { id: 'subtabGenCanales', view: 'subviewGenCanales', key: 'canales' },
+        { id: 'subtabGenServicios', view: 'subviewGenServicios', key: 'servicios' },
+        { id: 'subtabGenCoberturas', view: 'subviewGenCoberturas', key: 'coberturas' },
+        { id: 'subtabGenImpulso', view: 'subviewGenImpulso', key: 'impulso' }
+      ];
+
+      tabs.forEach(t => {
+        const btn = document.getElementById(t.id);
+        const vw = document.getElementById(t.view);
+        const isAct = t.key === cfgGeneralSubtab;
+
+        if (btn) {
+          if (isAct) {
+            btn.className = 'pb-3 font-bold text-blue-600 border-b-2 border-blue-600 cursor-pointer whitespace-nowrap transition-colors flex items-center gap-1.5';
+          } else {
+            btn.className = 'pb-3 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent cursor-pointer whitespace-nowrap transition-colors flex items-center gap-1.5';
+          }
+        }
+        if (vw) {
+          vw.classList.toggle('hidden', !isAct);
+        }
+      });
+
+      if (cfgGeneralSubtab === 'coberturas') {
+        setTimeout(() => {
+          initOrRefreshDeliveryMap();
+          renderRangosTable();
+          renderRepartidoresList();
+        }, 80);
+      }
+    }
+
     function toggleRecibirPedidos(checked) {
       setPausaManual(!checked);
       mostrarNotificacion(checked ? '🟢 Menú Digital abierto para recibir pedidos' : '⏸️ Menú Digital pausado temporalmente');
+    }
+
+    // =========================================================================
+    // MÓDULO: COBERTURAS, ZONAS DE DELIVERY POR KM & REPARTIDORES (LEAFLET MAPS)
+    // =========================================================================
+    let deliveryConfig = {
+      address: 'Av. San Martín 820, Viña del Mar, Valparaíso',
+      lat: -33.0152,
+      lng: -71.5516,
+      mode: 'rangos', // 'rangos' | 'distancia' | 'plana'
+      zones: [
+        { id: 1, name: 'Zona 1 (Radio Corto)', minKm: 0, maxKm: 1.5, price: 2000, freeAbove: 25000, color: '#10B981' },
+        { id: 2, name: 'Zona 2 (Radio Medio)', minKm: 1.5, maxKm: 4.0, price: 3000, freeAbove: 35000, color: '#3B82F6' },
+        { id: 3, name: 'Zona 3 (Radio Extendido)', minKm: 4.0, maxKm: 7.0, price: 4500, freeAbove: 50000, color: '#F59E0B' }
+      ],
+      distancePricing: { basePrice: 1500, pricePerKm: 500, maxKm: 4 },
+      flatPricing: { price: 2500, maxKm: 5 },
+      repartidores: [
+        { id: 'rep-1', name: 'Carlos Muñoz', phone: '+56 9 8472 9104', vehicle: 'Moto', placa: 'JJ-1234', status: 'disponible', ordersToday: 8 },
+        { id: 'rep-2', name: 'Diego Soto', phone: '+56 9 9123 4567', vehicle: 'Bicicleta', placa: '-', status: 'en_reparto', ordersToday: 5 }
+      ]
+    };
+
+    // Cargar persistencia
+    try {
+      const savedDeliveryCfg = localStorage.getItem('sokify_delivery_config');
+      if (savedDeliveryCfg) {
+        const parsed = JSON.parse(savedDeliveryCfg);
+        deliveryConfig = { ...deliveryConfig, ...parsed };
+      }
+    } catch (e) {
+      console.warn('Error loading delivery config', e);
+    }
+
+    let deliveryMap = null;
+    let deliveryCircles = [];
+    let restaurantMarker = null;
+    let simMarker = null;
+    let repartidoresTab = 'propios';
+
+    function initOrRefreshDeliveryMap() {
+      const container = document.getElementById('deliveryCoverageMap');
+      if (!container) return;
+
+      if (typeof L === 'undefined') {
+        console.warn('Leaflet library is still loading...');
+        return;
+      }
+
+      if (!deliveryMap) {
+        deliveryMap = L.map('deliveryCoverageMap', {
+          zoomControl: true,
+          scrollWheelZoom: true
+        }).setView([deliveryConfig.lat, deliveryConfig.lng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; OpenStreetMap'
+        }).addTo(deliveryMap);
+
+        // Marcador arrastrable del local
+        const shopIcon = L.divIcon({
+          html: '<div style="background:#2563EB;color:white;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(37,99,235,0.45);border:2.5px solid white;font-size:18px;cursor:grab;">🏪</div>',
+          className: '',
+          iconSize: [34, 34],
+          iconAnchor: [17, 17]
+        });
+
+        restaurantMarker = L.marker([deliveryConfig.lat, deliveryConfig.lng], {
+          draggable: true,
+          icon: shopIcon
+        }).addTo(deliveryMap);
+
+        restaurantMarker.bindPopup('<b>Tu Restaurante</b><br>Punto de partida de envíos').openPopup();
+
+        restaurantMarker.on('dragend', function (e) {
+          const pos = e.target.getLatLng();
+          deliveryConfig.lat = parseFloat(pos.lat.toFixed(6));
+          deliveryConfig.lng = parseFloat(pos.lng.toFixed(6));
+          const latInp = document.getElementById('cfgBusinessLat');
+          const lngInp = document.getElementById('cfgBusinessLng');
+          if (latInp) latInp.value = deliveryConfig.lat;
+          if (lngInp) lngInp.value = deliveryConfig.lng;
+          renderDeliveryCircles();
+          mostrarNotificacion(`📍 Ubicación del restaurante actualizada a [${deliveryConfig.lat}, ${deliveryConfig.lng}]`, 'info');
+        });
+
+        // Clic en el mapa para simular entrega
+        const clientIcon = L.divIcon({
+          html: '<div style="background:#EF4444;color:white;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(239,68,68,0.4);border:2px solid white;font-size:16px;">📍</div>',
+          className: '',
+          iconSize: [30, 30],
+          iconAnchor: [15, 30]
+        });
+
+        deliveryMap.on('click', function (e) {
+          const clickLat = e.latlng.lat;
+          const clickLng = e.latlng.lng;
+          const dist = calcDistanceKm(deliveryConfig.lat, deliveryConfig.lng, clickLat, clickLng);
+          const evalRes = evaluateDeliveryPrice(dist);
+
+          if (simMarker) deliveryMap.removeLayer(simMarker);
+          simMarker = L.marker([clickLat, clickLng], { icon: clientIcon }).addTo(deliveryMap);
+
+          const feedback = document.getElementById('mapSimFeedback');
+          const textEl = document.getElementById('mapSimText');
+          if (feedback && textEl) {
+            feedback.classList.remove('hidden');
+            if (evalRes.available) {
+              textEl.innerHTML = `Distancia: <strong>${dist.toFixed(2)} km</strong> &rarr; Cae en: <strong>${evalRes.zoneName}</strong> &rarr; Costo Delivery: <strong>$${evalRes.price.toLocaleString('es-CL')}</strong>`;
+            } else {
+              textEl.innerHTML = `Distancia: <strong>${dist.toFixed(2)} km</strong> &rarr; <span class="text-rose-400 font-bold">${evalRes.reason}</span>`;
+            }
+          }
+        });
+      } else {
+        deliveryMap.invalidateSize();
+        deliveryMap.setView([deliveryConfig.lat, deliveryConfig.lng]);
+        if (restaurantMarker) {
+          restaurantMarker.setLatLng([deliveryConfig.lat, deliveryConfig.lng]);
+        }
+      }
+
+      renderDeliveryCircles();
+    }
+
+    function renderDeliveryCircles() {
+      if (!deliveryMap) return;
+
+      // Limpiar círculos previos
+      deliveryCircles.forEach(c => deliveryMap.removeLayer(c));
+      deliveryCircles = [];
+
+      const legendEl = document.getElementById('mapLegendItems');
+      if (legendEl) legendEl.innerHTML = '';
+
+      if (deliveryConfig.mode === 'plana') {
+        const radMeters = deliveryConfig.flatPricing.maxKm * 1000;
+        const circle = L.circle([deliveryConfig.lat, deliveryConfig.lng], {
+          radius: radMeters,
+          color: '#3B82F6',
+          fillColor: '#3B82F6',
+          fillOpacity: 0.16,
+          weight: 2
+        }).addTo(deliveryMap);
+
+        circle.bindTooltip(`Radio Único: ${deliveryConfig.flatPricing.maxKm} km ($${deliveryConfig.flatPricing.price.toLocaleString('es-CL')})`);
+        deliveryCircles.push(circle);
+
+        if (legendEl) {
+          legendEl.innerHTML = `
+            <div class="flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full shrink-0" style="background:#3B82F6;"></span>
+              <span class="truncate">Hasta ${deliveryConfig.flatPricing.maxKm} km ($${deliveryConfig.flatPricing.price})</span>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      if (deliveryConfig.mode === 'distancia') {
+        const radMeters = deliveryConfig.distancePricing.maxKm * 1000;
+        const circle = L.circle([deliveryConfig.lat, deliveryConfig.lng], {
+          radius: radMeters,
+          color: '#8B5CF6',
+          fillColor: '#8B5CF6',
+          fillOpacity: 0.16,
+          weight: 2
+        }).addTo(deliveryMap);
+
+        circle.bindTooltip(`Distancia Máxima: ${deliveryConfig.distancePricing.maxKm} km (Base $${deliveryConfig.distancePricing.basePrice} + $${deliveryConfig.distancePricing.pricePerKm}/km)`);
+        deliveryCircles.push(circle);
+
+        if (legendEl) {
+          legendEl.innerHTML = `
+            <div class="flex items-center gap-1.5">
+              <span class="w-3 h-3 rounded-full shrink-0" style="background:#8B5CF6;"></span>
+              <span class="truncate">Máx ${deliveryConfig.distancePricing.maxKm} km ($${deliveryConfig.distancePricing.basePrice} base)</span>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      // Modo 'rangos': Dibujar círculos concéntricos de mayor a menor radio para correcta visualización y hover
+      const sorted = [...deliveryConfig.zones].sort((a, b) => b.maxKm - a.maxKm);
+
+      sorted.forEach(zone => {
+        const radMeters = zone.maxKm * 1000;
+        const circle = L.circle([deliveryConfig.lat, deliveryConfig.lng], {
+          radius: radMeters,
+          color: zone.color || '#3B82F6',
+          fillColor: zone.color || '#3B82F6',
+          fillOpacity: 0.18,
+          weight: 2
+        }).addTo(deliveryMap);
+
+        circle.bindTooltip(`<b>${zone.name}</b><br>Radio: ${zone.maxKm} km<br>Tarifa: $${zone.price.toLocaleString('es-CL')}`);
+        deliveryCircles.push(circle);
+      });
+
+      // Leyenda ordenada por orden natural
+      if (legendEl) {
+        legendEl.innerHTML = deliveryConfig.zones.map(z => `
+          <div class="flex items-center gap-1.5 text-[11px]">
+            <span class="w-3 h-3 rounded-full shrink-0 shadow-sm" style="background:${z.color};"></span>
+            <span class="truncate font-semibold text-slate-700">${z.maxKm} km &bull; $${z.price.toLocaleString('es-CL')}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function renderRangosTable() {
+      const tbody = document.getElementById('tbodyRangosKm');
+      if (!tbody) return;
+
+      tbody.innerHTML = deliveryConfig.zones.map((zone, idx) => `
+        <tr class="hover:bg-slate-50 transition-colors">
+          <td class="py-2.5 px-3">
+            <input type="color" value="${zone.color}" onchange="actualizarParamRango(${idx}, 'color', this.value)" class="w-7 h-7 rounded-lg border border-slate-200 cursor-pointer p-0 bg-transparent" />
+          </td>
+          <td class="py-2.5 px-3">
+            <input type="text" value="${zone.name}" onchange="actualizarParamRango(${idx}, 'name', this.value)" class="w-full px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-900 focus:outline-none focus:border-blue-600" />
+          </td>
+          <td class="py-2.5 px-3">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-slate-400 font-mono">0 a</span>
+              <input type="number" step="0.5" min="0.5" value="${zone.maxKm}" oninput="actualizarParamRango(${idx}, 'maxKm', parseFloat(this.value) || 1)" class="w-16 px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-blue-600" />
+              <span class="text-[10px] text-slate-500 font-bold">km</span>
+            </div>
+          </td>
+          <td class="py-2.5 px-3">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-slate-400 font-bold">$</span>
+              <input type="number" step="100" min="0" value="${zone.price}" oninput="actualizarParamRango(${idx}, 'price', parseInt(this.value) || 0)" class="w-20 px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-blue-600" />
+            </div>
+          </td>
+          <td class="py-2.5 px-3">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-slate-400 font-bold">$</span>
+              <input type="number" step="1000" min="0" value="${zone.freeAbove || 0}" oninput="actualizarParamRango(${idx}, 'freeAbove', parseInt(this.value) || 0)" placeholder="0 = sin envío gratis" class="w-24 px-2 py-1.5 rounded-lg border border-slate-200 text-xs font-mono text-slate-700 focus:outline-none focus:border-blue-600" />
+            </div>
+          </td>
+          <td class="py-2.5 px-3 text-center">
+            <button type="button" onclick="eliminarRangoKm(${idx})" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition" title="Eliminar rango">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function actualizarParamRango(idx, field, val) {
+      if (deliveryConfig.zones[idx]) {
+        deliveryConfig.zones[idx][field] = val;
+        renderDeliveryCircles();
+      }
+    }
+
+    function agregarNuevoRangoKm() {
+      const lastMax = deliveryConfig.zones.length > 0
+        ? Math.max(...deliveryConfig.zones.map(z => z.maxKm))
+        : 1;
+
+      const newMax = lastMax + 2.5;
+      const palette = ['#10B981', '#3B82F6', '#F59E0B', '#8B5CF6', '#EC4899', '#06B6D4'];
+      const nextColor = palette[deliveryConfig.zones.length % palette.length];
+
+      deliveryConfig.zones.push({
+        id: Date.now(),
+        name: `Zona ${deliveryConfig.zones.length + 1} (Hasta ${newMax} km)`,
+        minKm: lastMax,
+        maxKm: newMax,
+        price: (deliveryConfig.zones.length + 1) * 1500,
+        freeAbove: 0,
+        color: nextColor
+      });
+
+      renderRangosTable();
+      renderDeliveryCircles();
+      mostrarNotificacion(`➕ Nuevo rango agregado hasta ${newMax} km`, 'info');
+    }
+
+    function eliminarRangoKm(idx) {
+      if (deliveryConfig.zones.length <= 1) {
+        alert('Debes mantener al menos 1 rango de cobertura activo.');
+        return;
+      }
+      deliveryConfig.zones.splice(idx, 1);
+      renderRangosTable();
+      renderDeliveryCircles();
+      mostrarNotificacion('🗑️ Rango de entrega eliminado', 'info');
+    }
+
+    function setDeliveryMode(mode) {
+      deliveryConfig.mode = mode;
+
+      const btnRangos = document.getElementById('btnDelivModeRangos');
+      const btnDist = document.getElementById('btnDelivModeDistancia');
+      const btnPlana = document.getElementById('btnDelivModePlana');
+
+      const panelRangos = document.getElementById('panelRangosKm');
+      const panelDist = document.getElementById('panelDistanciaKm');
+      const panelPlana = document.getElementById('panelTarifaPlana');
+
+      const activeClass = 'px-3 py-1.5 rounded-lg transition bg-white text-blue-600 shadow-sm cursor-pointer';
+      const inactiveClass = 'px-3 py-1.5 rounded-lg transition text-slate-600 hover:text-slate-900 cursor-pointer';
+
+      if (btnRangos) btnRangos.className = mode === 'rangos' ? activeClass : inactiveClass;
+      if (btnDist) btnDist.className = mode === 'distancia' ? activeClass : inactiveClass;
+      if (btnPlana) btnPlana.className = mode === 'plana' ? activeClass : inactiveClass;
+
+      if (panelRangos) panelRangos.classList.toggle('hidden', mode !== 'rangos');
+      if (panelDist) panelDist.classList.toggle('hidden', mode !== 'distancia');
+      if (panelPlana) panelPlana.classList.toggle('hidden', mode !== 'plana');
+
+      renderDeliveryCircles();
+    }
+
+    function cerrarFeedbackSimulador() {
+      const el = document.getElementById('mapSimFeedback');
+      if (el) el.classList.add('hidden');
+      if (simMarker && deliveryMap) {
+        deliveryMap.removeLayer(simMarker);
+        simMarker = null;
+      }
+    }
+
+    function calcDistanceKm(lat1, lon1, lat2, lon2) {
+      const R = 6371; // km
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function evaluateDeliveryPrice(distanceKm, orderTotal = 0) {
+      if (deliveryConfig.mode === 'plana') {
+        if (distanceKm > deliveryConfig.flatPricing.maxKm) return { available: false, reason: 'Supera el radio máximo de entrega' };
+        return { available: true, price: deliveryConfig.flatPricing.price, zoneName: 'Tarifa Fija' };
+      }
+      if (deliveryConfig.mode === 'distancia') {
+        const p = deliveryConfig.distancePricing;
+        if (distanceKm > p.maxKm) return { available: false, reason: 'Supera la distancia máxima de envío' };
+        const calculated = p.basePrice + Math.round(distanceKm * p.pricePerKm);
+        return { available: true, price: calculated, zoneName: `Distancia (${distanceKm.toFixed(1)} km)` };
+      }
+
+      // Modo rangos
+      const match = deliveryConfig.zones.find(z => distanceKm >= z.minKm && distanceKm <= z.maxKm);
+      if (!match) return { available: false, reason: 'Fuera del área de cobertura configurada' };
+
+      if (match.freeAbove && orderTotal >= match.freeAbove) {
+        return { available: true, price: 0, zoneName: `${match.name} (¡Envío Gratis!)` };
+      }
+      return { available: true, price: match.price, zoneName: match.name };
+    }
+
+    function guardarConfiguracionDelivery() {
+      const addrEl = document.getElementById('cfgBusinessAddress');
+      if (addrEl) deliveryConfig.address = addrEl.value.trim();
+
+      const montoPlana = document.getElementById('cfgTarifaPlanaMonto');
+      const radioPlana = document.getElementById('cfgTarifaPlanaRadio');
+      if (montoPlana) deliveryConfig.flatPricing.price = parseInt(montoPlana.value) || 2500;
+      if (radioPlana) deliveryConfig.flatPricing.maxKm = parseFloat(radioPlana.value) || 5;
+
+      try {
+        localStorage.setItem('sokify_delivery_config', JSON.stringify(deliveryConfig));
+      } catch (e) {
+        console.error(e);
+      }
+
+      mostrarNotificacion('✅ Cobertura y zonas de delivery guardadas con éxito');
+    }
+
+    // Modal Distancia Recorrida (OlaClick)
+    function abrirModalDistanciaRecorrida() {
+      const p = deliveryConfig.distancePricing;
+      const bInp = document.getElementById('inputDistPrecioBase');
+      const kInp = document.getElementById('inputDistPrecioKm');
+      const mInp = document.getElementById('inputDistMaxKm');
+
+      if (bInp) bInp.value = p.basePrice;
+      if (kInp) kInp.value = p.pricePerKm;
+      if (mInp) mInp.value = p.maxKm;
+
+      const modal = document.getElementById('modalDistanciaRecorrida');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function cerrarModalDistanciaRecorrida() {
+      const modal = document.getElementById('modalDistanciaRecorrida');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function guardarDistanciaRecorrida() {
+      const bInp = document.getElementById('inputDistPrecioBase');
+      const kInp = document.getElementById('inputDistPrecioKm');
+      const mInp = document.getElementById('inputDistMaxKm');
+
+      deliveryConfig.distancePricing = {
+        basePrice: parseInt(bInp?.value) || 1500,
+        pricePerKm: parseInt(kInp?.value) || 500,
+        maxKm: parseFloat(mInp?.value) || 4
+      };
+
+      const summary = document.getElementById('summaryDistanciaRecorrida');
+      if (summary) {
+        summary.textContent = `Precio base: $${deliveryConfig.distancePricing.basePrice.toLocaleString('es-CL')} · Por KM: $${deliveryConfig.distancePricing.pricePerKm.toLocaleString('es-CL')} · Distancia máxima: ${deliveryConfig.distancePricing.maxKm} km`;
+      }
+
+      try {
+        localStorage.setItem('sokify_delivery_config', JSON.stringify(deliveryConfig));
+      } catch (e) {}
+
+      renderDeliveryCircles();
+      cerrarModalDistanciaRecorrida();
+      mostrarNotificacion('✅ Tarifa por distancia recorrida guardada correctamente');
+    }
+
+    // Modal Agregar Repartidor
+    function setRepartidoresTab(tab) {
+      repartidoresTab = tab;
+      const btnP = document.getElementById('tabRepartidoresPropios');
+      const btnE = document.getElementById('tabRepartidoresExternos');
+      const vwP = document.getElementById('viewRepartidoresPropios');
+      const vwE = document.getElementById('viewRepartidoresExternos');
+
+      if (btnP && btnE) {
+        if (tab === 'propios') {
+          btnP.className = 'pb-1 font-bold text-blue-600 border-b-2 border-blue-600 text-xs sm:text-sm cursor-pointer flex items-center gap-1.5';
+          btnE.className = 'pb-1 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-xs sm:text-sm cursor-pointer flex items-center gap-1.5';
+        } else {
+          btnE.className = 'pb-1 font-bold text-blue-600 border-b-2 border-blue-600 text-xs sm:text-sm cursor-pointer flex items-center gap-1.5';
+          btnP.className = 'pb-1 font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent text-xs sm:text-sm cursor-pointer flex items-center gap-1.5';
+        }
+      }
+
+      if (vwP) vwP.classList.toggle('hidden', tab !== 'propios');
+      if (vwE) vwE.classList.toggle('hidden', tab !== 'externos');
+    }
+
+    function renderRepartidoresList() {
+      const emptyEl = document.getElementById('emptyRepartidoresState');
+      const gridEl = document.getElementById('listRepartidoresGrid');
+      if (!emptyEl || !gridEl) return;
+
+      const reps = deliveryConfig.repartidores || [];
+      if (reps.length === 0) {
+        emptyEl.classList.remove('hidden');
+        gridEl.classList.add('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      gridEl.classList.remove('hidden');
+
+      gridEl.innerHTML = reps.map(r => {
+        const vehicleIcon = r.vehicle === 'Moto' ? '🏍️' : r.vehicle === 'Bicicleta' ? '🚲' : r.vehicle === 'Auto' ? '🚗' : '🛴';
+        const isDisp = r.status === 'disponible';
+        const statusBadge = isDisp
+          ? '<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">🟢 Disponible</span>'
+          : '<span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">🛵 En ruta</span>';
+
+        return `
+          <div class="bg-white rounded-2xl border border-borderLight p-4 shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-xl shrink-0">
+                ${vehicleIcon}
+              </div>
+              <div class="space-y-0.5">
+                <div class="flex items-center gap-1.5">
+                  <h4 class="font-bold text-xs text-slate-900">${r.name}</h4>
+                  ${statusBadge}
+                </div>
+                <div class="text-[11px] text-slate-500 font-mono">${r.phone}</div>
+                <div class="text-[10px] text-slate-400">${r.vehicle} ${r.placa ? `· ${r.placa}` : ''} &bull; ${r.ordersToday || 0} entregas hoy</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1">
+              <a href="https://wa.me/${r.phone.replace(/[^0-9]/g, '')}" target="_blank" class="p-2 rounded-xl text-emerald-600 hover:bg-emerald-50 transition" title="Hablar por WhatsApp">
+                💬
+              </a>
+              <button type="button" onclick="eliminarRepartidor('${r.id}')" class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" title="Eliminar">
+                🗑️
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function abrirModalAgregarRepartidor() {
+      const modal = document.getElementById('modalAgregarRepartidor');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function cerrarModalAgregarRepartidor() {
+      const modal = document.getElementById('modalAgregarRepartidor');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function guardarNuevoRepartidor(e) {
+      e.preventDefault();
+      const nom = document.getElementById('inputRepartidorNombre')?.value.trim();
+      const tel = document.getElementById('inputRepartidorPhone')?.value.trim();
+      const veh = document.getElementById('inputRepartidorVehiculo')?.value;
+      const pla = document.getElementById('inputRepartidorPlaca')?.value.trim();
+
+      if (!nom || !tel) {
+        alert('Por favor completa el nombre y teléfono del repartidor.');
+        return;
+      }
+
+      if (!deliveryConfig.repartidores) deliveryConfig.repartidores = [];
+      deliveryConfig.repartidores.push({
+        id: 'rep-' + Date.now(),
+        name: nom,
+        phone: tel,
+        vehicle: veh || 'Moto',
+        placa: pla || '-',
+        status: 'disponible',
+        ordersToday: 0
+      });
+
+      try {
+        localStorage.setItem('sokify_delivery_config', JSON.stringify(deliveryConfig));
+      } catch (err) {}
+
+      renderRepartidoresList();
+      cerrarModalAgregarRepartidor();
+      document.getElementById('formAgregarRepartidor')?.reset();
+      mostrarNotificacion(`🏍️ Repartidor ${nom} agregado con éxito`);
+    }
+
+    function eliminarRepartidor(id) {
+      if (!confirm('¿Deseas eliminar este repartidor de tu lista?')) return;
+      deliveryConfig.repartidores = (deliveryConfig.repartidores || []).filter(r => r.id !== id);
+      try {
+        localStorage.setItem('sokify_delivery_config', JSON.stringify(deliveryConfig));
+      } catch (err) {}
+      renderRepartidoresList();
+      mostrarNotificacion('🗑️ Repartidor eliminado');
+    }
+
+    // Geocodificación y GPS
+    function detectarUbicacionGPS() {
+      if (!navigator.geolocation) {
+        alert('La geolocalización no está disponible en este navegador.');
+        return;
+      }
+      mostrarNotificacion('📡 Obteniendo ubicación GPS de tu local...', 'info');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          deliveryConfig.lat = parseFloat(pos.coords.latitude.toFixed(6));
+          deliveryConfig.lng = parseFloat(pos.coords.longitude.toFixed(6));
+
+          const latInp = document.getElementById('cfgBusinessLat');
+          const lngInp = document.getElementById('cfgBusinessLng');
+          if (latInp) latInp.value = deliveryConfig.lat;
+          if (lngInp) lngInp.value = deliveryConfig.lng;
+
+          if (deliveryMap) {
+            deliveryMap.setView([deliveryConfig.lat, deliveryConfig.lng], 14);
+            if (restaurantMarker) restaurantMarker.setLatLng([deliveryConfig.lat, deliveryConfig.lng]);
+            renderDeliveryCircles();
+          }
+          mostrarNotificacion('🎯 Ubicación GPS establecida en tu local');
+        },
+        (err) => {
+          console.warn(err);
+          alert('No se pudo obtener el GPS. Puedes ingresar la dirección o arrastrar el pin 🏪 en el mapa.');
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    }
+
+    async function geocodificarDireccion() {
+      const addrInp = document.getElementById('cfgBusinessAddress');
+      const query = addrInp ? addrInp.value.trim() : '';
+      if (!query) {
+        alert('Escribe una dirección para buscar en el mapa.');
+        return;
+      }
+
+      mostrarNotificacion(`🔍 Buscando coordenadas para: "${query}"...`, 'info');
+      try {
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+        const data = await res.json();
+        if (data && data.length > 0) {
+          const first = data[0];
+          deliveryConfig.lat = parseFloat(parseFloat(first.lat).toFixed(6));
+          deliveryConfig.lng = parseFloat(parseFloat(first.lon).toFixed(6));
+
+          const latInp = document.getElementById('cfgBusinessLat');
+          const lngInp = document.getElementById('cfgBusinessLng');
+          if (latInp) latInp.value = deliveryConfig.lat;
+          if (lngInp) lngInp.value = deliveryConfig.lng;
+
+          if (deliveryMap) {
+            deliveryMap.setView([deliveryConfig.lat, deliveryConfig.lng], 14);
+            if (restaurantMarker) restaurantMarker.setLatLng([deliveryConfig.lat, deliveryConfig.lng]);
+            renderDeliveryCircles();
+          }
+          mostrarNotificacion(`✅ Dirección encontrada y fijada en el mapa`);
+        } else {
+          alert('No se encontraron coordenadas exactas para esa dirección. Puedes arrastrar el pin 🏪 directamente sobre el mapa.');
+        }
+      } catch (e) {
+        console.error(e);
+        alert('Error buscando dirección. Puedes arrastrar el marcador del restaurante en el mapa.');
+      }
+    }
+
+    function actualizarCoordsDesdeInputs() {
+      const latInp = document.getElementById('cfgBusinessLat');
+      const lngInp = document.getElementById('cfgBusinessLng');
+      const la = parseFloat(latInp?.value);
+      const lo = parseFloat(lngInp?.value);
+
+      if (!isNaN(la) && !isNaN(lo)) {
+        deliveryConfig.lat = la;
+        deliveryConfig.lng = lo;
+        if (deliveryMap) {
+          deliveryMap.setView([la, lo]);
+          if (restaurantMarker) restaurantMarker.setLatLng([la, lo]);
+          renderDeliveryCircles();
+        }
+      }
     }
 
     // --- MÉTODOS DE PAGO ---

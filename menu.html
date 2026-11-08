@@ -602,6 +602,20 @@
 
       setServiceMode(urlParams.get('modo') === 'delivery' ? 'delivery' : 'mesa');
 
+      // Cargar zonas de delivery configuradas desde el panel
+      try {
+        const savedDeliv = localStorage.getItem('sokify_delivery_config');
+        if (savedDeliv) {
+          const cfg = JSON.parse(savedDeliv);
+          const sel = document.getElementById('delivZone');
+          if (sel && cfg.zones && cfg.zones.length > 0) {
+            sel.innerHTML = cfg.zones.map(z => 
+              `<option value="${z.price}" data-zone="${z.name}">${z.name} (+$${z.price.toLocaleString('es-CL')} despacho)</option>`
+            ).join('') + '<option value="0" data-zone="Retiro en Local">Retiro en Local ($0 sin costo)</option>';
+          }
+        }
+      } catch (e) {}
+
       // 4. Pintar la marca con lo que ya tenemos (CFG), sin esperar a Firestore.
       //    Importante: esto va ANTES del seedIfEmpty — si Firestore no responde
       //    (credenciales de ejemplo, sin red, etc.) eso no debe bloquear la
