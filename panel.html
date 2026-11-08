@@ -8091,6 +8091,14 @@
                 </label>
 
                 <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer">
+                  <input type="radio" name="paymentMethod" value="paypal" class="text-blue-600">
+                  <div>
+                    <div class="text-xs font-black text-slate-900">🅿️ PayPal (Dólares USD)</div>
+                    <div class="text-[10px] text-slate-500">Para cualquier país de Latinoamérica y el mundo</div>
+                  </div>
+                </label>
+
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer">
                   <input type="radio" name="paymentMethod" value="transfer" class="text-blue-600">
                   <div>
                     <div class="text-xs font-black text-slate-900">Transferencia Bancaria</div>
@@ -15637,10 +15645,12 @@
         itemId = 'sokify-mensual';
       }
 
-      // Metodo de pago seleccionado (webpay, card, transfer)
+      // Metodo de pago seleccionado (webpay, card, paypal, transfer)
       const selMethodRadio = document.querySelector('input[name="paymentMethod"]:checked');
       const methodVal = selMethodRadio ? selMethodRadio.value : 'webpay';
-      const checkoutMethod = methodVal === 'transfer' ? 'transferencia' : 'mercadopago';
+      let checkoutMethod = 'mercadopago';
+      if (methodVal === 'transfer') checkoutMethod = 'transferencia';
+      else if (methodVal === 'paypal') checkoutMethod = 'paypal';
 
       // Datos del restaurante / usuario
       const slug = (typeof CFG !== 'undefined' && CFG.restaurantId) || localStorage.getItem('sokify_restaurant_id') || 'mi-restaurante';
