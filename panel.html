@@ -1571,6 +1571,10 @@
                   <input id="inputBuscarPlatoMenu" type="text" placeholder="Buscar plato..." oninput="filtrarPlatosMenu(this.value)" class="bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white w-40 sm:w-48 transition-all">
                   <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
                 </div>
+                <button onclick="abrirModalPlantillasMenu()" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-orange-500/20 transition-all cursor-pointer">
+                  <span>⚡</span>
+                  <span>Cargar Plantilla</span>
+                </button>
                 <button onclick="abrirModalCrearProducto()" class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-blue-600/20 transition-all cursor-pointer">
                   <span>＋</span>
                   <span>Nuevo Producto</span>
@@ -2894,15 +2898,32 @@
                   </p>
                 </div>
 
-                <!-- BOTÓN AZUL GOOGLE (IDÉNTICO A IMAGEN) -->
-                <div class="pt-2 flex flex-wrap justify-center items-center gap-3">
-                  <button onclick="toggleActivarPerfilGoogleResenas()" id="btnActivarPerfilGoogleResenas" class="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/25 flex items-center gap-3 transition-all cursor-pointer">
-                    <span class="w-6 h-6 rounded-lg bg-white text-blue-600 flex items-center justify-center font-black text-xs">G</span>
-                    <span>Activar mi perfil en Google ahora</span>
-                  </button>
-                  <button onclick="toggleVerDemoResenasGoogle()" class="px-5 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
-                    👁️ Ver Reseñas en Vivo
-                  </button>
+                <!-- BOTÓN AZUL GOOGLE Y CAMPO DE ENLACE -->
+                <div class="max-w-md mx-auto pt-2 space-y-3">
+                  <div class="flex flex-wrap justify-center items-center gap-3">
+                    <button onclick="toggleActivarPerfilGoogleResenas()" id="btnActivarPerfilGoogleResenas" class="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-600/25 flex items-center gap-3 transition-all cursor-pointer">
+                      <span class="w-6 h-6 rounded-lg bg-white text-blue-600 flex items-center justify-center font-black text-xs">G</span>
+                      <span>Activar mi perfil en Google ahora</span>
+                    </button>
+                    <button onclick="toggleVerDemoResenasGoogle()" class="px-5 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+                      👁️ Ver Reseñas en Vivo
+                    </button>
+                  </div>
+
+                  <div class="text-left bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
+                    <label class="block text-xs font-bold text-slate-800">
+                      📍 Enlace directo de tu perfil Google Maps (para conseguir 5 estrellas):
+                    </label>
+                    <div class="flex items-center gap-2">
+                      <input id="inputGoogleMapsReviewUrl" type="url" placeholder="https://maps.app.goo.gl/... o https://g.page/r/..." class="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600 shadow-xs">
+                      <button onclick="guardarGoogleMapsUrl()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-colors cursor-pointer shrink-0">
+                        Guardar
+                      </button>
+                    </div>
+                    <p class="text-[10px] text-slate-500 font-medium">
+                      ✨ Tus comensales verán una tarjeta invitándolos a dejar 5 estrellas inmediatamente después de enviar su pedido desde la mesa.
+                    </p>
+                  </div>
                 </div>
 
               </div>
@@ -5937,6 +5958,85 @@
   </div>
 
   <!-- ========================================================================= -->
+  <!-- MODAL: PLANTILLAS DE CARTA EN 1 CLIC (ONBOARDING MÁGICO) -->
+  <!-- ========================================================================= -->
+  <div id="modalPlantillasMenu" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-2xl rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5 my-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center text-2xl shadow-sm">
+            ⚡
+          </div>
+          <div>
+            <h3 class="font-black text-base text-slate-900">Plantillas de Carta en 1 Clic</h3>
+            <p class="text-xs text-slate-500">Elige el tipo de tu local y precarga categorías, fotos y platos listos para vender.</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalPlantillasMenu()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors">✕</button>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3.5">
+        <!-- Plantilla 1: Hamburguesería -->
+        <div onclick="aplicarPlantillaMenu('hamburgueseria')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-amber-500 hover:bg-amber-50/40 transition-all cursor-pointer flex items-start gap-3">
+          <span class="text-3xl p-2 rounded-xl bg-slate-100 group-hover:bg-amber-100 transition-colors">🍔</span>
+          <div>
+            <h4 class="font-black text-sm text-slate-900 group-hover:text-amber-800">Hamburguesería & Fast Food</h4>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Smash burgers, papas rústicas, aros de cebolla, bebidas y milkshakes.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-amber-700 bg-amber-100/80 px-2 py-0.5 rounded-md">6 productos con fotos HD</span>
+          </div>
+        </div>
+
+        <!-- Plantilla 2: Pizzería -->
+        <div onclick="aplicarPlantillaMenu('pizzeria')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-red-500 hover:bg-red-50/40 transition-all cursor-pointer flex items-start gap-3">
+          <span class="text-3xl p-2 rounded-xl bg-slate-100 group-hover:bg-red-100 transition-colors">🍕</span>
+          <div>
+            <h4 class="font-black text-sm text-slate-900 group-hover:text-red-800">Pizzería & Trattoria</h4>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Margherita napolitana, pepperoni, 4 quesos, palitos de ajo y tiramisú.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-red-700 bg-red-100/80 px-2 py-0.5 rounded-md">5 pizzas y postres</span>
+          </div>
+        </div>
+
+        <!-- Plantilla 3: Sushi & Nikkei -->
+        <div onclick="aplicarPlantillaMenu('sushi')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/40 transition-all cursor-pointer flex items-start gap-3">
+          <span class="text-3xl p-2 rounded-xl bg-slate-100 group-hover:bg-emerald-100 transition-colors">🍣</span>
+          <div>
+            <h4 class="font-black text-sm text-slate-900 group-hover:text-emerald-800">Sushi & Nikkei Fusion</h4>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Ebi tempura, sake spicy salmón, gyozas, handrolls y limonada menta.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-emerald-700 bg-emerald-100/80 px-2 py-0.5 rounded-md">5 platos y rolls</span>
+          </div>
+        </div>
+
+        <!-- Plantilla 4: Cafetería & Brunch -->
+        <div onclick="aplicarPlantillaMenu('cafeteria')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-amber-700 hover:bg-amber-50/40 transition-all cursor-pointer flex items-start gap-3">
+          <span class="text-3xl p-2 rounded-xl bg-slate-100 group-hover:bg-amber-100 transition-colors">☕</span>
+          <div>
+            <h4 class="font-black text-sm text-slate-900 group-hover:text-amber-900">Cafetería & Pastelería</h4>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Cappuccino, tostadas con palta y huevo poché, croissants, muffins y jugos.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md">5 opciones de cafetería</span>
+          </div>
+        </div>
+
+        <!-- Plantilla 5: Bar & Schopería -->
+        <div onclick="aplicarPlantillaMenu('bar')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50/40 transition-all cursor-pointer flex items-start gap-3 sm:col-span-2">
+          <span class="text-3xl p-2 rounded-xl bg-slate-100 group-hover:bg-purple-100 transition-colors">🍺</span>
+          <div>
+            <h4 class="font-black text-sm text-slate-900 group-hover:text-purple-800">Bar, Cervecería & Schopería</h4>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Chorrillana tradicional, tablas para compartir, schops artesanales IPA y Pisco Sour Catedral.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-purple-700 bg-purple-100/80 px-2 py-0.5 rounded-md">5 platos de bar y tragos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs text-slate-600">
+        <span class="flex items-center gap-1.5 font-medium">
+          💡 Puedes editar precios, fotos y nombres en cualquier momento después de cargar.
+        </span>
+        <button onclick="cerrarModalPlantillasMenu()" class="font-bold text-slate-500 hover:text-slate-800">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
   <!-- MODAL: CREAR / EDITAR PRODUCTO (TIPO SOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalCrearProducto" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
@@ -8704,6 +8804,22 @@
         }
         actualizarModalHorariosUI(data);
 
+        // Sincronizar Google Maps y Píxeles de Tracking guardados
+        if (data.googleMapsUrl) {
+          const gmInp = document.getElementById('inputGoogleMapsReviewUrl');
+          if (gmInp && !gmInp.value) gmInp.value = data.googleMapsUrl;
+        }
+        if (data.tracking) {
+          if (data.tracking.fbPixel) {
+            const fbInp = document.getElementById('inputTrackingFbPixel');
+            if (fbInp && !fbInp.value) fbInp.value = data.tracking.fbPixel;
+          }
+          if (data.tracking.ga4) {
+            const gaInp = document.getElementById('inputTrackingGa4');
+            if (gaInp && !gaInp.value) gaInp.value = data.tracking.ga4;
+          }
+        }
+
         document.getElementById('promoInput').value = data.promo || '';
         if (!horarioCargado) {
           horarioCargado = true;
@@ -8811,6 +8927,22 @@
       window.restRef().get().then(snap => {
         const data = snap.data() || {};
         actualizarModalHorariosUI(data);
+
+        // Sincronizar Google Maps y Píxeles de Tracking guardados
+        if (data.googleMapsUrl) {
+          const gmInp = document.getElementById('inputGoogleMapsReviewUrl');
+          if (gmInp && !gmInp.value) gmInp.value = data.googleMapsUrl;
+        }
+        if (data.tracking) {
+          if (data.tracking.fbPixel) {
+            const fbInp = document.getElementById('inputTrackingFbPixel');
+            if (fbInp && !fbInp.value) fbInp.value = data.tracking.fbPixel;
+          }
+          if (data.tracking.ga4) {
+            const gaInp = document.getElementById('inputTrackingGa4');
+            if (gaInp && !gaInp.value) gaInp.value = data.tracking.ga4;
+          }
+        }
       });
 
       document.getElementById('modalHorariosMenuDigital')?.classList.remove('hidden');
@@ -10967,15 +11099,23 @@
       const containerGrupos = document.getElementById('gruposCategoriasProductos');
       if (!containerGrupos) return;
 
-      if (categorias.length === 0) {
+      if (categorias.length === 0 || productos.length === 0) {
         containerGrupos.innerHTML = `
           <div class="p-8 text-center bg-white rounded-3xl border border-borderLight shadow-soft space-y-3">
-            <span class="text-3xl block">📋</span>
-            <h4 class="font-bold text-sm text-slate-800">No hay categorías creadas aún</h4>
-            <p class="text-xs text-slate-400">Crea tu primera categoría para organizar tu carta gastronómica.</p>
-            <button onclick="switchTab('categorias')" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-sm">
-              + Crear Primera Categoría
-            </button>
+            <span class="text-4xl block">⚡</span>
+            <h4 class="font-bold text-base text-slate-800">Tu carta aún no tiene productos</h4>
+            <p class="text-xs text-slate-500 max-w-md mx-auto">
+              Comienza en 30 segundos precargando una plantilla con categorías, fotos y platos reales listos para vender.
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button onclick="abrirModalPlantillasMenu()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer flex items-center gap-2">
+                <span>⚡</span>
+                <span>Cargar Plantilla en 1 Clic</span>
+              </button>
+              <button onclick="abrirModalCrearProducto()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+                ＋ Crear Producto desde Cero
+              </button>
+            </div>
           </div>
         `;
         return;
@@ -11135,10 +11275,389 @@
     }
 
     function copiarEnlaceCarta() {
-      const url = window.location.origin + window.location.pathname.replace('panel.html', 'index.html');
+      const url = window.location.origin + '/menu.html?r=' + encodeURIComponent(window.RESTAURANT_ID || 'demo');
       navigator.clipboard.writeText(url).then(() => {
-        alert('📋 ¡Enlace de la carta copiado con éxito!\n' + url);
+        alert('📋 ¡Enlace de tu carta digital copiado con éxito!\n' + url);
       });
+    }
+
+    // =========================================================================
+    // PLANTILLAS DE CARTA PRECONFIGURADAS (ONBOARDING EN 1 CLIC)
+    // =========================================================================
+    const PLANTILLAS_MENU = {
+      hamburgueseria: {
+        nombre: 'Hamburguesería & Fast Food',
+        categorias: [
+          { id: 'hamburguesas', nombre: '🍔 Hamburguesas Smash & Angus', orden: 1 },
+          { id: 'acompanamientos', nombre: '🍟 Acompañamientos & Papas', orden: 2 },
+          { id: 'bebidas', nombre: '🥤 Bebidas & Batidos', orden: 3 }
+        ],
+        platos: [
+          {
+            name: 'Smash Doble Cheddar Bacon',
+            cat: 'hamburguesas',
+            price: 7900,
+            badge: 'MÁS VENDIDO',
+            desc: 'Doble carne smash 90g, doble queso cheddar fundido, tocino crocante y salsa secreta en pan brioche artesanal.',
+            img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 1
+          },
+          {
+            name: 'Burger BBQ Crispy Onion',
+            cat: 'hamburguesas',
+            price: 8900,
+            badge: 'CHEF',
+            desc: 'Carne Angus 180g, queso gouda, aros de cebolla crocantes, salsa barbacoa ahumada y pepinillos.',
+            img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 2
+          },
+          {
+            name: 'Papas Rústicas Cheddar & Ciboulette',
+            cat: 'acompanamientos',
+            price: 4500,
+            desc: 'Papas naturales cortadas a mano con crema de queso cheddar y ciboulette fresco.',
+            img: 'https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 3
+          },
+          {
+            name: 'Aros de Cebolla Crujientes (x10)',
+            cat: 'acompanamientos',
+            price: 3900,
+            desc: '10 aros de cebolla rebozados y dorados con salsa tártara casera.',
+            img: 'https://images.unsplash.com/photo-1639024471287-032f66ff051f?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 4
+          },
+          {
+            name: 'Bebida Lata 350cc Helada',
+            cat: 'bebidas',
+            price: 1800,
+            desc: 'Coca-Cola, Sprite, Fanta o Coca Zero bien helada.',
+            img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 5
+          },
+          {
+            name: 'Milkshake Chocolate Belga XL',
+            cat: 'bebidas',
+            price: 3900,
+            badge: 'POSTRE',
+            desc: 'Batido cremoso con helado de chocolate artesanal, salsa fudge y crema chantilly.',
+            img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 6
+          }
+        ]
+      },
+      pizzeria: {
+        nombre: 'Pizzería & Trattoria',
+        categorias: [
+          { id: 'pizzas-tradicionales', nombre: '🍕 Pizzas Artesanales', orden: 1 },
+          { id: 'entradas', nombre: '🥖 Entradas & Postres', orden: 2 },
+          { id: 'bebidas', nombre: '🍷 Bebidas & Vinos', orden: 3 }
+        ],
+        platos: [
+          {
+            name: 'Pizza Margherita Napolitana',
+            cat: 'pizzas-tradicionales',
+            price: 8900,
+            badge: 'CLÁSICA',
+            desc: 'Salsa de tomate San Marzano, mozzarella fior di latte, albahaca fresca y aceite de oliva virgen extra.',
+            img: 'https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 1
+          },
+          {
+            name: 'Pizza Pepperoni Suprema',
+            cat: 'pizzas-tradicionales',
+            price: 9900,
+            badge: 'FAVORITA',
+            desc: 'Base de mozzarella artesanal con abundante pepperoni crocante y orégano seco.',
+            img: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 2
+          },
+          {
+            name: 'Pizza 4 Quesos con Miel',
+            cat: 'pizzas-tradicionales',
+            price: 10500,
+            desc: 'Mozzarella, gorgonzola, parmesano y ricotta fresca con suave toque de miel de ulmo.',
+            img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 3
+          },
+          {
+            name: 'Palitos de Ajo & Parmesano',
+            cat: 'entradas',
+            price: 4200,
+            desc: 'Masa madre crocante con mantequilla de ajo asado, perejil y parmesano rallado.',
+            img: 'https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 4
+          },
+          {
+            name: 'Tiramisú Tradicional Italiano',
+            cat: 'entradas',
+            price: 3800,
+            badge: 'POSTRE',
+            desc: 'Bizcochos savoiardi bañados en espresso, crema de mascarpone y cacao amargo.',
+            img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 5
+          }
+        ]
+      },
+      sushi: {
+        nombre: 'Sushi & Nikkei Fusion',
+        categorias: [
+          { id: 'rolls-especiales', nombre: '🍣 Rolls Especiales', orden: 1 },
+          { id: 'entradas-calientes', nombre: '🥟 Entradas Calientes', orden: 2 },
+          { id: 'bebidas', nombre: '🍹 Bebidas & Limonadas', orden: 3 }
+        ],
+        platos: [
+          {
+            name: 'Roll Ebi Furai Avocado (10 cortes)',
+            cat: 'rolls-especiales',
+            price: 7900,
+            badge: 'POPULAR',
+            desc: 'Camarón tempura, queso crema y cebollín, envuelto en palta hass fresca con sésamo.',
+            img: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 1
+          },
+          {
+            name: 'Roll Sake Spicy Salmón (10 cortes)',
+            cat: 'rolls-especiales',
+            price: 8400,
+            badge: 'NIKKEI',
+            desc: 'Salmón fresco, palta y queso crema, cubierto de tartar de salmón picante y sriracha dulce.',
+            img: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 2
+          },
+          {
+            name: 'Gyozas de Cerdo al Vapor (x5)',
+            cat: 'entradas-calientes',
+            price: 4600,
+            desc: 'Empanaditas japonesas rellenas de cerdo especiado y verduras con salsa ponzu cítrica.',
+            img: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 3
+          },
+          {
+            name: 'Handroll Pollo Furai XL',
+            cat: 'rolls-especiales',
+            price: 4900,
+            desc: 'Cono crocante relleno de pollo apanado crocante, palta fresca, queso crema y cebollín.',
+            img: 'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 4
+          },
+          {
+            name: 'Limonada Menta Jengibre 500ml',
+            cat: 'bebidas',
+            price: 2800,
+            badge: 'NATURAL',
+            desc: 'Jugo de limón natural recién exprimido, hojas de menta fresca y jengibre machacado.',
+            img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 5
+          }
+        ]
+      },
+      cafeteria: {
+        nombre: 'Cafetería & Pastelería',
+        categorias: [
+          { id: 'cafeteria-especialidad', nombre: '☕ Café de Especialidad', orden: 1 },
+          { id: 'brunch-sandwiches', nombre: '🥪 Brunch & Tostadas', orden: 2 },
+          { id: 'pasteleria', nombre: '🍰 Pastelería & Dulces', orden: 3 }
+        ],
+        platos: [
+          {
+            name: 'Cappuccino Vainilla Francesa',
+            cat: 'cafeteria-especialidad',
+            price: 3200,
+            badge: 'ESPECIALIDAD',
+            desc: 'Doble shot de espresso 100% arábica, leche vaporizada y jarabe de vainilla con arte latte.',
+            img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 1
+          },
+          {
+            name: 'Tostadas Palta & Huevo Poché',
+            cat: 'brunch-sandwiches',
+            price: 5500,
+            badge: 'BRUNCH',
+            desc: 'Pan de masa madre tostado, abundante palta molida, huevos pochados y mix de semillas.',
+            img: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 2
+          },
+          {
+            name: 'Croissant Jamón Serrano & Gouda',
+            cat: 'brunch-sandwiches',
+            price: 4200,
+            desc: 'Masa hojaldrada francesa horneada al día con queso caliente y jamón serrano.',
+            img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 3
+          },
+          {
+            name: 'Muffin de Arándanos & Crumble',
+            cat: 'pasteleria',
+            price: 2800,
+            badge: 'DULCE',
+            desc: 'Muffin esponjoso relleno de arándanos frescos con cubierta crocante de azúcar rubia.',
+            img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 4
+          },
+          {
+            name: 'Jugo Natural Naranja Zanahoria 400ml',
+            cat: 'cafeteria-especialidad',
+            price: 3200,
+            desc: '100% fruta prensada en frío sin azúcar añadida.',
+            img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 5
+          }
+        ]
+      },
+      bar: {
+        nombre: 'Bar, Cervecería & Schopería',
+        categorias: [
+          { id: 'tablas-para-compartir', nombre: '🍟 Tablas & Chorrillanas', orden: 1 },
+          { id: 'cervezas-artesanales', nombre: '🍺 Cervezas & Schops', orden: 2 },
+          { id: 'cocteleria', nombre: '🍸 Coctelería de Autor', orden: 3 }
+        ],
+        platos: [
+          {
+            name: 'Chorrillana Porteña Tradicional',
+            cat: 'tablas-para-compartir',
+            price: 11500,
+            badge: 'PARA COMPARTIR',
+            desc: 'Papas fritas caseras, carne de vacuno salteada con cebolla caramelizada, longaniza y dos huevos fritos.',
+            img: 'https://images.unsplash.com/photo-1585238342024-78d387f4a707?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 1
+          },
+          {
+            name: 'Tabla Mixta Cervecera',
+            cat: 'tablas-para-compartir',
+            price: 12900,
+            badge: 'RECOMENDADA',
+            desc: 'Quesos maduros, jamón crudo, aceitunas sevillanas, papas rústicas y salsas dip caseras.',
+            img: 'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 2
+          },
+          {
+            name: 'Schop Artesanal IPA 500cc',
+            cat: 'cervezas-artesanales',
+            price: 4500,
+            badge: 'DE BARRIL',
+            desc: 'Cerveza rubia con lúpulos cítricos intensos y amargor balanceado servida de barril.',
+            img: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 3
+          },
+          {
+            name: 'Schop Lager Rubia 500cc',
+            cat: 'cervezas-artesanales',
+            price: 3900,
+            desc: 'Cerveza rubia fresca y ligera servida a -2°C.',
+            img: 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            orden: 4
+          },
+          {
+            name: 'Pisco Sour Chileno 35° Catedral',
+            cat: 'cocteleria',
+            price: 5900,
+            badge: 'CLÁSICO',
+            desc: 'Pisco doble destilado, jugo de limón de pica fresco, goma y gotas de amargo de angostura.',
+            img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            orden: 5
+          }
+        ]
+      }
+    };
+
+    function abrirModalPlantillasMenu() {
+      const modal = document.getElementById('modalPlantillasMenu');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function cerrarModalPlantillasMenu() {
+      const modal = document.getElementById('modalPlantillasMenu');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function aplicarPlantillaMenu(tipo) {
+      const template = PLANTILLAS_MENU[tipo];
+      if (!template) return;
+
+      if (!confirm(`¿Deseas precargar la plantilla "${template.nombre}"?\nSe agregarán ${template.categorias.length} categorías y ${template.platos.length} productos con fotos HD a tu carta.`)) {
+        return;
+      }
+
+      cerrarModalPlantillasMenu();
+
+      try {
+        if (!window.db) {
+          alert('Firebase no está inicializado.');
+          return;
+        }
+
+        const batch = window.db.batch();
+
+        template.categorias.forEach((c) => {
+          const docRef = window.categoriasRef().doc(c.id);
+          batch.set(docRef, c, { merge: true });
+        });
+
+        template.platos.forEach((p, idx) => {
+          const docId = 'plato-' + tipo + '-' + (idx + 1);
+          const docRef = window.platosRef().doc(docId);
+          batch.set(docRef, { ...p, id: Date.now() + idx, controlStock: false }, { merge: true });
+        });
+
+        await batch.commit();
+        alert(`🎉 ¡Plantilla "${template.nombre}" cargada con éxito!\nTus productos ya están listos en la carta móvil y en cocina.`);
+      } catch (err) {
+        console.error('Error aplicando plantilla:', err);
+        alert('Hubo un problema guardando la plantilla: ' + err.message);
+      }
     }
 
     // MODAL CREAR / EDITAR PRODUCTO
@@ -13752,6 +14271,19 @@
 
       actualizarBadgesTracking();
       mostrarNotificacion(`💾 ${nombre} guardado correctamente`);
+    }
+
+    function guardarGoogleMapsUrl() {
+      const url = document.getElementById('inputGoogleMapsReviewUrl')?.value.trim() || '';
+      if (window.restRef) {
+        window.restRef().set({ googleMapsUrl: url }, { merge: true }).then(() => {
+          mostrarNotificacion('🗺️ Enlace de Google Maps guardado con éxito');
+        }).catch(err => {
+          alert('Error guardando enlace: ' + err.message);
+        });
+      } else {
+        mostrarNotificacion('🗺️ Enlace guardado localmente');
+      }
     }
 
     function mostrarNotificacion(msg) {

@@ -475,6 +475,55 @@
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- MODAL DE ÉXITO DE COMANDA & BOOSTER DE RESEÑAS EN GOOGLE MAPS -->
+  <!-- ========================================================================= -->
+  <div id="orderConfirmedModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-gradient-to-b from-stone-900 via-stone-900 to-black border border-white/20 w-full max-w-md rounded-3xl p-6 sm:p-7 shadow-2xl text-white space-y-5 text-center relative">
+      
+      <!-- Icono de timbrado de cocina -->
+      <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 text-emerald-400 mx-auto flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/20">
+        🛎️
+      </div>
+
+      <div class="space-y-1">
+        <span class="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-bold">Comanda Enviada a Cocina</span>
+        <h3 class="text-2xl font-black text-white font-serif">¡Pedido en Marcha!</h3>
+        <p class="text-xs text-stone-300">
+          Tu ticket <span id="confirmedTicketId" class="font-mono font-bold text-amber-400 px-2 py-0.5 rounded bg-white/10">#BRA-000</span> ya está en la pantalla del chef.
+        </p>
+      </div>
+
+      <!-- Badge de tiempo estimado -->
+      <div class="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2 text-stone-300">
+          <span>⏱️</span>
+          <span>Tiempo estimado:</span>
+        </div>
+        <span class="font-bold text-emerald-400 font-mono">15 a 20 min</span>
+      </div>
+
+      <!-- Tarjeta Booster de Reseñas en Google Maps -->
+      <div id="googleReviewsCard" class="p-4 rounded-2xl bg-gradient-to-br from-amber-500/15 via-orange-500/10 to-amber-900/20 border border-amber-400/40 text-left space-y-2.5">
+        <div class="flex items-center gap-2">
+          <span class="text-amber-400 text-sm">⭐️⭐️⭐️⭐️⭐️</span>
+          <span class="text-[11px] font-bold text-amber-300 uppercase tracking-wide">Califica tu experiencia</span>
+        </div>
+        <p class="text-xs text-stone-200 leading-snug">
+          ¿Te gustó la rapidez y atención? Déjanos 5 estrellas en Google Maps y muéstraselo al garzón.
+        </p>
+        <a id="linkGoogleReview" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 w-full justify-center py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-950 font-black text-xs shadow-md transition-all">
+          <span>🗺️ Calificar en Google Maps</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+
+      <button onclick="closeConfirmedModal()" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-stone-300 hover:text-white font-bold text-xs transition-all">
+        Volver a la carta
+      </button>
+    </div>
+  </div>
+
   <!-- ELEMENTO OCULTO PARA IMPRESIÓN TÉRMICA DE COCINA (58mm / 80mm) -->
   <div id="printableTicket" class="hidden">
     <!-- Se llena dinámicamente antes de imprimir -->
@@ -483,6 +532,22 @@
   <!-- LÓGICA DE NEGOCIO JAVASCRIPT -->
   <script>
     const CFG = window.RESTAURANTE_CONFIG;
+
+    // Inicialización dinámica de Píxel de Meta / Facebook si está configurado
+    if (CFG && CFG.metaPixelId) {
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      try {
+        fbq('init', CFG.metaPixelId);
+        fbq('track', 'PageView');
+      } catch(e) {}
+    }
     
     // Estado de la Aplicación
     let currentCat = 'todos';
@@ -563,6 +628,24 @@
         ultimoEstadoNegocio = data;
         pintarEstadoNegocio();
         document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
+
+        if (data.googleMapsUrl) {
+          CFG.googleMapsUrl = data.googleMapsUrl;
+        }
+        if (data.tracking && data.tracking.fbPixel && !window.fbq) {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          try {
+            fbq('init', data.tracking.fbPixel);
+            fbq('track', 'PageView');
+          } catch(e) {}
+        }
 
         const promoBar = document.getElementById('promoBar');
         if (data.promo) {
@@ -1115,6 +1198,7 @@
           if (serviceMode === 'delivery') {
             sendOrderWhatsApp();
           }
+          const prevTotal = total;
           cart = [];
           descuentoAplicado = null;
           document.getElementById('discountCodeInput').value = '';
@@ -1122,13 +1206,45 @@
           updateCartBar();
           renderMenu();
           closeComandaModal();
-          alert('🛎️ ¡Comanda ' + ticketId + ' ingresada en Pantalla de Cocina (KDS)! El chef y los garzones ya tienen tu pedido.');
-        }, 1200);
+          showConfirmedModal(ticketId, prevTotal);
+        }, 600);
       }).catch(err => {
         console.error('Error enviando pedido a Firestore:', err);
         alert('⚠️ No pudimos enviar tu pedido al sistema. Igual lo mandamos por WhatsApp para que no se pierda.');
         sendOrderWhatsApp();
       });
+    }
+
+    function showConfirmedModal(ticketId, total) {
+      document.getElementById('confirmedTicketId').textContent = ticketId;
+      const reviewLink = document.getElementById('linkGoogleReview');
+      if (reviewLink && CFG.googleMapsUrl) {
+        reviewLink.href = CFG.googleMapsUrl;
+      }
+      const modal = document.getElementById('orderConfirmedModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      // Meta Pixel Event Tracking
+      if (window.fbq) {
+        try {
+          fbq('track', 'Purchase', {
+            value: total || 0,
+            currency: 'CLP',
+            content_name: ticketId
+          });
+        } catch(e) {}
+      }
+    }
+
+    function closeConfirmedModal() {
+      const modal = document.getElementById('orderConfirmedModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
     }
 
     // --- CRM: crea o actualiza la ficha del cliente al confirmar un pedido con delivery ---
