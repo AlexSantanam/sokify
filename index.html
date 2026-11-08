@@ -4,20 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="assets/favicon.png">
-  
+
   <!-- SEO Primary Meta Tags -->
   <title>Sokify · El Sistema Operativo para tu Restaurante | Cero Comisiones</title>
   <meta name="title" content="Sokify · El Sistema Operativo para tu Restaurante | Cero Comisiones">
-  <meta name="description" content="Aumenta tus ventas y ahorra millones en comisiones. Menú digital QR, cocina KDS en vivo, punto de venta (POS), arqueo de caja y asistente IA por WhatsApp en una sola plataforma. Prueba 15 días gratis.">
+  <meta name="description" content="Aumenta tus ventas y ahorra millones en comisiones. Menú digital QR, cocina KDS en vivo, punto de venta (POS), arqueo de caja y asistente IA por WhatsApp en una sola plataforma. Prueba 3 meses gratis (90 días).">
   <meta name="keywords" content="software restaurantes, menú digital QR, punto de venta restaurante, KDS cocina, comanda digital, software gastronómico chile, pedidos whatsapp restaurante">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#090514">
+  <meta name="theme-color" content="#ffffff">
 
   <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sokify.app/">
   <meta property="og:title" content="Sokify · El Sistema Operativo para tu Restaurante">
-  <meta property="og:description" content="Gestiona tu restaurante sin pagarle un tercio de tus ventas a las apps. Menú QR, Cocina en Vivo y Punto de Venta. Prueba 15 días gratis.">
+  <meta property="og:description" content="Gestiona tu restaurante sin pagarle un tercio de tus ventas a las apps. Menú QR, Cocina en Vivo y Punto de Venta. Prueba 3 meses gratis (90 días).">
   <meta property="og:image" content="https://sokify.app/assets/sokify-logo.png">
 
   <!-- Twitter -->
@@ -51,6 +51,8 @@
               800: '#181436',
               700: '#26214f',
             },
+            canvas: '#F8FAFC',
+            borderLight: '#E2E8F0',
             brand: {
               50: '#f5f3ff',
               100: '#ede9fe',
@@ -69,6 +71,10 @@
               fuchsia: '#d946ef',
               cyan: '#06b6d4',
             }
+          },
+          boxShadow: {
+            soft: '0 2px 10px -2px rgba(15, 23, 42, 0.06), 0 8px 24px -6px rgba(15, 23, 42, 0.08)',
+            elevated: '0 20px 40px -12px rgba(124, 58, 237, 0.25)',
           },
           animation: {
             'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
@@ -98,28 +104,31 @@
   <style>
     /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #070512; }
-    ::-webkit-scrollbar-thumb { background: #26214f; border-radius: 9999px; }
+    ::-webkit-scrollbar-track { background: #ffffff; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
     ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
 
-    /* Bento & Glowing Grid Backgrounds (21st.dev style) */
+    /* Subtle dot grid + soft glow for light sections */
     .bg-grid-pattern {
-      background-image: radial-gradient(circle at 1px 1px, rgba(139, 92, 246, 0.12) 1px, transparent 0);
+      background-image: radial-gradient(circle at 1px 1px, rgba(124, 58, 237, 0.10) 1px, transparent 0);
       background-size: 32px 32px;
     }
     .bg-mesh-glow {
-      background: radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.35) 0%, rgba(14, 10, 32, 0.8) 50%, #070512 100%);
+      background: radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.14) 0%, rgba(248, 250, 252, 0.6) 45%, #ffffff 100%);
+    }
+    /* Dark variant reserved for the final conversion band */
+    .bg-mesh-glow-dark {
+      background: radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.45) 0%, rgba(14, 10, 32, 0.9) 50%, #070512 100%);
     }
     .bento-card {
-      background: rgba(18, 14, 42, 0.7);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border: 1px solid #E2E8F0;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .bento-card:hover {
-      border-color: rgba(167, 139, 250, 0.4);
+      border-color: #C4B5FD;
       transform: translateY(-3px);
-      box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.3);
+      box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.18);
     }
 
     /* Shimmer Button Effect */
@@ -134,7 +143,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: linear-gradient(60deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
+      background: linear-gradient(60deg, transparent 20%, rgba(255,255,255,0.3) 50%, transparent 80%);
       transform: rotate(30deg);
       animation: shimmer 4s infinite linear;
     }
@@ -168,137 +177,144 @@
   </script>
 </head>
 
-<body class="bg-dark-950 text-slate-100 font-sans antialiased selection:bg-brand-600 selection:text-white overflow-x-hidden">
+<body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand-600 selection:text-white overflow-x-hidden">
 
   <!-- ================= TOP ANNOUNCEMENT BANNER ================= -->
-  <div class="bg-gradient-to-r from-brand-900 via-brand-700 to-indigo-900 text-white text-xs font-semibold py-2 px-4 text-center border-b border-brand-500/30">
+  <div class="bg-brand-600 text-white text-xs font-semibold py-2 px-4 text-center">
     <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
-      <span class="bg-brand-500/40 text-brand-200 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Lanzamiento 2026</span>
-      <span>🎉 Prueba Sokify <strong>15 días gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.</span>
-      <a href="#probar" class="underline font-bold text-white hover:text-brand-200 ml-1 hidden sm:inline">Comenzar ahora &rarr;</a>
+      <span class="bg-white/20 text-white px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Lanzamiento 2026</span>
+      <span>🎉 Prueba Sokify <strong>3 meses gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.</span>
+      <a href="#probar" class="underline font-bold text-white hover:text-brand-100 ml-1 hidden sm:inline">Comenzar ahora &rarr;</a>
     </div>
   </div>
 
   <!-- ================= FLOATING STICKY HEADER ================= -->
-  <header class="sticky top-0 z-50 bg-dark-950/80 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+  <header class="sticky top-0 z-50 bg-white/85 backdrop-blur-xl border-b border-borderLight transition-all duration-300">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
-      
+
       <!-- Brand Logo -->
-      <a href="/" class="flex items-center gap-3 group">
-        <div class="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-violet-400 p-[1px] shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/40 transition">
-          <div class="w-full h-full bg-dark-900 rounded-2xl flex items-center justify-center p-1.5">
-            <img src="assets/sokify-avatar.png" alt="Sokify Logo" class="w-full h-full object-contain">
-          </div>
-        </div>
+      <a href="/" class="flex items-center gap-2.5 group">
+        <img src="assets/sokify-avatar.png" alt="Sokify Logo" class="w-16 h-16 object-contain -my-2">
         <div class="flex flex-col">
-          <span class="text-2xl font-black tracking-tight text-white group-hover:text-brand-300 transition-colors">Sokify</span>
-          <span class="text-[9px] font-mono tracking-widest text-slate-400 uppercase -mt-1 font-bold">Restaurant OS</span>
+          <span class="text-3xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">Sokify</span>
+          <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase -mt-1 font-bold">Restaurant OS</span>
         </div>
       </a>
 
       <!-- Desktop Navigation Menu -->
-      <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-300">
-        <a href="#simulador" class="hover:text-brand-400 transition-colors flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+        <a href="#simulador" class="hover:text-brand-600 transition-colors flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           Simulador en Vivo
         </a>
-        <a href="#caracteristicas" class="hover:text-brand-400 transition-colors">Módulos</a>
-        <a href="#ahorro" class="hover:text-brand-400 transition-colors">Calculadora Ahorro</a>
-        <a href="#precios" class="hover:text-brand-400 transition-colors">Planes</a>
-        <a href="#faq" class="hover:text-brand-400 transition-colors">Preguntas</a>
+        <a href="#caracteristicas" class="hover:text-brand-600 transition-colors">Módulos</a>
+        <a href="#ahorro" class="hover:text-brand-600 transition-colors">Calculadora Ahorro</a>
+        <a href="#precios" class="hover:text-brand-600 transition-colors">Planes</a>
+        <a href="#faq" class="hover:text-brand-600 transition-colors">Preguntas</a>
       </nav>
 
       <!-- Action Buttons -->
       <div class="flex items-center gap-3">
-        <a href="/panel.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 px-4 py-2.5 rounded-xl border border-white/10 transition">
-          <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+        <a href="/panel.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-xl border border-borderLight transition">
+          <svg class="w-4 h-4 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
           Iniciar Sesión
         </a>
-        <button onclick="openTrialModal()" class="btn-shimmer bg-brand-600 hover:bg-brand-500 text-white text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-xl shadow-lg shadow-brand-600/30 hover:shadow-brand-500/50 transition transform hover:-translate-y-0.5">
+        <button onclick="openTrialModal()" class="btn-shimmer bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-xl shadow-soft transition transform hover:-translate-y-0.5">
           Probar Gratis
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ================= HERO SECTION (21st.dev Sleek Style) ================= -->
+  <!-- ================= HERO SECTION ================= -->
   <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 bg-mesh-glow bg-grid-pattern overflow-hidden">
     <!-- Glowing background elements -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-600/20 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-300/30 blur-[130px] rounded-full pointer-events-none"></div>
 
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-10 text-center">
-      
-      <!-- Pill Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-brand-400/30 text-brand-300 text-xs font-bold shadow-inner mb-6 backdrop-blur-md">
-        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
-        <span>El software gastronómico sin comisiones por pedido</span>
-        <span class="text-white/40">|</span>
-        <span class="text-slate-300 font-medium">Reemplaza Uber/Rappi para tus pedidos directos</span>
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-10 grid lg:grid-cols-2 gap-14 items-center">
+
+      <div class="text-center lg:text-left">
+
+        <!-- Pill Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm mb-6">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+          <span>🦉 Oferta de Masificación · 3 Meses 100% Gratis sin tarjeta</span>
+          <span class="text-brand-300 hidden sm:inline">|</span>
+          <span class="text-slate-600 font-medium hidden sm:inline">Reemplaza Uber/Rappi para tus pedidos directos</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-6xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.08]">
+          El piloto automático de tu
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-fuchsia-600 to-indigo-600">
+            restaurante, sin comisiones.
+          </span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+          Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.
+        </p>
+
+        <!-- CTA Buttons & Trial Note -->
+        <div class="mt-10 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
+          <button onclick="openTrialModal()" class="w-full sm:w-auto btn-shimmer bg-brand-600 hover:bg-brand-700 text-white font-black text-base px-8 py-4 rounded-2xl shadow-elevated transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <span>Comenzar Prueba Gratis (3 Meses (90 Días))</span>
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+
+          <a href="#simulador" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-700 font-bold text-base px-7 py-4 rounded-2xl border border-borderLight hover:border-brand-300 shadow-sm transition flex items-center justify-center gap-2.5">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Ver Simulador Interactivo</span>
+          </a>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-500 font-medium">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            <span>Sin tarjeta de crédito</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            <span>Listo en menos de 5 minutos</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+            <span>Funciona en cualquier celular o PC</span>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Main Headline -->
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08] max-w-5xl mx-auto">
-        El sistema operativo que tu restaurante necesita para
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-fuchsia-300 to-indigo-200">
-          vender más y pagar 0% comisión.
-        </span>
-      </h1>
-
-      <!-- Subtitle -->
-      <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-        Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.
-      </p>
-
-      <!-- CTA Buttons & Trial Note -->
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button onclick="openTrialModal()" class="w-full sm:w-auto btn-shimmer bg-brand-600 hover:bg-brand-500 text-white font-black text-base px-8 py-4 rounded-2xl shadow-xl shadow-brand-600/40 hover:shadow-brand-500/60 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-          <span>Comenzar Prueba Gratis (15 Días)</span>
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </button>
-
-        <a href="#simulador" class="w-full sm:w-auto bg-dark-850 hover:bg-dark-800 text-slate-200 font-bold text-base px-7 py-4 rounded-2xl border border-white/10 hover:border-brand-500/40 transition flex items-center justify-center gap-2.5">
-          <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span>Ver Simulador Interactivo</span>
-        </a>
+      <!-- ===== HERO ILLUSTRATION: AI-generated marketing photo, Zokify branded ===== -->
+      <div class="relative hidden lg:block">
+        <div class="absolute -inset-6 bg-brand-200/40 blur-3xl rounded-full"></div>
+        <img src="assets/hero-chef-tablet.jpg" alt="Chef usando Zokify en su restaurante" class="relative w-full rounded-[2rem] shadow-elevated border border-borderLight object-cover">
       </div>
 
-      <!-- Trust Badges -->
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 font-medium">
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span>Sin tarjeta de crédito</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span>Listo en menos de 5 minutos</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-          <span>Funciona en cualquier celular o PC</span>
-        </div>
-      </div>
 
     </div>
   </section>
 
   <!-- ================= LIVE INTERACTIVE DUAL SIMULATOR ================= -->
-  <section id="simulador" class="relative py-16 bg-dark-900 border-y border-white/10">
+  <section id="simulador" class="relative py-16 bg-canvas border-y border-borderLight">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      
+
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full mb-3">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <div class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           Simulador 100% Interactivo en Tiempo Real
         </div>
-        <h2 class="text-3xl sm:text-4xl font-black text-white">Haz la prueba ahora mismo</h2>
-        <p class="text-slate-400 mt-2 text-sm sm:text-base">
-          Agrega un plato desde el celular del cliente a la izquierda, presiona <strong class="text-brand-300">"Enviar a Cocina"</strong> y mira cómo entra la comanda al instante en la pantalla KDS a la derecha.
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Haz la prueba ahora mismo</h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">
+          Agrega un plato desde el celular del cliente a la izquierda, presiona <strong class="text-brand-600">"Enviar a Cocina"</strong> y mira cómo entra la comanda al instante en la pantalla KDS a la derecha.
         </p>
       </div>
 
-      <!-- The Dual Grid Simulator -->
+      <!-- The Dual Grid Simulator (dark device screens on purpose, like a real phone/KDS) -->
       <div class="grid lg:grid-cols-12 gap-8 items-start">
-        
+
         <!-- PANE 1: CLIENT SMARTPHONE (Col span 5) -->
         <div class="lg:col-span-5 bg-dark-950 rounded-3xl p-5 border border-white/10 shadow-2xl relative">
           <!-- Phone Speaker Notch -->
@@ -377,7 +393,7 @@
 
         <!-- ARROW INDICATOR (Desktop only) -->
         <div class="hidden lg:flex lg:col-span-1 items-center justify-center self-center">
-          <div class="w-12 h-12 rounded-full bg-brand-600/20 border border-brand-500/40 flex items-center justify-center text-brand-400 animate-pulse">
+          <div class="w-12 h-12 rounded-full bg-white border border-brand-200 shadow-soft flex items-center justify-center text-brand-600 animate-pulse">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </div>
         </div>
@@ -395,7 +411,7 @@
 
           <!-- Tickets Container -->
           <div class="mt-4 grid sm:grid-cols-2 gap-3 min-h-[280px]" id="kdsTicketsList">
-            
+
             <!-- Pre-existing active ticket -->
             <div class="bg-dark-850 rounded-2xl p-3.5 border border-white/10 flex flex-col justify-between">
               <div>
@@ -433,132 +449,133 @@
   </section>
 
   <!-- ================= MARQUEE TRUST BAR ================= -->
-  <section class="py-10 bg-dark-950 border-b border-white/10 overflow-hidden">
+  <section class="py-10 bg-white border-b border-borderLight overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 mb-4 text-center">
-      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+      <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">
         Más de 40.000 pedidos procesados sin comisiones por restaurantes en Chile y Latinoamérica
       </span>
     </div>
-    
+
     <!-- Infinite Marquee Track -->
     <div class="relative w-full overflow-hidden">
       <div class="flex items-center gap-12 whitespace-nowrap animate-marquee">
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍝 Fravioli Pasta Bar</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍔 Street Food Burger Co.</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍕 Don Mario Trattoria</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍣 Sakura Nikkei Sushi</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">☕ Valparaíso Specialty Coffee</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🌮 Chingón Taquería</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🥩 Fuego & Brasa Steakhouse</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍝 Fravioli Pasta Bar</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍔 Street Food Burger Co.</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍕 Don Mario Trattoria</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍣 Sakura Nikkei Sushi</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">☕ Valparaíso Specialty Coffee</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🌮 Chingón Taquería</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🥩 Fuego & Brasa Steakhouse</span>
         <!-- Duplicated for seamless loop -->
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍝 Fravioli Pasta Bar</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍔 Street Food Burger Co.</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍕 Don Mario Trattoria</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍣 Sakura Nikkei Sushi</span>
-        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">☕ Valparaíso Specialty Coffee</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍝 Fravioli Pasta Bar</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍔 Street Food Burger Co.</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍕 Don Mario Trattoria</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">🍣 Sakura Nikkei Sushi</span>
+        <span class="text-lg font-black text-slate-400 hover:text-slate-900 transition cursor-default">☕ Valparaíso Specialty Coffee</span>
       </div>
     </div>
   </section>
 
-  <!-- ================= BENTO GRID FEATURES (21st.dev Style) ================= -->
-  <section id="caracteristicas" class="py-24 bg-dark-900 relative">
+  <!-- ================= BENTO GRID FEATURES ================= -->
+  <section id="caracteristicas" class="py-24 bg-canvas relative">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      
+
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
           Arquitectura Todo-en-Uno
         </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-4 tracking-tight">
           Cada herramienta que tu local necesita, conectada en un solo lugar.
         </h2>
-        <p class="text-slate-400 mt-4 text-base sm:text-lg">
+        <p class="text-slate-600 mt-4 text-base sm:text-lg">
           Olvida pagar licencias separadas para menú QR, pantalla de cocina, facturador y chatbot. Sokify lo sincroniza todo.
         </p>
       </div>
 
-      <!-- Bento Grid 3 columns -->
+      <!-- Photo feature cards: real people using Sokify, 3 columns x 2 rows -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <!-- Bento 1: Menú QR (Col Span 2) -->
-        <div class="bento-card rounded-3xl p-8 lg:col-span-2 relative overflow-hidden group">
-          <div class="relative z-10 flex flex-col justify-between h-full">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 mb-6">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2m-6 0H4m6-11V4m0 16v-1m6-6a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
-              </div>
-              <span class="text-xs font-mono text-brand-400 font-bold uppercase tracking-wider">Carta Digital Sin Comisiones</span>
-              <h3 class="text-2xl font-black text-white mt-1 mb-3">Menú Digital QR para Mesas, Retiro y Delivery</h3>
-              <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
-                Tus clientes escanean el QR con su propia cámara, eligen variantes (término de carne, ingredientes extra), agregan propina voluntaria y envían el pedido directo a la cocina o a tu WhatsApp. Sin descargar apps.
-              </p>
-            </div>
-
-            <!-- Mini interactive badge preview -->
-            <div class="mt-6 flex flex-wrap gap-2 text-xs font-mono">
-              <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-slate-300">✔ Modificadores & Extras</span>
-              <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-slate-300">✔ Delivery por Zonas & Tarifa</span>
-              <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-slate-300">✔ Fotos HD de platos</span>
-              <span class="bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-xl font-bold">0% Comisión</span>
-            </div>
+        <!-- Card 1: Punto de Venta -->
+        <div class="bento-card rounded-3xl overflow-hidden">
+          <img src="assets/card-pos.jpg" alt="Punto de venta Sokify" class="w-full aspect-square object-cover">
+          <div class="p-6">
+            <h3 class="text-lg font-black text-slate-900 mb-3">🧾 Punto de Venta</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Configuración de mesas</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Registro de pedidos</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Apertura y cierre de caja</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> App para garzones</li>
+            </ul>
           </div>
         </div>
 
-        <!-- Bento 2: KDS Cocina en Vivo (Col Span 1) -->
-        <div class="bento-card rounded-3xl p-8 relative overflow-hidden group">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">Cero Papel</span>
-          <h3 class="text-2xl font-black text-white mt-1 mb-3">Cocina KDS en Tiempo Real</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Pantalla táctil para cocineros con semáforo inteligente de tiempos: verde para pedidos nuevos, amarillo para advertencia y rojo para comandas retrasadas.
-          </p>
-          <div class="mt-6 p-3 rounded-2xl bg-dark-950 border border-white/10 text-xs font-mono">
-            <div class="flex justify-between text-slate-400 mb-1">
-              <span>Tiempo promedio:</span>
-              <span class="text-emerald-400 font-bold">7.4 min</span>
-            </div>
-            <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
-              <div class="bg-emerald-400 h-full w-3/4"></div>
-            </div>
+        <!-- Card 2: Cocina KDS -->
+        <div class="bento-card rounded-3xl overflow-hidden">
+          <img src="assets/card-kds.jpg" alt="Sistema de cocina KDS Sokify" class="w-full aspect-square object-cover">
+          <div class="p-6">
+            <h3 class="text-lg font-black text-slate-900 mb-3">🔥 Sistema de Cocina</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Pantalla KDS en tiempo real</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Alertas de tiempo por semáforo</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Filtrado por estación</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Aviso sonoro de pedido nuevo</li>
+            </ul>
           </div>
         </div>
 
-        <!-- Bento 3: POS & Arqueo de Caja (Col Span 1) -->
-        <div class="bento-card rounded-3xl p-8 relative overflow-hidden group">
-          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-6">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <!-- Card 3: Menú Digital -->
+        <div class="bento-card rounded-3xl overflow-hidden">
+          <img src="assets/card-menu.jpg" alt="Menú digital inteligente Sokify" class="w-full aspect-square object-cover">
+          <div class="p-6">
+            <h3 class="text-lg font-black text-slate-900 mb-3">📱 Crea tu Menú Digital</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Dominio propio</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Fotos HD de cada plato</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Modificadores y extras</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Pagos online y offline</li>
+            </ul>
           </div>
-          <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">Finanzas Claras</span>
-          <h3 class="text-2xl font-black text-white mt-1 mb-3">POS & Arqueo de Caja</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Control de apertura y cierre de turno. Desglose exacto entre efectivo, transferencias y tarjetas. Cierra caja en 2 minutos sin descuadres.
-          </p>
         </div>
 
-        <!-- Bento 4: Copiloto IA WhatsApp 24/7 (Col Span 2) -->
-        <div class="bento-card rounded-3xl p-8 lg:col-span-2 relative overflow-hidden group">
-          <div class="relative z-10 flex flex-col justify-between h-full">
-            <div>
-              <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/30 flex items-center justify-center text-fuchsia-400 mb-6">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-6l-4 4v-4z"/></svg>
-              </div>
-              <span class="text-xs font-mono text-fuchsia-400 font-bold uppercase tracking-wider">Inteligencia Artificial</span>
-              <h3 class="text-2xl font-black text-white mt-1 mb-3">Copiloto IA para WhatsApp (Atención 24/7)</h3>
-              <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
-                Un bot inteligente entrenado con toda tu carta. Atiende dudas de clientes, informa horarios, toma el pedido y registra la dirección de delivery mientras tu equipo se enfoca en cocinar.
-              </p>
-            </div>
+        <!-- Card 4: Inventario -->
+        <div class="bento-card rounded-3xl overflow-hidden">
+          <img src="assets/card-inventario.jpg" alt="Inventario de productos Sokify" class="w-full aspect-square object-cover">
+          <div class="p-6">
+            <h3 class="text-lg font-black text-slate-900 mb-3">📦 Inventario de Productos</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Control de existencias</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Alertas de stock bajo</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Reabastecimiento en 1 clic</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Cálculo de recetas</li>
+            </ul>
+          </div>
+        </div>
 
-            <!-- WhatsApp Simulated Dialogue -->
-            <div class="mt-6 p-4 rounded-2xl bg-dark-950 border border-white/10 max-w-md text-xs space-y-2">
-              <div class="bg-white/10 p-2.5 rounded-xl text-slate-200">
-                💬 <em>"Hola! ¿Tienen opción vegetariana y hasta qué hora reparten?"</em>
-              </div>
-              <div class="bg-brand-950 border border-brand-500/30 p-2.5 rounded-xl text-brand-200 ml-4">
-                🤖 <strong>Sokify IA:</strong> <em>"¡Hola! Sí, tenemos la Burger Veggie NotBurguer ($7.990). Repartimos hoy hasta las 23:30 hrs. ¿Te gustaría armar tu pedido ahora?"</em>
-              </div>
-            </div>
+        <!-- Card 5: CRM y Fidelidad -->
+        <div class="bento-card rounded-3xl overflow-hidden">
+          <img src="assets/card-crm.jpg" alt="CRM y fidelización de clientes Sokify" class="w-full aspect-square object-cover">
+          <div class="p-6">
+            <h3 class="text-lg font-black text-slate-900 mb-3">💜 Clientes y Fidelidad</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Segmentación VIP / frecuente</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Historial de consumo</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Puntos y cashback</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Campañas de reconquista</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 6: Marketing + IA WhatsApp -->
+        <div class="bento-card rounded-3xl overflow-hidden">
+          <img src="assets/card-marketing.jpg" alt="Marketing e IA por WhatsApp Sokify" class="w-full aspect-square object-cover">
+          <div class="p-6">
+            <h3 class="text-lg font-black text-slate-900 mb-3">📣 Vende Más con IA</h3>
+            <ul class="space-y-2 text-sm text-slate-600">
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Chatbot IA 24/7 por WhatsApp</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Códigos de descuento</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Envío masivo con IA</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600">✔</span> Conexión a Google My Business</li>
+            </ul>
           </div>
         </div>
 
@@ -568,29 +585,29 @@
   </section>
 
   <!-- ================= INTERACTIVE SAVINGS CALCULATOR ================= -->
-  <section id="ahorro" class="py-24 bg-dark-950 border-t border-white/10 relative overflow-hidden">
+  <section id="ahorro" class="py-24 bg-white border-t border-borderLight relative overflow-hidden">
     <div class="max-w-5xl mx-auto px-5 sm:px-8">
-      
+
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-emerald-400 bg-emerald-950 border border-emerald-500/30 px-3 py-1 rounded-full">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
           Calculadora de Impacto Financiero
         </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4">¿Cuánto dinero estás regalando a las apps?</h2>
-        <p class="text-slate-400 mt-3 text-base">
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-4">¿Cuánto dinero estás regalando a las apps?</h2>
+        <p class="text-slate-600 mt-3 text-base">
           Mueve el control deslizante para calcular tus ventas mensuales y comprueba cuánto dinero ahorras migrando tus pedidos directos a Sokify.
         </p>
       </div>
 
       <!-- Calculator Box -->
-      <div class="bg-dark-900 border border-brand-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
-        
+      <div class="bg-canvas border border-borderLight rounded-3xl p-6 sm:p-10 shadow-soft relative">
+
         <!-- Slider Input -->
         <div class="mb-10">
           <div class="flex justify-between items-center mb-4">
-            <label for="salesRange" class="text-sm font-bold text-slate-300">Tus ventas mensuales estimadas:</label>
-            <span class="text-2xl sm:text-3xl font-black font-mono text-brand-300" id="salesDisplay">$5.000.000 CLP</span>
+            <label for="salesRange" class="text-sm font-bold text-slate-700">Tus ventas mensuales estimadas:</label>
+            <span class="text-2xl sm:text-3xl font-black font-mono text-brand-600" id="salesDisplay">$5.000.000 CLP</span>
           </div>
-          <input type="range" id="salesRange" min="1000000" max="25000000" step="500000" value="5000000" oninput="updateCalculator(this.value)" class="w-full h-3 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+          <input type="range" id="salesRange" min="1000000" max="25000000" step="500000" value="5000000" oninput="updateCalculator(this.value)" class="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600">
           <div class="flex justify-between text-[11px] text-slate-500 font-mono mt-2">
             <span>$1.000.000</span>
             <span>$12.500.000</span>
@@ -599,34 +616,34 @@
         </div>
 
         <!-- Comparative Output Grid -->
-        <div class="grid sm:grid-cols-2 gap-6 pt-6 border-t border-white/10">
-          
+        <div class="grid sm:grid-cols-2 gap-6 pt-6 border-t border-borderLight">
+
           <!-- Delivery Apps Cost -->
-          <div class="bg-red-950/30 border border-red-500/30 rounded-2xl p-5">
-            <span class="text-xs font-mono uppercase tracking-wider text-red-400 font-bold">Con Apps de Delivery (28% Comisión)</span>
-            <div class="text-3xl font-black font-mono text-red-400 mt-2" id="appCommissionDisplay">-$1.400.000</div>
-            <p class="text-xs text-slate-400 mt-2">Se va en comisiones todos los meses directo a la app externa.</p>
+          <div class="bg-red-50 border border-red-200 rounded-2xl p-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-red-600 font-bold">Con Apps de Delivery (28% Comisión)</span>
+            <div class="text-3xl font-black font-mono text-red-600 mt-2" id="appCommissionDisplay">-$1.400.000</div>
+            <p class="text-xs text-slate-600 mt-2">Se va en comisiones todos los meses directo a la app externa.</p>
           </div>
 
           <!-- Sokify Flat Cost -->
-          <div class="bg-brand-950/40 border border-brand-500/40 rounded-2xl p-5">
-            <span class="text-xs font-mono uppercase tracking-wider text-brand-300 font-bold">Con Sokify (Tarifa Plana Fija)</span>
-            <div class="text-3xl font-black font-mono text-emerald-400 mt-2">$58.904 <span class="text-xs font-normal text-slate-400">/mes</span></div>
-            <p class="text-xs text-slate-300 mt-2">0% de comisión. No importa cuánto vendas, pagas siempre lo mismo.</p>
+          <div class="bg-brand-50 border border-brand-200 rounded-2xl p-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-700 font-bold">Con Sokify (Tarifa de Entrada)</span>
+            <div class="text-3xl font-black font-mono text-emerald-600 mt-2">$15.900 <span class="text-xs font-normal text-slate-500">/mes</span></div>
+            <p class="text-xs text-slate-600 mt-2">¡3 primeros meses $0! O solo <strong>$5.750/mes</strong> en plan anual ($69.000/año). 0% comisión.</p>
           </div>
 
         </div>
 
         <!-- Grand Yearly Savings Banner -->
-        <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-emerald-950/70 via-emerald-900/40 to-dark-850 border border-emerald-500/40 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-emerald-50 via-emerald-50/60 to-white border border-emerald-200 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <span class="text-xs font-mono uppercase text-emerald-300 font-bold tracking-wider">Tu Ahorro Anual Estimado:</span>
-            <div class="text-3xl sm:text-4xl font-black font-mono text-emerald-400 mt-1" id="yearlySavingsDisplay">
-              $16.093.152 CLP
+            <span class="text-xs font-mono uppercase text-emerald-700 font-bold tracking-wider">Tu Ahorro Anual Estimado:</span>
+            <div class="text-3xl sm:text-4xl font-black font-mono text-emerald-600 mt-1" id="yearlySavingsDisplay">
+              $16.609.200 CLP
             </div>
-            <p class="text-xs text-slate-300 mt-1">Dinero que vuelve a tu bolsillo para reinvertir en tu local o personal.</p>
+            <p class="text-xs text-slate-600 mt-1">Dinero que vuelve a tu bolsillo para reinvertir en tu local o personal.</p>
           </div>
-          <button onclick="openTrialModal()" class="btn-shimmer bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-black text-sm px-6 py-3.5 rounded-xl shadow-lg transition whitespace-nowrap">
+          <button onclick="openTrialModal()" class="btn-shimmer bg-emerald-600 hover:bg-emerald-700 text-white font-black text-sm px-6 py-3.5 rounded-xl shadow-soft transition whitespace-nowrap">
             Recuperar Mis Ganancias &rarr;
           </button>
         </div>
@@ -636,204 +653,239 @@
     </div>
   </section>
 
-  <!-- ================= PRICING SECTION ================= -->
-  <section id="precios" class="py-24 bg-dark-900 border-t border-white/10 relative">
+    <!-- ================= PRICING SECTION ================= -->
+  <section id="precios" class="py-24 bg-canvas border-t border-borderLight relative">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
-          Planes Transparentes
-        </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4">Elige el plan ideal para tu restaurante</h2>
-        <p class="text-slate-400 mt-3 text-base">
-          Todos los planes incluyen 15 días de prueba gratuita. Sin cobros sorpresa, sin contratos forzosos.
-        </p>
 
-        <!-- Billing Cycle Toggle (Monthly vs Annual) -->
-        <div class="mt-8 inline-flex items-center gap-3 bg-dark-950 p-1.5 rounded-2xl border border-white/10">
-          <button id="toggleMonthly" onclick="setBillingCycle('monthly')" class="text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition">
-            Facturación Mensual
-          </button>
-          <button id="toggleAnnual" onclick="setBillingCycle('annual')" class="text-xs font-bold px-4 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center gap-1.5">
-            <span>Facturación Anual</span>
-            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-emerald-500/30">20% OFF</span>
-          </button>
-        </div>
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
+          Estrategia de Masificación & Tarifas Justas
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-4 tracking-tight">
+          Comienza 100% Gratis hoy. Paga solo cuando ya estés vendiendo.
+        </h2>
+        <p class="text-slate-600 mt-3 text-base sm:text-lg">
+          Sin costos ocultos ni comisiones abusivas. Te regalamos <strong>3 meses (90 días) completos</strong> para que tu equipo y clientes se acostumbren a Sokify.
+        </p>
       </div>
 
-      <!-- 4 Pricing Cards -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      <!-- 3 Main Pillars of Pricing -->
+      <div class="grid md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
 
-        <!-- ADVANCED -->
-        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border border-white/10">
-          <div>
-            <h3 class="text-xl font-black text-white">Advanced</h3>
-            <p class="text-xs text-slate-400 mt-1 min-h-[32px]">El inicio perfecto para modernizar tu local y vender online.</p>
-            
-            <div class="my-6">
-              <span class="text-xs text-slate-500 line-through font-mono" id="strikeAdvanced">$11.764</span>
-              <div class="flex items-baseline gap-1">
-                <span class="text-3xl sm:text-4xl font-black font-mono text-white" id="priceAdvanced">$9.999</span>
-                <span class="text-xs text-slate-400 font-bold">/mes</span>
-              </div>
-            </div>
-
-            <button onclick="openTrialModal('Advanced')" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white transition mb-6">
-              Probar 15 Días Gratis
-            </button>
-
-            <ul class="space-y-3 text-xs text-slate-300">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Menú digital QR ilimitado</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Punto de Venta (PDV) básico</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Pantalla Cocina KDS</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Soporte por correo y chat</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- PREMIUM -->
-        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border border-white/10">
-          <div>
-            <h3 class="text-xl font-black text-white">Premium</h3>
-            <p class="text-xs text-slate-400 mt-1 min-h-[32px]">Automatiza pedidos y fideliza a tus clientes.</p>
-            
-            <div class="my-6">
-              <span class="text-xs text-slate-500 line-through font-mono" id="strikePremium">$29.412</span>
-              <div class="flex items-baseline gap-1">
-                <span class="text-3xl sm:text-4xl font-black font-mono text-white" id="pricePremium">$25.000</span>
-                <span class="text-xs text-slate-400 font-bold">/mes</span>
-              </div>
-            </div>
-
-            <button onclick="openTrialModal('Premium')" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white transition mb-6">
-              Probar 15 Días Gratis
-            </button>
-
-            <ul class="space-y-3 text-xs text-slate-300">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Todo lo de Advanced</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Hasta 400 pedidos al mes</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> CRM de clientes frecuentes</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Cupones y promociones</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- ELITE (MÁS POPULAR) -->
-        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border-2 border-brand-500 shadow-2xl shadow-brand-500/20 relative scale-105 z-10 bg-dark-850">
-          <div class="absolute -top-3.5 right-6">
-            <span class="bg-brand-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-              Más Recomendado
+        <!-- PLAN 1: 3 MESES GRATIS -->
+        <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border-2 border-emerald-500 bg-gradient-to-b from-emerald-50/40 to-white shadow-soft relative">
+          <div class="absolute -top-3.5 left-6">
+            <span class="bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+              🎁 Oferta de Ingreso
             </span>
           </div>
 
           <div>
-            <h3 class="text-xl font-black text-white">Elite</h3>
-            <p class="text-xs text-brand-200 mt-1 min-h-[32px]">Control total, inventario y volumen sin límites.</p>
-            
-            <div class="my-6">
-              <span class="text-xs text-slate-500 line-through font-mono" id="strikeElite">$69.299</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-2">3 Meses Gratis</h3>
+            <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Prueba todo el sistema completo por 90 días sin compromiso.</p>
+
+            <div class="my-6 pb-6 border-b border-borderLight">
               <div class="flex items-baseline gap-1">
-                <span class="text-3xl sm:text-4xl font-black font-mono text-brand-300" id="priceElite">$58.904</span>
-                <span class="text-xs text-slate-400 font-bold">/mes</span>
+                <span class="text-4xl sm:text-5xl font-black font-mono text-emerald-600">$0</span>
+                <span class="text-xs text-slate-500 font-bold">por 90 días</span>
               </div>
+              <p class="text-[11px] text-slate-500 mt-1">Sin tarjeta de crédito requerida</p>
             </div>
 
-            <button onclick="openTrialModal('Elite')" class="btn-shimmer w-full py-3.5 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-500 text-white shadow-lg transition mb-6">
-              Probar 15 Días Gratis
+            <button onclick="openTrialModal('3 Meses Gratis')" class="btn-shimmer w-full py-3.5 px-4 rounded-xl font-black text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-soft transition mb-6">
+              🚀 Comenzar Mis 3 Meses Gratis
             </button>
 
-            <ul class="space-y-3 text-xs text-slate-200">
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> <strong>Pedidos 100% Ilimitados</strong></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Control de Stock & Alertas</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Arqueo X/Z y Cierre de Caja</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Soporte Prioritario WhatsApp</li>
+            <ul class="space-y-3 text-xs text-slate-700 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Menú Digital QR Ilimitado</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Cocina KDS en vivo en tiempo real</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Punto de Venta (POS) para mesas y delivery</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Control de Caja y Medios de Pago</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> 0% de comisión por cada pedido</li>
             </ul>
           </div>
         </div>
 
-        <!-- IMPULSO IA -->
-        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border border-white/10">
+        <!-- PLAN 2: MENSUAL DE ENGANCHE ($15.900) -->
+        <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border border-borderLight shadow-soft">
           <div>
-            <h3 class="text-xl font-black text-white">Impulso IA</h3>
-            <p class="text-xs text-slate-400 mt-1 min-h-[32px]">Tu copiloto IA 24/7 para duplicar tus ventas.</p>
-            
-            <div class="my-6">
-              <span class="text-xs text-slate-500 line-through font-mono" id="strikeImpulso">$179.882</span>
+            <h3 class="text-2xl font-black text-slate-900 mt-2">Plan Mensual</h3>
+            <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Para locales que prefieren pagar mes a mes sin contratos.</p>
+
+            <div class="my-6 pb-6 border-b border-borderLight">
               <div class="flex items-baseline gap-1">
-                <span class="text-3xl sm:text-4xl font-black font-mono text-white" id="priceImpulso">$152.900</span>
-                <span class="text-xs text-slate-400 font-bold">/mes</span>
+                <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900">$15.900</span>
+                <span class="text-xs text-slate-500 font-bold">CLP /mes</span>
               </div>
+              <p class="text-[11px] text-brand-600 font-bold mt-1">Aplica después de tus primeros 3 meses gratis</p>
             </div>
 
-            <button onclick="openTrialModal('Impulso IA')" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white transition mb-6">
-              Probar 15 Días Gratis
+            <button onclick="openTrialModal('Plan Mensual $15.900')" class="w-full py-3.5 px-4 rounded-xl font-bold text-xs bg-slate-900 hover:bg-slate-800 text-white transition mb-6">
+              Activar Plan Mensual
             </button>
 
-            <ul class="space-y-3 text-xs text-slate-300">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Todo lo del plan Elite</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Chatbot IA por WhatsApp 24/7</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Campañas masivas inteligentes</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Onboarding personal con asesor</li>
+            <ul class="space-y-3 text-xs text-slate-700 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Todo lo de los 3 meses gratis</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Pedidos y comandas 100% ilimitadas</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Sin contratos ni permanencias forzosas</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Soporte vía chat y WhatsApp</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Actualizaciones de software continuas</li>
             </ul>
           </div>
         </div>
 
+        <!-- PLAN 3: ANUAL ADELANTADO ($69.000 / AÑO - MEJOR GANCHO) -->
+        <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border-2 border-brand-600 shadow-elevated relative scale-105 z-10 bg-gradient-to-b from-brand-50/70 via-white to-white">
+          <div class="absolute -top-3.5 right-6">
+            <span class="bg-brand-600 text-white text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
+              🔥 MEJOR OFERTA · AHORRA 64%
+            </span>
+          </div>
+
+          <div>
+            <h3 class="text-2xl font-black text-slate-900 mt-2">Anual Fundador</h3>
+            <p class="text-xs text-brand-700 font-bold mt-1.5 min-h-[32px]">Paga de una sola vez y ahorra más de $120.000 al año.</p>
+
+            <div class="my-6 pb-6 border-b border-borderLight">
+              <span class="text-xs text-slate-400 line-through font-mono">$190.800 /año</span>
+              <div class="flex items-baseline gap-1 mt-0.5">
+                <span class="text-4xl sm:text-5xl font-black font-mono text-brand-600">$69.000</span>
+                <span class="text-xs text-slate-500 font-bold">CLP /año</span>
+              </div>
+              <p class="text-xs font-mono font-bold text-emerald-600 mt-1">
+                ⚡ Equivale a solo <strong>$5.750 al mes</strong>
+              </p>
+            </div>
+
+            <button onclick="openTrialModal('Anual Fundador $69.000')" class="btn-shimmer w-full py-4 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition mb-6">
+              💎 Asegurar Oferta Anual ($69.000/año)
+            </button>
+
+            <ul class="space-y-3 text-xs text-slate-800 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> <strong>Año completo asegurado (12 meses)</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Todo desbloqueado sin límites</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Precio congelado de por vida</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Soporte prioritario dedicado por WhatsApp</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Asesoría inicial para cargar tu carta</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= ADD-ONS / MÓDULOS ADICIONALES ================= -->
+      <div class="mt-20 max-w-5xl mx-auto pt-16 border-t border-borderLight">
+        <div class="text-center mb-10">
+          <span class="text-xs font-mono font-bold tracking-widest uppercase text-slate-500 bg-slate-100 px-3 py-1 rounded-full">
+            Módulos Opcionales
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mt-3">
+            Add-ons y Servicios Adicionales (Se cobran aparte)
+          </h3>
+          <p class="text-slate-600 text-sm mt-1">
+            Activa solo las herramientas que tu restaurante necesite, cuando las necesite.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <!-- Add-on 1: Chatbot IA WhatsApp -->
+          <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-fuchsia-50 text-fuchsia-600 flex items-center justify-center text-lg mb-3">
+              🤖
+            </div>
+            <h4 class="font-black text-sm text-slate-900 mb-1">Copiloto IA WhatsApp</h4>
+            <p class="text-xs text-slate-500 mb-3 leading-relaxed">Atiende clientes 24/7, responde la carta y toma pedidos automáticos.</p>
+            <div class="text-base font-black font-mono text-slate-900">+$19.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+          </div>
+
+          <!-- Add-on 2: Facturación SII -->
+          <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-3">
+              🧾
+            </div>
+            <h4 class="font-black text-sm text-slate-900 mb-1">Facturación SII Directa</h4>
+            <p class="text-xs text-slate-500 mb-3 leading-relaxed">Emisión automática de boletas y facturas electrónicas con validez tributaria.</p>
+            <div class="text-base font-black font-mono text-slate-900">+$9.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+          </div>
+
+          <!-- Add-on 3: Multi-Sucursal -->
+          <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg mb-3">
+              🏢
+            </div>
+            <h4 class="font-black text-sm text-slate-900 mb-1">Multi-Sucursal</h4>
+            <p class="text-xs text-slate-500 mb-3 leading-relaxed">Administra múltiples sucursales y franquicias desde un solo panel unificado.</p>
+            <div class="text-base font-black font-mono text-slate-900">+$12.900 <span class="text-[10px] text-slate-500 font-normal">/sucursal/mes</span></div>
+          </div>
+
+          <!-- Add-on 4: Dominio Propio -->
+          <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg mb-3">
+              🌐
+            </div>
+            <h4 class="font-black text-sm text-slate-900 mb-1">Dominio Propio</h4>
+            <p class="text-xs text-slate-500 mb-3 leading-relaxed">Tu carta bajo tu propia URL (ej: menu.turestaurante.cl) con certificado SSL.</p>
+            <div class="text-base font-black font-mono text-slate-900">+$4.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+          </div>
+
+        </div>
       </div>
 
     </div>
   </section>
 
   <!-- ================= TESTIMONIALS ================= -->
-  <section class="py-24 bg-dark-950 border-t border-white/10">
+  <section class="py-24 bg-white border-t border-borderLight">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      
+
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
           Historias Reales
         </span>
-        <h2 class="text-3xl sm:text-4xl font-black text-white mt-4">Lo que dicen los dueños de restaurantes</h2>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-4">Lo que dicen los dueños de restaurantes</h2>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        
-        <div class="bento-card rounded-3xl p-6 border border-white/10">
-          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">★★★★★</div>
-          <p class="text-sm text-slate-300 leading-relaxed italic">
+
+        <div class="bento-card rounded-3xl p-6">
+          <div class="flex items-center gap-1 text-amber-500 text-sm mb-4">★★★★★</div>
+          <p class="text-sm text-slate-600 leading-relaxed italic">
             "Dejamos de depender de Rappi para los clientes que comen en el local o nos piden delivery directo. El primer mes ahorramos más de $1.200.000 en comisiones."
           </p>
           <div class="mt-6 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-600/30 border border-brand-500/40 flex items-center justify-center font-bold text-white text-sm">MC</div>
+            <div class="w-10 h-10 rounded-full bg-brand-100 border border-brand-200 flex items-center justify-center font-bold text-brand-700 text-sm">MC</div>
             <div>
-              <h4 class="text-xs font-bold text-white">Matías Calderón</h4>
-              <p class="text-[10px] text-slate-400">Dueño de Street Food Co.</p>
+              <h4 class="text-xs font-bold text-slate-900">Matías Calderón</h4>
+              <p class="text-[10px] text-slate-500">Dueño de Street Food Co.</p>
             </div>
           </div>
         </div>
 
-        <div class="bento-card rounded-3xl p-6 border border-white/10">
-          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">★★★★★</div>
-          <p class="text-sm text-slate-300 leading-relaxed italic">
+        <div class="bento-card rounded-3xl p-6">
+          <div class="flex items-center gap-1 text-amber-500 text-sm mb-4">★★★★★</div>
+          <p class="text-sm text-slate-600 leading-relaxed italic">
             "La pantalla de cocina KDS eliminó por completo los gritos y los papeles perdidos. Los platos salen 5 minutos más rápido y los garzones no se equivocan."
           </p>
           <div class="mt-6 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-600/30 border border-brand-500/40 flex items-center justify-center font-bold text-white text-sm">FP</div>
+            <div class="w-10 h-10 rounded-full bg-brand-100 border border-brand-200 flex items-center justify-center font-bold text-brand-700 text-sm">FP</div>
             <div>
-              <h4 class="text-xs font-bold text-white">Francisca Peña</h4>
-              <p class="text-[10px] text-slate-400">Chef ejecutiva en Fravioli</p>
+              <h4 class="text-xs font-bold text-slate-900">Francisca Peña</h4>
+              <p class="text-[10px] text-slate-500">Chef ejecutiva en Fravioli</p>
             </div>
           </div>
         </div>
 
-        <div class="bento-card rounded-3xl p-6 border border-white/10">
-          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">★★★★★</div>
-          <p class="text-sm text-slate-300 leading-relaxed italic">
+        <div class="bento-card rounded-3xl p-6">
+          <div class="flex items-center gap-1 text-amber-500 text-sm mb-4">★★★★★</div>
+          <p class="text-sm text-slate-600 leading-relaxed italic">
             "El soporte por WhatsApp es inmediato y la configuración nos tomó una tarde. Recomiendo Sokify a cualquier colega del rubro gastronómico."
           </p>
           <div class="mt-6 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-brand-600/30 border border-brand-500/40 flex items-center justify-center font-bold text-white text-sm">GA</div>
+            <div class="w-10 h-10 rounded-full bg-brand-100 border border-brand-200 flex items-center justify-center font-bold text-brand-700 text-sm">GA</div>
             <div>
-              <h4 class="text-xs font-bold text-white">Gonzalo Araya</h4>
-              <p class="text-[10px] text-slate-400">Gerente en Don Mario Trattoria</p>
+              <h4 class="text-xs font-bold text-slate-900">Gonzalo Araya</h4>
+              <p class="text-[10px] text-slate-500">Gerente en Don Mario Trattoria</p>
             </div>
           </div>
         </div>
@@ -844,54 +896,54 @@
   </section>
 
   <!-- ================= FAQ ACCORDION ================= -->
-  <section id="faq" class="py-24 bg-dark-900 border-t border-white/10">
+  <section id="faq" class="py-24 bg-canvas border-t border-borderLight">
     <div class="max-w-3xl mx-auto px-5 sm:px-8">
-      
+
       <div class="text-center mb-14">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
           Dudas Frecuentes
         </span>
-        <h2 class="text-3xl sm:text-4xl font-black text-white mt-4">Todo lo que necesitas saber</h2>
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-4">Todo lo que necesitas saber</h2>
       </div>
 
       <div class="space-y-4">
-        
-        <details class="group bento-card rounded-2xl p-5 border border-white/10" open>
-          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+
+        <details class="group bento-card rounded-2xl p-5" open>
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-base">
             ¿Sokify cobra alguna comisión por los pedidos que recibo?
-            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="faq-chevron w-5 h-5 text-brand-600 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">
             <strong>Cero comisión.</strong> A diferencia de Uber Eats, PedidosYa o Rappi (que cobran entre un 25% y 32% por venta), en Sokify solo pagas tu suscripción mensual fija. El 100% del dinero de cada plato va directo a tu cuenta.
           </p>
         </details>
 
-        <details class="group bento-card rounded-2xl p-5 border border-white/10">
-          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+        <details class="group bento-card rounded-2xl p-5">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-base">
             ¿Necesito comprar hardware costoso o computadores especiales?
-            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="faq-chevron w-5 h-5 text-brand-600 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">
             No. Sokify funciona desde cualquier navegador web en celulares, tablets o notebooks que ya tengas. También se conecta directamente a tus impresoras térmicas de 58mm y 80mm vía USB, red o Bluetooth.
           </p>
         </details>
 
-        <details class="group bento-card rounded-2xl p-5 border border-white/10">
-          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+        <details class="group bento-card rounded-2xl p-5">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-base">
             ¿Qué incluye la prueba gratis de 15 días?
-            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="faq-chevron w-5 h-5 text-brand-600 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
-            Acceso completo y sin restricciones a todos los módulos: Menú QR, Cocina KDS en vivo, Punto de Venta y Arqueo de caja. No te pediremos tarjeta de crédito para comenzar.
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+            Acceso completo durante 90 días a todos los módulos: Menú QR, Cocina KDS en tiempo real, Punto de Venta (POS) y Arqueo de caja. Sin tarjeta de crédito requerida. Si decides continuar después de los 3 meses, puedes elegir el plan mensual de solo $15.900 o el anual de $69.000.
           </p>
         </details>
 
-        <details class="group bento-card rounded-2xl p-5 border border-white/10">
-          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+        <details class="group bento-card rounded-2xl p-5">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-base">
             ¿Cómo subo mi menú y carta de platos?
-            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            <svg class="faq-chevron w-5 h-5 text-brand-600 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </summary>
-          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+          <p class="text-sm text-slate-600 mt-3 leading-relaxed">
             Puedes cargar tus platos uno a uno en segundos con fotos y modificadores, o nuestro equipo de soporte puede ayudarte a migrar tu carta en PDF/Excel sin costo adicional.
           </p>
         </details>
@@ -901,18 +953,18 @@
     </div>
   </section>
 
-  <!-- ================= FINAL CONVERSION CTA ================= -->
-  <section id="probar" class="py-24 bg-mesh-glow relative text-center border-t border-white/10 overflow-hidden">
+  <!-- ================= FINAL CONVERSION CTA (dark bookend, on purpose) ================= -->
+  <section id="probar" class="py-24 bg-mesh-glow-dark relative text-center overflow-hidden">
     <div class="max-w-4xl mx-auto px-5 sm:px-8 relative z-10">
       <div class="w-16 h-16 rounded-3xl bg-brand-600/30 border border-brand-500/40 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-brand-500/20">
         <img src="assets/sokify-avatar.png" alt="Sokify" class="w-10 h-10 object-contain">
       </div>
-      
+
       <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
         Comienza hoy a digitalizar tu restaurante sin comisiones.
       </h2>
       <p class="text-slate-300 mt-4 text-base sm:text-lg max-w-xl mx-auto">
-        Únete a cientos de negocios gastronómicos que tomaron el control de sus ventas con Sokify. 15 días gratis sin compromiso.
+        Únete a cientos de negocios gastronómicos que tomaron el control de sus ventas con Sokify. 3 meses gratis sin compromiso.
       </p>
 
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -927,24 +979,24 @@
   </section>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="bg-dark-950 border-t border-white/10 py-12 text-slate-400 text-xs">
+  <footer class="bg-white border-t border-borderLight py-12 text-slate-500 text-xs">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-      
+
       <div class="flex items-center gap-3">
         <img src="assets/sokify-avatar.png" alt="Sokify" class="w-7 h-7 object-contain">
-        <span class="text-white font-black text-base">Sokify</span>
-        <span class="text-slate-500">· Software Gastronómico 2026</span>
+        <span class="text-slate-900 font-black text-base">Sokify</span>
+        <span class="text-slate-400">· Software Gastronómico 2026</span>
       </div>
 
-      <div class="flex flex-wrap items-center gap-6 text-slate-400">
-        <a href="/panel.html" class="hover:text-white transition">Acceso Clientes</a>
-        <a href="/cocina.html" class="hover:text-white transition">Pantalla KDS</a>
-        <a href="/generador-qrs.html" class="hover:text-white transition">Generador QRs</a>
-        <a href="/demo-menu.html" class="hover:text-white transition">Demo Carta</a>
-        <a href="https://wa.me/56990387414" class="hover:text-emerald-400 transition">Soporte WhatsApp</a>
+      <div class="flex flex-wrap items-center gap-6 text-slate-600">
+        <a href="/panel.html" class="hover:text-brand-600 transition">Acceso Clientes</a>
+        <a href="/cocina.html" class="hover:text-brand-600 transition">Pantalla KDS</a>
+        <a href="/generador-qrs.html" class="hover:text-brand-600 transition">Generador QRs</a>
+        <a href="/demo-menu.html" class="hover:text-brand-600 transition">Demo Carta</a>
+        <a href="https://wa.me/56990387414" class="hover:text-emerald-600 transition">Soporte WhatsApp</a>
       </div>
 
-      <p class="text-slate-600">
+      <p class="text-slate-400">
         © 2026 Sokify Technologies. Todos los derechos reservados.
       </p>
 
@@ -952,48 +1004,47 @@
   </footer>
 
   <!-- ================= QUICK ONBOARDING MODAL ================= -->
-  <div id="trialModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl animate-in fade-in zoom-in duration-200">
-      
-      <button onclick="closeTrialModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition">
+  <div id="trialModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white border border-borderLight rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-elevated animate-in fade-in zoom-in duration-200">
+
+      <button onclick="closeTrialModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-900 transition">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
       <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-2xl bg-brand-600/20 border border-brand-500/40 flex items-center justify-center mx-auto mb-3">
+        <div class="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200 flex items-center justify-center mx-auto mb-3">
           <img src="assets/sokify-avatar.png" alt="Sokify" class="w-8 h-8 object-contain">
         </div>
-        <h3 class="text-xl font-black text-white">Comienza tu Prueba de 15 Días</h3>
-        <p class="text-xs text-slate-400 mt-1">Sin tarjeta de crédito. Acceso instantáneo a tu panel.</p>
+        <h3 class="text-xl font-black text-slate-900">Comienza tu Prueba de 3 Meses (90 Días)</h3>
+        <p class="text-xs text-slate-500 mt-1">Sin tarjeta de crédito. Acceso instantáneo a tu panel.</p>
       </div>
 
       <form id="trialForm" onsubmit="handleTrialSubmit(event)" class="space-y-4 text-left">
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Nombre de tu Restaurante / Local</label>
-          <input type="text" id="restaurantName" required placeholder="Ej: Pizzería Di Napoli" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nombre de tu Restaurante / Local</label>
+          <input type="text" id="restaurantName" required placeholder="Ej: Pizzería Di Napoli" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Tu Nombre</label>
-          <input type="text" id="ownerName" required placeholder="Ej: Carlos Silva" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">Tu Nombre</label>
+          <input type="text" id="ownerName" required placeholder="Ej: Carlos Silva" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp de Contacto</label>
-          <input type="tel" id="ownerPhone" required placeholder="+56 9 1234 5678" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp de Contacto</label>
+          <input type="tel" id="ownerPhone" required placeholder="+56 9 1234 5678" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1">Plan seleccionado</label>
-          <select id="selectedPlan" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
-            <option value="Elite" selected>Elite ($58.904/mes) - Más Recomendado</option>
-            <option value="Advanced">Advanced ($9.999/mes)</option>
-            <option value="Premium">Premium ($25.000/mes)</option>
-            <option value="Impulso IA">Impulso IA ($152.900/mes)</option>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Plan seleccionado</label>
+          <select id="selectedPlan" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500 font-semibold">
+            <option value="3 Meses Gratis" selected>🎁 3 Meses 100% Gratis (90 Días sin tarjeta)</option>
+            <option value="Plan Mensual $15.900">Plan Mensual ($15.900/mes post 3 meses)</option>
+            <option value="Anual Fundador $69.000">🔥 Plan Anual ($69.000/año - Solo $5.750/mes)</option>
           </select>
         </div>
 
-        <button type="submit" class="w-full btn-shimmer bg-brand-600 hover:bg-brand-500 text-white font-black text-sm py-3.5 rounded-xl shadow-lg transition mt-2">
+        <button type="submit" class="w-full btn-shimmer bg-brand-600 hover:bg-brand-700 text-white font-black text-sm py-3.5 rounded-xl shadow-soft transition mt-2">
           🚀 Activar Mi Cuenta Gratis
         </button>
       </form>
@@ -1127,8 +1178,8 @@
       const appCommission = Math.round(sales * 0.28);
       document.getElementById('appCommissionDisplay').textContent = '-$' + appCommission.toLocaleString('es-CL');
 
-      // Sokify Elite plan cost
-      const sokifyMonthly = 58904;
+      // Sokify pricing post 3 free months: $15.900/mo (or $5.750/mo in annual)
+      const sokifyMonthly = 15900;
       const monthlySavings = appCommission - sokifyMonthly;
       const yearlySavings = Math.max(0, monthlySavings * 12);
 
@@ -1159,10 +1210,10 @@
 
       if (cycle === 'monthly') {
         btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition';
-        btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center gap-1.5';
+        btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-500 hover:text-slate-900 transition flex items-center gap-1.5';
       } else {
         btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition flex items-center gap-1.5';
-        btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-400 hover:text-white transition';
+        btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-500 hover:text-slate-900 transition';
       }
 
       const p = prices[cycle];
@@ -1204,6 +1255,226 @@
       window.location.href = `/bienvenida.html?nombre=${encodedRest}&dueno=${encodeURIComponent(owner)}&plan=${encodedPlan}&telefono=${encodeURIComponent(phone)}`;
     }
   </script>
+
+  <!-- ================= FLOATING AI ASSISTANT & WHATSAPP WIDGET ================= -->
+  <div id="aiWidgetContainer" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    
+    <!-- Chat Popup Box -->
+    <div id="aiChatBox" class="hidden mb-4 w-[360px] sm:w-[390px] max-w-[calc(100vw-32px)] bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col transition-all duration-300 animate-in fade-in slide-in-from-bottom-5">
+      
+      <!-- Chat Header -->
+      <div class="bg-gradient-to-r from-brand-700 via-brand-600 to-indigo-700 p-4 text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md p-1 border border-white/20 flex items-center justify-center">
+              <img src="assets/sokify-avatar.png" alt="Sofi" class="w-full h-full object-contain">
+            </div>
+            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-brand-700 rounded-full"></span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h4 class="font-black text-sm text-white">Sofi · Copiloto IA</h4>
+              <span class="bg-white/20 text-[9px] font-mono px-1.5 py-0.2 rounded font-bold">Bot 24/7</span>
+            </div>
+            <p class="text-[11px] text-brand-100 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
+              En línea · Respuestas al instante
+            </p>
+          </div>
+        </div>
+        
+        <button onclick="toggleAiWidget()" class="text-white/80 hover:text-white bg-white/10 hover:bg-white/20 w-8 h-8 rounded-xl flex items-center justify-center transition">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="aiMessagesContainer" class="p-4 space-y-3 max-h-[350px] overflow-y-auto text-xs bg-slate-50">
+        
+        <!-- Welcome Message from Sofi -->
+        <div class="flex items-start gap-2.5">
+          <div class="w-7 h-7 rounded-xl bg-brand-100 border border-brand-200 flex-shrink-0 flex items-center justify-center p-0.5">
+            <img src="assets/sokify-avatar.png" alt="Sofi" class="w-full h-full object-contain">
+          </div>
+          <div class="bg-white rounded-2xl rounded-tl-sm p-3.5 border border-slate-200 text-slate-800 shadow-sm leading-relaxed">
+            <p class="font-bold text-slate-900 mb-1">¡Hola! 👋 Soy Sofi, asistente de Sokify.</p>
+            <p>¿Tienes alguna duda sobre cómo funciona el sistema o quieres activar tus <strong>3 meses gratis (90 días)</strong> sin tarjeta?</p>
+          </div>
+        </div>
+
+        <!-- Quick Question Chips -->
+        <div id="quickChipsContainer" class="pt-2 space-y-1.5">
+          <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider pl-1">Preguntas Frecuentes:</p>
+          <div class="flex flex-col gap-1.5">
+            <button onclick="askPresetQuestion('3meses')" class="text-left bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 px-3 py-2 rounded-xl text-slate-700 transition font-medium text-xs flex items-center justify-between">
+              <span>🎁 ¿Cómo funcionan los 3 meses gratis?</span>
+              <span class="text-brand-600 font-bold">›</span>
+            </button>
+            <button onclick="askPresetQuestion('precios')" class="text-left bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 px-3 py-2 rounded-xl text-slate-700 transition font-medium text-xs flex items-center justify-between">
+              <span>💰 ¿Cuáles son los precios después?</span>
+              <span class="text-brand-600 font-bold">›</span>
+            </button>
+            <button onclick="askPresetQuestion('impresora')" class="text-left bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 px-3 py-2 rounded-xl text-slate-700 transition font-medium text-xs flex items-center justify-between">
+              <span>🖨️ ¿Es compatible con mi impresora térmica?</span>
+              <span class="text-brand-600 font-bold">›</span>
+            </button>
+            <button onclick="askPresetQuestion('carta')" class="text-left bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 px-3 py-2 rounded-xl text-slate-700 transition font-medium text-xs flex items-center justify-between">
+              <span>📲 ¿Cómo paso mi carta o menú actual?</span>
+              <span class="text-brand-600 font-bold">›</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Human WhatsApp Transfer Strip -->
+      <div class="p-3 bg-emerald-50 border-t border-emerald-200 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+          <span class="text-[11px] font-semibold text-emerald-900">¿Prefieres atención humana?</span>
+        </div>
+        <a href="https://wa.me/56990387414?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Sokify%20para%20mi%20restaurante" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black text-[11px] px-3 py-1.5 rounded-xl shadow-sm transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>Abrir WhatsApp</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Custom Input Form -->
+      <form id="aiChatForm" onsubmit="handleAiUserSubmit(event)" class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2">
+        <input type="text" id="aiInputQuery" placeholder="Escribe tu duda o pregunta aquí..." class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 focus:outline-none focus:border-brand-500">
+        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white w-8 h-8 rounded-xl flex items-center justify-center transition">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </form>
+
+    </div>
+
+    <!-- Floating Trigger Pill Button -->
+    <button onclick="toggleAiWidget()" class="btn-shimmer bg-slate-900 hover:bg-slate-800 text-white p-2 sm:px-4 sm:py-3 rounded-full shadow-2xl flex items-center gap-3 border border-slate-700 group transition-all transform hover:scale-105">
+      <div class="relative w-9 h-9 rounded-full bg-brand-600 flex items-center justify-center p-1.5">
+        <img src="assets/sokify-avatar.png" alt="Sokify AI" class="w-full h-full object-contain">
+        <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-slate-900 rounded-full animate-ping"></span>
+      </div>
+      <div class="hidden sm:flex flex-col text-left">
+        <span class="text-xs font-black text-white flex items-center gap-1.5">
+          ¿Dudas? Chatea con Sofi IA
+          <span class="text-[9px] bg-emerald-500/30 text-emerald-300 px-1 rounded font-mono font-bold">24/7</span>
+        </span>
+        <span class="text-[10px] text-slate-400">O habla directo por WhatsApp</span>
+      </div>
+      <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.073.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+      </div>
+    </button>
+
+  </div>
+
+<script>
+    // 5. ASISTENTE VIRTUAL SOFI & WHATSAPP INTERACTIVO
+    function toggleAiWidget() {
+      const box = document.getElementById('aiChatBox');
+      box.classList.toggle('hidden');
+    }
+
+    const presetAnswers = {
+      '3meses': {
+        q: '¿Cómo funcionan los 3 meses gratis?',
+        a: '¡Es 100% real y sin trucos! 🎉 Tienes <strong>90 días completos</strong> para usar todo el sistema (Menú QR, Cocina KDS y Punto de Venta) con tu equipo y clientes. No te pediremos tarjeta de crédito para comenzar. Después de los 3 meses, decides libremente si continuar por solo $15.900/mes.',
+        waText: 'Hola Sofi, quiero activar los 3 meses gratis de Sokify para mi restaurante'
+      },
+      'precios': {
+        q: '¿Cuáles son los precios después de los 3 meses?',
+        a: 'Diseñamos tarifas de enganche muy justas:<br>• <strong>Plan Mensual:</strong> Solo <strong>$15.900 CLP / mes</strong> (sin contratos, cancelas cuando quieras).<br>• <strong>Plan Anual Fundador:</strong> Solo <strong>$69.000 CLP / año</strong> (¡equivale a solo <strong>$5.750 al mes</strong>, ahorras un 64% pagando de una!).<br>• Cero comisión por pedidos siempre.',
+        waText: 'Hola, me interesa el Plan Anual de $69.000 de Sokify'
+      },
+      'impresora': {
+        q: '¿Es compatible con mi impresora térmica?',
+        a: '¡Totalmente compatible! 🖨️ Sokify se conecta directo desde el navegador vía USB, Bluetooth o red local a cualquier impresora térmica de 58mm y 80mm (Epson, Xprinter, Bixolon, etc.). Imprime comandas de cocina y boletas sin drivers complejos.',
+        waText: 'Hola, tengo una impresora térmica y quiero saber cómo conectarla a Sokify'
+      },
+      'carta': {
+        q: '¿Cómo paso mi carta o menú actual?',
+        a: 'Es muy fácil y rápido 📲: puedes crear tus categorías y platos en minutos desde el panel, o si nos envías tu menú en PDF, foto o Instagram por WhatsApp, nuestro equipo te ayuda a migrarla <strong>completamente gratis</strong> para que empieces a vender hoy.',
+        waText: 'Hola, tengo mi carta en PDF y quiero que me ayuden a subirla a Sokify'
+      }
+    };
+
+    function askPresetQuestion(key) {
+      const item = presetAnswers[key];
+      if (!item) return;
+
+      appendUserMessage(item.q);
+      
+      // Simula typing delay
+      setTimeout(() => {
+        appendSofiMessage(item.a, item.waText);
+      }, 350);
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById('aiMessagesContainer');
+      const div = document.createElement('div');
+      div.className = 'flex items-start justify-end gap-2 text-right';
+      div.innerHTML = `
+        <div class="bg-brand-600 text-white rounded-2xl rounded-tr-sm p-3 shadow-sm max-w-[85%] leading-relaxed text-xs">
+          ${text}
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendSofiMessage(htmlContent, waQueryText = 'Hola, tengo dudas sobre Sokify') {
+      const container = document.getElementById('aiMessagesContainer');
+      const div = document.createElement('div');
+      div.className = 'flex items-start gap-2.5';
+      const encodedWa = encodeURIComponent(waQueryText);
+
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-xl bg-brand-100 border border-brand-200 flex-shrink-0 flex items-center justify-center p-0.5">
+          <img src="assets/sokify-avatar.png" alt="Sofi" class="w-full h-full object-contain">
+        </div>
+        <div class="bg-white rounded-2xl rounded-tl-sm p-3.5 border border-slate-200 text-slate-800 shadow-sm leading-relaxed max-w-[85%] text-xs space-y-2">
+          <div>${htmlContent}</div>
+          <div class="pt-1">
+            <a href="https://wa.me/56990387414?text=${encodedWa}" target="_blank" class="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 px-2.5 py-1.5 rounded-xl transition">
+              <span>💬 Continuar por WhatsApp</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function handleAiUserSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('aiInputQuery');
+      const query = input.value.trim();
+      if (!query) return;
+
+      appendUserMessage(query);
+      input.value = '';
+
+      // Match basic intent or default transfer
+      setTimeout(() => {
+        const qLower = query.toLowerCase();
+        let reply = '';
+        if (qLower.includes('precio') || qLower.includes('cuanto') || qLower.includes('costo') || qLower.includes('plan')) {
+          reply = 'Tenemos <strong>3 meses 100% gratis</strong>. Después, el plan mensual cuesta solo <strong>$15.900 CLP/mes</strong>, o puedes tomar la oferta anual de <strong>$69.000 CLP/año</strong> (solo $5.750/mes). ¡Cero comisiones!';
+        } else if (qLower.includes('gratis') || qLower.includes('prueba') || qLower.includes('meses')) {
+          reply = '¡Así es! Te damos <strong>3 meses completos (90 días) gratis</strong> para ti y todo tu equipo, sin ingresar tarjeta de crédito ni contratos forzosos.';
+        } else if (qLower.includes('impres') || qLower.includes('boleta') || qLower.includes('comanda')) {
+          reply = 'Sokify funciona con cualquier impresora térmica USB, Bluetooth o red (58mm y 80mm) directo desde el navegador web.';
+        } else {
+          reply = `¡Excelente pregunta! Para darte el detalle exacto para tu restaurante, te conecto de inmediato con nuestro asesor humano en WhatsApp.`;
+        }
+
+        appendSofiMessage(reply, `Hola Sofi, te pregunté: "${query}" y quiero más detalles`);
+      }, 400);
+    }
+</script>
 
 </body>
 </html>

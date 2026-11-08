@@ -139,13 +139,13 @@
   <!-- TOP BAR: CONTEXTO DEL LOCAL & ESTADO DE MESA -->
   <header class="sticky top-0 z-40 bg-darkwood/95 backdrop-blur-md border-b border-white/10">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-ember/20 border border-ember/40 flex items-center justify-center text-xl shadow">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-ember/20 border border-ember/40 flex items-center justify-center text-xl shadow shrink-0">
           🔥
         </div>
-        <div>
-          <h1 id="brandName" class="font-serif text-lg font-bold leading-none text-white tracking-wide">La Brasa & Leña</h1>
-          <p id="brandAddress" class="text-[11px] text-stone-400 mt-1">Av. San Martín 693 · <span class="text-emerald-400 font-bold">● Cocina Abierta</span></p>
+        <div class="min-w-0">
+          <h1 id="brandName" class="font-serif text-lg font-bold leading-none text-white tracking-wide truncate">La Brasa & Leña</h1>
+          <p id="brandAddress" class="text-[11px] text-stone-400 mt-1 truncate">Av. San Martín 693 · <span class="text-emerald-400 font-bold">● Cocina Abierta</span></p>
         </div>
         <button onclick="openInfoModal()" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 hover:text-white text-[11px] font-bold flex items-center justify-center shrink-0 cursor-pointer" title="Información del local">
           ℹ️
@@ -156,21 +156,23 @@
         </button>
       </div>
 
-      <div class="flex items-center gap-2">
-        <!-- Enlace Directo al Sistema de Cocina / KDS -->
-        <a href="cocina.html" target="_blank" class="hidden sm:flex text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-amber-950/60 text-amber-300 border border-amber-600/50 hover:bg-amber-900/60 items-center gap-1.5 transition-all shadow cursor-pointer">
-          <span>👨‍🍳</span>
-          <span>Ver Pantalla de Cocina (KDS) ↗</span>
-        </a>
-
-        <!-- Selector de Modo: Mesa en Salón vs Delivery / Retiro -->
-        <div class="flex items-center bg-warmcard p-1 rounded-2xl border border-white/10 text-xs">
+      <!-- Selector de Modo: Mesa en Salón vs Delivery / Retiro (única acción destacada para el cliente) -->
+      <div class="flex items-center bg-warmcard p-1 rounded-2xl border border-white/10 text-xs shrink-0">
         <button id="btnModeMesa" onclick="setServiceMode('mesa')" class="px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow">
           🍽️ Mesa
         </button>
         <button id="btnModeDelivery" onclick="setServiceMode('delivery')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
           🛵 Delivery
         </button>
+      </div>
+    </div>
+
+    <!-- Enlace al sistema de cocina (KDS): es una herramienta de staff, no de cliente, así que va discreto y aparte -->
+    <div class="hidden sm:block border-t border-white/5">
+      <div class="max-w-5xl mx-auto px-4 py-1 flex justify-end">
+        <a href="cocina.html" target="_blank" class="text-[10px] font-semibold text-stone-500 hover:text-amber-300 flex items-center gap-1 transition-colors cursor-pointer">
+          <span>👨‍🍳</span> Pantalla de cocina (staff) ↗
+        </a>
       </div>
     </div>
 
@@ -211,8 +213,8 @@
           Ordena desde tu mesa con tu celular sin esperar la carta física, o pide a domicilio directo por WhatsApp sin comisiones abusivas de apps intermediarias.
         </p>
       </div>
-      <div class="relative w-full md:w-60 h-36 rounded-2xl overflow-hidden shadow-2xl shrink-0 border-2 border-white/10">
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Plato estrella" class="w-full h-full object-cover">
+      <div class="relative w-full md:w-60 h-36 rounded-2xl overflow-hidden shadow-2xl shrink-0 border-2 border-white/10 bg-gradient-to-br from-ember/30 to-darkwood">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Plato estrella" loading="lazy" onerror="this.style.display='none';" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-darkwood/80 via-transparent to-transparent"></div>
         <div class="absolute bottom-2 left-3 text-[11px] font-bold text-gold">★ Parrilla Porteña en Vivo</div>
       </div>
@@ -687,8 +689,9 @@
         return `
           <div class="bg-warmcard rounded-3xl overflow-hidden border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
             <div>
-              <div class="relative h-44 overflow-hidden bg-stone-900 cursor-pointer" onclick="openModifierModal(${d.id})">
-                <img src="${d.img}" alt="${d.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              <div class="relative h-44 overflow-hidden bg-gradient-to-br from-warmcard to-stone-900 cursor-pointer" onclick="openModifierModal(${d.id})">
+                <img src="${d.img}" alt="${d.name}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                <span class="absolute inset-0 items-center justify-center text-4xl opacity-30" style="display:none">🍽️</span>
                 <span class="absolute top-3 left-3 bg-darkwood/90 text-gold text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-gold/30">
                   ${d.badge}
                 </span>

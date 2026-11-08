@@ -7445,7 +7445,7 @@
       <!-- Banner de Oferta Exclusiva -->
       <div class="bg-[#0b1b36] text-white py-2.5 px-4 text-center text-xs sm:text-sm font-medium flex items-center justify-center gap-2 shadow-inner">
         <span>🎉</span>
-        <span><strong>¡Oferta Exclusiva!</strong> Con Planes Elite o Impulso, ¡Envío Masivo con IA <strong>GRATIS!</strong></span>
+        <span><strong>¡Oferta de Masificación!</strong> <strong>3 MESES GRATIS</strong> para tu restaurante. Luego solo $15.900/mes o $69.000/año.</span>
       </div>
 
       <!-- CONTENEDOR PRINCIPAL -->
@@ -7481,163 +7481,118 @@
           <!-- Cuadrícula de 4 Planes -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             
-            <!-- PLAN 1: IMPULSO -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition">
-              <div class="space-y-4">
-                <div>
-                  <h3 class="text-2xl font-black text-slate-900">Impulso</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Tu copiloto IA para un crecimiento sin límites</p>
-                </div>
-                <div>
-                  <span class="text-xs text-slate-400 line-through">$ 179.882</span>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-slate-900">$ 152.900</span>
-                    <span class="text-xs font-semibold text-slate-500">/mes</span>
-                  </div>
-                  <p class="text-[11px] text-slate-500 italic mt-1">Ahorra $ 26.982/mes y más de $ 0/mes en complementos incluidos</p>
-                </div>
-                <button onclick="seleccionarPlanCheckout('Impulso', 152900, 179882, 'Tu copiloto IA para un crecimiento sin límites')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition">
-                  Actualizar ahora
-                </button>
-                <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Menú digital con pedidos y Punto de venta</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span class="font-bold text-slate-900">Pedidos ilimitados</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Soporte Impulso prioritario</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Dominio .com gratis por un año *</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PLAN 2: ELITE (MÁS POPULAR) -->
-            <div class="bg-white rounded-2xl border-2 border-cyan-400 p-6 flex flex-col justify-between shadow-md hover:shadow-xl relative transition">
-              <div class="absolute -top-3.5 right-6">
-                <span class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                  MÁS POPULAR
+            <!-- PLAN 1: 3 MESES GRATIS -->
+            <div class="bg-white rounded-2xl border-2 border-emerald-500 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition relative bg-gradient-to-b from-emerald-50/40 to-white">
+              <div class="absolute -top-3.5 left-6">
+                <span class="bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+                  🎁 MASIFICACIÓN
                 </span>
               </div>
               <div class="space-y-4">
                 <div>
-                  <h3 class="text-2xl font-black text-slate-900">Elite</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Máximo control y personalización</p>
+                  <h3 class="text-2xl font-black text-slate-900">3 Meses Gratis</h3>
+                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">90 días de prueba completa sin tarjeta</p>
                 </div>
                 <div>
-                  <span class="text-xs text-slate-400 line-through">$ 69.299</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-slate-900">$ 58.904</span>
-                    <span class="text-xs font-semibold text-slate-500">/mes</span>
+                    <span class="text-4xl font-black text-emerald-600 font-mono">$ 0</span>
+                    <span class="text-xs font-semibold text-slate-500">por 90 días</span>
                   </div>
-                  <p class="text-[11px] text-slate-500 italic mt-1">Ahorra $ 10.395/mes y más de $ 0/mes en complementos incluidos</p>
+                  <p class="text-[11px] text-emerald-700 font-bold mt-1">Uso libre sin costo de ingreso</p>
                 </div>
-                <button onclick="seleccionarPlanCheckout('Elite', 58904, 69299, 'Máximo control y personalización')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition">
-                  Actualizar ahora
+                <button onclick="cerrarModalPlanes(); mostrarNotificacion('🎉 ¡Tu periodo de 3 meses gratis está 100% activo!', 'success');" class="w-full py-3 px-4 rounded-xl font-black text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-500/20 transition">
+                  Comenzar 3 Meses Gratis
                 </button>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Menú digital con pedidos y Punto de venta</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span class="font-bold text-slate-900">Pedidos ilimitados</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Soporte Elite</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Dominio .com gratis por un año *</span>
-                  </div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Menú QR & Pedidos ilimitados</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Pantalla Cocina KDS en vivo</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Punto de Venta POS & Arqueo</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>0% de comisiones por pedido</span></div>
                 </div>
               </div>
             </div>
 
-            <!-- PLAN 3: PREMIUM -->
+            <!-- PLAN 2: MENSUAL DE ENGANCHE ($15.900) -->
             <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition">
               <div class="space-y-4">
                 <div>
-                  <h3 class="text-2xl font-black text-slate-900">Premium</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Automatiza y optimiza tu negocio</p>
+                  <h3 class="text-2xl font-black text-slate-900">Plan Mensual</h3>
+                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Tarifa justa mes a mes después de tus 3 meses</p>
                 </div>
                 <div>
-                  <span class="text-xs text-slate-400 line-through">$ 29.412</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-slate-900">$ 25.000</span>
+                    <span class="text-3xl font-black text-slate-900 font-mono">$ 15.900</span>
                     <span class="text-xs font-semibold text-slate-500">/mes</span>
                   </div>
-                  <p class="text-[11px] text-slate-500 italic mt-1">Ahorra $ 4.412/mes</p>
+                  <p class="text-[11px] text-slate-500 italic mt-1">Cancela cuando quieras, sin contratos</p>
                 </div>
-                <button onclick="seleccionarPlanCheckout('Premium', 25000, 29412, 'Automatiza y optimiza tu negocio')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition">
-                  Actualizar ahora
+                <button onclick="seleccionarPlanCheckout('Plan Mensual', 15900, 15900, 'Tarifa justa mes a mes después de tus 3 meses gratis')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white shadow-md transition">
+                  Elegir Mensual ($15.900)
                 </button>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Menú digital con pedidos y Punto de venta</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Límite de <strong class="text-slate-900">400 pedidos al mes</strong></span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Soporte Premium</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Dominio .com gratis por un año *</span>
-                  </div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Todo lo de los 3 meses gratis</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Pedidos 100% ilimitados</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Soporte prioritario WhatsApp</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Cero comisiones a terceros</span></div>
                 </div>
               </div>
             </div>
 
-            <!-- PLAN 4: ADVANCED -->
+            <!-- PLAN 3: ANUAL FUNDADOR ($69.000 / AÑO - RECOMENDADO) -->
+            <div class="bg-white rounded-2xl border-2 border-purple-600 p-6 flex flex-col justify-between shadow-xl relative transition scale-105 z-10 bg-gradient-to-b from-purple-50/60 to-white">
+              <div class="absolute -top-3.5 right-6">
+                <span class="bg-purple-600 text-white text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
+                  🔥 MEJOR ENGANCHE (64% OFF)
+                </span>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <h3 class="text-2xl font-black text-slate-900">Anual Fundador</h3>
+                  <p class="text-xs text-purple-700 font-bold mt-1 min-h-[32px]">Paga el año de una sola vez y ahorra $120.000</p>
+                </div>
+                <div>
+                  <span class="text-xs text-slate-400 line-through">$ 190.800 /año</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-3xl font-black text-purple-600 font-mono">$ 69.000</span>
+                    <span class="text-xs font-semibold text-slate-500">/año</span>
+                  </div>
+                  <p class="text-[11px] text-emerald-600 font-bold mt-1">⚡ Equivale a solo $ 5.750 al mes</p>
+                </div>
+                <button onclick="seleccionarPlanCheckout('Anual Fundador', 5750, 15900, 'Paga el año de una sola vez por $69.000 y ahorra más del 64%')" class="w-full py-3 px-4 rounded-xl font-black text-sm bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/25 transition">
+                  Asegurar Anual ($69.000/año)
+                </button>
+                <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span class="font-bold text-slate-900">Año completo asegurado (12 meses)</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Precio congelado de por vida</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Soporte VIP WhatsApp 24/7</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Asistencia para subir tu carta</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PLAN 4: ANUAL + COPILOTO IA WHATSAPP -->
             <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition">
               <div class="space-y-4">
                 <div>
-                  <h3 class="text-2xl font-black text-slate-900">Advanced</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">El inicio perfecto para vender más online</p>
+                  <h3 class="text-2xl font-black text-slate-900">Anual + IA 🤖</h3>
+                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Sistema completo + Asistente IA WhatsApp</p>
                 </div>
                 <div>
-                  <span class="text-xs text-slate-400 line-through">$ 11.764</span>
+                  <span class="text-xs text-slate-400 line-through">$ 240.000 /año</span>
                   <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-slate-900">$ 9.999</span>
-                    <span class="text-xs font-semibold text-slate-500">/mes</span>
+                    <span class="text-3xl font-black text-slate-900 font-mono">$ 88.900</span>
+                    <span class="text-xs font-semibold text-slate-500">/año</span>
                   </div>
-                  <p class="text-[11px] text-slate-500 italic mt-1">Ahorra $ 1.765/mes</p>
+                  <p class="text-[11px] text-purple-700 font-bold mt-1">Incluye Add-on Copiloto IA 24/7</p>
                 </div>
-                <button onclick="seleccionarPlanCheckout('Advanced', 9999, 11764, 'El inicio perfecto para vender más online')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition">
-                  Actualizar ahora
+                <button onclick="seleccionarPlanCheckout('Anual + IA', 7408, 19900, 'Sistema completo + Copiloto IA para WhatsApp por $88.900/año')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white shadow-md transition">
+                  Elegir Anual + IA
                 </button>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Menú digital con pedidos y Punto de venta</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Límite de <strong class="text-slate-900">75 pedidos al mes</strong></span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Soporte Advanced</span>
-                  </div>
-                  <div class="flex items-start gap-2">
-                    <span class="text-emerald-500 font-bold">✔</span>
-                    <span>Dominio .com gratis por un año *</span>
-                  </div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Todo lo del Plan Anual Fundador</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span class="font-bold text-purple-700">Chatbot IA 24/7 por WhatsApp</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Toma pedidos automáticos de noche</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Respuestas inmediatas a clientes</span></div>
                 </div>
               </div>
             </div>
@@ -14920,9 +14875,9 @@
     }
 
     let planSeleccionado = {
-      nombre: 'Elite',
-      precioMensual: 58904,
-      precioOriginal: 69299,
+      nombre: 'Anual Fundador',
+      precioMensual: 5750,
+      precioOriginal: 15900,
       descripcion: 'Máximo control y personalización',
       periodo: 'anual',
       cupon: null,
