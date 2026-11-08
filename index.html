@@ -1090,26 +1090,41 @@
   </section>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="bg-white border-t border-borderLight py-12 text-slate-500 text-xs">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+  <footer class="bg-white border-t border-borderLight pt-12 pb-28 sm:pb-24 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-8">
+      
+      <!-- Fila Superior: Marca y Enlaces de Navegación -->
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <img src="assets/sokify-avatar.png" alt="Sokify" class="w-8 h-8 object-contain">
+          <div class="flex flex-col">
+            <span class="text-slate-900 font-black text-base leading-tight">Sokify</span>
+            <span class="text-slate-400 text-[11px]">Software Gastronómico Integral · 2026</span>
+          </div>
+        </div>
 
-      <div class="flex items-center gap-3">
-        <img src="assets/sokify-avatar.png" alt="Sokify" class="w-7 h-7 object-contain">
-        <span class="text-slate-900 font-black text-base">Sokify</span>
-        <span class="text-slate-400">· Software Gastronómico 2026</span>
+        <div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7 text-slate-600 font-medium">
+          <a href="/panel.html" class="hover:text-brand-600 transition">Acceso Clientes</a>
+          <a href="/cocina.html" class="hover:text-brand-600 transition">Pantalla KDS</a>
+          <a href="/generador-qrs.html" class="hover:text-brand-600 transition">Generador QRs</a>
+          <a href="/demo-menu.html" class="hover:text-brand-600 transition">Demo Carta</a>
+          <a href="https://wa.me/56990387414" class="hover:text-emerald-600 transition flex items-center gap-1.5 font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+            <span>💬 Soporte WhatsApp</span>
+          </a>
+        </div>
       </div>
 
-      <div class="flex flex-wrap items-center gap-6 text-slate-600">
-        <a href="/panel.html" class="hover:text-brand-600 transition">Acceso Clientes</a>
-        <a href="/cocina.html" class="hover:text-brand-600 transition">Pantalla KDS</a>
-        <a href="/generador-qrs.html" class="hover:text-brand-600 transition">Generador QRs</a>
-        <a href="/demo-menu.html" class="hover:text-brand-600 transition">Demo Carta</a>
-        <a href="https://wa.me/56990387414" class="hover:text-emerald-600 transition">Soporte WhatsApp</a>
+      <!-- Fila Inferior: Copyright & Menciones con margen de resguardo para el botón de chat -->
+      <div class="pt-6 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4 pr-0 sm:pr-80">
+        <p class="text-slate-400 text-center md:text-left leading-relaxed">
+          © 2026 Sokify · Una plataforma SaaS desarrollada con orgullo por <a href="https://universo693.com" target="_blank" rel="noopener" class="text-slate-700 hover:text-brand-600 font-bold underline decoration-slate-300">Uni-Verso693 SpA</a>.
+        </p>
+        <div class="flex items-center gap-4 text-[11px] text-slate-400">
+          <span>0% Comisión por Pedido</span>
+          <span>·</span>
+          <span>Soporte Local Chile 🇨🇱</span>
+        </div>
       </div>
-
-      <p class="text-slate-400 text-center md:text-right">
-        © 2026 Sokify · Una plataforma SaaS desarrollada con orgullo por <a href="https://universo693.com" target="_blank" rel="noopener" class="text-slate-600 hover:text-brand-600 font-semibold underline decoration-slate-300">Uni-Verso693 SpA</a>.
-      </p>
 
     </div>
   </footer>
