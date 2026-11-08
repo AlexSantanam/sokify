@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generador de Códigos QR para Mesas · UNIVERSO693</title>
+  <title>Generador de Códigos QR para Mesas · Sokify</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
   <style>
@@ -19,32 +20,38 @@
   <div class="max-w-5xl mx-auto space-y-6">
     <!-- PANEL DE CONTROL NO IMPRIMIBLE -->
     <div class="no-print bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-700 pb-4">
         <div>
-          <h1 class="text-xl font-black text-white flex items-center gap-2">
-            <span>🏷️</span> Generador e Impresor de QRs de Mesas
-          </h1>
-          <p class="text-xs text-slate-400 mt-0.5">
-            Herramienta interna para clientes de restaurantes de UNIVERSO693 SpA. Genera stickers listos para recortar y plastificar.
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏷️</span>
+            <h1 class="text-xl font-black text-white">Generador de QRs para Mesas · Sokify</h1>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Genera e imprime los carteles o stickers para las mesas de tu restaurante. Los comensales escanean y piden directo a tu KDS de cocina.
           </p>
         </div>
-        <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-sm flex items-center gap-2 shadow-lg cursor-pointer">
-          <span>🖨️</span> Imprimir Todos los QRs
-        </button>
+        <div class="flex items-center gap-3">
+          <a href="/panel.html" class="px-4 py-2.5 rounded-xl border border-slate-600 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+            Volver al Panel
+          </a>
+          <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs sm:text-sm flex items-center gap-2 shadow-lg cursor-pointer transition">
+            <span>🖨️</span> Imprimir Todos
+          </button>
+        </div>
       </div>
 
       <div class="grid sm:grid-cols-3 gap-4 text-xs">
         <div>
-          <label class="block font-bold text-slate-300 mb-1">Nombre del Local:</label>
-          <input id="inpRestaurantName" type="text" value="La Brasa & Leña" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
+          <label class="block font-bold text-slate-300 mb-1">Nombre del Restaurante:</label>
+          <input id="inpRestaurantName" type="text" value="Mi Restaurante" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
         </div>
         <div>
           <label class="block font-bold text-slate-300 mb-1">URL Base del Menú:</label>
-          <input id="inpBaseUrl" type="text" value="https://universo693.com/demos/restaurante/index.html" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
+          <input id="inpBaseUrl" type="text" value="https://sokify.app/menu.html" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
         </div>
         <div>
           <label class="block font-bold text-slate-300 mb-1">Cantidad de Mesas:</label>
-          <input id="inpTotalTables" type="number" value="12" min="1" max="50" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
+          <input id="inpTotalTables" type="number" value="12" min="1" max="60" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
         </div>
       </div>
     </div>
@@ -102,7 +109,16 @@
       }
     }
 
-    renderQRs();
+    window.addEventListener('DOMContentLoaded', () => {
+      const p = new URLSearchParams(window.location.search);
+      const rSlug = p.get('r') || localStorage.getItem('sokify_restaurant_id') || 'demo';
+      const rName = p.get('nombre') || localStorage.getItem('sokify_restaurant_name') || 'Mi Restaurante';
+      
+      const host = window.location.origin;
+      document.getElementById('inpRestaurantName').value = rName;
+      document.getElementById('inpBaseUrl').value = `${host}/menu.html?r=${encodeURIComponent(rSlug)}`;
+      renderQRs();
+    });
   </script>
 </body>
 </html>

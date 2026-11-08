@@ -1260,51 +1260,7 @@
       document.getElementById('yearlySavingsDisplay').textContent = '$' + yearlySavings.toLocaleString('es-CL') + ' CLP';
     }
 
-    // 3. BILLING CYCLE TOGGLE (MONTHLY VS ANNUAL)
-    let currentCycle = 'monthly';
-    const prices = {
-      monthly: {
-        Advanced: { cur: '$9.999', str: '$11.764' },
-        Premium: { cur: '$25.000', str: '$29.412' },
-        Elite: { cur: '$58.904', str: '$69.299' },
-        Impulso: { cur: '$152.900', str: '$179.882' }
-      },
-      annual: {
-        Advanced: { cur: '$7.999', str: '$9.999' },
-        Premium: { cur: '$19.990', str: '$25.000' },
-        Elite: { cur: '$46.990', str: '$58.904' },
-        Impulso: { cur: '$122.320', str: '$152.900' }
-      }
-    };
-
-    function setBillingCycle(cycle) {
-      currentCycle = cycle;
-      const btnM = document.getElementById('toggleMonthly');
-      const btnA = document.getElementById('toggleAnnual');
-
-      if (cycle === 'monthly') {
-        btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition';
-        btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-500 hover:text-slate-900 transition flex items-center gap-1.5';
-      } else {
-        btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition flex items-center gap-1.5';
-        btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-500 hover:text-slate-900 transition';
-      }
-
-      const p = prices[cycle];
-      document.getElementById('priceAdvanced').textContent = p.Advanced.cur;
-      document.getElementById('strikeAdvanced').textContent = p.Advanced.str;
-
-      document.getElementById('pricePremium').textContent = p.Premium.cur;
-      document.getElementById('strikePremium').textContent = p.Premium.str;
-
-      document.getElementById('priceElite').textContent = p.Elite.cur;
-      document.getElementById('strikeElite').textContent = p.Elite.str;
-
-      document.getElementById('priceImpulso').textContent = p.Impulso.cur;
-      document.getElementById('strikeImpulso').textContent = p.Impulso.str;
-    }
-
-    // 4. TRIAL MODAL LOGIC
+    // 3. TRIAL MODAL LOGIC
     function openTrialModal(plan = 'Elite') {
       const modal = document.getElementById('trialModal');
       const planSelect = document.getElementById('selectedPlan');
