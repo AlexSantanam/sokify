@@ -713,8 +713,8 @@
           <!-- Sokify Flat Cost -->
           <div class="bg-brand-50 border border-brand-200 rounded-2xl p-5">
             <span class="text-xs font-mono uppercase tracking-wider text-brand-700 font-bold">Con Sokify (Tarifa de Entrada)</span>
-            <div class="text-3xl font-black font-mono text-emerald-600 mt-2">$15.900 <span class="text-xs font-normal text-slate-500">/mes</span></div>
-            <p class="text-xs text-slate-600 mt-2">¡3 primeros meses $0! O solo <strong>$5.750/mes</strong> en plan anual ($69.000/año). 0% comisión.</p>
+            <div class="text-3xl font-black font-mono text-emerald-600 mt-2" id="calcSokifyCost">$15.900 <span class="text-xs font-normal text-slate-500">/mes</span></div>
+            <p class="text-xs text-slate-600 mt-2" id="calcSokifyText">¡3 primeros meses $0! O solo <strong>$5.750/mes</strong> en plan anual ($69.000/año). 0% comisión.</p>
           </div>
 
         </div>
@@ -742,7 +742,7 @@
   <section id="precios" class="py-24 bg-canvas border-t border-borderLight relative">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
-      <div class="text-center max-w-3xl mx-auto mb-14">
+      <div class="text-center max-w-3xl mx-auto mb-10">
         <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
           Estrategia de Masificación & Tarifas Justas
         </span>
@@ -752,6 +752,24 @@
         <p class="text-slate-600 mt-3 text-base sm:text-lg">
           Sin costos ocultos ni comisiones abusivas. Te regalamos <strong>3 meses (90 días) completos</strong> para que tu equipo y clientes se acostumbren a Sokify.
         </p>
+      </div>
+
+      <!-- SELECTOR DINÁMICO DE MONEDA & DETECCIÓN GEOGRÁFICA -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
+        <span class="text-xs font-bold text-slate-500">Moneda de tu país:</span>
+        <div class="inline-flex p-1 rounded-2xl bg-white border border-borderLight shadow-sm text-xs font-bold">
+          <button type="button" onclick="setCurrency('CLP', true)" id="btnCurrencyCLP" class="px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-brand-600 text-white shadow-sm cursor-pointer">
+            <span>🇨🇱</span>
+            <span>CLP ($ Pesos)</span>
+          </button>
+          <button type="button" onclick="setCurrency('USD', true)" id="btnCurrencyUSD" class="px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 text-slate-600 hover:text-slate-900 cursor-pointer">
+            <span>🌎</span>
+            <span>USD ($ Dólares / PayPal)</span>
+          </button>
+        </div>
+        <span id="geoDetectedBadge" class="text-[11px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+          📍 Detectado según tu ubicación
+        </span>
       </div>
 
       <!-- 3 Main Pillars of Pricing -->
@@ -791,27 +809,26 @@
           </div>
         </div>
 
-        <!-- PLAN 2: MENSUAL DE ENGANCHE ($15.900) -->
+        <!-- PLAN 2: MENSUAL DE ENGANCHE -->
         <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border border-borderLight shadow-soft">
           <div>
             <h3 class="text-2xl font-black text-slate-900 mt-2">Plan Mensual</h3>
             <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Para locales que prefieren pagar mes a mes sin contratos.</p>
 
             <div class="my-6 pb-6 border-b border-borderLight">
-              <div class="flex items-baseline gap-2">
-                <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900">$15.900</span>
-                <span class="text-xs text-slate-500 font-bold">CLP /mes</span>
-                <span class="text-xs font-mono font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded-lg">(~$16 USD)</span>
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900" id="valPriceMonthly">$15.900</span>
+                <span class="text-xs text-slate-500 font-bold" id="unitPriceMonthly">CLP /mes</span>
               </div>
-              <p class="text-[11px] text-brand-600 font-bold mt-1">Aplica después de tus primeros 3 meses gratis</p>
+              <p class="text-[11px] text-brand-600 font-bold mt-1" id="subPriceMonthly">Aplica después de tus primeros 3 meses gratis</p>
             </div>
 
-            <button onclick="openTrialModal('Plan Mensual $15.900')" class="w-full py-3.5 px-4 rounded-xl font-bold text-xs bg-slate-900 hover:bg-slate-800 text-white transition mb-3">
+            <button onclick="openTrialModal('Plan Mensual')" class="w-full py-3.5 px-4 rounded-xl font-bold text-xs bg-slate-900 hover:bg-slate-800 text-white transition mb-3">
               Activar Plan Mensual
             </button>
             <div class="text-center mb-6">
-              <a href="https://universo693.com/pago?item=sokify-mensual" target="_blank" class="text-[11px] font-bold text-slate-500 hover:text-slate-900 underline">
-                ¿Prefieres pagar online? Mercado Pago o PayPal ($16 USD) &rarr;
+              <a href="https://universo693.com/pago?item=sokify-mensual" id="linkPagarMonthly" target="_blank" class="text-[11px] font-bold text-slate-500 hover:text-slate-900 underline">
+                ¿Prefieres pagar online de inmediato? Pagar aquí &rarr;
               </a>
             </div>
 
@@ -825,7 +842,7 @@
           </div>
         </div>
 
-        <!-- PLAN 3: ANUAL ADELANTADO ($69.000 / AÑO - MEJOR GANCHO) -->
+        <!-- PLAN 3: ANUAL ADELANTADO (MEJOR GANCHO) -->
         <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border-2 border-brand-600 shadow-elevated relative scale-105 z-10 bg-gradient-to-b from-brand-50/70 via-white to-white">
           <div class="absolute -top-3.5 right-6">
             <span class="bg-brand-600 text-white text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
@@ -835,26 +852,25 @@
 
           <div>
             <h3 class="text-2xl font-black text-slate-900 mt-2">Anual Fundador</h3>
-            <p class="text-xs text-brand-700 font-bold mt-1.5 min-h-[32px]">Paga de una sola vez y ahorra más de $120.000 al año.</p>
+            <p class="text-xs text-brand-700 font-bold mt-1.5 min-h-[32px]">Paga de una sola vez y ahorra más del 64%.</p>
 
             <div class="my-6 pb-6 border-b border-borderLight">
-              <span class="text-xs text-slate-400 line-through font-mono">$190.800 CLP · $195 USD</span>
-              <div class="flex items-baseline gap-2 mt-0.5">
-                <span class="text-4xl sm:text-5xl font-black font-mono text-brand-600">$69.000</span>
-                <span class="text-xs text-slate-500 font-bold">CLP /año</span>
-                <span class="text-xs font-mono font-black text-brand-700 bg-brand-100 px-2 py-0.5 rounded-lg">(~$69 USD)</span>
+              <span class="text-xs text-slate-400 line-through font-mono" id="strikePriceAnnual">$190.800 CLP /año</span>
+              <div class="flex items-baseline gap-1.5 mt-0.5">
+                <span class="text-4xl sm:text-5xl font-black font-mono text-brand-600" id="valPriceAnnual">$69.000</span>
+                <span class="text-xs text-slate-500 font-bold" id="unitPriceAnnual">CLP /año</span>
               </div>
-              <p class="text-xs font-mono font-bold text-emerald-600 mt-1">
-                ⚡ Equivale a solo <strong>$5.750 CLP / $5.75 USD al mes</strong>
+              <p class="text-xs font-mono font-bold text-emerald-600 mt-1" id="equivPriceAnnual">
+                ⚡ Equivale a solo <strong>$5.750 CLP al mes</strong>
               </p>
             </div>
 
-            <button onclick="openTrialModal('Anual Fundador $69.000')" class="btn-shimmer w-full py-4 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition mb-3">
-              💎 Asegurar Oferta Anual ($69.000 / $69 USD)
+            <button onclick="openTrialModal('Anual Fundador')" id="btnTextAnnual" class="btn-shimmer w-full py-4 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition mb-3">
+              💎 Asegurar Oferta Anual ($69.000 CLP)
             </button>
             <div class="text-center mb-6">
-              <a href="https://universo693.com/pago?item=sokify-anual" target="_blank" class="text-[11px] font-black text-brand-700 hover:text-brand-900 underline">
-                Pagar con Mercado Pago, PayPal o Tarjeta Internacional &rarr;
+              <a href="https://universo693.com/pago?item=sokify-anual" id="linkPagarAnnual" target="_blank" class="text-[11px] font-black text-brand-700 hover:text-brand-900 underline">
+                Pagar directo con Mercado Pago o Transferencia &rarr;
               </a>
             </div>
 
@@ -916,17 +932,17 @@
             </div>
             <h4 class="font-black text-sm text-slate-900 mb-1">Copiloto IA WhatsApp</h4>
             <p class="text-xs text-slate-500 mb-3 leading-relaxed">Atiende clientes 24/7, responde la carta y toma pedidos automáticos.</p>
-            <div class="text-base font-black font-mono text-slate-900">+$19.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+            <div class="text-base font-black font-mono text-slate-900" id="addonPrice1">+$19.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
           </div>
 
-          <!-- Add-on 2: Facturación SII -->
+          <!-- Add-on 2: Facturación Electrónica -->
           <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm">
             <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-3">
               🧾
             </div>
-            <h4 class="font-black text-sm text-slate-900 mb-1">Facturación SII Directa</h4>
-            <p class="text-xs text-slate-500 mb-3 leading-relaxed">Emisión automática de boletas y facturas electrónicas con validez tributaria.</p>
-            <div class="text-base font-black font-mono text-slate-900">+$9.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+            <h4 class="font-black text-sm text-slate-900 mb-1" id="addonTitle2">Facturación Electrónica</h4>
+            <p class="text-xs text-slate-500 mb-3 leading-relaxed" id="addonDesc2">Emisión automática de boletas y facturas electrónicas con validez tributaria.</p>
+            <div class="text-base font-black font-mono text-slate-900" id="addonPrice2">+$9.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
           </div>
 
           <!-- Add-on 3: Multi-Sucursal -->
@@ -936,7 +952,7 @@
             </div>
             <h4 class="font-black text-sm text-slate-900 mb-1">Multi-Sucursal</h4>
             <p class="text-xs text-slate-500 mb-3 leading-relaxed">Administra múltiples sucursales y franquicias desde un solo panel unificado.</p>
-            <div class="text-base font-black font-mono text-slate-900">+$12.900 <span class="text-[10px] text-slate-500 font-normal">/sucursal/mes</span></div>
+            <div class="text-base font-black font-mono text-slate-900" id="addonPrice3">+$12.900 <span class="text-[10px] text-slate-500 font-normal">/sucursal/mes</span></div>
           </div>
 
           <!-- Add-on 4: Dominio Propio + Correos Corporativos Ilimitados -->
@@ -946,9 +962,9 @@
             </div>
             <h4 class="font-black text-sm text-slate-900 mb-1">Dominio + Correos Ilimitados</h4>
             <p class="text-xs text-slate-500 mb-3 leading-relaxed">
-              Tu dominio <strong>.cl o .com</strong> oficial, certificado SSL y casillas de correo ilimitadas (ej: <em>contacto@turestaurante.cl</em>) en tu celular o Gmail.
+              Tu dominio oficial <strong>.com o propio</strong>, certificado SSL y casillas de correo ilimitadas (ej: <em>contacto@turestaurante.com</em>) en tu celular o Gmail.
             </p>
-            <div class="text-base font-black font-mono text-slate-900">+$6.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+            <div class="text-base font-black font-mono text-slate-900" id="addonPrice4">+$6.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
           </div>
 
         </div>
@@ -1827,9 +1843,200 @@
       }
     });
 
-    // Iniciar con el idioma guardado
-    if (currentLanguage !== 'es') {
+    // Iniciar con el idioma guardado o detectado del navegador
+    if (!localStorage.getItem('sokify_lang')) {
+      const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (navLang.startsWith('pt')) changeLanguage('pt');
+      else if (navLang.startsWith('en')) changeLanguage('en');
+      else if (navLang.startsWith('fr')) changeLanguage('fr');
+    } else if (currentLanguage !== 'es') {
       changeLanguage(currentLanguage);
+    }
+
+    // ==========================================
+    // 6. GESTIÓN DINÁMICA DE MONEDA & AUTODETECCIÓN GEOGRÁFICA
+    // ==========================================
+    let currentCurrency = 'CLP';
+
+    function setCurrency(currency, isManual = false) {
+      currentCurrency = currency;
+      if (isManual) {
+        localStorage.setItem('sokify_currency', currency);
+        const badge = document.getElementById('geoDetectedBadge');
+        if (badge) {
+          badge.textContent = `✔️ Moneda: ${currency}`;
+          badge.className = 'text-[11px] font-mono text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full';
+        }
+      }
+
+      const btnCLP = document.getElementById('btnCurrencyCLP');
+      const btnUSD = document.getElementById('btnCurrencyUSD');
+
+      // Elementos de Planes
+      const valMonthly = document.getElementById('valPriceMonthly');
+      const unitMonthly = document.getElementById('unitPriceMonthly');
+      const subMonthly = document.getElementById('subPriceMonthly');
+      const linkMonthly = document.getElementById('linkPagarMonthly');
+
+      const strikeAnnual = document.getElementById('strikePriceAnnual');
+      const valAnnual = document.getElementById('valPriceAnnual');
+      const unitAnnual = document.getElementById('unitPriceAnnual');
+      const equivAnnual = document.getElementById('equivPriceAnnual');
+      const btnAnnual = document.getElementById('btnTextAnnual');
+      const linkAnnual = document.getElementById('linkPagarAnnual');
+
+      // Add-ons
+      const add1 = document.getElementById('addonPrice1');
+      const add2 = document.getElementById('addonPrice2');
+      const add3 = document.getElementById('addonPrice3');
+      const add4 = document.getElementById('addonPrice4');
+      const addTitle2 = document.getElementById('addonTitle2');
+      const addDesc2 = document.getElementById('addonDesc2');
+
+      // Calculadora
+      const calcSokifyCost = document.getElementById('calcSokifyCost');
+      const calcSokifyText = document.getElementById('calcSokifyText');
+
+      if (currency === 'USD') {
+        if (btnCLP) btnCLP.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 text-slate-600 hover:text-slate-900 cursor-pointer';
+        if (btnUSD) btnUSD.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-brand-600 text-white shadow-sm cursor-pointer';
+
+        // Plan Mensual
+        if (valMonthly) valMonthly.textContent = '$16';
+        if (unitMonthly) unitMonthly.textContent = 'USD /mes';
+        if (subMonthly) subMonthly.textContent = 'Aplica después de tus primeros 3 meses gratis ($0)';
+        if (linkMonthly) {
+          linkMonthly.href = 'https://universo693.com/pago?item=sokify-mensual&currency=USD&method=paypal';
+          linkMonthly.innerHTML = 'Pagar online con PayPal USD o Tarjeta &rarr;';
+        }
+
+        // Plan Anual
+        if (strikeAnnual) strikeAnnual.textContent = '$195 USD /año';
+        if (valAnnual) valAnnual.textContent = '$69';
+        if (unitAnnual) unitAnnual.textContent = 'USD /año';
+        if (equivAnnual) equivAnnual.innerHTML = '⚡ Equivale a solo <strong>$5.75 USD al mes</strong> (Ahorras 64%)';
+        if (btnAnnual) btnAnnual.textContent = '💎 Asegurar Oferta Anual ($69 USD)';
+        if (linkAnnual) {
+          linkAnnual.href = 'https://universo693.com/pago?item=sokify-anual&currency=USD&method=paypal';
+          linkAnnual.innerHTML = 'Pagar directo con PayPal USD o Tarjeta Internacional &rarr;';
+        }
+
+        // Add-ons
+        if (add1) add1.innerHTML = '+$20 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
+        if (add2) add2.innerHTML = '+$10 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
+        if (add3) add3.innerHTML = '+$13 <span class="text-[10px] text-slate-500 font-normal">USD/sucursal/mes</span>';
+        if (add4) add4.innerHTML = '+$7 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
+
+        if (addTitle2) addTitle2.textContent = 'Facturación Electrónica';
+        if (addDesc2) addDesc2.textContent = 'Emisión automática de boletas y facturas tributarias según la normativa de tu país.';
+
+        // Calculadora
+        if (calcSokifyCost) calcSokifyCost.innerHTML = '$16 <span class="text-xs font-normal text-slate-500">USD /mes</span>';
+        if (calcSokifyText) calcSokifyText.innerHTML = '¡3 primeros meses $0! O solo <strong>$5.75 USD/mes</strong> en plan anual ($69 USD/año). 0% comisión.';
+
+      } else {
+        // CLP
+        if (btnCLP) btnCLP.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-brand-600 text-white shadow-sm cursor-pointer';
+        if (btnUSD) btnUSD.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 text-slate-600 hover:text-slate-900 cursor-pointer';
+
+        // Plan Mensual
+        if (valMonthly) valMonthly.textContent = '$15.900';
+        if (unitMonthly) unitMonthly.textContent = 'CLP /mes';
+        if (subMonthly) subMonthly.textContent = 'Aplica después de tus primeros 3 meses gratis';
+        if (linkMonthly) {
+          linkMonthly.href = 'https://universo693.com/pago?item=sokify-mensual';
+          linkMonthly.innerHTML = '¿Prefieres pagar online de inmediato? Pagar aquí &rarr;';
+        }
+
+        // Plan Anual
+        if (strikeAnnual) strikeAnnual.textContent = '$190.800 CLP /año';
+        if (valAnnual) valAnnual.textContent = '$69.000';
+        if (unitAnnual) unitAnnual.textContent = 'CLP /año';
+        if (equivAnnual) equivAnnual.innerHTML = '⚡ Equivale a solo <strong>$5.750 CLP al mes</strong>';
+        if (btnAnnual) btnAnnual.textContent = '💎 Asegurar Oferta Anual ($69.000 CLP)';
+        if (linkAnnual) {
+          linkAnnual.href = 'https://universo693.com/pago?item=sokify-anual';
+          linkAnnual.innerHTML = 'Pagar directo con Mercado Pago o Transferencia &rarr;';
+        }
+
+        // Add-ons
+        if (add1) add1.innerHTML = '+$19.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span>';
+        if (add2) add2.innerHTML = '+$9.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span>';
+        if (add3) add3.innerHTML = '+$12.900 <span class="text-[10px] text-slate-500 font-normal">/sucursal/mes</span>';
+        if (add4) add4.innerHTML = '+$6.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span>';
+
+        if (addTitle2) addTitle2.textContent = 'Facturación Electrónica SII';
+        if (addDesc2) addDesc2.textContent = 'Emisión automática de boletas y facturas electrónicas con validez tributaria.';
+
+        // Calculadora
+        if (calcSokifyCost) calcSokifyCost.innerHTML = '$15.900 <span class="text-xs font-normal text-slate-500">/mes</span>';
+        if (calcSokifyText) calcSokifyText.innerHTML = '¡3 primeros meses $0! O solo <strong>$5.750/mes</strong> en plan anual ($69.000/año). 0% comisión.';
+      }
+    }
+
+    // Autodetección geográfica inmediata (Timezone + IP)
+    async function initGeoDetection() {
+      const savedCurr = localStorage.getItem('sokify_currency');
+      if (savedCurr) {
+        setCurrency(savedCurr);
+        const badge = document.getElementById('geoDetectedBadge');
+        if (badge) badge.textContent = `📍 Preferencia: ${savedCurr}`;
+        return;
+      }
+
+      // 1. Detección instantánea por Timezone del navegador (0ms latencia)
+      let isChile = false;
+      try {
+        const tz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '';
+        if (tz && (tz.includes('Santiago') || tz.includes('Easter') || tz.includes('Chile'))) {
+          isChile = true;
+        }
+      } catch (e) {
+        console.warn('TZ check fallback', e);
+      }
+
+      if (isChile) {
+        setCurrency('CLP');
+        const badge = document.getElementById('geoDetectedBadge');
+        if (badge) badge.textContent = '📍 Detectado: Chile (CLP)';
+      } else {
+        setCurrency('USD');
+        const badge = document.getElementById('geoDetectedBadge');
+        if (badge) badge.textContent = '📍 Detectado: Internacional (USD)';
+      }
+
+      // 2. Verificación asíncrona ligera por IP en background
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1200);
+        const res = await fetch('https://api.country.is/', { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.country) {
+            const countryCode = data.country.toUpperCase();
+            const badge = document.getElementById('geoDetectedBadge');
+            if (countryCode === 'CL') {
+              setCurrency('CLP');
+              if (badge) badge.textContent = '📍 Detectado: Chile 🇨🇱 (CLP)';
+            } else {
+              setCurrency('USD');
+              if (badge) badge.textContent = `📍 Detectado: ${countryCode} 🌎 (USD)`;
+            }
+          }
+        }
+      } catch (err) {
+        // Fallback silencioso sin interrumpir navegación
+      }
+    }
+
+    // Ejecutar autodetección al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      initGeoDetection();
+    });
+    // Llamado inmediato por si DOM ya está listo
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      initGeoDetection();
     }
 </script>
 
