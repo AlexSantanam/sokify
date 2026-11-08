@@ -175,6 +175,11 @@
     }
   }
   </script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
 </head>
 
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand-600 selection:text-white overflow-x-hidden">
@@ -1021,24 +1026,36 @@
         <p class="text-xs text-slate-500 mt-1">Sin tarjeta de crédito. Acceso instantáneo a tu panel.</p>
       </div>
 
-      <form id="trialForm" onsubmit="handleTrialSubmit(event)" class="space-y-4 text-left">
+      <form id="trialForm" onsubmit="handleTrialSubmit(event)" class="space-y-3.5 text-left">
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nombre de tu Restaurante / Local</label>
           <input type="text" id="restaurantName" required placeholder="Ej: Pizzería Di Napoli" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Tu Nombre</label>
-          <input type="text" id="ownerName" required placeholder="Ej: Carlos Silva" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tu Nombre y Apellido</label>
+            <input type="text" id="ownerName" required placeholder="Ej: Carlos Silva" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp de Contacto</label>
+            <input type="tel" id="ownerPhone" required placeholder="+56 9 1234 5678" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
+          </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">WhatsApp de Contacto</label>
-          <input type="tel" id="ownerPhone" required placeholder="+56 9 1234 5678" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
+          <label class="block text-xs font-bold text-slate-700 mb-1">Correo Electrónico (Tu acceso de Administrador)</label>
+          <input type="email" id="ownerEmail" required placeholder="admin@pizzeriadinapoli.cl" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
+          <p class="text-[10px] text-slate-400 mt-0.5">Lo usarás para ingresar a tu panel y recibir reportes de ventas.</p>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Plan seleccionado</label>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Crea tu Contraseña</label>
+          <input type="password" id="ownerPass" required minlength="6" placeholder="Mínimo 6 caracteres" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Plan inicial</label>
           <select id="selectedPlan" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500 font-semibold">
             <option value="3 Meses Gratis" selected>🎁 3 Meses 100% Gratis (90 Días sin tarjeta)</option>
             <option value="Plan Mensual $15.900">Plan Mensual ($15.900/mes post 3 meses)</option>
@@ -1046,8 +1063,10 @@
           </select>
         </div>
 
-        <button type="submit" class="w-full btn-shimmer bg-brand-600 hover:bg-brand-700 text-white font-black text-sm py-3.5 rounded-xl shadow-soft transition mt-2">
-          🚀 Activar Mi Cuenta Gratis
+        <p id="trialFormError" class="hidden text-xs text-red-600 bg-red-50 p-2.5 rounded-xl border border-red-200 font-bold"></p>
+
+        <button id="btnSubmitTrial" type="submit" class="w-full btn-shimmer bg-brand-600 hover:bg-brand-700 text-white font-black text-sm py-3.5 rounded-xl shadow-soft transition mt-2">
+          🚀 Crear Mi Restaurante & Entrar al Panel
         </button>
       </form>
 
@@ -1244,17 +1263,98 @@
       document.getElementById('trialModal').classList.add('hidden');
     }
 
-    function handleTrialSubmit(e) {
+    async function handleTrialSubmit(e) {
       e.preventDefault();
+      const btn = document.getElementById('btnSubmitTrial');
+      const errEl = document.getElementById('trialFormError');
+      if (errEl) errEl.classList.add('hidden');
+
       const restaurant = document.getElementById('restaurantName').value.trim();
       const owner = document.getElementById('ownerName').value.trim();
       const phone = document.getElementById('ownerPhone').value.trim();
+      const email = document.getElementById('ownerEmail').value.trim();
+      const pass = document.getElementById('ownerPass').value;
       const plan = document.getElementById('selectedPlan').value;
 
-      // Redirect directly to panel with restaurant parameter for instant onboarding
-      const encodedRest = encodeURIComponent(restaurant);
-      const encodedPlan = encodeURIComponent(plan);
-      window.location.href = `/bienvenida.html?nombre=${encodedRest}&dueno=${encodeURIComponent(owner)}&plan=${encodedPlan}&telefono=${encodeURIComponent(phone)}`;
+      if (!restaurant || !owner || !email || !pass || !phone) {
+        if (errEl) {
+          errEl.textContent = 'Por favor completa todos los campos requeridos.';
+          errEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Creando cuenta y configurando restaurante...';
+
+      try {
+        if (!firebase.apps.length && window.FIREBASE_CONFIG) {
+          firebase.initializeApp(window.FIREBASE_CONFIG);
+        }
+
+        let userCredential;
+        try {
+          userCredential = await firebase.auth().createUserWithEmailAndPassword(email, pass);
+        } catch (authErr) {
+          if (authErr.code === 'auth/email-already-in-use') {
+            userCredential = await firebase.auth().signInWithEmailAndPassword(email, pass);
+          } else {
+            throw authErr;
+          }
+        }
+
+        const user = userCredential.user;
+        const uid = user ? user.uid : null;
+
+        // Generar slug único del local
+        const slug = restaurant
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[̀-ͯ]/g, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '') || 'mi-restaurante';
+
+        // Guardar sesión en localStorage para que panel.html lo cargue de inmediato
+        localStorage.setItem('sokify_restaurant_id', slug);
+        localStorage.setItem('sokify_restaurant_name', restaurant);
+        localStorage.setItem('sokify_owner_name', owner);
+        localStorage.setItem('sokify_owner_email', email);
+        localStorage.setItem('sokify_owner_phone', phone);
+        localStorage.setItem('sokify_plan', plan);
+
+        // Guardar documento del restaurante en Firestore
+        try {
+          const db = firebase.firestore();
+          await db.collection('restaurantes').doc(slug).set({
+            nombre: restaurant,
+            dueno: owner,
+            email: email,
+            telefono: phone,
+            plan: plan,
+            estado: 'activo_prueba_3_meses',
+            fechaCreacion: firebase.firestore.FieldValue.serverTimestamp(),
+            ownerUids: uid ? [uid] : [],
+            trialEndsAt: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString()
+          }, { merge: true });
+        } catch (dbErr) {
+          console.warn('Nota: Guardado local listo, sincronizando Firestore...', dbErr);
+        }
+
+        btn.innerHTML = '🎉 ¡Restaurante creado con éxito! Entrando al panel...';
+
+        setTimeout(() => {
+          window.location.href = `/panel.html?r=${encodeURIComponent(slug)}`;
+        }, 500);
+
+      } catch (err) {
+        console.error('Error registrando cuenta:', err);
+        if (errEl) {
+          errEl.textContent = err.message || 'Hubo un error al registrar. Intenta de nuevo.';
+          errEl.classList.remove('hidden');
+        }
+        btn.disabled = false;
+        btn.innerHTML = '🚀 Crear Mi Restaurante & Entrar al Panel';
+      }
     }
   </script>
 

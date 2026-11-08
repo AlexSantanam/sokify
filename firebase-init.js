@@ -9,16 +9,26 @@
   window.db = firebase.firestore();
   window.auth = firebase.auth();
 
-  // Identificador único del local. Si config.js no define restaurantId,
-  // se genera uno a partir del nombre (útil mientras se configura por primera vez).
+  // Identificador único del local. Soporta multi-tenant dinámico vía URL (?r=...) o localStorage
   const CFG = window.RESTAURANTE_CONFIG || {};
+  const urlParamRest = new URLSearchParams(window.location.search).get('r');
+  const storedRest = localStorage.getItem('sokify_restaurant_id');
+
   window.RESTAURANT_ID =
+    urlParamRest ||
+    storedRest ||
     CFG.restaurantId ||
     (CFG.nombre || 'restaurante-demo')
       .toLowerCase()
       .normalize('NFD').replace(/[̀-ͯ]/g, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
+
+  // Si se ingresó por URL o registro nuevo, actualizar el nombre del restaurante dinámicamente
+  const storedName = localStorage.getItem('sokify_restaurant_name');
+  if (storedName && (urlParamRest || storedRest)) {
+    CFG.nombre = storedName;
+  }
 
   function restRef() {
     return window.db.collection('restaurantes').doc(window.RESTAURANT_ID);

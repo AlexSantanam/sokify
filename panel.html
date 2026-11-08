@@ -117,8 +117,11 @@
           Ingresar al Panel
         </button>
       </form>
-      <div class="pt-2 text-center text-[11px] text-slate-400">
-        Demo operativa · Credenciales predeterminadas en tu local
+      <div class="pt-2 text-center text-xs space-y-2">
+        <a href="/#probar" class="text-brand-600 font-bold hover:underline block">
+          ¿No tienes cuenta? Regístrate y obtén 3 Meses Gratis &rarr;
+        </a>
+        <p class="text-[11px] text-slate-400">Software Gastronómico Sokify · Acceso Seguro</p>
       </div>
     </div>
   </div>
@@ -8624,6 +8627,8 @@
     }
 
     // --- LOGIN ---
+    const customStoredName = localStorage.getItem('sokify_restaurant_name');
+    if (customStoredName) CFG.nombre = customStoredName;
     document.getElementById('restNameSidebar').textContent = CFG.nombre;
     document.getElementById('loginBrandLabel').textContent = CFG.nombre + ' · Gestión Integral Gastronómica';
     document.title = 'Sokify · ' + CFG.nombre;
