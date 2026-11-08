@@ -1,4 +1,6 @@
-# 🦉 Zoco OS · Sistema Operativo Gastronómico y Punto de Venta Inteligente
+# 🦉 Zocowl (Zoco OS) · Sistema Operativo Gastronómico y Punto de Venta Inteligente
+
+**Dominio Oficial:** [https://zocowl.com](https://zocowl.com)
 
 Zoco OS es una plataforma integral de gestión para restaurantes, cafeterías, dark kitchens y cadenas gastronómicas. Proporciona control total de pedidos, cocina multi-pantalla, menú digital QR, gestión de caja, inventario con alertas de stock, marketing automatizado y analítica de ventas en tiempo real sin comisiones por transacción.
 
