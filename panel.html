@@ -15627,14 +15627,47 @@
     }
 
     function confirmarActivacionPlan() {
-      const planName = planSeleccionado.nombre;
-      const rolBadge = document.querySelector('#dropdownPerfilUsuario .bg-amber-100');
-      if (rolBadge) {
-        rolBadge.className = 'bg-blue-100 text-blue-800 text-[10px] font-black uppercase px-2 py-0.5 rounded-full';
-        rolBadge.textContent = `${planName} - Admin`;
+      const planName = (planSeleccionado.nombre || '').toLowerCase();
+      const periodo = planSeleccionado.periodo || 'anual';
+      
+      let itemId = 'sokify-mensual';
+      if (planName.includes('anual') || periodo === 'anual') {
+        itemId = planName.includes('ia') ? 'sokify-anual-ia' : 'sokify-anual';
+      } else if (planName.includes('mensual') || periodo === 'mensual') {
+        itemId = 'sokify-mensual';
       }
-      alert(`🎉 ¡Felicitaciones! Has activado exitosamente tu Plan ${planName}. Todas las funcionalidades avanzadas, pedidos ilimitados y soporte prioritario ya están activos para Fravioli, Street Food.`);
-      cerrarModalPlanes();
+
+      // Metodo de pago seleccionado (webpay, card, transfer)
+      const selMethodRadio = document.querySelector('input[name="paymentMethod"]:checked');
+      const methodVal = selMethodRadio ? selMethodRadio.value : 'webpay';
+      const checkoutMethod = methodVal === 'transfer' ? 'transferencia' : 'mercadopago';
+
+      // Datos del restaurante / usuario
+      const slug = (typeof CFG !== 'undefined' && CFG.restaurantId) || localStorage.getItem('sokify_restaurant_id') || 'mi-restaurante';
+      const restName = (typeof CFG !== 'undefined' && CFG.nombre) || localStorage.getItem('sokify_restaurant_name') || 'Mi Restaurante';
+      const ownerEmail = localStorage.getItem('sokify_owner_email') || '';
+      const ownerPhone = localStorage.getItem('sokify_owner_phone') || '';
+
+      // Monto si hubo cupon o monto especial
+      let queryAmount = '';
+      if (planSeleccionado.cupon && planSeleccionado.descuento) {
+        const totalFinalEl = document.getElementById('checkoutTotalFinal');
+        if (totalFinalEl) {
+          const rawNum = parseInt(totalFinalEl.textContent.replace(/[^0-9]/g, ''), 10);
+          if (rawNum > 0) queryAmount = `&amount=${rawNum}`;
+        }
+      }
+
+      const pagoUrl = `https://universo693.com/pago?item=${encodeURIComponent(itemId)}&ref=${encodeURIComponent(slug)}&clientName=${encodeURIComponent(restName)}&clientEmail=${encodeURIComponent(ownerEmail)}&clientPhone=${encodeURIComponent(ownerPhone)}&method=${checkoutMethod}${queryAmount}`;
+
+      if (typeof mostrarNotificacion === 'function') {
+        mostrarNotificacion('🚀 Conectando con la pasarela segura de pago de Uni-Verso693 & Mercado Pago...', 'info');
+      }
+
+      setTimeout(() => {
+        window.open(pagoUrl, '_blank');
+        cerrarModalPlanes();
+      }, 400);
     }
 
     function abrirModalSugerirIdea(tipo) {
