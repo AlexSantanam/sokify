@@ -1,0 +1,70 @@
+rules_version = '2';
+
+// UNIVERSO693 · Starter Restaurante QR — Reglas de seguridad de Firestore
+// Proyecto compartido "Zoco": aloja a VARIOS restaurantes clientes dentro
+// de la misma base de datos, separados por restaurantId. Pega este archivo
+// completo en: Firebase Console -> Firestore Database -> Reglas.
+//
+// Modelo:
+//   restaurantes/{restaurantId}                     -> estado del local (abierto, promo, ownerUids)
+//   restaurantes/{restaurantId}/categorias/{catId}   -> categorías de la carta
+//   restaurantes/{restaurantId}/platos/{platoId}     -> platos, precios y stock
+//   restaurantes/{restaurantId}/pedidos/{pedidoId}   -> comandas entrantes
+//   restaurantes/{restaurantId}/clientes/{telefono}  -> CRM (ficha por cliente)
+//   restaurantes/{restaurantId}/descuentos/{codigo}  -> códigos de descuento
+//
+// Regla general: la CARTA es pública para LEER (cualquiera que abra
+// index.html debe poder ver el menú sin iniciar sesión), pero solo el
+// personal AUTORIZADO DE ESE LOCAL puede editarla desde panel.html.
+//
+// Clave multi-tenant: "autorizado" no es solo "autenticado" — es estar
+// autenticado Y que tu UID esté en el campo ownerUids del documento de ESE
+// restaurante. Así, el login del dueño de un local jamás puede tocar la
+// carta, pedidos o clientes de otro local que comparte el mismo proyecto.
+// Al dar de alta un cliente nuevo: crea su usuario en Authentication, copia
+// su UID, y agrégalo al array "ownerUids" del documento de su restaurante
+// (Firestore Database -> restaurantes -> {restaurantId} -> campo ownerUids).
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isOwner(restaurantId) {
+      return request.auth != null &&
+        request.auth.uid in get(/databases/$(database)/documents/restaurantes/$(restaurantId)).data.ownerUids;
+    }
+
+    match /restaurantes/{restaurantId} {
+      allow read: if true;
+      allow write: if isOwner(restaurantId);
+
+      match /categorias/{catId} {
+        allow read: if true;
+        allow write: if isOwner(restaurantId);
+      }
+
+      match /platos/{platoId} {
+        allow read: if true;
+        allow write: if isOwner(restaurantId);
+      }
+
+      match /pedidos/{pedidoId} {
+        allow create: if true;
+        allow read, update, delete: if isOwner(restaurantId);
+      }
+
+      match /clientes/{telefono} {
+        allow create, update: if true;
+        allow read, delete: if isOwner(restaurantId);
+      }
+
+      // Los códigos de descuento son públicos para LEER (el cliente debe
+      // poder validar un código al pagar) y para actualizar el contador de
+      // usos al confirmar un pedido, pero solo el dueño de ESE local puede
+      // crearlos o eliminarlos desde panel.html.
+      match /descuentos/{codigo} {
+        allow read, update: if true;
+        allow create, delete: if isOwner(restaurantId);
+      }
+    }
+  }
+}

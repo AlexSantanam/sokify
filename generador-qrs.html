@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generador de Códigos QR para Mesas · UNIVERSO693</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; }
+      .qr-card { page-break-inside: avoid; border: 1.5px solid #000 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen p-6 font-sans">
+
+  <div class="max-w-5xl mx-auto space-y-6">
+    <!-- PANEL DE CONTROL NO IMPRIMIBLE -->
+    <div class="no-print bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+        <div>
+          <h1 class="text-xl font-black text-white flex items-center gap-2">
+            <span>🏷️</span> Generador e Impresor de QRs de Mesas
+          </h1>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Herramienta interna para clientes de restaurantes de UNIVERSO693 SpA. Genera stickers listos para recortar y plastificar.
+          </p>
+        </div>
+        <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-sm flex items-center gap-2 shadow-lg cursor-pointer">
+          <span>🖨️</span> Imprimir Todos los QRs
+        </button>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Nombre del Local:</label>
+          <input id="inpRestaurantName" type="text" value="La Brasa & Leña" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">URL Base del Menú:</label>
+          <input id="inpBaseUrl" type="text" value="https://universo693.com/demos/restaurante/index.html" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Cantidad de Mesas:</label>
+          <input id="inpTotalTables" type="number" value="12" min="1" max="50" oninput="renderQRs()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-medium" />
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENEDOR DE TARJETAS QR LISTAS PARA IMPRIMIR -->
+    <div id="qrsContainer" class="grid grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Inyectado por JS -->
+    </div>
+  </div>
+
+  <script>
+    function renderQRs() {
+      const name = document.getElementById('inpRestaurantName').value.trim() || 'Restaurante';
+      const baseUrl = document.getElementById('inpBaseUrl').value.trim();
+      const count = parseInt(document.getElementById('inpTotalTables').value) || 10;
+      const container = document.getElementById('qrsContainer');
+
+      container.innerHTML = '';
+
+      for (let i = 1; i <= count; i++) {
+        const tableNum = i < 10 ? '0' + i : i;
+        const targetUrl = baseUrl + (baseUrl.includes('?') ? '&' : '?') + 'mesa=' + i;
+        const canvasId = 'qr_canvas_' + i;
+
+        const card = document.createElement('div');
+        card.className = 'qr-card bg-white text-slate-950 rounded-2xl p-5 border-2 border-slate-300 shadow-md flex flex-col items-center justify-between text-center space-y-3';
+        card.innerHTML = `
+          <div class="space-y-0.5">
+            <span class="text-[10px] font-black uppercase tracking-wider text-amber-700 block">${name}</span>
+            <h2 class="text-xl font-black text-slate-900 leading-tight">MESA #${tableNum}</h2>
+          </div>
+
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded-xl shadow-inner">
+            <canvas id="${canvasId}" class="w-40 h-40"></canvas>
+          </div>
+
+          <div class="space-y-1">
+            <p class="text-xs font-bold text-slate-800 leading-snug">
+              📲 Escanea con tu cámara para ver la carta y pedir a cocina
+            </p>
+            <p class="text-[9px] text-slate-500 font-mono">
+              Sin descargar apps · WiFi Libre
+            </p>
+          </div>
+        `;
+        container.appendChild(card);
+
+        // Generar el QR
+        new QRious({
+          element: document.getElementById(canvasId),
+          value: targetUrl,
+          size: 200,
+          level: 'H'
+        });
+      }
+    }
+
+    renderQRs();
+  </script>
+</body>
+</html>

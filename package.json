@@ -1,0 +1,22 @@
+{
+  "name": "zoco-os",
+  "version": "1.0.0",
+  "description": "Zoco OS · Sistema Operativo Gastronómico y Punto de Venta Inteligente",
+  "type": "module",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -p 3000",
+    "start": "npx serve . -p 3000"
+  },
+  "keywords": [
+    "restaurant",
+    "pos",
+    "kds",
+    "qr-menu",
+    "gastronomy",
+    "food-service",
+    "zoco"
+  ],
+  "author": "UNIVERSO693",
+  "license": "MIT"
+}

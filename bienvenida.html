@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>La Brasa & Leña · Bienvenido</title>
+
+  <meta name="theme-color" content="#181310" />
+
+  <!-- Aplica el tema guardado ANTES de pintar, para que no haya parpadeo -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('universo693_theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+      document.documentElement.setAttribute('data-palette', 'brasa');
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+          },
+          colors: {
+            ember: 'rgb(var(--c-ember) / <alpha-value>)',
+            darkwood: 'rgb(var(--c-darkwood) / <alpha-value>)',
+            warmcard: 'rgb(var(--c-warmcard) / <alpha-value>)',
+            gold: 'rgb(var(--c-gold) / <alpha-value>)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root, [data-theme="dark"] {
+      --c-ember: 200 90 50;
+      --c-darkwood: 24 19 16;
+      --c-warmcard: 34 28 24;
+      --c-gold: 233 196 106;
+    }
+    [data-theme="light"] {
+      --c-ember: 200 90 50;
+      --c-darkwood: 250 246 240;
+      --c-warmcard: 255 255 255;
+      --c-gold: 165 110 20;
+    }
+    [data-palette="oceano"] { --c-ember: 14 116 144; --c-gold: 45 180 178; }
+    [data-theme="light"][data-palette="oceano"] { --c-gold: 11 106 105; }
+    [data-palette="bosque"] { --c-ember: 63 107 56; --c-gold: 168 143 54; }
+    [data-theme="light"][data-palette="bosque"] { --c-gold: 120 101 35; }
+
+    [data-theme="light"] .text-white { color: #221C18 !important; }
+    [data-theme="light"] .text-stone-300 { color: #5C5248 !important; }
+    [data-theme="light"] .text-stone-400 { color: #7A6F63 !important; }
+    [data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.10) !important; }
+    [data-theme="light"] .border-white\/15 { border-color: rgba(0,0,0,0.14) !important; }
+    [data-theme="light"] .bg-white\/5 { background-color: rgba(0,0,0,0.035) !important; }
+    [data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.06) !important; }
+
+    #themeToggleBtn .icon-dark { display: inline; }
+    #themeToggleBtn .icon-light { display: none; }
+    [data-theme="light"] #themeToggleBtn .icon-dark { display: none; }
+    [data-theme="light"] #themeToggleBtn .icon-light { display: inline; }
+  </style>
+
+  <script src="config.js"></script>
+
+  <!-- Firebase: solo para reflejar en vivo la paleta de color que el dueño elija en panel.html -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="firebase-init.js"></script>
+</head>
+<body class="bg-darkwood text-[#F4EFEA] antialiased min-h-screen font-sans flex items-center justify-center p-5">
+
+  <button id="themeToggleBtn" onclick="toggleTheme()" class="fixed top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer" title="Cambiar tema claro/oscuro">
+    <span class="icon-dark">☀️</span>
+    <span class="icon-light">🌙</span>
+  </button>
+
+  <div class="w-full max-w-sm text-center space-y-5">
+    <div class="w-24 h-24 mx-auto rounded-3xl bg-ember/20 border border-ember/40 flex items-center justify-center text-4xl shadow">
+      🔥
+    </div>
+
+    <div>
+      <h1 id="brandName" class="font-serif text-2xl font-bold text-white">La Brasa & Leña</h1>
+      <p id="brandSlogan" class="text-sm text-stone-300 mt-1">Fuego & Tradición Porteña</p>
+      <p id="brandHorario" class="text-xs text-stone-400 mt-2"></p>
+    </div>
+
+    <div class="space-y-2.5 pt-2">
+      <a id="btnMenu" href="index.html" class="block w-full py-3.5 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow-lg transition-all">
+        📋 Ver Menú y Pedir
+      </a>
+      <a id="btnWhatsapp" target="_blank" class="block w-full py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm">
+        💬 Escribir por WhatsApp
+      </a>
+      <a id="btnInstagram" target="_blank" class="block w-full py-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-bold text-sm">
+        📸 Seguir en Instagram
+      </a>
+    </div>
+
+    <div id="wifiCard" class="hidden pt-2">
+      <button onclick="copiarWifi()" class="w-full py-3 rounded-2xl bg-warmcard border border-white/10 text-left px-4 cursor-pointer">
+        <div class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">📶 WiFi del local (toca para copiar la clave)</div>
+        <div class="text-sm font-semibold text-white mt-0.5" id="wifiNombreLabel"></div>
+        <div class="text-xs font-mono text-gold" id="wifiClaveLabel"></div>
+      </button>
+    </div>
+
+    <p class="text-[10px] text-stone-500 pt-4">Software por UNIVERSO693 SpA</p>
+  </div>
+
+  <script>
+    const CFG = window.RESTAURANTE_CONFIG;
+
+    function aplicarConfigBienvenida(cfg) {
+      if (!cfg) return;
+      if (cfg.titulo) document.getElementById('brandName').textContent = cfg.titulo.replace(/^[^\w\s]+/, '').trim() || CFG.nombre;
+      if (cfg.descripcion) document.getElementById('brandSlogan').textContent = cfg.descripcion;
+      
+      // Botones dinámicos si están configurados
+      if (cfg.botones && cfg.botones.length > 0) {
+        const cont = document.querySelector('.space-y-2.5.pt-2');
+        if (cont) {
+          const activos = cfg.botones.filter(b => b.activo);
+          cont.innerHTML = activos.map(b => {
+            if (b.tipo === 'wifi') {
+              return `
+                <button onclick="copiarWifiDirecto('${b.clave || ''}')" class="block w-full py-3.5 rounded-2xl bg-amber-600/90 hover:bg-amber-600 text-white font-bold text-sm shadow transition-all cursor-pointer">
+                  📶 ${b.nombre} · ${b.red || 'WiFi'} (Toca para copiar clave)
+                </button>
+              `;
+            } else if (b.tipo === 'whatsapp') {
+              return `
+                <a href="https://wa.me/${(b.numero || '').replace(/[^0-9]/g, '')}" target="_blank" class="block w-full py-3.5 rounded-2xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm shadow transition-all">
+                  💬 ${b.nombre}
+                </a>
+              `;
+            } else {
+              return `
+                <a href="${b.enlace || 'index.html'}" class="block w-full py-3.5 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow transition-all">
+                  📋 ${b.nombre}
+                </a>
+              `;
+            }
+          }).join('');
+        }
+      }
+    }
+
+    // Carga inicial
+    document.getElementById('brandName').textContent = CFG.nombre;
+    document.getElementById('brandSlogan').textContent = CFG.slogan;
+    document.getElementById('brandHorario').textContent = CFG.horario;
+    document.getElementById('btnWhatsapp').href = `https://wa.me/${CFG.whatsapp}`;
+    document.getElementById('btnInstagram').href = `https://instagram.com/${(CFG.instagram || '').replace('@', '')}`;
+
+    if (CFG.wifiNombre && CFG.wifiClave) {
+      document.getElementById('wifiCard').classList.remove('hidden');
+      document.getElementById('wifiNombreLabel').textContent = CFG.wifiNombre;
+      document.getElementById('wifiClaveLabel').textContent = CFG.wifiClave;
+    }
+
+    try {
+      const savedBienvenida = localStorage.getItem('zoco_bienvenida_config');
+      if (savedBienvenida) aplicarConfigBienvenida(JSON.parse(savedBienvenida));
+    } catch (e) {}
+
+    function copiarWifi() {
+      if (!CFG.wifiClave) return;
+      navigator.clipboard.writeText(CFG.wifiClave).then(() => alert('🔑 Clave WiFi copiada: ' + CFG.wifiClave));
+    }
+
+    function copiarWifiDirecto(clave) {
+      if (!clave) return;
+      navigator.clipboard.writeText(clave).then(() => alert('🔑 Clave WiFi copiada: ' + clave));
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('universo693_theme', next); } catch (e) {}
+    }
+
+    // Refleja en vivo la paleta de color elegida por el dueño en panel.html
+    window.restRef().onSnapshot(snap => {
+      const data = snap.data() || {};
+      document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
+      if (data.bienvenida) aplicarConfigBienvenida(data.bienvenida);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    { "source": "/panel", "destination": "/panel.html" },
+    { "source": "/cocina", "destination": "/cocina.html" },
+    { "source": "/kds", "destination": "/cocina.html" },
+    { "source": "/menu", "destination": "/index.html" },
+    { "source": "/bienvenida", "destination": "/bienvenida.html" },
+    { "source": "/qrs", "destination": "/generador-qrs.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    }
+  ]
+}

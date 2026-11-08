@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Menú Digital & QR · La Brasa & Leña</title>
+
+  <!-- Aplica el tema guardado ANTES de pintar, para que no haya parpadeo -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('universo693_theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+      document.documentElement.setAttribute('data-palette', 'brasa'); // la real llega de Firestore (definida por el dueño), esto es solo para que no haya parpadeo
+    })();
+  </script>
+  
+  <!-- PWA & Mobile Meta -->
+  <meta name="theme-color" content="#181310" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            ember: 'rgb(var(--c-ember) / <alpha-value>)',
+            darkwood: 'rgb(var(--c-darkwood) / <alpha-value>)',
+            warmcard: 'rgb(var(--c-warmcard) / <alpha-value>)',
+            gold: 'rgb(var(--c-gold) / <alpha-value>)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Modo Claro / Oscuro: variables de color de marca + overrides de la paleta neutra de Tailwind -->
+  <style>
+    :root, [data-theme="dark"] {
+      --c-ember: 200 90 50;
+      --c-darkwood: 24 19 16;
+      --c-warmcard: 34 28 24;
+      --c-gold: 233 196 106;
+    }
+    [data-theme="light"] {
+      --c-ember: 200 90 50;
+      --c-darkwood: 250 246 240;
+      --c-warmcard: 255 255 255;
+      --c-gold: 165 110 20;
+    }
+
+    /* Paletas de marca: cambian solo el color de acento (ember/gold), no el
+       fondo claro/oscuro, que lo sigue controlando el toggle de tema. */
+    [data-palette="oceano"] { --c-ember: 14 116 144; --c-gold: 45 180 178; }
+    [data-theme="light"][data-palette="oceano"] { --c-gold: 11 106 105; }
+    [data-palette="bosque"] { --c-ember: 63 107 56; --c-gold: 168 143 54; }
+    [data-theme="light"][data-palette="bosque"] { --c-gold: 120 101 35; }
+
+    /* La paleta neutra de Tailwind (white/stone/black) no usa variables, así que
+       se invierte a mano solo para el modo claro. Dark mode no necesita nada: ya
+       está diseñado así por defecto. */
+    [data-theme="light"] body { color: #221C18; }
+    [data-theme="light"] .text-white { color: #221C18 !important; }
+    [data-theme="light"] .text-stone-200 { color: #4A433D !important; }
+    [data-theme="light"] .text-stone-300 { color: #5C5248 !important; }
+    [data-theme="light"] .text-stone-400 { color: #7A6F63 !important; }
+    [data-theme="light"] .text-stone-500 { color: #948878 !important; }
+    [data-theme="light"] .placeholder-stone-500::placeholder { color: #A89C8E !important; }
+    [data-theme="light"] .border-white\/5 { border-color: rgba(0,0,0,0.06) !important; }
+    [data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.10) !important; }
+    [data-theme="light"] .border-white\/15 { border-color: rgba(0,0,0,0.14) !important; }
+    [data-theme="light"] .bg-white\/5 { background-color: rgba(0,0,0,0.035) !important; }
+    [data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.06) !important; }
+    [data-theme="light"] .hover\:bg-white\/10:hover { background-color: rgba(0,0,0,0.06) !important; }
+    [data-theme="light"] .hover\:bg-white\/20:hover { background-color: rgba(0,0,0,0.1) !important; }
+    [data-theme="light"] .hover\:text-white:hover { color: #221C18 !important; }
+    [data-theme="light"] .bg-stone-900 { background-color: #EFE8DF !important; }
+    [data-theme="light"] .bg-black\/80 { background-color: rgba(34,28,24,0.55) !important; }
+
+    /* Botón de alternar tema */
+    #themeToggle .icon-dark { display: inline; }
+    #themeToggle .icon-light { display: none; }
+    [data-theme="light"] #themeToggle .icon-dark { display: none; }
+    [data-theme="light"] #themeToggle .icon-light { display: inline; }
+  </style>
+
+  <!-- Estilos para Impresión Térmica de Cocina (58mm / 80mm) -->
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #printableTicket, #printableTicket * { visibility: visible; }
+      #printableTicket {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72mm;
+        margin: 0;
+        padding: 4mm;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: #000000;
+        background: #ffffff;
+      }
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+
+  <!-- Carga de la Configuración Central -->
+  <script src="config.js"></script>
+
+  <!-- Firebase (carta, stock y pedidos en vivo, compartido con panel.html y cocina.html) -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="firebase-init.js"></script>
+</head>
+<body class="bg-darkwood text-[#F4EFEA] antialiased selection:bg-ember selection:text-white pb-32">
+
+  <!-- TOP BAR: CONTEXTO DEL LOCAL & ESTADO DE MESA -->
+  <header class="sticky top-0 z-40 bg-darkwood/95 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-ember/20 border border-ember/40 flex items-center justify-center text-xl shadow">
+          🔥
+        </div>
+        <div>
+          <h1 id="brandName" class="font-serif text-lg font-bold leading-none text-white tracking-wide">La Brasa & Leña</h1>
+          <p id="brandAddress" class="text-[11px] text-stone-400 mt-1">Av. San Martín 693 · <span class="text-emerald-400 font-bold">● Cocina Abierta</span></p>
+        </div>
+        <button onclick="openInfoModal()" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 hover:text-white text-[11px] font-bold flex items-center justify-center shrink-0 cursor-pointer" title="Información del local">
+          ℹ️
+        </button>
+        <button id="themeToggle" onclick="toggleTheme()" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 hover:text-white text-[11px] font-bold flex items-center justify-center shrink-0 cursor-pointer" title="Cambiar tema claro/oscuro">
+          <span class="icon-dark">☀️</span>
+          <span class="icon-light">🌙</span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Enlace Directo al Sistema de Cocina / KDS -->
+        <a href="cocina.html" target="_blank" class="hidden sm:flex text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-amber-950/60 text-amber-300 border border-amber-600/50 hover:bg-amber-900/60 items-center gap-1.5 transition-all shadow cursor-pointer">
+          <span>👨‍🍳</span>
+          <span>Ver Pantalla de Cocina (KDS) ↗</span>
+        </a>
+
+        <!-- Selector de Modo: Mesa en Salón vs Delivery / Retiro -->
+        <div class="flex items-center bg-warmcard p-1 rounded-2xl border border-white/10 text-xs">
+        <button id="btnModeMesa" onclick="setServiceMode('mesa')" class="px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow">
+          🍽️ Mesa
+        </button>
+        <button id="btnModeDelivery" onclick="setServiceMode('delivery')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
+          🛵 Delivery
+        </button>
+      </div>
+    </div>
+
+    <!-- BANNER DINÁMICO DE MESA ACTIVA (QR) -->
+    <div id="tableBanner" class="bg-gradient-to-r from-ember/30 via-warmcard to-ember/20 border-t border-b border-ember/30 px-4 py-2 text-xs">
+      <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2">
+          <span class="bg-gold text-darkwood font-mono font-extrabold text-[10px] px-2 py-0.5 rounded">
+            QR ACTIVO
+          </span>
+          <span class="font-bold text-white">Ordenando en: <span id="tableLabel" class="text-gold font-mono font-extrabold">MESA #07 · TERRAZA</span></span>
+        </div>
+        <div class="flex items-center gap-3 text-[11px] text-stone-300">
+          <button onclick="promptTableChange()" class="underline hover:text-white font-semibold">Cambiar Mesa ✎</button>
+          <span>·</span>
+          <button onclick="llamarGarzon()" class="bg-white/10 hover:bg-white/20 text-white font-bold px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1">
+            <span>🔔</span> Llamar Garzón
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BANNER DE OFERTA EN VIVO (lo activa el dueño desde panel.html) -->
+    <div id="promoBar" class="hidden bg-emerald-900/80 border-t border-b border-emerald-500/40 px-4 py-1.5 text-center text-xs font-bold text-emerald-200"></div>
+  </header>
+
+  <!-- HERO PROMOCIONAL CÁLIDO -->
+  <section class="max-w-5xl mx-auto px-4 pt-5 pb-3">
+    <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-warmcard p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 max-w-lg z-10">
+        <span class="inline-block bg-ember text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider">
+          Carta Digital & Delivery Oficial
+        </span>
+        <h2 id="brandSlogan" class="font-serif text-2xl sm:text-3xl font-bold leading-tight text-white">
+          Cortes nobles a la leña, burgers y coctelería porteña.
+        </h2>
+        <p class="text-xs text-stone-300 leading-relaxed">
+          Ordena desde tu mesa con tu celular sin esperar la carta física, o pide a domicilio directo por WhatsApp sin comisiones abusivas de apps intermediarias.
+        </p>
+      </div>
+      <div class="relative w-full md:w-60 h-36 rounded-2xl overflow-hidden shadow-2xl shrink-0 border-2 border-white/10">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Plato estrella" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-darkwood/80 via-transparent to-transparent"></div>
+        <div class="absolute bottom-2 left-3 text-[11px] font-bold text-gold">★ Parrilla Porteña en Vivo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVEGACIÓN RÁPIDA POR CATEGORÍAS (SCROLL HORIZONTAL ESTILO APP) -->
+  <section class="sticky top-[108px] z-30 bg-darkwood/95 backdrop-blur-md py-2 border-b border-white/5">
+    <div id="categoriesBar" class="max-w-5xl mx-auto px-4 flex gap-2 overflow-x-auto no-scrollbar py-1">
+      <!-- Inyectado por JS desde config.js -->
+    </div>
+  </section>
+
+  <!-- GRILLA DE PLATOS Y PRODUCTOS -->
+  <main class="max-w-5xl mx-auto px-4 py-6">
+    <div id="menuGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- Se inyecta dinámicamente -->
+    </div>
+  </main>
+
+  <!-- BARRA FLOTANTE DE COMANDA / CARRITO (ESTILO ZOCO) -->
+  <div id="cartBar" class="fixed bottom-4 left-4 right-4 max-w-xl mx-auto z-40 hidden">
+    <div class="bg-gradient-to-r from-ember via-[#D96B43] to-ember text-white rounded-3xl p-3.5 shadow-2xl border-2 border-gold/40 flex items-center justify-between gap-3 backdrop-blur-md">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-darkwood text-gold font-mono font-bold flex items-center justify-center text-sm shadow">
+          <span id="cartCountBadge">0</span>
+        </div>
+        <div>
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-amber-200" id="cartContextLabel">
+            COMANDA MESA #07
+          </div>
+          <div class="font-mono text-base sm:text-lg font-extrabold" id="cartTotal">
+            $0
+          </div>
+        </div>
+      </div>
+
+      <button onclick="openComandaModal()" class="bg-darkwood hover:bg-black text-gold font-bold text-xs sm:text-sm px-4 py-2.5 rounded-2xl transition-transform active:scale-95 shadow flex items-center gap-1.5 cursor-pointer">
+        <span>Ver Mi Orden</span>
+        <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL DE PERSONALIZACIÓN Y MODIFICADORES (ZOCO KILLER) -->
+  <div id="modifierModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-warmcard border border-white/15 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[88vh] overflow-y-auto">
+      
+      <!-- Encabezado del Plato -->
+      <div class="flex items-start justify-between border-b border-white/10 pb-3">
+        <div class="space-y-1">
+          <span id="modBadge" class="bg-ember/20 text-gold text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-gold/30">Corte</span>
+          <h3 id="modTitle" class="font-serif text-xl font-bold text-white leading-tight">Nombre del Plato</h3>
+          <p id="modDesc" class="text-xs text-stone-300">Descripción detallada</p>
+        </div>
+        <button onclick="closeModifierModal()" class="text-stone-400 hover:text-white text-xl font-bold p-1">✕</button>
+      </div>
+
+      <!-- Contenedor dinámico de Modificadores (Radios y Checkboxes) -->
+      <div id="modifiersContainer" class="space-y-4 text-xs">
+        <!-- Inyectado por JS -->
+      </div>
+
+      <!-- Notas especiales -->
+      <div class="space-y-1.5 pt-2 border-t border-white/10">
+        <label class="text-[11px] font-bold text-stone-300 uppercase tracking-wider">Notas especiales para el cocinero / garzón:</label>
+        <input id="modSpecialNotes" type="text" placeholder="Ej: Sin sal, la carne bien dorada, salsa aparte..." class="w-full bg-darkwood border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-ember" />
+      </div>
+
+      <!-- Pie del Modal: Cantidad + Botón de Agregar con Total en Vivo -->
+      <div class="border-t border-white/10 pt-3 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2 bg-darkwood border border-white/15 px-2 py-1.5 rounded-2xl">
+          <button onclick="changeModQty(-1)" class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center cursor-pointer">-</button>
+          <span id="modQtyDisplay" class="font-mono font-bold text-sm w-6 text-center text-gold">1</span>
+          <button onclick="changeModQty(1)" class="w-7 h-7 rounded-lg bg-ember text-white font-bold flex items-center justify-center cursor-pointer">+</button>
+        </div>
+
+        <button onclick="confirmAddToOrder()" class="flex-1 py-3 px-4 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-xs sm:text-sm shadow-lg transition-transform active:scale-95 flex items-center justify-between">
+          <span>Agregar a la Comanda</span>
+          <span id="modTotalBtn" class="font-mono font-extrabold text-gold">$0</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL DE INFORMACIÓN DEL LOCAL (ESTILO "INFORMACIÓN" DE ZOCO) -->
+  <div id="infoModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-warmcard border border-white/15 w-full max-w-sm rounded-3xl p-5 shadow-2xl text-white space-y-4">
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <h3 class="font-serif text-lg font-bold text-white">Información</h3>
+        <button onclick="closeInfoModal()" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div class="space-y-1">
+        <p class="font-bold text-white text-sm" id="infoNombre"></p>
+        <p class="text-xs text-stone-400" id="infoDireccion"></p>
+        <p class="text-xs text-stone-400" id="infoHorario"></p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <a id="infoWhatsapp" target="_blank" class="flex-1 text-center py-2 rounded-xl bg-emerald-900/60 border border-emerald-700/50 text-emerald-300 text-xs font-bold">💬 WhatsApp</a>
+        <a id="infoInstagram" target="_blank" class="flex-1 text-center py-2 rounded-xl bg-white/5 border border-white/10 text-stone-200 text-xs font-bold">📸 Instagram</a>
+        <button onclick="shareMenu()" class="flex-1 text-center py-2 rounded-xl bg-white/5 border border-white/10 text-stone-200 text-xs font-bold cursor-pointer">🔗 Compartir</button>
+      </div>
+
+      <div class="space-y-2 pt-1">
+        <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Tipos de servicio</p>
+
+        <div class="bg-darkwood/70 rounded-xl p-3 border border-white/10 text-xs space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white">🛵 A domicilio</span>
+            <span class="text-emerald-400">✓</span>
+          </div>
+          <p class="text-stone-400">Entrega <span id="infoTiempoEntrega" class="text-white font-semibold"></span></p>
+          <p class="text-stone-400" id="infoPedidoMinimo"></p>
+        </div>
+
+        <div class="bg-darkwood/70 rounded-xl p-3 border border-white/10 text-xs flex items-center justify-between">
+          <span class="font-bold text-white">🏃 Para llevar / Retiro</span>
+          <span class="text-emerald-400">✓</span>
+        </div>
+
+        <div class="bg-darkwood/70 rounded-xl p-3 border border-white/10 text-xs flex items-center justify-between">
+          <span class="font-bold text-white">🍽️ En el local</span>
+          <span class="text-emerald-400">✓</span>
+        </div>
+      </div>
+
+      <a href="panel.html" target="_blank" class="block text-center text-[10px] text-stone-500 hover:text-stone-300 pt-1">🔐 Acceso del local (dueño / recepción)</a>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONFIRMACIÓN DE COMANDA & CHECKOUT (CON PROPINA 10% Y MEDIOS DE PAGO) -->
+  <div id="orderModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-warmcard border border-white/15 w-full max-w-lg rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b border-white/10 pb-3">
+        <div>
+          <h3 class="font-serif text-xl font-bold text-white">Tu Comanda</h3>
+          <p class="text-xs text-stone-400" id="modalDestinoLabel">Destino: Mesa #07 (Salón Terraza)</p>
+        </div>
+        <button onclick="closeComandaModal()" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <!-- Lista Detallada de Platos con Modificadores -->
+      <div id="modalItemsList" class="space-y-3 text-xs max-h-56 overflow-y-auto pr-1">
+        <!-- Inyección JS -->
+      </div>
+
+      <!-- Datos de Despacho / Delivery (solo se muestra en modo delivery) -->
+      <div id="deliveryFields" class="hidden bg-darkwood/70 rounded-2xl p-3.5 border border-white/10 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold text-amber-300 uppercase tracking-wider">🛵 Datos de Entrega a Domicilio:</span>
+          <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Rango Activo</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div>
+            <label class="block text-[10px] text-stone-400 mb-0.5">Nombre de quien recibe:</label>
+            <input id="delivName" type="text" placeholder="Ej: Camila Soto" value="Camila Soto" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-white focus:outline-none focus:border-ember">
+          </div>
+          <div>
+            <label class="block text-[10px] text-stone-400 mb-0.5">Teléfono WhatsApp:</label>
+            <input id="delivPhone" type="tel" placeholder="+56 9 ..." value="+56 9 9038 7414" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-white focus:outline-none focus:border-ember">
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] text-stone-400 mb-0.5">Dirección y Depto:</label>
+          <input id="delivAddress" type="text" placeholder="Ej: 3 Norte 450, Depto 501" value="Av. San Martín 820, Viña del Mar" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
+        </div>
+        <div>
+          <label class="block text-[10px] text-stone-400 mb-0.5">Zona / Rango de Despacho:</label>
+          <select id="delivZone" onchange="updateModalTotals()" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
+            <option value="1500" data-zone="Viña Centro / Poniente">Viña Centro / Poniente (+$1.500 despacho)</option>
+            <option value="3000" data-zone="Reñaca / Jardín del Mar">Reñaca / Jardín del Mar (+$3.000 despacho)</option>
+            <option value="4500" data-zone="Concón Costa">Concón Costa (+$4.500 despacho)</option>
+            <option value="0" data-zone="Retiro en Local">Retiro en Local ($0 sin costo)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Código de Descuento -->
+      <div class="bg-darkwood/70 rounded-2xl p-3 border border-white/10 space-y-2">
+        <label class="text-[11px] font-bold text-stone-300 uppercase tracking-wider block">¿Tienes un código de descuento?</label>
+        <div class="flex gap-2">
+          <input id="discountCodeInput" type="text" placeholder="Ej: BIENVENIDO10" class="flex-1 bg-warmcard border border-white/10 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none focus:border-ember">
+          <button onclick="aplicarDescuento()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs cursor-pointer">Aplicar</button>
+        </div>
+        <p id="discountFeedback" class="text-[11px] font-semibold hidden"></p>
+      </div>
+
+      <!-- Selector de Medio de Pago -->
+      <div class="bg-darkwood/70 rounded-2xl p-3 border border-white/10 space-y-2">
+        <label class="text-[11px] font-bold text-stone-300 uppercase tracking-wider block">Medio de Pago:</label>
+        <div id="paymentMethodsList" class="space-y-1.5 text-xs">
+          <!-- Inyectado desde config.js -->
+        </div>
+      </div>
+
+      <!-- Propina Voluntaria del 10% (Estándar Chile) -->
+      <div class="bg-amber-950/30 rounded-2xl p-3 border border-gold/30 flex items-center justify-between gap-3 text-xs">
+        <label class="flex items-center gap-2 cursor-pointer select-none">
+          <input type="checkbox" id="tipCheckbox" checked onchange="updateModalTotals()" class="w-4 h-4 rounded text-ember accent-ember focus:ring-0 cursor-pointer">
+          <span class="font-medium text-stone-200">
+            Agregar propina voluntaria sugerida (10%) para garzones y cocina
+          </span>
+        </label>
+        <span id="tipAmountLabel" class="font-mono font-bold text-gold whitespace-nowrap">+$0</span>
+      </div>
+
+      <!-- Resumen de Totales -->
+      <div class="border-t border-white/10 pt-3 space-y-1 text-xs font-mono">
+        <div class="flex justify-between text-stone-400">
+          <span>Subtotal consumo:</span>
+          <span id="subtotalDisplay">$0</span>
+        </div>
+        <div id="discountLine" class="hidden justify-between text-emerald-400">
+          <span id="discountLineLabel">Descuento:</span>
+          <span id="discountDisplay">-$0</span>
+        </div>
+        <div class="flex justify-between text-gold">
+          <span>Propina 10%:</span>
+          <span id="tipDisplay">$0</span>
+        </div>
+        <div class="flex justify-between items-baseline pt-1 border-t border-white/5 text-base">
+          <span class="font-sans font-bold text-white">Total a Pagar:</span>
+          <span class="text-2xl font-black text-gold" id="modalTotal">$0</span>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="space-y-2 pt-1">
+        <button id="btnSendOrder" onclick="processOrder()" class="w-full py-3.5 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
+          <span>🔔</span>
+          <span id="btnSendOrderText">Mandar Comanda a Cocina</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="sendOrderWhatsApp()" class="py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>📲</span> WhatsApp Local
+          </button>
+          <button onclick="printKitchenTicket()" class="py-2.5 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer">
+            <span>🖨️</span> Ticket Cocina
+          </button>
+        </div>
+
+        <button onclick="closeComandaModal()" class="w-full py-2 text-xs text-stone-400 hover:text-white cursor-pointer">
+          ← Volver a la carta para agregar más platos
+        </button>
+      </div>
+
+      <!-- Confirmación Éxito -->
+      <div id="orderSuccess" class="hidden p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500 text-emerald-200 text-xs space-y-1">
+        <div class="font-bold text-emerald-300 text-sm">✓ ¡Comanda Recibida en Cocina y Barra!</div>
+        <p>Número de comanda generada: <strong id="ticketIdLabel">#BRA-042</strong>. El garzón asignado se acerca en breve.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ELEMENTO OCULTO PARA IMPRESIÓN TÉRMICA DE COCINA (58mm / 80mm) -->
+  <div id="printableTicket" class="hidden">
+    <!-- Se llena dinámicamente antes de imprimir -->
+  </div>
+
+  <!-- LÓGICA DE NEGOCIO JAVASCRIPT -->
+  <script>
+    const CFG = window.RESTAURANTE_CONFIG;
+    
+    // Estado de la Aplicación
+    let currentCat = 'todos';
+    let serviceMode = 'mesa';
+    let currentTable = CFG.mesaDefault;
+    let cart = []; // Array de items con modificadores únicos: { dishId, name, basePrice, qty, selectedOptions, notes, itemTotal }
+    let activeModDish = null;
+    let activeModQty = 1;
+    let selectedPayment = CFG.metodosPago[0].id;
+    let descuentoAplicado = null; // { codigo, tipo, valor, monto }
+
+    // Carta en vivo: se llena desde Firestore (fuente real) en vez de config.js.
+    // config.js solo se usa como "semilla" la primera vez que corre el local.
+    let platos = [];
+    let categorias = [{ id: 'todos', nombre: '🔥 Toda la Carta', icono: '🔥' }];
+
+    // Formateador de moneda CLP
+    function fmt(n) {
+      return '$' + Number(n).toLocaleString('es-CL');
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', async () => {
+      // 1. Detección automática de Mesa en la URL (?mesa=12 o ?mesa=Terraza%203)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlTable = urlParams.get('mesa');
+      if (urlTable) {
+        currentTable = 'Mesa #' + urlTable;
+      }
+
+      // 2. Cargar datos de la marca
+      document.getElementById('brandName').textContent = CFG.nombre;
+      document.getElementById('brandSlogan').textContent = CFG.slogan;
+      document.getElementById('tableLabel').textContent = currentTable.toUpperCase();
+
+      // 3. Renderizar Métodos de Pago
+      renderPaymentMethods();
+
+      setServiceMode(urlParams.get('modo') === 'delivery' ? 'delivery' : 'mesa');
+
+      // 4. Pintar la marca con lo que ya tenemos (CFG), sin esperar a Firestore.
+      //    Importante: esto va ANTES del seedIfEmpty — si Firestore no responde
+      //    (credenciales de ejemplo, sin red, etc.) eso no debe bloquear la
+      //    pintura inicial ni las suscripciones de más abajo.
+      let ultimoEstadoNegocio = {};
+      function pintarEstadoNegocio() {
+        const abierto = window.calcularAbiertoAhora(ultimoEstadoNegocio);
+        document.getElementById('brandAddress').innerHTML = `${CFG.direccion} · <span class="${abierto ? 'text-emerald-400' : 'text-red-400'} font-bold">● ${abierto ? 'Cocina Abierta' : 'Cerrado Temporalmente'}</span>`;
+      }
+      pintarEstadoNegocio();
+      // El horario depende de la hora actual, no solo de lo que diga Firestore,
+      // así que se vuelve a evaluar cada minuto aunque nadie cambie nada en el panel.
+      setInterval(pintarEstadoNegocio, 60000);
+
+      // 5. Sembrar Firestore la primera vez (sin bloquear lo de abajo: si esto
+      //    demora o falla por red/credenciales, las suscripciones en vivo
+      //    igual deben quedar activas y mostrar datos apenas lleguen).
+      window.seedIfEmpty();
+
+      // 6. Suscribirse en vivo. Desde aquí en adelante, cualquier cambio hecho
+      //    en panel.html (precio, stock, nuevo plato, categoría) se refleja
+      //    solo, sin recargar.
+      window.categoriasRef().orderBy('orden').onSnapshot(snap => {
+        const extra = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        categorias = [{ id: 'todos', nombre: '🔥 Toda la Carta', icono: '🔥' }, ...extra];
+        renderCategories();
+      });
+
+      window.platosRef().orderBy('orden').onSnapshot(snap => {
+        platos = snap.docs
+          .map(d => ({ docId: d.id, ...d.data() }))
+          .filter(p => p.disponible !== false && (!p.controlStock || (p.stock || 0) > 0));
+        renderMenu();
+      });
+
+      window.restRef().onSnapshot(snap => {
+        const data = snap.data() || {};
+        ultimoEstadoNegocio = data;
+        pintarEstadoNegocio();
+        document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
+
+        const promoBar = document.getElementById('promoBar');
+        if (data.promo) {
+          promoBar.textContent = '🔥 ' + data.promo;
+          promoBar.classList.remove('hidden');
+        } else {
+          promoBar.classList.add('hidden');
+        }
+      });
+    });
+
+    function setServiceMode(mode) {
+      serviceMode = mode;
+      document.getElementById('btnModeMesa').className = mode === 'mesa'
+        ? 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow'
+        : 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
+      document.getElementById('btnModeDelivery').className = mode === 'delivery'
+        ? 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow'
+        : 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
+
+      const banner = document.getElementById('tableBanner');
+      const ctxLabel = document.getElementById('cartContextLabel');
+      const sendBtnText = document.getElementById('btnSendOrderText');
+      const destLabel = document.getElementById('modalDestinoLabel');
+
+      const delivFields = document.getElementById('deliveryFields');
+      if (mode === 'mesa') {
+        banner.classList.remove('hidden');
+        if (delivFields) delivFields.classList.add('hidden');
+        ctxLabel.textContent = 'COMANDA ' + currentTable.toUpperCase();
+        sendBtnText.textContent = 'Mandar Comanda a Cocina (' + currentTable + ')';
+        destLabel.textContent = 'Destino: ' + currentTable;
+      } else {
+        banner.classList.add('hidden');
+        if (delivFields) delivFields.classList.remove('hidden');
+        ctxLabel.textContent = 'PEDIDO DELIVERY / RETIRO';
+        sendBtnText.textContent = 'Confirmar y Enviar a Cocina / WhatsApp 📲';
+        destLabel.textContent = 'Destino: Reparto a Domicilio o Retiro en Local';
+      }
+    }
+
+    function promptTableChange() {
+      const nueva = prompt('Ingresa el número o nombre de tu mesa (ej: Mesa 12, Barra, Terraza 3):', currentTable);
+      if (nueva && nueva.trim()) {
+        currentTable = nueva.trim();
+        document.getElementById('tableLabel').textContent = currentTable.toUpperCase();
+        setServiceMode('mesa');
+      }
+    }
+
+    function llamarGarzon() {
+      alert('🔔 ¡Llamada enviada a barra y cocina! El garzón de ' + currentTable + ' se acerca a tu mesa en unos instantes.');
+    }
+
+    // --- MODO CLARO / OSCURO ---
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('universo693_theme', next); } catch (e) {}
+    }
+
+    // --- MODAL DE INFORMACIÓN DEL LOCAL ---
+    function openInfoModal() {
+      document.getElementById('infoNombre').textContent = CFG.nombre;
+      document.getElementById('infoDireccion').textContent = CFG.direccion;
+      document.getElementById('infoHorario').textContent = CFG.horario;
+      document.getElementById('infoWhatsapp').href = `https://wa.me/${CFG.whatsapp}`;
+      document.getElementById('infoInstagram').href = `https://instagram.com/${(CFG.instagram || '').replace('@', '')}`;
+      document.getElementById('infoTiempoEntrega').textContent = `${CFG.tiempoEntregaMin}-${CFG.tiempoEntregaMax} min`;
+      document.getElementById('infoPedidoMinimo').textContent = CFG.envioGratis
+        ? 'Envío gratuito'
+        : `Pedido mínimo ${fmt(CFG.pedidoMinimoDelivery)}`;
+
+      const modal = document.getElementById('infoModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeInfoModal() {
+      const modal = document.getElementById('infoModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function shareMenu() {
+      const url = window.location.origin + window.location.pathname;
+      if (navigator.share) {
+        navigator.share({ title: CFG.nombre, text: 'Mira la carta de ' + CFG.nombre, url }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(url).then(() => alert('🔗 Link de la carta copiado.'));
+      }
+    }
+
+    function renderCategories() {
+      const bar = document.getElementById('categoriesBar');
+      bar.innerHTML = categorias.map(cat => {
+        const isMatch = cat.id === currentCat;
+        return `
+          <button onclick="filterCat('${cat.id}')" class="cat-pill px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all ${isMatch ? 'bg-ember text-white shadow' : 'bg-warmcard text-stone-300 hover:text-white border border-white/10'}">
+            ${cat.nombre}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function filterCat(cat) {
+      currentCat = cat;
+      renderCategories();
+      renderMenu();
+    }
+
+    function renderMenu() {
+      const grid = document.getElementById('menuGrid');
+      const filtered = platos.filter(d => currentCat === 'todos' || d.cat === currentCat);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full text-center text-stone-500 text-xs py-10">Aún no hay platos cargados en esta categoría.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(d => {
+        const hasMods = d.modificadores && d.modificadores.length > 0;
+        return `
+          <div class="bg-warmcard rounded-3xl overflow-hidden border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+            <div>
+              <div class="relative h-44 overflow-hidden bg-stone-900 cursor-pointer" onclick="openModifierModal(${d.id})">
+                <img src="${d.img}" alt="${d.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                <span class="absolute top-3 left-3 bg-darkwood/90 text-gold text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-gold/30">
+                  ${d.badge}
+                </span>
+                ${hasMods ? `
+                  <span class="absolute bottom-2.5 right-3 bg-ember/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-lg shadow">
+                    Personalizable ⚙️
+                  </span>
+                ` : ''}
+              </div>
+              <div class="p-4 space-y-1.5">
+                <h3 class="font-serif text-lg font-bold text-white leading-snug cursor-pointer" onclick="openModifierModal(${d.id})">${d.name}</h3>
+                <p class="text-xs text-stone-300 leading-relaxed">${d.desc}</p>
+              </div>
+            </div>
+
+            <div class="p-4 pt-2 border-t border-white/5 flex items-center justify-between">
+              <span class="font-mono text-lg font-extrabold text-gold">${fmt(d.price)}</span>
+
+              <button onclick="openModifierModal(${d.id})" class="bg-ember hover:bg-[#B04B25] text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow cursor-pointer flex items-center gap-1">
+                <span>+</span> Pedir
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- MODAL DE MODIFICADORES (ZOCO PRO) ---
+    function openModifierModal(dishId) {
+      const dish = platos.find(p => p.id === dishId);
+      if (!dish) return;
+      activeModDish = dish;
+      activeModQty = 1;
+
+      document.getElementById('modTitle').textContent = dish.name;
+      document.getElementById('modDesc').textContent = dish.desc;
+      document.getElementById('modBadge').textContent = dish.badge;
+      document.getElementById('modSpecialNotes').value = '';
+      document.getElementById('modQtyDisplay').textContent = '1';
+
+      const container = document.getElementById('modifiersContainer');
+      
+      if (!dish.modificadores || dish.modificadores.length === 0) {
+        container.innerHTML = `
+          <div class="p-3 rounded-xl bg-darkwood/50 border border-white/5 text-stone-400 text-xs">
+            Este producto no requiere configuración especial. Puedes agregar notas al pedido abajo si lo deseas.
+          </div>
+        `;
+      } else {
+        container.innerHTML = dish.modificadores.map(mod => {
+          return `
+            <div class="bg-darkwood/70 rounded-2xl p-3.5 border border-white/10 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-xs">${mod.titulo}</span>
+                <span class="text-[10px] font-bold ${mod.requerido ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-stone-800 text-stone-400'} px-2 py-0.5 rounded-full">
+                  ${mod.requerido ? 'Obligatorio' : 'Opcional'}
+                </span>
+              </div>
+              
+              <div class="space-y-1.5 pt-1">
+                ${mod.opciones.map((opt, optIdx) => {
+                  const inputId = `mod_${mod.id}_${optIdx}`;
+                  const isChecked = mod.tipo === 'radio' && (opt.default || optIdx === 0);
+                  return `
+                    <label for="${inputId}" class="flex items-center justify-between p-2 rounded-xl bg-warmcard/80 hover:bg-white/5 border border-white/5 cursor-pointer transition-colors">
+                      <div class="flex items-center gap-2.5">
+                        <input type="${mod.tipo}" 
+                               id="${inputId}" 
+                               name="mod_${mod.id}" 
+                               value="${opt.nombre}" 
+                               data-price="${opt.precio}" 
+                               ${isChecked ? 'checked' : ''} 
+                               onchange="calcModTotal()"
+                               class="accent-ember w-4 h-4 cursor-pointer">
+                        <span class="text-xs text-stone-200 font-medium">${opt.nombre}</span>
+                      </div>
+                      ${opt.precio > 0 ? `<span class="font-mono text-gold font-bold text-xs">+${fmt(opt.precio)}</span>` : `<span class="text-[10px] text-stone-400">Incluido</span>`}
+                    </label>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      calcModTotal();
+      const modal = document.getElementById('modifierModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModifierModal() {
+      const modal = document.getElementById('modifierModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      activeModDish = null;
+    }
+
+    function changeModQty(delta) {
+      activeModQty = Math.max(1, activeModQty + delta);
+      document.getElementById('modQtyDisplay').textContent = activeModQty;
+      calcModTotal();
+    }
+
+    function getSelectedModifiers() {
+      const selected = [];
+      const inputs = document.querySelectorAll('#modifiersContainer input:checked');
+      inputs.forEach(inp => {
+        selected.push({
+          nombre: inp.value,
+          precio: Number(inp.getAttribute('data-price') || 0)
+        });
+      });
+      return selected;
+    }
+
+    function calcModTotal() {
+      if (!activeModDish) return;
+      const selected = getSelectedModifiers();
+      const extrasPrice = selected.reduce((sum, opt) => sum + opt.precio, 0);
+      const unitTotal = activeModDish.price + extrasPrice;
+      const total = unitTotal * activeModQty;
+      document.getElementById('modTotalBtn').textContent = fmt(total);
+      return { unitTotal, total, selected };
+    }
+
+    function confirmAddToOrder() {
+      const { unitTotal, selected } = calcModTotal();
+      const notes = document.getElementById('modSpecialNotes').value.trim();
+
+      cart.push({
+        dishId: activeModDish.id,
+        platoDocId: activeModDish.docId,
+        controlStock: !!activeModDish.controlStock,
+        name: activeModDish.name,
+        basePrice: activeModDish.price,
+        unitTotal: unitTotal,
+        qty: activeModQty,
+        selectedOptions: selected,
+        notes: notes,
+        subtotal: unitTotal * activeModQty
+      });
+
+      closeModifierModal();
+      updateCartBar();
+    }
+
+    function updateCartBar() {
+      const bar = document.getElementById('cartBar');
+      if (cart.length === 0) {
+        bar.classList.add('hidden');
+        return;
+      }
+      bar.classList.remove('hidden');
+
+      const count = cart.reduce((s, item) => s + item.qty, 0);
+      const total = cart.reduce((s, item) => s + item.subtotal, 0);
+
+      document.getElementById('cartCountBadge').textContent = count;
+      document.getElementById('cartTotal').textContent = fmt(total);
+    }
+
+    // --- RENDERIZACIÓN DE MEDIOS DE PAGO ---
+    function renderPaymentMethods() {
+      const list = document.getElementById('paymentMethodsList');
+      list.innerHTML = CFG.metodosPago.map((m, idx) => {
+        return `
+          <label class="flex items-center gap-2 cursor-pointer p-1.5 rounded-lg hover:bg-white/5">
+            <input type="radio" name="paymentMethod" value="${m.id}" ${idx === 0 ? 'checked' : ''} onchange="selectedPayment = '${m.id}'" class="accent-ember">
+            <span class="text-stone-200">${m.nombre}</span>
+          </label>
+        `;
+      }).join('');
+    }
+
+    // --- MODAL DE COMANDA / CHECKOUT ---
+    function openComandaModal() {
+      const modal = document.getElementById('orderModal');
+      const list = document.getElementById('modalItemsList');
+
+      if (cart.length === 0) {
+        alert('Tu orden está vacía. Elige algunos platos primero.');
+        return;
+      }
+
+      list.innerHTML = cart.map((item, idx) => {
+        const modsList = item.selectedOptions.map(o => `+ ${o.nombre} ${o.precio > 0 ? `(${fmt(o.precio)})` : ''}`).join(', ');
+        return `
+          <div class="p-2.5 rounded-2xl bg-darkwood border border-white/5 space-y-1">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="font-bold text-gold font-mono">${item.qty}x</span>
+                <span class="text-white ml-1 font-semibold">${item.name}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-gold font-bold">${fmt(item.subtotal)}</span>
+                <button onclick="removeCartItem(${idx})" class="text-stone-400 hover:text-red-400 text-xs px-1">✕</button>
+              </div>
+            </div>
+            ${modsList ? `<p class="text-[11px] text-stone-400 pl-5 leading-tight">${modsList}</p>` : ''}
+            ${item.notes ? `<p class="text-[11px] text-amber-300/80 pl-5 italic">📝 ${item.notes}</p>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      updateModalTotals();
+      document.getElementById('orderSuccess').classList.add('hidden');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function removeCartItem(idx) {
+      cart.splice(idx, 1);
+      if (cart.length === 0) {
+        closeComandaModal();
+        updateCartBar();
+      } else {
+        openComandaModal();
+        updateCartBar();
+      }
+    }
+
+    function closeComandaModal() {
+      const modal = document.getElementById('orderModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function updateModalTotals() {
+      const subtotal = cart.reduce((s, item) => s + item.subtotal, 0);
+      const isTipChecked = document.getElementById('tipCheckbox').checked;
+      const tip = isTipChecked ? Math.round(subtotal * (CFG.propinaSugeridaPct / 100)) : 0;
+
+      let deliveryFee = 0;
+      if (serviceMode === 'delivery') {
+        const zoneSelect = document.getElementById('delivZone');
+        if (zoneSelect) deliveryFee = parseInt(zoneSelect.value) || 0;
+      }
+
+      let discountAmount = 0;
+      const discountLine = document.getElementById('discountLine');
+      if (descuentoAplicado) {
+        discountAmount = descuentoAplicado.tipo === 'porcentaje'
+          ? Math.round(subtotal * (descuentoAplicado.valor / 100))
+          : descuentoAplicado.valor;
+        discountAmount = Math.min(discountAmount, subtotal);
+        document.getElementById('discountLineLabel').textContent = `Descuento (${descuentoAplicado.codigo}):`;
+        document.getElementById('discountDisplay').textContent = '-' + fmt(discountAmount);
+        discountLine.classList.remove('hidden');
+        discountLine.classList.add('flex');
+      } else {
+        discountLine.classList.add('hidden');
+        discountLine.classList.remove('flex');
+      }
+
+      const total = Math.max(0, subtotal - discountAmount + tip + deliveryFee);
+
+      document.getElementById('subtotalDisplay').textContent = fmt(subtotal);
+      document.getElementById('tipDisplay').textContent = fmt(tip);
+      document.getElementById('tipAmountLabel').textContent = '+' + fmt(Math.round(subtotal * (CFG.propinaSugeridaPct / 100)));
+      document.getElementById('modalTotal').textContent = fmt(total);
+      return { subtotal, tip, deliveryFee, discountAmount, total };
+    }
+
+    // --- CÓDIGOS DE DESCUENTO ---
+    function aplicarDescuento() {
+      const input = document.getElementById('discountCodeInput');
+      const feedback = document.getElementById('discountFeedback');
+      const codigo = input.value.trim().toUpperCase();
+      feedback.classList.remove('hidden');
+
+      if (!codigo) {
+        feedback.textContent = 'Ingresa un código primero.';
+        feedback.className = 'text-[11px] font-semibold text-amber-300';
+        return;
+      }
+
+      const subtotal = cart.reduce((s, item) => s + item.subtotal, 0);
+
+      window.descuentosRef().doc(codigo).get().then(doc => {
+        if (!doc.exists || doc.data().activo === false) {
+          descuentoAplicado = null;
+          feedback.textContent = '❌ Código no válido o inactivo.';
+          feedback.className = 'text-[11px] font-semibold text-red-400';
+          updateModalTotals();
+          return;
+        }
+
+        const d = doc.data();
+        if (d.minimoCompra && subtotal < d.minimoCompra) {
+          descuentoAplicado = null;
+          feedback.textContent = `❌ Pedido mínimo de ${fmt(d.minimoCompra)} para este código.`;
+          feedback.className = 'text-[11px] font-semibold text-red-400';
+          updateModalTotals();
+          return;
+        }
+        if (d.usosMax && (d.usosActuales || 0) >= d.usosMax) {
+          descuentoAplicado = null;
+          feedback.textContent = '❌ Este código ya alcanzó su límite de usos.';
+          feedback.className = 'text-[11px] font-semibold text-red-400';
+          updateModalTotals();
+          return;
+        }
+
+        descuentoAplicado = { codigo, tipo: d.tipo, valor: d.valor };
+        feedback.textContent = '✅ ¡Descuento aplicado!';
+        feedback.className = 'text-[11px] font-semibold text-emerald-400';
+        updateModalTotals();
+      }).catch(err => {
+        console.error('Error validando descuento:', err);
+        feedback.textContent = '⚠️ No pudimos validar el código, intenta de nuevo.';
+        feedback.className = 'text-[11px] font-semibold text-amber-300';
+      });
+    }
+
+    // --- ENVÍO DE ORDEN Y COMUNICACIÓN ---
+    function generateTicketText() {
+      const { subtotal, tip, discountAmount, total } = updateModalTotals();
+      const payObj = CFG.metodosPago.find(m => m.id === selectedPayment);
+      const payName = payObj ? payObj.nombre : 'Por definir';
+
+      let text = `🔥 *NUEVA COMANDA - ${CFG.nombre.toUpperCase()}* 🔥\n`;
+      text += `📍 *Destino:* ${serviceMode === 'mesa' ? currentTable : 'Delivery / Retiro'}\n`;
+      text += `🕒 *Hora:* ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}\n`;
+      text += `----------------------------------------\n`;
+
+      cart.forEach(item => {
+        text += `• *${item.qty}x ${item.name}* (${fmt(item.subtotal)})\n`;
+        if (item.selectedOptions.length > 0) {
+          item.selectedOptions.forEach(opt => {
+            text += `   - ${opt.nombre} ${opt.precio > 0 ? `(+${fmt(opt.precio)})` : ''}\n`;
+          });
+        }
+        if (item.notes) {
+          text += `   📝 *Nota:* ${item.notes}\n`;
+        }
+      });
+
+      text += `----------------------------------------\n`;
+      text += `Subtotal consumo: ${fmt(subtotal)}\n`;
+      if (discountAmount > 0) text += `Descuento (${descuentoAplicado.codigo}): -${fmt(discountAmount)}\n`;
+      if (tip > 0) text += `Propina sugerida (${CFG.propinaSugeridaPct}%): ${fmt(tip)}\n`;
+      text += `*TOTAL A PAGAR: ${fmt(total)}*\n`;
+      text += `----------------------------------------\n`;
+      text += `💳 *Medio de Pago:* ${payName}\n`;
+      return text;
+    }
+
+    function sendOrderWhatsApp() {
+      const text = generateTicketText();
+      const url = `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
+    function processOrder() {
+      if (cart.length === 0) return;
+      const ticketId = '#BRA-' + Math.floor(100 + Math.random() * 900);
+      const { subtotal, tip, deliveryFee, discountAmount, total } = updateModalTotals();
+      const payObj = CFG.metodosPago.find(m => m.id === selectedPayment);
+      const payName = payObj ? payObj.nombre : 'Por definir';
+
+      let customerName = 'Comensal Salón';
+      let fullAddress = null; // Firestore no acepta "undefined" en los campos, por eso null y no dejarlo sin asignar
+      if (serviceMode === 'delivery') {
+        customerName = (document.getElementById('delivName').value || 'Cliente Delivery') + ' (' + (document.getElementById('delivPhone').value || '') + ')';
+        const zoneSelect = document.getElementById('delivZone');
+        const zoneName = zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].getAttribute('data-zone') : '';
+        fullAddress = (document.getElementById('delivAddress').value || '') + ' · Zona: ' + zoneName;
+      }
+
+      // Estructura completa del pedido sincronizado con KDS
+      const orderPayload = {
+        id: ticketId,
+        createdAt: new Date().toISOString(),
+        status: 'nuevo',
+        type: serviceMode,
+        table: serviceMode === 'mesa' ? currentTable : null,
+        address: fullAddress,
+        customer: customerName,
+        items: cart.map(i => ({
+          name: i.name,
+          qty: i.qty,
+          mods: i.selectedOptions.map(o => o.nombre + (o.precio > 0 ? ` (+${fmt(o.precio)})` : '')),
+          price: i.subtotal
+        })),
+        subtotal: subtotal,
+        tip: tip,
+        deliveryFee: deliveryFee,
+        discountCode: descuentoAplicado ? descuentoAplicado.codigo : null,
+        discountAmount: discountAmount,
+        total: total,
+        payment: payName,
+        notes: cart.map(i => i.notes).filter(Boolean).join(', ')
+      };
+
+      // Guardar el pedido en Firestore: así llega en vivo a panel.html y
+      // cocina.html sin importar en qué celular/dispositivo esté abierto.
+      window.pedidosRef().add({
+        ...orderPayload,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        actualizarFichaCliente(total);
+        // Descuenta el stock de los platos que lo controlan (ej: "quedan 5 porciones de cazuela")
+        cart.forEach(item => {
+          if (item.controlStock && item.platoDocId) {
+            window.platosRef().doc(item.platoDocId).update({
+              stock: firebase.firestore.FieldValue.increment(-item.qty)
+            }).catch(err => console.error('Error descontando stock:', err));
+          }
+        });
+        if (descuentoAplicado) {
+          window.descuentosRef().doc(descuentoAplicado.codigo).update({
+            usosActuales: firebase.firestore.FieldValue.increment(1)
+          }).catch(err => console.error('Error registrando uso del descuento:', err));
+        }
+        document.getElementById('ticketIdLabel').textContent = ticketId;
+        document.getElementById('orderSuccess').classList.remove('hidden');
+
+        setTimeout(() => {
+          if (serviceMode === 'delivery') {
+            sendOrderWhatsApp();
+          }
+          cart = [];
+          descuentoAplicado = null;
+          document.getElementById('discountCodeInput').value = '';
+          document.getElementById('discountFeedback').classList.add('hidden');
+          updateCartBar();
+          renderMenu();
+          closeComandaModal();
+          alert('🛎️ ¡Comanda ' + ticketId + ' ingresada en Pantalla de Cocina (KDS)! El chef y los garzones ya tienen tu pedido.');
+        }, 1200);
+      }).catch(err => {
+        console.error('Error enviando pedido a Firestore:', err);
+        alert('⚠️ No pudimos enviar tu pedido al sistema. Igual lo mandamos por WhatsApp para que no se pierda.');
+        sendOrderWhatsApp();
+      });
+    }
+
+    // --- CRM: crea o actualiza la ficha del cliente al confirmar un pedido con delivery ---
+    function actualizarFichaCliente(total) {
+      if (serviceMode !== 'delivery') return; // en mesa no capturamos teléfono, no hay a quién fichar
+      const telRaw = document.getElementById('delivPhone').value;
+      const tel = window.normalizarTelefono(telRaw);
+      if (!tel) return;
+
+      const nombre = document.getElementById('delivName').value || 'Cliente';
+      window.clientesRef().doc(tel).set({
+        nombre,
+        telefono: telRaw,
+        totalPedidos: firebase.firestore.FieldValue.increment(1),
+        totalGastado: firebase.firestore.FieldValue.increment(total),
+        ultimaCompra: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).catch(err => console.error('Error actualizando ficha de cliente:', err));
+    }
+
+    // --- IMPRESIÓN DE COMANDA TÉRMICA (58mm / 80mm) ---
+    function printKitchenTicket() {
+      const { subtotal, tip, total } = updateModalTotals();
+      const ticket = document.getElementById('printableTicket');
+      const ticketId = '#BRA-' + Math.floor(100 + Math.random() * 900);
+
+      ticket.innerHTML = `
+        <div style="text-align: center; border-bottom: 1px dashed #000; padding-bottom: 5px; margin-bottom: 5px;">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 800;">${CFG.nombre.toUpperCase()}</h2>
+          <p style="margin: 2px 0 0; font-size: 10px;">${CFG.direccion}</p>
+          <h3 style="margin: 4px 0 0; font-size: 13px; font-weight: 900;">*** COMANDA DE COCINA ***</h3>
+          <p style="margin: 2px 0 0; font-size: 11px; font-weight: bold;">${ticketId} · ${new Date().toLocaleTimeString('es-CL')}</p>
+          <p style="margin: 2px 0 0; font-size: 12px; font-weight: 900; background: #000; color: #fff; padding: 2px;">
+            ${serviceMode === 'mesa' ? currentTable.toUpperCase() : 'DELIVERY / RETIRO'}
+          </p>
+        </div>
+
+        <div style="border-bottom: 1px dashed #000; padding-bottom: 5px; margin-bottom: 5px;">
+          ${cart.map(i => `
+            <div style="margin-bottom: 6px;">
+              <div style="font-weight: 800; font-size: 12px;">${i.qty}x ${i.name.toUpperCase()}</div>
+              ${i.selectedOptions.map(o => `<div style="font-size: 10px; padding-left: 10px;">• ${o.nombre}</div>`).join('')}
+              ${i.notes ? `<div style="font-size: 10px; font-weight: bold; padding-left: 10px;">>> NOTA: ${i.notes}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="font-size: 10px; line-height: 1.4;">
+          <div style="display: flex; justify-content: space-between;">
+            <span>Subtotal:</span>
+            <span>${fmt(subtotal)}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Propina (10%):</span>
+            <span>${fmt(tip)}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 12px; border-top: 1px solid #000; padding-top: 2px;">
+            <span>TOTAL:</span>
+            <span>${fmt(total)}</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 8px; border-top: 1px dashed #000; padding-top: 4px; font-size: 9px;">
+          Software por UNIVERSO693 SpA · universo693.com
+        </div>
+      `;
+
+      ticket.classList.remove('hidden');
+      window.print();
+      setTimeout(() => ticket.classList.add('hidden'), 500);
+    }
+  </script>
+
+  <!-- Inyección del Panel Modo Dueño para editar carta, stock y precios -->
+  <script src="/demos/modo-dueno.js"></script>
+</body>
+</html>

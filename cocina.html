@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pantalla de Cocina & KDS · Fravioli, Street Food</title>
+  
+  <meta name="theme-color" content="#F7F6FB" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            /* Paleta propia de Zoco, modo claro (igual criterio que panel.html) */
+            kdsBg: '#F7F6FB',
+            kdsCard: '#FFFFFF',
+            kdsBorder: '#ECEAF3',
+            ember: '#7C3AED',
+            gold: '#A16207'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #printArea, #printArea * { visibility: visible; }
+      #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72mm;
+        margin: 0;
+        padding: 3mm;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: #000;
+        background: #fff;
+      }
+    }
+    @keyframes pulseAlert {
+      0%, 100% { border-color: #EF4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.25); }
+      50% { border-color: #F59E0B; box-shadow: 0 0 25px rgba(245, 158, 11, 0.35); }
+    }
+    .order-new-alert {
+      animation: pulseAlert 1.5s infinite;
+    }
+
+    body {
+      background-image: radial-gradient(circle at 15% -10%, rgba(124,58,237,0.06), transparent 40%);
+      background-attachment: fixed;
+    }
+    .bg-kdsCard { box-shadow: 0 1px 2px 0 rgba(31,27,46,0.04), 0 8px 24px -12px rgba(31,27,46,0.10); }
+
+    /* La plantilla fue escrita para fondo oscuro (text-white/slate-X, bg-slate-800).
+       En modo claro se invierten a esta escala neutra-violeta, sin tocar el HTML. */
+    .text-white { color: #1F1B2E !important; }
+    .text-slate-100 { color: #1F1B2E !important; }
+    .text-slate-200 { color: #4A4458 !important; }
+    .text-slate-300 { color: #5C5568 !important; }
+    .text-slate-400 { color: #837C91 !important; }
+    .text-slate-500 { color: #A39DAD !important; }
+    .bg-slate-700 { background-color: #EDEAF5 !important; }
+    .bg-slate-800 { background-color: #F1EFF7 !important; color: #5C5568 !important; }
+    .hover\:bg-slate-700:hover { background-color: #E7E3F2 !important; }
+    .bg-ember.text-white { color: #fff !important; }
+  </style>
+
+  <script src="config.js"></script>
+
+  <!-- Firebase (pedidos en vivo, compartido con index.html y panel.html) -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="firebase-init.js"></script>
+</head>
+<body class="bg-kdsBg text-slate-100 min-h-screen font-sans flex flex-col selection:bg-ember selection:text-white">
+
+  <!-- CANDADO DE ACCESO: solo personal autenticado ve los pedidos -->
+  <div id="loginGate" class="fixed inset-0 z-[999] bg-kdsBg flex items-center justify-center p-4">
+    <form id="loginForm" class="w-full max-w-sm bg-kdsCard border border-kdsBorder rounded-2xl p-6 space-y-3 shadow-2xl">
+      <div class="text-center space-y-1 mb-2">
+        <div class="text-2xl">🔐</div>
+        <h2 class="text-sm font-extrabold text-white">Acceso Personal · Pantalla de Cocina</h2>
+        <p class="text-[11px] text-slate-400">Ingresa con la cuenta que te entregó el dueño del local.</p>
+      </div>
+      <input id="loginEmail" type="email" required placeholder="correo@tulocal.cl" class="w-full bg-kdsBg border border-kdsBorder rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-ember" />
+      <input id="loginPass" type="password" required placeholder="Contraseña" class="w-full bg-kdsBg border border-kdsBorder rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-ember" />
+      <p id="loginError" class="hidden text-[11px] text-red-400 font-bold"></p>
+      <button type="submit" class="w-full py-2.5 rounded-xl bg-ember hover:bg-[#B04B25] text-white font-bold text-xs shadow transition-all cursor-pointer">Ingresar</button>
+    </form>
+  </div>
+
+  <!-- TOP BAR KDS / SISTEMA DE COCINA Y CAJA -->
+  <header class="bg-kdsCard border-b border-kdsBorder px-4 py-3 sticky top-0 z-30 shadow-xl">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Identidad y Modo Cocina -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-ember/20 border border-ember/40 flex items-center justify-center text-xl shadow">
+          👨‍🍳
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-extrabold text-white tracking-wide">PANTALLA DE COCINA & BARRA (KDS)</h1>
+            <span class="bg-emerald-950 text-emerald-400 border border-emerald-700/60 font-mono text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              EN VIVO
+            </span>
+          </div>
+          <p class="text-xs text-slate-400">
+            Fravioli, Street Food · Sistema Integral de Comandas y Despacho
+          </p>
+        </div>
+      </div>
+
+      <!-- Métricas del Turno y Botones de Control -->
+      <div class="flex items-center gap-4 text-xs font-mono">
+        <div class="hidden sm:flex items-center gap-3 bg-kdsBg/80 px-3 py-1.5 rounded-xl border border-kdsBorder">
+          <div>
+            <span class="text-slate-400 text-[10px] block">VENTAS TURNO:</span>
+            <span id="statVentasTurno" class="text-gold font-extrabold text-sm">$0</span>
+          </div>
+          <div class="h-6 w-px bg-kdsBorder"></div>
+          <div>
+            <span class="text-slate-400 text-[10px] block">ÓRDENES:</span>
+            <span id="statTotalOrdenes" class="text-white font-extrabold text-sm">0</span>
+          </div>
+        </div>
+
+        <!-- Botón de Audio Alerta -->
+        <button id="btnSoundToggle" onclick="toggleAudio()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold flex items-center gap-1.5 border border-kdsBorder cursor-pointer">
+          <span id="soundIcon">🔔</span>
+          <span id="soundLabel">Audio Activo</span>
+        </button>
+
+        <!-- Botón Simular Pedido Entrante -->
+        <button onclick="injectDemoOrder()" class="px-3.5 py-2 rounded-xl bg-ember hover:bg-ember/90 text-white font-bold flex items-center gap-1.5 shadow-lg cursor-pointer">
+          <span>+</span>
+          <span>Simular Comanda</span>
+        </button>
+
+        <!-- Enlace a la Carta del Cliente -->
+        <a href="index.html" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-700 font-bold border border-cyan-200 flex items-center gap-1">
+          <span>📱</span>
+          <span>Ver Carta Cliente ↗</span>
+        </a>
+
+        <!-- Enlace al Panel del Dueño -->
+        <a href="panel.html" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-700 font-bold border border-emerald-200 flex items-center gap-1">
+          <span>🔐</span>
+          <span>Panel Dueño ↗</span>
+        </a>
+
+        <button onclick="firebase.auth().signOut()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-red-100 text-slate-400 hover:text-red-600 font-bold border border-kdsBorder cursor-pointer" title="Cerrar sesión">
+          <span>🚪</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- BARRA DE FILTRADO POR ESTACIÓN Y ACCIONES RÁPIDAS (TIPO ZOCO OS) -->
+  <div class="bg-kdsCard border-b border-kdsBorder px-4 py-2.5 shadow-sm">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Selector de Estaciones: Cocina Principal / Barra / Todas -->
+      <div class="flex items-center gap-1.5 p-1 bg-slate-200/60 rounded-xl">
+        <button onclick="setStationFilter('cocina')" id="btnKdsCocina" class="station-kds-btn px-4 py-1.5 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm flex items-center gap-1.5 cursor-pointer">
+          <span>🍳</span>
+          <span>Cocina Principal</span>
+          <span id="badgeKdsCocina" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
+        </button>
+        <button onclick="setStationFilter('barra')" id="btnKdsBarra" class="station-kds-btn px-4 py-1.5 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
+          <span>🍸</span>
+          <span>Barra / Bebidas</span>
+          <span id="badgeKdsBarra" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
+        </button>
+        <button onclick="setStationFilter('todas')" id="btnKdsTodas" class="station-kds-btn px-4 py-1.5 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer">
+          <span>⚡</span>
+          <span>Todas</span>
+          <span id="badgeKdsTodas" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
+        </button>
+      </div>
+
+      <!-- Acciones Rápidas -->
+      <div class="flex items-center gap-2">
+        <button onclick="marcarTodasListas()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+          <span>✓</span>
+          <span>Marcar todas listas</span>
+        </button>
+        <button onclick="toggleFullscreen()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold border border-kdsBorder cursor-pointer" title="Modo Pantalla Completa (F11)">
+          ⛶
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TABLERO KANBAN DE COCINA: 4 COLUMNAS OPERATIVAS -->
+  <main class="max-w-7xl mx-auto px-4 py-5 flex-1 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 h-full">
+
+      <!-- COLUMNA 1: NUEVOS / POR CONFIRMAR -->
+      <div class="flex flex-col bg-kdsCard rounded-2xl border border-kdsBorder overflow-hidden">
+        <div class="bg-amber-50 border-b border-amber-100 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-amber-400 animate-pulse"></span>
+            <h2 class="text-xs font-black tracking-wider text-amber-700 uppercase">1. Nuevos / Entrantes</h2>
+          </div>
+          <span id="countNuevos" class="bg-amber-400 text-slate-950 font-mono font-black text-xs px-2 py-0.5 rounded-full">0</span>
+        </div>
+        <div id="colNuevos" class="p-3 space-y-3 flex-1 overflow-y-auto max-h-[calc(100vh-220px)]">
+          <!-- Inyección JS -->
+        </div>
+      </div>
+
+      <!-- COLUMNA 2: EN FUEGO / EN PREPARACIÓN -->
+      <div class="flex flex-col bg-kdsCard rounded-2xl border border-kdsBorder overflow-hidden">
+        <div class="bg-blue-50 border-b border-blue-100 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-blue-400"></span>
+            <h2 class="text-xs font-black tracking-wider text-blue-700 uppercase">2. En Preparación</h2>
+          </div>
+          <span id="countCocina" class="bg-blue-400 text-slate-950 font-mono font-black text-xs px-2 py-0.5 rounded-full">0</span>
+        </div>
+        <div id="colCocina" class="p-3 space-y-3 flex-1 overflow-y-auto max-h-[calc(100vh-220px)]">
+          <!-- Inyección JS -->
+        </div>
+      </div>
+
+      <!-- COLUMNA 3: LISTOS PARA SERVIR O REPARTO -->
+      <div class="flex flex-col bg-kdsCard rounded-2xl border border-kdsBorder overflow-hidden">
+        <div class="bg-emerald-50 border-b border-emerald-100 px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+            <h2 class="text-xs font-black tracking-wider text-emerald-700 uppercase">3. Listos / Servir</h2>
+          </div>
+          <span id="countListos" class="bg-emerald-400 text-slate-950 font-mono font-black text-xs px-2 py-0.5 rounded-full">0</span>
+        </div>
+        <div id="colListos" class="p-3 space-y-3 flex-1 overflow-y-auto max-h-[calc(100vh-220px)]">
+          <!-- Inyección JS -->
+        </div>
+      </div>
+
+      <!-- COLUMNA 4: DESPACHADOS / HISTORIAL TURNO -->
+      <div class="flex flex-col bg-kdsCard rounded-2xl border border-kdsBorder overflow-hidden">
+        <div class="bg-slate-100 border-b border-kdsBorder px-4 py-3 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-slate-400"></span>
+            <h2 class="text-xs font-black tracking-wider text-slate-600 uppercase">4. Despachados</h2>
+          </div>
+          <span id="countDespachados" class="bg-slate-300 text-slate-700 font-mono font-black text-xs px-2 py-0.5 rounded-full">0</span>
+        </div>
+        <div id="colDespachados" class="p-3 space-y-3 flex-1 overflow-y-auto max-h-[calc(100vh-220px)] opacity-75">
+          <!-- Inyección JS -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ÁREA OCULTA PARA IMPRESIÓN TÉRMICA DE TICKET -->
+  <div id="printArea" class="hidden"></div>
+
+  <!-- SONIDO SINTETIZADO CON WEB AUDIO API (CERO DEPENDENCIAS EXTERNAS) -->
+  <script>
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    function playKitchenChime() {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        
+        // Sonido de dos tonos claros: Campana de Cocina (Ding-Dong)
+        const now = audioCtx.currentTime;
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(880, now); // A5
+        gain1.gain.setValueAtTime(0.3, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.5);
+
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(1174.66, now + 0.15); // D6
+        gain2.gain.setValueAtTime(0.35, now + 0.15);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+        osc2.connect(gain2);
+        gain2.connect(audioCtx.destination);
+        osc2.start(now + 0.15);
+        osc2.stop(now + 0.8);
+      } catch (e) {
+        console.warn('Audio no inicializado aún por interacción del usuario.', e);
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('soundIcon').textContent = audioEnabled ? '🔔' : '🔕';
+      document.getElementById('soundLabel').textContent = audioEnabled ? 'Audio Activo' : 'Silenciado';
+      if (audioEnabled) playKitchenChime();
+    }
+  </script>
+
+  <!-- LOGIN: CANDADO DE ACCESO -->
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      const errEl = document.getElementById('loginError');
+      errEl.classList.add('hidden');
+      firebase.auth().signInWithEmailAndPassword(email, pass).catch((err) => {
+        errEl.textContent = 'Correo o contraseña incorrectos.';
+        errEl.classList.remove('hidden');
+        console.error(err);
+      });
+    });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      const gate = document.getElementById('loginGate');
+      if (user) {
+        gate.classList.add('hidden');
+        subscribeToOrders();
+      } else {
+        gate.classList.remove('hidden');
+      }
+    });
+  </script>
+
+  <!-- LÓGICA DE NEGOCIO Y SINCRONIZACIÓN EN TIEMPO REAL (FIRESTORE) -->
+  <script>
+    let orders = [];
+    let knownOrderIds = new Set();
+    let subscribed = false;
+
+    function subscribeToOrders() {
+      if (subscribed) return; // evita doble suscripción si el login cambia de estado más de una vez
+      subscribed = true;
+
+      window.pedidosRef().orderBy('createdAt', 'desc').limit(60).onSnapshot((snap) => {
+        const prevIds = knownOrderIds;
+        const nextIds = new Set();
+        let hasNewOrder = false;
+
+        orders = snap.docs.map((d) => {
+          const data = d.data();
+          nextIds.add(d.id);
+          if (data.status === 'nuevo' && !prevIds.has(d.id)) hasNewOrder = true;
+          return {
+            docId: d.id,
+            ...data,
+            createdAt: data.createdAt && data.createdAt.toDate ? data.createdAt.toDate().toISOString() : new Date().toISOString()
+          };
+        });
+
+        knownOrderIds = nextIds;
+        if (hasNewOrder && prevIds.size > 0) playKitchenChime();
+        renderBoard();
+      });
+    }
+
+    function fmt(n) {
+      return '$' + Number(n).toLocaleString('es-CL');
+    }
+
+    function getTimeAgo(dateStr) {
+      const diffMin = Math.floor((Date.now() - new Date(dateStr).getTime()) / 60000);
+      if (diffMin <= 0) return 'Hace instantes';
+      if (diffMin === 1) return 'Hace 1 min';
+      return `Hace ${diffMin} min`;
+    }
+
+    function changeOrderStatus(orderDocId, nextStatus) {
+      window.pedidosRef().doc(orderDocId).update({ status: nextStatus }).catch((err) => {
+        console.error('Error actualizando el estado del pedido:', err);
+        alert('No se pudo actualizar el pedido. Revisa tu conexión.');
+      });
+    }
+
+    let currentStationFilter = 'cocina'; // 'cocina', 'barra', 'todas'
+
+    function setStationFilter(station) {
+      currentStationFilter = station;
+      document.querySelectorAll('.station-kds-btn').forEach(b => {
+        b.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
+        b.classList.add('text-slate-500');
+      });
+      const activeBtn = station === 'cocina' ? document.getElementById('btnKdsCocina') : (station === 'barra' ? document.getElementById('btnKdsBarra') : document.getElementById('btnKdsTodas'));
+      if (activeBtn) {
+        activeBtn.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+        activeBtn.classList.remove('text-slate-500');
+      }
+      renderBoard();
+    }
+
+    function isBeverageItem(item) {
+      const name = (item.name || '').toLowerCase();
+      const cat = (item.cat || '').toLowerCase();
+      const keywords = ['bebida', 'trago', 'cerveza', 'coca', 'fanta', 'sprite', 'jugo', 'agua', 'pisco', 'mojito', 'vino', 'cocktail', 'cafe', 'café', 'té', 'infusion'];
+      return cat === 'bebidas' || cat === 'tragos' || keywords.some(k => name.includes(k));
+    }
+
+    function filterOrderItemsByStation(order, station) {
+      if (station === 'todas') return order.items || [];
+      if (station === 'barra') return (order.items || []).filter(isBeverageItem);
+      return (order.items || []).filter(i => !isBeverageItem(i));
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        document.exitFullscreen().catch(err => console.log(err));
+      }
+    }
+
+    function marcarTodasListas() {
+      const enCocina = orders.filter(p => p.status === 'cocina' || p.status === 'nuevo');
+      if (enCocina.length === 0) {
+        alert('No hay comandas en preparación para marcar como listas.');
+        return;
+      }
+      if (!confirm(`¿Marcar las ${enCocina.length} comandas en preparación como listas para servir?`)) return;
+      const batch = firebase.firestore().batch();
+      enCocina.forEach(p => {
+        batch.update(window.pedidosRef().doc(p.docId), { status: 'listo' });
+      });
+      batch.commit();
+    }
+
+    function renderBoard() {
+      const colNuevos = document.getElementById('colNuevos');
+      const colCocina = document.getElementById('colCocina');
+      const colListos = document.getElementById('colListos');
+      const colDespachados = document.getElementById('colDespachados');
+
+      colNuevos.innerHTML = '';
+      colCocina.innerHTML = '';
+      colListos.innerHTML = '';
+      colDespachados.innerHTML = '';
+
+      let countN = 0, countC = 0, countL = 0, countD = 0;
+      let countCocinaStation = 0, countBarraStation = 0, countTodasStation = 0;
+      let totalVentas = 0;
+
+      orders.forEach(o => {
+        totalVentas += (o.total || 0);
+
+        const hasBarra = (o.items || []).some(isBeverageItem);
+        const hasCocina = (o.items || []).some(i => !isBeverageItem(i));
+
+        if (o.status === 'nuevo' || o.status === 'cocina') {
+          if (hasCocina) countCocinaStation++;
+          if (hasBarra) countBarraStation++;
+          countTodasStation++;
+        }
+
+        const itemsToShow = filterOrderItemsByStation(o, currentStationFilter);
+        if (itemsToShow.length === 0) return;
+
+        const card = document.createElement('div');
+        const isNew = o.status === 'nuevo';
+        const elapsedMin = Math.floor((Date.now() - new Date(o.createdAt).getTime()) / 60000);
+
+        let timerBadgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        if (elapsedMin >= 10 && elapsedMin < 20) timerBadgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
+        else if (elapsedMin >= 20) timerBadgeColor = 'bg-red-100 text-red-800 border-red-300 animate-pulse';
+
+        card.className = `bg-kdsCard border ${isNew ? 'order-new-alert' : 'border-kdsBorder'} rounded-2xl p-4 shadow-lg flex flex-col justify-between space-y-3 transition-all`;
+
+        const isMesa = o.type === 'mesa';
+        const typeBadge = isMesa 
+          ? `<span class="bg-amber-950 text-amber-300 border border-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">🍽️ ${o.table || 'MESA'}</span>`
+          : `<span class="bg-emerald-950 text-emerald-300 border border-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full font-mono">🛵 DELIVERY</span>`;
+
+        card.innerHTML = `
+          <div class="space-y-2">
+            <!-- Header de la Orden -->
+            <div class="flex items-start justify-between border-b border-kdsBorder pb-2">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-mono font-black text-sm text-white">${o.id}</span>
+                  ${typeBadge}
+                </div>
+                <div class="text-[11px] text-slate-400 mt-0.5 font-mono flex items-center gap-1.5">
+                  <span>${new Date(o.createdAt).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}</span>
+                  <span class="px-1.5 py-0.2 rounded-md font-bold text-[9px] border ${timerBadgeColor}">⏱️ ${elapsedMin}m</span>
+                </div>
+              </div>
+              <button onclick="printTicket('${o.docId}')" title="Imprimir Comanda" class="text-slate-400 hover:text-white bg-kdsBg border border-kdsBorder p-1.5 rounded-lg text-xs cursor-pointer">
+                🖨️
+              </button>
+            </div>
+
+            <!-- Cliente / Destino -->
+            <div class="text-xs">
+              <div class="font-bold text-slate-200">${o.customer || 'Comensal Salón'}</div>
+              ${!isMesa && o.address ? `<div class="text-[11px] text-slate-400 leading-tight">📍 ${o.address}</div>` : ''}
+            </div>
+
+            <!-- Lista de Platos para esta Estación -->
+            <div class="space-y-1.5 py-1 text-xs">
+              ${itemsToShow.map(item => `
+                <div class="bg-kdsBg/70 p-2 rounded-xl border border-kdsBorder/60">
+                  <div class="flex justify-between items-baseline">
+                    <span class="font-bold text-white"><span class="text-amber-400 font-mono">${item.qty}x</span> ${item.name}</span>
+                    <span class="font-mono text-slate-400 text-[11px]">${fmt(item.price)}</span>
+                  </div>
+                  ${item.mods && item.mods.length > 0 ? `
+                    <div class="text-[10px] text-slate-400 pl-4 mt-0.5 space-y-0.5 font-mono">
+                      ${item.mods.map(m => `<div>• ${m}</div>`).join('')}
+                    </div>
+                  ` : ''}
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Notas de Cocina -->
+            ${o.notes ? `
+              <div class="p-2 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-800">
+                <strong>📝 Nota Cocina:</strong> ${o.notes}
+              </div>
+            ` : ''}
+
+            <!-- Medio de Pago y Total -->
+            <div class="text-[11px] border-t border-kdsBorder pt-2 font-mono flex justify-between items-center text-slate-300">
+              <span class="truncate max-w-[170px]" title="${o.payment}">${o.payment}</span>
+              <span class="font-black text-gold text-sm">${fmt(o.total)}</span>
+            </div>
+          </div>
+
+          <!-- Botones de Acción de Flujo KDS -->
+          <div class="pt-1">
+            ${getActionButtons(o)}
+          </div>
+        `;
+
+        if (o.status === 'nuevo') {
+          colNuevos.appendChild(card);
+          countN++;
+        } else if (o.status === 'cocina') {
+          colCocina.appendChild(card);
+          countC++;
+        } else if (o.status === 'listo') {
+          colListos.appendChild(card);
+          countL++;
+        } else {
+          colDespachados.appendChild(card);
+          countD++;
+        }
+      });
+
+      document.getElementById('countNuevos').textContent = countN;
+      document.getElementById('countCocina').textContent = countC;
+      document.getElementById('countListos').textContent = countL;
+      document.getElementById('countDespachados').textContent = countD;
+
+      const bCocina = document.getElementById('badgeKdsCocina');
+      const bBarra = document.getElementById('badgeKdsBarra');
+      const bTodas = document.getElementById('badgeKdsTodas');
+      if (bCocina) bCocina.textContent = countCocinaStation;
+      if (bBarra) bBarra.textContent = countBarraStation;
+      if (bTodas) bTodas.textContent = countTodasStation;
+
+      document.getElementById('statTotalOrdenes').textContent = orders.length;
+      document.getElementById('statVentasTurno').textContent = fmt(totalVentas);
+    }
+
+    function getActionButtons(order) {
+      if (order.status === 'nuevo') {
+        return `
+          <button onclick="changeOrderStatus('${order.docId}', 'cocina')" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow transition-all cursor-pointer flex items-center justify-center gap-1">
+            <span>🔥</span> Aceptar y Pasar a Cocina
+          </button>
+        `;
+      }
+      if (order.status === 'cocina') {
+        return `
+          <button onclick="changeOrderStatus('${order.docId}', 'listo')" class="w-full py-2.5 rounded-xl bg-blue-500 hover:bg-blue-400 text-slate-950 font-black text-xs shadow transition-all cursor-pointer flex items-center justify-center gap-1">
+            <span>✓</span> Marcar Listo para Servir
+          </button>
+        `;
+      }
+      if (order.status === 'listo') {
+        return `
+          <button onclick="changeOrderStatus('${order.docId}', 'despachado')" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow transition-all cursor-pointer flex items-center justify-center gap-1">
+            <span>🚀</span> Marcar Despachado / Cobrado
+          </button>
+        `;
+      }
+      return `
+        <span class="block text-center text-[10px] text-slate-500 font-mono">
+          ✓ Orden Cerrada y Cobrada
+        </span>
+      `;
+    }
+
+    // Simulación de pedido entrante para demostraciones comerciales con clientes
+    function injectDemoOrder() {
+      const demoNames = ['Fernanda Valenzuela', 'Claudio Morales', 'Rodrigo Araya', 'Camila Soto'];
+      const demoTables = ['Mesa #03 · Salón', 'Mesa #08 · Terraza', 'Mesa #12 · VIP', 'Barra #02'];
+      const isMesa = Math.random() > 0.3;
+      const num = Math.floor(100 + Math.random() * 900);
+
+      const fakeOrder = {
+        id: 'BRA-' + num,
+        status: 'nuevo',
+        type: isMesa ? 'mesa' : 'delivery',
+        table: isMesa ? demoTables[Math.floor(Math.random() * demoTables.length)] : null,
+        address: !isMesa ? '1 Norte #1250, Viña del Mar' : null,
+        customer: demoNames[Math.floor(Math.random() * demoNames.length)],
+        items: [
+          { name: 'Bife de Chorizo Angus (400g)', qty: 1, mods: ['Término Medio', 'Papas Rústicas', '+ Chimichurri'], price: 19900 },
+          { name: 'Volcán de Manjar Casero', qty: 1, mods: [], price: 5500 }
+        ],
+        subtotal: 25400,
+        tip: 2540,
+        total: 27940,
+        payment: '💳 Tarjeta Débito/Crédito (POS)',
+        notes: 'Punto medio exacto por favor.'
+      };
+
+      window.pedidosRef().add({
+        ...fakeOrder,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+
+    function printTicket(orderDocId) {
+      const o = orders.find(x => x.docId === orderDocId);
+      if (!o) return;
+
+      const pArea = document.getElementById('printArea');
+      const isBarra = currentStationFilter === 'barra';
+      const isCocina = currentStationFilter === 'cocina';
+
+      const itemsToPrint = currentStationFilter === 'todas'
+        ? o.items
+        : o.items.filter(item => {
+            const isDrink = isBeverageOrDrink(item.name);
+            return isBarra ? isDrink : !isDrink;
+          });
+
+      const tituloEstacion = isBarra ? 'COMANDA BARRA & TRAGOS (80MM)' : isCocina ? 'COMANDA COCINA CALIENTE (80MM)' : 'COMANDA GENERAL (80MM)';
+
+      pArea.innerHTML = `
+        <div style="width: 72mm; margin: 0 auto; text-align: center; border-bottom: 2px dashed #000; padding-bottom: 4px; margin-bottom: 4px; font-family: monospace;">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 900;">${CFG.nombre.toUpperCase()}</h2>
+          <p style="margin: 2px 0 0; font-size: 11px; font-weight: bold;">*** ${tituloEstacion} ***</p>
+          <div style="margin: 4px 0; font-size: 14px; font-weight: 900; background: #000; color: #fff; padding: 3px 6px; display: inline-block; border-radius: 4px;">
+            ${o.type === 'mesa' ? (o.table || 'MESA').toUpperCase() : 'DELIVERY A DOMICILIO'}
+          </div>
+          <div style="font-size: 11px; font-weight: bold;">ORDEN: ${o.id}</div>
+          <div style="font-size: 10px;">HORA: ${new Date(o.createdAt?.toDate ? o.createdAt.toDate() : o.createdAt).toLocaleTimeString('es-CL')}</div>
+        </div>
+
+        <div style="width: 72mm; margin: 0 auto; border-bottom: 1px dashed #000; padding-bottom: 4px; margin-bottom: 4px; font-family: monospace;">
+          ${(itemsToPrint.length > 0 ? itemsToPrint : o.items).map(item => `
+            <div style="margin-bottom: 6px; border-bottom: 1px dashed #000; padding-bottom: 4px;">
+              <div style="font-weight: 900; font-size: 13px;">[ ${item.qty}X ] ${item.name.toUpperCase()}</div>
+              ${item.mods ? item.mods.map(m => `<div style="font-size: 10px; font-weight: bold; padding-left: 20px;">>> ${m}</div>`).join('') : ''}
+            </div>
+          `).join('')}
+          ${o.notes ? `<div style="font-size: 11px; font-weight: 900; margin-top: 4px; border: 1px solid #000; padding: 2px 4px;">>> NOTA: ${o.notes.toUpperCase()}</div>` : ''}
+        </div>
+
+        <div style="width: 72mm; margin: 0 auto; text-align: center; font-size: 9px; font-family: monospace; padding-top: 4px;">
+          --- CORTE COMANDA KDS (80MM) ---
+        </div>
+      `;
+
+      pArea.classList.remove('hidden');
+      window.print();
+      setTimeout(() => pArea.classList.add('hidden'), 500);
+    }
+
+    function openSplitScreen() {
+      window.open('index.html', '_blank', 'width=450,height=800,left=50,top=50');
+    }
+
+    // Actualizar tiempos relativos ("Hace X min") cada 30 segundos
+    setInterval(renderBoard, 30000);
+  </script>
+</body>
+</html>
