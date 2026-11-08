@@ -240,9 +240,9 @@
   <!-- ================= TOP ANNOUNCEMENT BANNER ================= -->
   <div class="bg-brand-600 text-white text-xs font-semibold py-2 px-4 text-center">
     <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
-      <span class="bg-white/20 text-white px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Lanzamiento 2026</span>
-      <span>🎉 Prueba Sokify <strong>3 meses gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.</span>
-      <a href="#probar" class="underline font-bold text-white hover:text-brand-100 ml-1 hidden sm:inline">Comenzar ahora &rarr;</a>
+      <span class="bg-white/20 text-white px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider" data-i18n="top_badge">Lanzamiento 2026</span>
+      <span data-i18n="top_text">🎉 Prueba Sokify <strong>3 meses gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.</span>
+      <a href="#probar" class="underline font-bold text-white hover:text-brand-100 ml-1 hidden sm:inline" data-i18n="top_cta">Comenzar ahora &rarr;</a>
     </div>
   </div>
 
@@ -261,24 +261,51 @@
 
       <!-- Desktop Navigation Menu -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
-        <a href="#simulador" class="hover:text-brand-600 transition-colors flex items-center gap-1.5">
+        <a href="#simulador" data-i18n="nav_simulador" class="hover:text-brand-600 transition-colors flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           Simulador en Vivo
         </a>
-        <a href="#caracteristicas" class="hover:text-brand-600 transition-colors">Módulos</a>
-        <a href="#ahorro" class="hover:text-brand-600 transition-colors">Calculadora Ahorro</a>
-        <a href="#precios" class="hover:text-brand-600 transition-colors">Planes</a>
-        <a href="#faq" class="hover:text-brand-600 transition-colors">Preguntas</a>
+        <a href="#caracteristicas" data-i18n="nav_modulos" class="hover:text-brand-600 transition-colors">Módulos</a>
+        <a href="#ahorro" data-i18n="nav_calculadora" class="hover:text-brand-600 transition-colors">Calculadora Ahorro</a>
+        <a href="#precios" data-i18n="nav_precios" class="hover:text-brand-600 transition-colors">Planes</a>
+        <a href="#faq" data-i18n="nav_faq" class="hover:text-brand-600 transition-colors">Preguntas</a>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-3">
+      <!-- Action Buttons & Language Selector -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        
+        <!-- SELECTOR DE IDIOMAS (PT, ES, EN, FR) -->
+        <div class="relative" id="langSelectorWrapper">
+          <button type="button" onclick="toggleLangDropdown(event)" id="btnLangDropdown" class="px-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 text-xs font-bold text-slate-700 bg-white hover:bg-slate-50 flex items-center gap-1.5 transition shadow-sm cursor-pointer" aria-haspopup="true" aria-expanded="false">
+            <span id="currentLangLabel">ES</span>
+            <svg class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" id="langChevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+
+          <!-- Dropdown Popover -->
+          <div id="langDropdownMenu" class="hidden absolute right-0 mt-2 w-28 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+            <button type="button" onclick="changeLanguage('pt')" data-lang-opt="pt" class="w-full text-center py-2 text-xs font-semibold text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 transition-colors">
+              PT
+            </button>
+            <button type="button" onclick="changeLanguage('es')" data-lang-opt="es" class="w-full text-center py-2 text-xs font-bold text-blue-600 bg-blue-50/50 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+              ES
+            </button>
+            <button type="button" onclick="changeLanguage('en')" data-lang-opt="en" class="w-full text-center py-2 text-xs font-semibold text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 transition-colors">
+              EN
+            </button>
+            <button type="button" onclick="changeLanguage('fr')" data-lang-opt="fr" class="w-full text-center py-2 text-xs font-semibold text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 transition-colors">
+              FR
+            </button>
+          </div>
+        </div>
+
         <a href="/panel.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-xl border border-borderLight transition">
           <svg class="w-4 h-4 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
-          Iniciar Sesión
+          <span data-i18n="btn_login">Iniciar Sesión</span>
         </a>
-        <button onclick="openTrialModal()" class="btn-shimmer bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-xl shadow-soft transition transform hover:-translate-y-0.5">
-          Probar Gratis
+        <button onclick="openTrialModal()" class="btn-shimmer bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-extrabold px-4 sm:px-5 py-2.5 rounded-xl shadow-soft transition transform hover:-translate-y-0.5">
+          <span data-i18n="btn_trial">Probar Gratis</span>
         </button>
       </div>
     </div>
@@ -296,34 +323,34 @@
         <!-- Pill Badge -->
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm mb-6">
           <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-          <span>🦉 Oferta de Masificación · 3 Meses 100% Gratis sin tarjeta</span>
+          <span data-i18n="hero_pill_title">🦉 Oferta de Masificación · 3 Meses 100% Gratis sin tarjeta</span>
           <span class="text-brand-300 hidden sm:inline">|</span>
-          <span class="text-slate-600 font-medium hidden sm:inline">Potencia tus pedidos directos sin intermediarios</span>
+          <span class="text-slate-600 font-medium hidden sm:inline" data-i18n="hero_pill_sub">Potencia tus pedidos directos sin intermediarios</span>
         </div>
 
         <!-- Main Headline -->
         <h1 class="text-4xl sm:text-6xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.08]">
-          El piloto automático de tu
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-fuchsia-600 to-indigo-600">
+          <span data-i18n="hero_title_pre">El piloto automático de tu</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-fuchsia-600 to-indigo-600" data-i18n="hero_title_highlight">
             restaurante, sin comisiones.
           </span>
         </h1>
 
         <!-- Subtitle -->
-        <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+        <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed" data-i18n="hero_subtitle">
           Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.
         </p>
 
         <!-- CTA Buttons & Trial Note -->
         <div class="mt-10 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
           <button onclick="openTrialModal()" class="w-full sm:w-auto btn-shimmer bg-brand-600 hover:bg-brand-700 text-white font-black text-base px-8 py-4 rounded-2xl shadow-elevated transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-            <span>Comenzar Prueba Gratis (3 Meses (90 Días))</span>
+            <span data-i18n="hero_btn_trial">Comenzar Prueba Gratis (3 Meses (90 Días))</span>
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </button>
 
           <a href="#simulador" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-700 font-bold text-base px-7 py-4 rounded-2xl border border-borderLight hover:border-brand-300 shadow-sm transition flex items-center justify-center gap-2.5">
             <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <span>Ver Simulador Interactivo</span>
+            <span data-i18n="hero_btn_simulator">Ver Simulador Interactivo</span>
           </a>
         </div>
 
@@ -1619,6 +1646,164 @@
 
         appendSofiMessage(reply, `Hola Sofi, te pregunté: "${query}" y quiero más detalles`);
       }, 400);
+    }
+
+    // =========================================================================
+    // SISTEMA MULTILINGÜE (i18n): PT, ES, EN, FR
+    // =========================================================================
+    const I18N = {
+      es: {
+        nav_simulador: 'Simulador en Vivo',
+        nav_modulos: 'Módulos',
+        nav_calculadora: 'Calculadora Ahorro',
+        nav_precios: 'Planes',
+        nav_faq: 'Preguntas',
+        btn_login: 'Iniciar Sesión',
+        btn_trial: 'Probar Gratis',
+        top_badge: 'Lanzamiento 2026',
+        top_text: '🎉 Prueba Sokify <strong>3 meses gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.',
+        top_cta: 'Comenzar ahora →',
+        hero_pill_title: '🦉 Oferta de Masificación · 3 Meses 100% Gratis sin tarjeta',
+        hero_pill_sub: 'Potencia tus pedidos directos sin intermediarios',
+        hero_title_pre: 'El piloto automático de tu',
+        hero_title_highlight: 'restaurante, sin comisiones.',
+        hero_subtitle: 'Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.',
+        hero_btn_trial: 'Comenzar Prueba Gratis (3 Meses (90 Días))',
+        hero_btn_simulator: 'Ver Simulador Interactivo'
+      },
+      en: {
+        nav_simulador: 'Live Simulator',
+        nav_modulos: 'Modules',
+        nav_calculadora: 'Savings Calculator',
+        nav_precios: 'Pricing',
+        nav_faq: 'FAQ',
+        btn_login: 'Log In',
+        btn_trial: 'Try for Free',
+        top_badge: 'Launch 2026',
+        top_text: '🎉 Try Sokify <strong>3 months free</strong> with no credit card and start selling with 0% commission today.',
+        top_cta: 'Get started now →',
+        hero_pill_title: '🦉 Launch Special · 3 Months 100% Free without card',
+        hero_pill_sub: 'Boost your direct orders with zero intermediaries',
+        hero_title_pre: 'The autopilot for your',
+        hero_title_highlight: 'restaurant, zero commissions.',
+        hero_subtitle: 'Smart QR digital menu, real-time kitchen display screen (KDS), cloud POS, and WhatsApp AI assistant. Designed to maximize your profit margin and serve twice as fast.',
+        hero_btn_trial: 'Start Free Trial (3 Months (90 Days))',
+        hero_btn_simulator: 'View Interactive Simulator'
+      },
+      pt: {
+        nav_simulador: 'Simulador ao Vivo',
+        nav_modulos: 'Módulos',
+        nav_calculadora: 'Calculadora de Economia',
+        nav_precios: 'Planos',
+        nav_faq: 'Dúvidas',
+        btn_login: 'Entrar',
+        btn_trial: 'Testar Grátis',
+        top_badge: 'Lançamento 2026',
+        top_text: '🎉 Experimente o Sokify <strong>3 meses grátis</strong> sem cartão e comece a vender com 0% de comissão hoje.',
+        top_cta: 'Começar agora →',
+        hero_pill_title: '🦉 Oferta Especial · 3 Meses 100% Grátis sem cartão',
+        hero_pill_sub: 'Potencialize seus pedidos diretos sem intermediários',
+        hero_title_pre: 'O piloto automático do seu',
+        hero_title_highlight: 'restaurante, sem comissões.',
+        hero_subtitle: 'Cardápio digital QR inteligente, tela de cozinha KDS em tempo real, ponto de venda (POS) e copiloto com IA no WhatsApp. Projetado para lucrar mais e atender o dobro de rápido.',
+        hero_btn_trial: 'Começar Teste Grátis (3 Meses (90 Dias))',
+        hero_btn_simulator: 'Ver Simulador Interativo'
+      },
+      fr: {
+        nav_simulador: 'Simulateur en Direct',
+        nav_modulos: 'Modules',
+        nav_calculadora: 'Calculateur d\'Économies',
+        nav_precios: 'Tarifs',
+        nav_faq: 'FAQ',
+        btn_login: 'Connexion',
+        btn_trial: 'Essai Gratuit',
+        top_badge: 'Lancement 2026',
+        top_text: '🎉 Essayez Sokify <strong>3 mois gratuits</strong> sans carte bancaire et vendez avec 0% de commission dès aujourd\'hui.',
+        top_cta: 'Démarrer maintenant →',
+        hero_pill_title: '🦉 Offre de Lancement · 3 Mois 100% Gratuits sans carte',
+        hero_pill_sub: 'Booste vos commandes directes sans intermédiaires',
+        hero_title_pre: 'Le pilote automatique de votre',
+        hero_title_highlight: 'restaurant, zéro commission.',
+        hero_subtitle: 'Menu QR digital intelligent, écran de cuisine KDS en temps réel avec alertes, point de vente (POS) et copilote IA sur WhatsApp. Conçu pour maximiser vos marges.',
+        hero_btn_trial: 'Commencer l\'Essai Gratuit (3 Mois (90 Jours))',
+        hero_btn_simulator: 'Voir le Simulateur Interactif'
+      }
+    };
+
+    let currentLanguage = localStorage.getItem('sokify_lang') || 'es';
+
+    function toggleLangDropdown(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById('langDropdownMenu');
+      const btn = document.getElementById('btnLangDropdown');
+      const chevron = document.getElementById('langChevron');
+      if (!menu) return;
+
+      const isHidden = menu.classList.contains('hidden');
+      if (isHidden) {
+        menu.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      } else {
+        menu.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    function changeLanguage(lang) {
+      if (!I18N[lang]) return;
+      currentLanguage = lang;
+      localStorage.setItem('sokify_lang', lang);
+
+      // Actualizar label del botón
+      const labelEl = document.getElementById('currentLangLabel');
+      if (labelEl) labelEl.textContent = lang.toUpperCase();
+
+      // Actualizar clases activas en las opciones del menú
+      document.querySelectorAll('#langDropdownMenu [data-lang-opt]').forEach(btn => {
+        const isSelected = btn.getAttribute('data-lang-opt') === lang;
+        if (isSelected) {
+          btn.className = 'w-full text-center py-2 text-xs font-bold text-blue-600 bg-blue-50/50 hover:bg-blue-50 hover:text-blue-600 transition-colors';
+        } else {
+          btn.className = 'w-full text-center py-2 text-xs font-semibold text-slate-700 hover:bg-blue-50/70 hover:text-blue-600 transition-colors';
+        }
+      });
+
+      // Traducir todos los elementos con data-i18n
+      const dict = I18N[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      // Cerrar menú
+      const menu = document.getElementById('langDropdownMenu');
+      const chevron = document.getElementById('langChevron');
+      const btn = document.getElementById('btnLangDropdown');
+      if (menu) menu.classList.add('hidden');
+      if (chevron) chevron.style.transform = 'rotate(0deg)';
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Cerrar al hacer clic fuera
+    document.addEventListener('click', (e) => {
+      const wrapper = document.getElementById('langSelectorWrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        const menu = document.getElementById('langDropdownMenu');
+        const chevron = document.getElementById('langChevron');
+        const btn = document.getElementById('btnLangDropdown');
+        if (menu) menu.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Iniciar con el idioma guardado
+    if (currentLanguage !== 'es') {
+      changeLanguage(currentLanguage);
     }
 </script>
 
