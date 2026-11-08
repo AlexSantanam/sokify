@@ -1,1204 +1,1209 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Menú Digital & QR · La Brasa & Leña</title>
-
-  <!-- Aplica el tema guardado ANTES de pintar, para que no haya parpadeo -->
-  <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('universo693_theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-        document.documentElement.setAttribute('data-theme', theme);
-      } catch (e) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-      document.documentElement.setAttribute('data-palette', 'brasa'); // la real llega de Firestore (definida por el dueño), esto es solo para que no haya parpadeo
-    })();
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   
-  <!-- PWA & Mobile Meta -->
-  <meta name="theme-color" content="#181310" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <!-- SEO Primary Meta Tags -->
+  <title>Sokify · El Sistema Operativo para tu Restaurante | Cero Comisiones</title>
+  <meta name="title" content="Sokify · El Sistema Operativo para tu Restaurante | Cero Comisiones">
+  <meta name="description" content="Aumenta tus ventas y ahorra millones en comisiones. Menú digital QR, cocina KDS en vivo, punto de venta (POS), arqueo de caja y asistente IA por WhatsApp en una sola plataforma. Prueba 15 días gratis.">
+  <meta name="keywords" content="software restaurantes, menú digital QR, punto de venta restaurante, KDS cocina, comanda digital, software gastronómico chile, pedidos whatsapp restaurante">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#090514">
 
-  <!-- Google Fonts -->
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sokify.app/">
+  <meta property="og:title" content="Sokify · El Sistema Operativo para tu Restaurante">
+  <meta property="og:description" content="Gestiona tu restaurante sin pagarle un tercio de tus ventas a las apps. Menú QR, Cocina en Vivo y Punto de Venta. Prueba 15 días gratis.">
+  <meta property="og:image" content="https://sokify.app/assets/sokify-logo.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://sokify.app/">
+  <meta property="twitter:title" content="Sokify · El Sistema Operativo para tu Restaurante">
+  <meta property="twitter:description" content="Menú digital QR, cocina KDS en tiempo real y POS sin comisiones por pedido.">
+  <meta property="twitter:image" content="https://sokify.app/assets/sokify-logo.png">
+
+  <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            serif: ['"Playfair Display"', 'Georgia', 'serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            ember: 'rgb(var(--c-ember) / <alpha-value>)',
-            darkwood: 'rgb(var(--c-darkwood) / <alpha-value>)',
-            warmcard: 'rgb(var(--c-warmcard) / <alpha-value>)',
-            gold: 'rgb(var(--c-gold) / <alpha-value>)'
+            dark: {
+              950: '#070512',
+              900: '#0c091d',
+              850: '#120e2a',
+              800: '#181436',
+              700: '#26214f',
+            },
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+            },
+            accent: {
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              fuchsia: '#d946ef',
+              cyan: '#06b6d4',
+            }
+          },
+          animation: {
+            'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+            'shimmer': 'shimmer 2.5s linear infinite',
+            'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+            'marquee': 'marquee 28s linear infinite',
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(200%)' }
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: 0.4 },
+              '50%': { opacity: 0.85 }
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' }
+            }
           }
         }
       }
     }
   </script>
 
-  <!-- Modo Claro / Oscuro: variables de color de marca + overrides de la paleta neutra de Tailwind -->
   <style>
-    :root, [data-theme="dark"] {
-      --c-ember: 200 90 50;
-      --c-darkwood: 24 19 16;
-      --c-warmcard: 34 28 24;
-      --c-gold: 233 196 106;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #070512; }
+    ::-webkit-scrollbar-thumb { background: #26214f; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+
+    /* Bento & Glowing Grid Backgrounds (21st.dev style) */
+    .bg-grid-pattern {
+      background-image: radial-gradient(circle at 1px 1px, rgba(139, 92, 246, 0.12) 1px, transparent 0);
+      background-size: 32px 32px;
     }
-    [data-theme="light"] {
-      --c-ember: 200 90 50;
-      --c-darkwood: 250 246 240;
-      --c-warmcard: 255 255 255;
-      --c-gold: 165 110 20;
+    .bg-mesh-glow {
+      background: radial-gradient(circle at 50% -20%, rgba(124, 58, 237, 0.35) 0%, rgba(14, 10, 32, 0.8) 50%, #070512 100%);
+    }
+    .bento-card {
+      background: rgba(18, 14, 42, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      border-color: rgba(167, 139, 250, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px -15px rgba(124, 58, 237, 0.3);
     }
 
-    /* Paletas de marca: cambian solo el color de acento (ember/gold), no el
-       fondo claro/oscuro, que lo sigue controlando el toggle de tema. */
-    [data-palette="oceano"] { --c-ember: 14 116 144; --c-gold: 45 180 178; }
-    [data-theme="light"][data-palette="oceano"] { --c-gold: 11 106 105; }
-    [data-palette="bosque"] { --c-ember: 63 107 56; --c-gold: 168 143 54; }
-    [data-theme="light"][data-palette="bosque"] { --c-gold: 120 101 35; }
+    /* Shimmer Button Effect */
+    .btn-shimmer {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent 20%, rgba(255,255,255,0.2) 50%, transparent 80%);
+      transform: rotate(30deg);
+      animation: shimmer 4s infinite linear;
+    }
 
-    /* La paleta neutra de Tailwind (white/stone/black) no usa variables, así que
-       se invierte a mano solo para el modo claro. Dark mode no necesita nada: ya
-       está diseñado así por defecto. */
-    [data-theme="light"] body { color: #221C18; }
-    [data-theme="light"] .text-white { color: #221C18 !important; }
-    [data-theme="light"] .text-stone-200 { color: #4A433D !important; }
-    [data-theme="light"] .text-stone-300 { color: #5C5248 !important; }
-    [data-theme="light"] .text-stone-400 { color: #7A6F63 !important; }
-    [data-theme="light"] .text-stone-500 { color: #948878 !important; }
-    [data-theme="light"] .placeholder-stone-500::placeholder { color: #A89C8E !important; }
-    [data-theme="light"] .border-white\/5 { border-color: rgba(0,0,0,0.06) !important; }
-    [data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.10) !important; }
-    [data-theme="light"] .border-white\/15 { border-color: rgba(0,0,0,0.14) !important; }
-    [data-theme="light"] .bg-white\/5 { background-color: rgba(0,0,0,0.035) !important; }
-    [data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.06) !important; }
-    [data-theme="light"] .hover\:bg-white\/10:hover { background-color: rgba(0,0,0,0.06) !important; }
-    [data-theme="light"] .hover\:bg-white\/20:hover { background-color: rgba(0,0,0,0.1) !important; }
-    [data-theme="light"] .hover\:text-white:hover { color: #221C18 !important; }
-    [data-theme="light"] .bg-stone-900 { background-color: #EFE8DF !important; }
-    [data-theme="light"] .bg-black\/80 { background-color: rgba(34,28,24,0.55) !important; }
-
-    /* Botón de alternar tema */
-    #themeToggle .icon-dark { display: inline; }
-    #themeToggle .icon-light { display: none; }
-    [data-theme="light"] #themeToggle .icon-dark { display: none; }
-    [data-theme="light"] #themeToggle .icon-light { display: inline; }
+    /* FAQ Details animation */
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open] .faq-chevron { transform: rotate(180deg); }
   </style>
 
-  <!-- Estilos para Impresión Térmica de Cocina (58mm / 80mm) -->
-  <style>
-    @media print {
-      body * { visibility: hidden; }
-      #printableTicket, #printableTicket * { visibility: visible; }
-      #printableTicket {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 72mm;
-        margin: 0;
-        padding: 4mm;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 11px;
-        color: #000000;
-        background: #ffffff;
-      }
+  <!-- Schema.org Structured Data for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Sokify",
+    "operatingSystem": "Web, iOS, Android, Windows, Mac",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "9999",
+      "priceCurrency": "CLP"
+    },
+    "description": "Sistema operativo integral para restaurantes sin comisiones: Menú digital QR, Cocina KDS en vivo, Punto de venta y Chatbot IA.",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "412"
     }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
-
-  <!-- Carga de la Configuración Central -->
-  <script src="config.js"></script>
-
-  <!-- Firebase (carta, stock y pedidos en vivo, compartido con panel.html y cocina.html) -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="firebase-init.js"></script>
+  }
+  </script>
 </head>
-<body class="bg-darkwood text-[#F4EFEA] antialiased selection:bg-ember selection:text-white pb-32">
 
-  <!-- TOP BAR: CONTEXTO DEL LOCAL & ESTADO DE MESA -->
-  <header class="sticky top-0 z-40 bg-darkwood/95 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-ember/20 border border-ember/40 flex items-center justify-center text-xl shadow">
-          🔥
-        </div>
-        <div>
-          <h1 id="brandName" class="font-serif text-lg font-bold leading-none text-white tracking-wide">La Brasa & Leña</h1>
-          <p id="brandAddress" class="text-[11px] text-stone-400 mt-1">Av. San Martín 693 · <span class="text-emerald-400 font-bold">● Cocina Abierta</span></p>
-        </div>
-        <button onclick="openInfoModal()" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 hover:text-white text-[11px] font-bold flex items-center justify-center shrink-0 cursor-pointer" title="Información del local">
-          ℹ️
-        </button>
-        <button id="themeToggle" onclick="toggleTheme()" class="w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 hover:text-white text-[11px] font-bold flex items-center justify-center shrink-0 cursor-pointer" title="Cambiar tema claro/oscuro">
-          <span class="icon-dark">☀️</span>
-          <span class="icon-light">🌙</span>
-        </button>
-      </div>
+<body class="bg-dark-950 text-slate-100 font-sans antialiased selection:bg-brand-600 selection:text-white overflow-x-hidden">
 
-      <div class="flex items-center gap-2">
-        <!-- Enlace Directo al Sistema de Cocina / KDS -->
-        <a href="cocina.html" target="_blank" class="hidden sm:flex text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-amber-950/60 text-amber-300 border border-amber-600/50 hover:bg-amber-900/60 items-center gap-1.5 transition-all shadow cursor-pointer">
-          <span>👨‍🍳</span>
-          <span>Ver Pantalla de Cocina (KDS) ↗</span>
+  <!-- ================= TOP ANNOUNCEMENT BANNER ================= -->
+  <div class="bg-gradient-to-r from-brand-900 via-brand-700 to-indigo-900 text-white text-xs font-semibold py-2 px-4 text-center border-b border-brand-500/30">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <span class="bg-brand-500/40 text-brand-200 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">Lanzamiento 2026</span>
+      <span>🎉 Prueba Sokify <strong>15 días gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.</span>
+      <a href="#probar" class="underline font-bold text-white hover:text-brand-200 ml-1 hidden sm:inline">Comenzar ahora &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ================= FLOATING STICKY HEADER ================= -->
+  <header class="sticky top-0 z-50 bg-dark-950/80 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-600 to-violet-400 p-[1px] shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/40 transition">
+          <div class="w-full h-full bg-dark-900 rounded-2xl flex items-center justify-center p-1.5">
+            <img src="assets/sokify-avatar.png" alt="Sokify Logo" class="w-full h-full object-contain">
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-2xl font-black tracking-tight text-white group-hover:text-brand-300 transition-colors">Sokify</span>
+          <span class="text-[9px] font-mono tracking-widest text-slate-400 uppercase -mt-1 font-bold">Restaurant OS</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-300">
+        <a href="#simulador" class="hover:text-brand-400 transition-colors flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Simulador en Vivo
         </a>
+        <a href="#caracteristicas" class="hover:text-brand-400 transition-colors">Módulos</a>
+        <a href="#ahorro" class="hover:text-brand-400 transition-colors">Calculadora Ahorro</a>
+        <a href="#precios" class="hover:text-brand-400 transition-colors">Planes</a>
+        <a href="#faq" class="hover:text-brand-400 transition-colors">Preguntas</a>
+      </nav>
 
-        <!-- Selector de Modo: Mesa en Salón vs Delivery / Retiro -->
-        <div class="flex items-center bg-warmcard p-1 rounded-2xl border border-white/10 text-xs">
-        <button id="btnModeMesa" onclick="setServiceMode('mesa')" class="px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow">
-          🍽️ Mesa
-        </button>
-        <button id="btnModeDelivery" onclick="setServiceMode('delivery')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
-          🛵 Delivery
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <a href="/panel.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 px-4 py-2.5 rounded-xl border border-white/10 transition">
+          <svg class="w-4 h-4 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+          Iniciar Sesión
+        </a>
+        <button onclick="openTrialModal()" class="btn-shimmer bg-brand-600 hover:bg-brand-500 text-white text-xs sm:text-sm font-extrabold px-5 py-2.5 rounded-xl shadow-lg shadow-brand-600/30 hover:shadow-brand-500/50 transition transform hover:-translate-y-0.5">
+          Probar Gratis
         </button>
       </div>
     </div>
-
-    <!-- BANNER DINÁMICO DE MESA ACTIVA (QR) -->
-    <div id="tableBanner" class="bg-gradient-to-r from-ember/30 via-warmcard to-ember/20 border-t border-b border-ember/30 px-4 py-2 text-xs">
-      <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2">
-        <div class="flex items-center gap-2">
-          <span class="bg-gold text-darkwood font-mono font-extrabold text-[10px] px-2 py-0.5 rounded">
-            QR ACTIVO
-          </span>
-          <span class="font-bold text-white">Ordenando en: <span id="tableLabel" class="text-gold font-mono font-extrabold">MESA #07 · TERRAZA</span></span>
-        </div>
-        <div class="flex items-center gap-3 text-[11px] text-stone-300">
-          <button onclick="promptTableChange()" class="underline hover:text-white font-semibold">Cambiar Mesa ✎</button>
-          <span>·</span>
-          <button onclick="llamarGarzon()" class="bg-white/10 hover:bg-white/20 text-white font-bold px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1">
-            <span>🔔</span> Llamar Garzón
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- BANNER DE OFERTA EN VIVO (lo activa el dueño desde panel.html) -->
-    <div id="promoBar" class="hidden bg-emerald-900/80 border-t border-b border-emerald-500/40 px-4 py-1.5 text-center text-xs font-bold text-emerald-200"></div>
   </header>
 
-  <!-- HERO PROMOCIONAL CÁLIDO -->
-  <section class="max-w-5xl mx-auto px-4 pt-5 pb-3">
-    <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-warmcard p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="space-y-2 max-w-lg z-10">
-        <span class="inline-block bg-ember text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider">
-          Carta Digital & Delivery Oficial
+  <!-- ================= HERO SECTION (21st.dev Sleek Style) ================= -->
+  <section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 bg-mesh-glow bg-grid-pattern overflow-hidden">
+    <!-- Glowing background elements -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-brand-600/20 blur-[130px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-10 text-center">
+      
+      <!-- Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-brand-400/30 text-brand-300 text-xs font-bold shadow-inner mb-6 backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+        <span>El software gastronómico sin comisiones por pedido</span>
+        <span class="text-white/40">|</span>
+        <span class="text-slate-300 font-medium">Reemplaza Uber/Rappi para tus pedidos directos</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08] max-w-5xl mx-auto">
+        El sistema operativo que tu restaurante necesita para
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-fuchsia-300 to-indigo-200">
+          vender más y pagar 0% comisión.
         </span>
-        <h2 id="brandSlogan" class="font-serif text-2xl sm:text-3xl font-bold leading-tight text-white">
-          Cortes nobles a la leña, burgers y coctelería porteña.
-        </h2>
-        <p class="text-xs text-stone-300 leading-relaxed">
-          Ordena desde tu mesa con tu celular sin esperar la carta física, o pide a domicilio directo por WhatsApp sin comisiones abusivas de apps intermediarias.
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+        Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.
+      </p>
+
+      <!-- CTA Buttons & Trial Note -->
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="openTrialModal()" class="w-full sm:w-auto btn-shimmer bg-brand-600 hover:bg-brand-500 text-white font-black text-base px-8 py-4 rounded-2xl shadow-xl shadow-brand-600/40 hover:shadow-brand-500/60 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+          <span>Comenzar Prueba Gratis (15 Días)</span>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+
+        <a href="#simulador" class="w-full sm:w-auto bg-dark-850 hover:bg-dark-800 text-slate-200 font-bold text-base px-7 py-4 rounded-2xl border border-white/10 hover:border-brand-500/40 transition flex items-center justify-center gap-2.5">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Ver Simulador Interactivo</span>
+        </a>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 font-medium">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+          <span>Sin tarjeta de crédito</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+          <span>Listo en menos de 5 minutos</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+          <span>Funciona en cualquier celular o PC</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= LIVE INTERACTIVE DUAL SIMULATOR ================= -->
+  <section id="simulador" class="relative py-16 bg-dark-900 border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Simulador 100% Interactivo en Tiempo Real
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">Haz la prueba ahora mismo</h2>
+        <p class="text-slate-400 mt-2 text-sm sm:text-base">
+          Agrega un plato desde el celular del cliente a la izquierda, presiona <strong class="text-brand-300">"Enviar a Cocina"</strong> y mira cómo entra la comanda al instante en la pantalla KDS a la derecha.
         </p>
       </div>
-      <div class="relative w-full md:w-60 h-36 rounded-2xl overflow-hidden shadow-2xl shrink-0 border-2 border-white/10">
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Plato estrella" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-t from-darkwood/80 via-transparent to-transparent"></div>
-        <div class="absolute bottom-2 left-3 text-[11px] font-bold text-gold">★ Parrilla Porteña en Vivo</div>
-      </div>
-    </div>
-  </section>
 
-  <!-- NAVEGACIÓN RÁPIDA POR CATEGORÍAS (SCROLL HORIZONTAL ESTILO APP) -->
-  <section class="sticky top-[108px] z-30 bg-darkwood/95 backdrop-blur-md py-2 border-b border-white/5">
-    <div id="categoriesBar" class="max-w-5xl mx-auto px-4 flex gap-2 overflow-x-auto no-scrollbar py-1">
-      <!-- Inyectado por JS desde config.js -->
-    </div>
-  </section>
-
-  <!-- GRILLA DE PLATOS Y PRODUCTOS -->
-  <main class="max-w-5xl mx-auto px-4 py-6">
-    <div id="menuGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      <!-- Se inyecta dinámicamente -->
-    </div>
-  </main>
-
-  <!-- BARRA FLOTANTE DE COMANDA / CARRITO (ESTILO ZOCO) -->
-  <div id="cartBar" class="fixed bottom-4 left-4 right-4 max-w-xl mx-auto z-40 hidden">
-    <div class="bg-gradient-to-r from-ember via-[#D96B43] to-ember text-white rounded-3xl p-3.5 shadow-2xl border-2 border-gold/40 flex items-center justify-between gap-3 backdrop-blur-md">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-darkwood text-gold font-mono font-bold flex items-center justify-center text-sm shadow">
-          <span id="cartCountBadge">0</span>
-        </div>
-        <div>
-          <div class="text-[10px] font-extrabold uppercase tracking-wider text-amber-200" id="cartContextLabel">
-            COMANDA MESA #07
+      <!-- The Dual Grid Simulator -->
+      <div class="grid lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- PANE 1: CLIENT SMARTPHONE (Col span 5) -->
+        <div class="lg:col-span-5 bg-dark-950 rounded-3xl p-5 border border-white/10 shadow-2xl relative">
+          <!-- Phone Speaker Notch -->
+          <div class="w-32 h-4 bg-dark-850 rounded-b-xl mx-auto mb-4 border-b border-x border-white/10 flex items-center justify-center">
+            <div class="w-10 h-1 bg-white/20 rounded-full"></div>
           </div>
-          <div class="font-mono text-base sm:text-lg font-extrabold" id="cartTotal">
-            $0
-          </div>
-        </div>
-      </div>
 
-      <button onclick="openComandaModal()" class="bg-darkwood hover:bg-black text-gold font-bold text-xs sm:text-sm px-4 py-2.5 rounded-2xl transition-transform active:scale-95 shadow flex items-center gap-1.5 cursor-pointer">
-        <span>Ver Mi Orden</span>
-        <span>→</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- MODAL DE PERSONALIZACIÓN Y MODIFICADORES (ZOCO KILLER) -->
-  <div id="modifierModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="bg-warmcard border border-white/15 w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[88vh] overflow-y-auto">
-      
-      <!-- Encabezado del Plato -->
-      <div class="flex items-start justify-between border-b border-white/10 pb-3">
-        <div class="space-y-1">
-          <span id="modBadge" class="bg-ember/20 text-gold text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-gold/30">Corte</span>
-          <h3 id="modTitle" class="font-serif text-xl font-bold text-white leading-tight">Nombre del Plato</h3>
-          <p id="modDesc" class="text-xs text-stone-300">Descripción detallada</p>
-        </div>
-        <button onclick="closeModifierModal()" class="text-stone-400 hover:text-white text-xl font-bold p-1">✕</button>
-      </div>
-
-      <!-- Contenedor dinámico de Modificadores (Radios y Checkboxes) -->
-      <div id="modifiersContainer" class="space-y-4 text-xs">
-        <!-- Inyectado por JS -->
-      </div>
-
-      <!-- Notas especiales -->
-      <div class="space-y-1.5 pt-2 border-t border-white/10">
-        <label class="text-[11px] font-bold text-stone-300 uppercase tracking-wider">Notas especiales para el cocinero / garzón:</label>
-        <input id="modSpecialNotes" type="text" placeholder="Ej: Sin sal, la carne bien dorada, salsa aparte..." class="w-full bg-darkwood border border-white/15 rounded-xl px-3 py-2 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-ember" />
-      </div>
-
-      <!-- Pie del Modal: Cantidad + Botón de Agregar con Total en Vivo -->
-      <div class="border-t border-white/10 pt-3 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2 bg-darkwood border border-white/15 px-2 py-1.5 rounded-2xl">
-          <button onclick="changeModQty(-1)" class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center cursor-pointer">-</button>
-          <span id="modQtyDisplay" class="font-mono font-bold text-sm w-6 text-center text-gold">1</span>
-          <button onclick="changeModQty(1)" class="w-7 h-7 rounded-lg bg-ember text-white font-bold flex items-center justify-center cursor-pointer">+</button>
-        </div>
-
-        <button onclick="confirmAddToOrder()" class="flex-1 py-3 px-4 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-xs sm:text-sm shadow-lg transition-transform active:scale-95 flex items-center justify-between">
-          <span>Agregar a la Comanda</span>
-          <span id="modTotalBtn" class="font-mono font-extrabold text-gold">$0</span>
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- MODAL DE INFORMACIÓN DEL LOCAL (ESTILO "INFORMACIÓN" DE ZOCO) -->
-  <div id="infoModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-warmcard border border-white/15 w-full max-w-sm rounded-3xl p-5 shadow-2xl text-white space-y-4">
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <h3 class="font-serif text-lg font-bold text-white">Información</h3>
-        <button onclick="closeInfoModal()" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
-      </div>
-
-      <div class="space-y-1">
-        <p class="font-bold text-white text-sm" id="infoNombre"></p>
-        <p class="text-xs text-stone-400" id="infoDireccion"></p>
-        <p class="text-xs text-stone-400" id="infoHorario"></p>
-      </div>
-
-      <div class="flex items-center gap-2">
-        <a id="infoWhatsapp" target="_blank" class="flex-1 text-center py-2 rounded-xl bg-emerald-900/60 border border-emerald-700/50 text-emerald-300 text-xs font-bold">💬 WhatsApp</a>
-        <a id="infoInstagram" target="_blank" class="flex-1 text-center py-2 rounded-xl bg-white/5 border border-white/10 text-stone-200 text-xs font-bold">📸 Instagram</a>
-        <button onclick="shareMenu()" class="flex-1 text-center py-2 rounded-xl bg-white/5 border border-white/10 text-stone-200 text-xs font-bold cursor-pointer">🔗 Compartir</button>
-      </div>
-
-      <div class="space-y-2 pt-1">
-        <p class="text-[11px] font-bold text-stone-400 uppercase tracking-wider">Tipos de servicio</p>
-
-        <div class="bg-darkwood/70 rounded-xl p-3 border border-white/10 text-xs space-y-1">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-white">🛵 A domicilio</span>
-            <span class="text-emerald-400">✓</span>
-          </div>
-          <p class="text-stone-400">Entrega <span id="infoTiempoEntrega" class="text-white font-semibold"></span></p>
-          <p class="text-stone-400" id="infoPedidoMinimo"></p>
-        </div>
-
-        <div class="bg-darkwood/70 rounded-xl p-3 border border-white/10 text-xs flex items-center justify-between">
-          <span class="font-bold text-white">🏃 Para llevar / Retiro</span>
-          <span class="text-emerald-400">✓</span>
-        </div>
-
-        <div class="bg-darkwood/70 rounded-xl p-3 border border-white/10 text-xs flex items-center justify-between">
-          <span class="font-bold text-white">🍽️ En el local</span>
-          <span class="text-emerald-400">✓</span>
-        </div>
-      </div>
-
-      <a href="panel.html" target="_blank" class="block text-center text-[10px] text-stone-500 hover:text-stone-300 pt-1">🔐 Acceso del local (dueño / recepción)</a>
-    </div>
-  </div>
-
-  <!-- MODAL DE CONFIRMACIÓN DE COMANDA & CHECKOUT (CON PROPINA 10% Y MEDIOS DE PAGO) -->
-  <div id="orderModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-warmcard border border-white/15 w-full max-w-lg rounded-3xl p-5 sm:p-6 shadow-2xl text-white space-y-4 max-h-[90vh] overflow-y-auto">
-      
-      <div class="flex items-center justify-between border-b border-white/10 pb-3">
-        <div>
-          <h3 class="font-serif text-xl font-bold text-white">Tu Comanda</h3>
-          <p class="text-xs text-stone-400" id="modalDestinoLabel">Destino: Mesa #07 (Salón Terraza)</p>
-        </div>
-        <button onclick="closeComandaModal()" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
-      </div>
-
-      <!-- Lista Detallada de Platos con Modificadores -->
-      <div id="modalItemsList" class="space-y-3 text-xs max-h-56 overflow-y-auto pr-1">
-        <!-- Inyección JS -->
-      </div>
-
-      <!-- Datos de Despacho / Delivery (solo se muestra en modo delivery) -->
-      <div id="deliveryFields" class="hidden bg-darkwood/70 rounded-2xl p-3.5 border border-white/10 space-y-2.5">
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] font-bold text-amber-300 uppercase tracking-wider">🛵 Datos de Entrega a Domicilio:</span>
-          <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Rango Activo</span>
-        </div>
-        <div class="grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <label class="block text-[10px] text-stone-400 mb-0.5">Nombre de quien recibe:</label>
-            <input id="delivName" type="text" placeholder="Ej: Camila Soto" value="Camila Soto" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-white focus:outline-none focus:border-ember">
-          </div>
-          <div>
-            <label class="block text-[10px] text-stone-400 mb-0.5">Teléfono WhatsApp:</label>
-            <input id="delivPhone" type="tel" placeholder="+56 9 ..." value="+56 9 9038 7414" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-white focus:outline-none focus:border-ember">
-          </div>
-        </div>
-        <div>
-          <label class="block text-[10px] text-stone-400 mb-0.5">Dirección y Depto:</label>
-          <input id="delivAddress" type="text" placeholder="Ej: 3 Norte 450, Depto 501" value="Av. San Martín 820, Viña del Mar" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
-        </div>
-        <div>
-          <label class="block text-[10px] text-stone-400 mb-0.5">Zona / Rango de Despacho:</label>
-          <select id="delivZone" onchange="updateModalTotals()" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
-            <option value="1500" data-zone="Viña Centro / Poniente">Viña Centro / Poniente (+$1.500 despacho)</option>
-            <option value="3000" data-zone="Reñaca / Jardín del Mar">Reñaca / Jardín del Mar (+$3.000 despacho)</option>
-            <option value="4500" data-zone="Concón Costa">Concón Costa (+$4.500 despacho)</option>
-            <option value="0" data-zone="Retiro en Local">Retiro en Local ($0 sin costo)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Código de Descuento -->
-      <div class="bg-darkwood/70 rounded-2xl p-3 border border-white/10 space-y-2">
-        <label class="text-[11px] font-bold text-stone-300 uppercase tracking-wider block">¿Tienes un código de descuento?</label>
-        <div class="flex gap-2">
-          <input id="discountCodeInput" type="text" placeholder="Ej: BIENVENIDO10" class="flex-1 bg-warmcard border border-white/10 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none focus:border-ember">
-          <button onclick="aplicarDescuento()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs cursor-pointer">Aplicar</button>
-        </div>
-        <p id="discountFeedback" class="text-[11px] font-semibold hidden"></p>
-      </div>
-
-      <!-- Selector de Medio de Pago -->
-      <div class="bg-darkwood/70 rounded-2xl p-3 border border-white/10 space-y-2">
-        <label class="text-[11px] font-bold text-stone-300 uppercase tracking-wider block">Medio de Pago:</label>
-        <div id="paymentMethodsList" class="space-y-1.5 text-xs">
-          <!-- Inyectado desde config.js -->
-        </div>
-      </div>
-
-      <!-- Propina Voluntaria del 10% (Estándar Chile) -->
-      <div class="bg-amber-950/30 rounded-2xl p-3 border border-gold/30 flex items-center justify-between gap-3 text-xs">
-        <label class="flex items-center gap-2 cursor-pointer select-none">
-          <input type="checkbox" id="tipCheckbox" checked onchange="updateModalTotals()" class="w-4 h-4 rounded text-ember accent-ember focus:ring-0 cursor-pointer">
-          <span class="font-medium text-stone-200">
-            Agregar propina voluntaria sugerida (10%) para garzones y cocina
-          </span>
-        </label>
-        <span id="tipAmountLabel" class="font-mono font-bold text-gold whitespace-nowrap">+$0</span>
-      </div>
-
-      <!-- Resumen de Totales -->
-      <div class="border-t border-white/10 pt-3 space-y-1 text-xs font-mono">
-        <div class="flex justify-between text-stone-400">
-          <span>Subtotal consumo:</span>
-          <span id="subtotalDisplay">$0</span>
-        </div>
-        <div id="discountLine" class="hidden justify-between text-emerald-400">
-          <span id="discountLineLabel">Descuento:</span>
-          <span id="discountDisplay">-$0</span>
-        </div>
-        <div class="flex justify-between text-gold">
-          <span>Propina 10%:</span>
-          <span id="tipDisplay">$0</span>
-        </div>
-        <div class="flex justify-between items-baseline pt-1 border-t border-white/5 text-base">
-          <span class="font-sans font-bold text-white">Total a Pagar:</span>
-          <span class="text-2xl font-black text-gold" id="modalTotal">$0</span>
-        </div>
-      </div>
-
-      <!-- Botones de Acción -->
-      <div class="space-y-2 pt-1">
-        <button id="btnSendOrder" onclick="processOrder()" class="w-full py-3.5 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer">
-          <span>🔔</span>
-          <span id="btnSendOrderText">Mandar Comanda a Cocina</span>
-        </button>
-
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="sendOrderWhatsApp()" class="py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer">
-            <span>📲</span> WhatsApp Local
-          </button>
-          <button onclick="printKitchenTicket()" class="py-2.5 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer">
-            <span>🖨️</span> Ticket Cocina
-          </button>
-        </div>
-
-        <button onclick="closeComandaModal()" class="w-full py-2 text-xs text-stone-400 hover:text-white cursor-pointer">
-          ← Volver a la carta para agregar más platos
-        </button>
-      </div>
-
-      <!-- Confirmación Éxito -->
-      <div id="orderSuccess" class="hidden p-4 rounded-2xl bg-emerald-950/80 border border-emerald-500 text-emerald-200 text-xs space-y-1">
-        <div class="font-bold text-emerald-300 text-sm">✓ ¡Comanda Recibida en Cocina y Barra!</div>
-        <p>Número de comanda generada: <strong id="ticketIdLabel">#BRA-042</strong>. El garzón asignado se acerca en breve.</p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ELEMENTO OCULTO PARA IMPRESIÓN TÉRMICA DE COCINA (58mm / 80mm) -->
-  <div id="printableTicket" class="hidden">
-    <!-- Se llena dinámicamente antes de imprimir -->
-  </div>
-
-  <!-- LÓGICA DE NEGOCIO JAVASCRIPT -->
-  <script>
-    const CFG = window.RESTAURANTE_CONFIG;
-    
-    // Estado de la Aplicación
-    let currentCat = 'todos';
-    let serviceMode = 'mesa';
-    let currentTable = CFG.mesaDefault;
-    let cart = []; // Array de items con modificadores únicos: { dishId, name, basePrice, qty, selectedOptions, notes, itemTotal }
-    let activeModDish = null;
-    let activeModQty = 1;
-    let selectedPayment = CFG.metodosPago[0].id;
-    let descuentoAplicado = null; // { codigo, tipo, valor, monto }
-
-    // Carta en vivo: se llena desde Firestore (fuente real) en vez de config.js.
-    // config.js solo se usa como "semilla" la primera vez que corre el local.
-    let platos = [];
-    let categorias = [{ id: 'todos', nombre: '🔥 Toda la Carta', icono: '🔥' }];
-
-    // Formateador de moneda CLP
-    function fmt(n) {
-      return '$' + Number(n).toLocaleString('es-CL');
-    }
-
-    // Inicialización al cargar la página
-    window.addEventListener('DOMContentLoaded', async () => {
-      // 1. Detección automática de Mesa en la URL (?mesa=12 o ?mesa=Terraza%203)
-      const urlParams = new URLSearchParams(window.location.search);
-      const urlTable = urlParams.get('mesa');
-      if (urlTable) {
-        currentTable = 'Mesa #' + urlTable;
-      }
-
-      // 2. Cargar datos de la marca
-      document.getElementById('brandName').textContent = CFG.nombre;
-      document.getElementById('brandSlogan').textContent = CFG.slogan;
-      document.getElementById('tableLabel').textContent = currentTable.toUpperCase();
-
-      // 3. Renderizar Métodos de Pago
-      renderPaymentMethods();
-
-      setServiceMode(urlParams.get('modo') === 'delivery' ? 'delivery' : 'mesa');
-
-      // 4. Pintar la marca con lo que ya tenemos (CFG), sin esperar a Firestore.
-      //    Importante: esto va ANTES del seedIfEmpty — si Firestore no responde
-      //    (credenciales de ejemplo, sin red, etc.) eso no debe bloquear la
-      //    pintura inicial ni las suscripciones de más abajo.
-      let ultimoEstadoNegocio = {};
-      function pintarEstadoNegocio() {
-        const abierto = window.calcularAbiertoAhora(ultimoEstadoNegocio);
-        document.getElementById('brandAddress').innerHTML = `${CFG.direccion} · <span class="${abierto ? 'text-emerald-400' : 'text-red-400'} font-bold">● ${abierto ? 'Cocina Abierta' : 'Cerrado Temporalmente'}</span>`;
-      }
-      pintarEstadoNegocio();
-      // El horario depende de la hora actual, no solo de lo que diga Firestore,
-      // así que se vuelve a evaluar cada minuto aunque nadie cambie nada en el panel.
-      setInterval(pintarEstadoNegocio, 60000);
-
-      // 5. Sembrar Firestore la primera vez (sin bloquear lo de abajo: si esto
-      //    demora o falla por red/credenciales, las suscripciones en vivo
-      //    igual deben quedar activas y mostrar datos apenas lleguen).
-      window.seedIfEmpty();
-
-      // 6. Suscribirse en vivo. Desde aquí en adelante, cualquier cambio hecho
-      //    en panel.html (precio, stock, nuevo plato, categoría) se refleja
-      //    solo, sin recargar.
-      window.categoriasRef().orderBy('orden').onSnapshot(snap => {
-        const extra = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-        categorias = [{ id: 'todos', nombre: '🔥 Toda la Carta', icono: '🔥' }, ...extra];
-        renderCategories();
-      });
-
-      window.platosRef().orderBy('orden').onSnapshot(snap => {
-        platos = snap.docs
-          .map(d => ({ docId: d.id, ...d.data() }))
-          .filter(p => p.disponible !== false && (!p.controlStock || (p.stock || 0) > 0));
-        renderMenu();
-      });
-
-      window.restRef().onSnapshot(snap => {
-        const data = snap.data() || {};
-        ultimoEstadoNegocio = data;
-        pintarEstadoNegocio();
-        document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
-
-        const promoBar = document.getElementById('promoBar');
-        if (data.promo) {
-          promoBar.textContent = '🔥 ' + data.promo;
-          promoBar.classList.remove('hidden');
-        } else {
-          promoBar.classList.add('hidden');
-        }
-      });
-    });
-
-    function setServiceMode(mode) {
-      serviceMode = mode;
-      document.getElementById('btnModeMesa').className = mode === 'mesa'
-        ? 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow'
-        : 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
-      document.getElementById('btnModeDelivery').className = mode === 'delivery'
-        ? 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow'
-        : 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
-
-      const banner = document.getElementById('tableBanner');
-      const ctxLabel = document.getElementById('cartContextLabel');
-      const sendBtnText = document.getElementById('btnSendOrderText');
-      const destLabel = document.getElementById('modalDestinoLabel');
-
-      const delivFields = document.getElementById('deliveryFields');
-      if (mode === 'mesa') {
-        banner.classList.remove('hidden');
-        if (delivFields) delivFields.classList.add('hidden');
-        ctxLabel.textContent = 'COMANDA ' + currentTable.toUpperCase();
-        sendBtnText.textContent = 'Mandar Comanda a Cocina (' + currentTable + ')';
-        destLabel.textContent = 'Destino: ' + currentTable;
-      } else {
-        banner.classList.add('hidden');
-        if (delivFields) delivFields.classList.remove('hidden');
-        ctxLabel.textContent = 'PEDIDO DELIVERY / RETIRO';
-        sendBtnText.textContent = 'Confirmar y Enviar a Cocina / WhatsApp 📲';
-        destLabel.textContent = 'Destino: Reparto a Domicilio o Retiro en Local';
-      }
-    }
-
-    function promptTableChange() {
-      const nueva = prompt('Ingresa el número o nombre de tu mesa (ej: Mesa 12, Barra, Terraza 3):', currentTable);
-      if (nueva && nueva.trim()) {
-        currentTable = nueva.trim();
-        document.getElementById('tableLabel').textContent = currentTable.toUpperCase();
-        setServiceMode('mesa');
-      }
-    }
-
-    function llamarGarzon() {
-      alert('🔔 ¡Llamada enviada a barra y cocina! El garzón de ' + currentTable + ' se acerca a tu mesa en unos instantes.');
-    }
-
-    // --- MODO CLARO / OSCURO ---
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('universo693_theme', next); } catch (e) {}
-    }
-
-    // --- MODAL DE INFORMACIÓN DEL LOCAL ---
-    function openInfoModal() {
-      document.getElementById('infoNombre').textContent = CFG.nombre;
-      document.getElementById('infoDireccion').textContent = CFG.direccion;
-      document.getElementById('infoHorario').textContent = CFG.horario;
-      document.getElementById('infoWhatsapp').href = `https://wa.me/${CFG.whatsapp}`;
-      document.getElementById('infoInstagram').href = `https://instagram.com/${(CFG.instagram || '').replace('@', '')}`;
-      document.getElementById('infoTiempoEntrega').textContent = `${CFG.tiempoEntregaMin}-${CFG.tiempoEntregaMax} min`;
-      document.getElementById('infoPedidoMinimo').textContent = CFG.envioGratis
-        ? 'Envío gratuito'
-        : `Pedido mínimo ${fmt(CFG.pedidoMinimoDelivery)}`;
-
-      const modal = document.getElementById('infoModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeInfoModal() {
-      const modal = document.getElementById('infoModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function shareMenu() {
-      const url = window.location.origin + window.location.pathname;
-      if (navigator.share) {
-        navigator.share({ title: CFG.nombre, text: 'Mira la carta de ' + CFG.nombre, url }).catch(() => {});
-      } else {
-        navigator.clipboard.writeText(url).then(() => alert('🔗 Link de la carta copiado.'));
-      }
-    }
-
-    function renderCategories() {
-      const bar = document.getElementById('categoriesBar');
-      bar.innerHTML = categorias.map(cat => {
-        const isMatch = cat.id === currentCat;
-        return `
-          <button onclick="filterCat('${cat.id}')" class="cat-pill px-4 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all ${isMatch ? 'bg-ember text-white shadow' : 'bg-warmcard text-stone-300 hover:text-white border border-white/10'}">
-            ${cat.nombre}
-          </button>
-        `;
-      }).join('');
-    }
-
-    function filterCat(cat) {
-      currentCat = cat;
-      renderCategories();
-      renderMenu();
-    }
-
-    function renderMenu() {
-      const grid = document.getElementById('menuGrid');
-      const filtered = platos.filter(d => currentCat === 'todos' || d.cat === currentCat);
-
-      if (filtered.length === 0) {
-        grid.innerHTML = `<div class="col-span-full text-center text-stone-500 text-xs py-10">Aún no hay platos cargados en esta categoría.</div>`;
-        return;
-      }
-
-      grid.innerHTML = filtered.map(d => {
-        const hasMods = d.modificadores && d.modificadores.length > 0;
-        return `
-          <div class="bg-warmcard rounded-3xl overflow-hidden border border-white/10 flex flex-col justify-between hover:border-white/20 transition-all">
+          <div class="flex items-center justify-between pb-3 border-b border-white/10">
             <div>
-              <div class="relative h-44 overflow-hidden bg-stone-900 cursor-pointer" onclick="openModifierModal(${d.id})">
-                <img src="${d.img}" alt="${d.name}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                <span class="absolute top-3 left-3 bg-darkwood/90 text-gold text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-gold/30">
-                  ${d.badge}
-                </span>
-                ${hasMods ? `
-                  <span class="absolute bottom-2.5 right-3 bg-ember/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-lg shadow">
-                    Personalizable ⚙️
-                  </span>
-                ` : ''}
+              <span class="text-[10px] uppercase font-mono tracking-wider text-brand-400 font-bold">Vista Cliente · Menú QR</span>
+              <h3 class="text-sm font-black text-white">Parrillada & Burger Sokify</h3>
+            </div>
+            <span class="text-[11px] font-mono bg-brand-950 text-brand-300 border border-brand-500/30 px-2 py-0.5 rounded-md font-bold">Mesa 04</span>
+          </div>
+
+          <!-- Dishes to click -->
+          <div class="space-y-3 mt-4" id="simDishes">
+            <!-- Dish 1 -->
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🍔</span>
+                <div>
+                  <h4 class="text-xs font-bold text-white">Burger Doble Trufada</h4>
+                  <p class="text-[11px] font-mono text-emerald-400 font-bold">$8.990</p>
+                </div>
               </div>
-              <div class="p-4 space-y-1.5">
-                <h3 class="font-serif text-lg font-bold text-white leading-snug cursor-pointer" onclick="openModifierModal(${d.id})">${d.name}</h3>
-                <p class="text-xs text-stone-300 leading-relaxed">${d.desc}</p>
-              </div>
+              <button onclick="addSimItem('Burger Doble Trufada', 8990)" class="text-xs bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl transition">
+                + Agregar
+              </button>
             </div>
 
-            <div class="p-4 pt-2 border-t border-white/5 flex items-center justify-between">
-              <span class="font-mono text-lg font-extrabold text-gold">${fmt(d.price)}</span>
+            <!-- Dish 2 -->
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🍟</span>
+                <div>
+                  <h4 class="text-xs font-bold text-white">Papas Cheddar & Bacon</h4>
+                  <p class="text-[11px] font-mono text-emerald-400 font-bold">$4.200</p>
+                </div>
+              </div>
+              <button onclick="addSimItem('Papas Cheddar & Bacon', 4200)" class="text-xs bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl transition">
+                + Agregar
+              </button>
+            </div>
 
-              <button onclick="openModifierModal(${d.id})" class="bg-ember hover:bg-[#B04B25] text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow cursor-pointer flex items-center gap-1">
-                <span>+</span> Pedir
+            <!-- Dish 3 -->
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🍹</span>
+                <div>
+                  <h4 class="text-xs font-bold text-white">Limonada Menta Jengibre</h4>
+                  <p class="text-[11px] font-mono text-emerald-400 font-bold">$2.900</p>
+                </div>
+              </div>
+              <button onclick="addSimItem('Limonada Menta Jengibre', 2900)" class="text-xs bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl transition">
+                + Agregar
               </button>
             </div>
           </div>
-        `;
-      }).join('');
-    }
 
-    // --- MODAL DE MODIFICADORES (ZOCO PRO) ---
-    function openModifierModal(dishId) {
-      const dish = platos.find(p => p.id === dishId);
-      if (!dish) return;
-      activeModDish = dish;
-      activeModQty = 1;
-
-      document.getElementById('modTitle').textContent = dish.name;
-      document.getElementById('modDesc').textContent = dish.desc;
-      document.getElementById('modBadge').textContent = dish.badge;
-      document.getElementById('modSpecialNotes').value = '';
-      document.getElementById('modQtyDisplay').textContent = '1';
-
-      const container = document.getElementById('modifiersContainer');
-      
-      if (!dish.modificadores || dish.modificadores.length === 0) {
-        container.innerHTML = `
-          <div class="p-3 rounded-xl bg-darkwood/50 border border-white/5 text-stone-400 text-xs">
-            Este producto no requiere configuración especial. Puedes agregar notas al pedido abajo si lo deseas.
-          </div>
-        `;
-      } else {
-        container.innerHTML = dish.modificadores.map(mod => {
-          return `
-            <div class="bg-darkwood/70 rounded-2xl p-3.5 border border-white/10 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="font-bold text-white text-xs">${mod.titulo}</span>
-                <span class="text-[10px] font-bold ${mod.requerido ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-stone-800 text-stone-400'} px-2 py-0.5 rounded-full">
-                  ${mod.requerido ? 'Obligatorio' : 'Opcional'}
-                </span>
-              </div>
-              
-              <div class="space-y-1.5 pt-1">
-                ${mod.opciones.map((opt, optIdx) => {
-                  const inputId = `mod_${mod.id}_${optIdx}`;
-                  const isChecked = mod.tipo === 'radio' && (opt.default || optIdx === 0);
-                  return `
-                    <label for="${inputId}" class="flex items-center justify-between p-2 rounded-xl bg-warmcard/80 hover:bg-white/5 border border-white/5 cursor-pointer transition-colors">
-                      <div class="flex items-center gap-2.5">
-                        <input type="${mod.tipo}" 
-                               id="${inputId}" 
-                               name="mod_${mod.id}" 
-                               value="${opt.nombre}" 
-                               data-price="${opt.precio}" 
-                               ${isChecked ? 'checked' : ''} 
-                               onchange="calcModTotal()"
-                               class="accent-ember w-4 h-4 cursor-pointer">
-                        <span class="text-xs text-stone-200 font-medium">${opt.nombre}</span>
-                      </div>
-                      ${opt.precio > 0 ? `<span class="font-mono text-gold font-bold text-xs">+${fmt(opt.precio)}</span>` : `<span class="text-[10px] text-stone-400">Incluido</span>`}
-                    </label>
-                  `;
-                }).join('')}
-              </div>
+          <!-- Simulator Cart Preview -->
+          <div class="mt-4 pt-3 border-t border-white/10">
+            <div class="flex items-center justify-between text-xs mb-2">
+              <span class="text-slate-400">Total acumulado en carrito:</span>
+              <span class="font-mono font-bold text-white text-sm" id="simCartTotal">$0</span>
             </div>
-          `;
-        }).join('');
-      }
+            <div id="simCartList" class="text-[11px] text-slate-300 font-mono space-y-1 mb-3 min-h-[30px]">
+              <span class="text-slate-500 italic">Haz clic en "+ Agregar" para probar...</span>
+            </div>
+            <button id="simSendBtn" onclick="sendSimOrder()" disabled class="w-full bg-slate-800 text-slate-400 font-black text-xs py-3 rounded-xl transition flex items-center justify-center gap-2 cursor-not-allowed">
+              <span>🛒 Enviar Pedido a Cocina</span>
+              <span id="simItemCountBadge" class="hidden bg-brand-500 text-white px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+            </button>
+          </div>
+        </div>
 
-      calcModTotal();
-      const modal = document.getElementById('modifierModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+        <!-- ARROW INDICATOR (Desktop only) -->
+        <div class="hidden lg:flex lg:col-span-1 items-center justify-center self-center">
+          <div class="w-12 h-12 rounded-full bg-brand-600/20 border border-brand-500/40 flex items-center justify-center text-brand-400 animate-pulse">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
+        </div>
 
-    function closeModifierModal() {
-      const modal = document.getElementById('modifierModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      activeModDish = null;
-    }
+        <!-- PANE 2: KITCHEN DISPLAY SCREEN (KDS) (Col span 6) -->
+        <div class="lg:col-span-6 bg-dark-950 rounded-3xl p-5 border border-white/10 shadow-2xl">
+          <!-- KDS Header Bar -->
+          <div class="flex items-center justify-between pb-3 border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+              <span class="text-xs font-mono font-bold text-white">COCINA KDS SOKIFY (TIEMPO REAL)</span>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded">Audio activado 🔔</span>
+          </div>
 
-    function changeModQty(delta) {
-      activeModQty = Math.max(1, activeModQty + delta);
-      document.getElementById('modQtyDisplay').textContent = activeModQty;
-      calcModTotal();
-    }
-
-    function getSelectedModifiers() {
-      const selected = [];
-      const inputs = document.querySelectorAll('#modifiersContainer input:checked');
-      inputs.forEach(inp => {
-        selected.push({
-          nombre: inp.value,
-          precio: Number(inp.getAttribute('data-price') || 0)
-        });
-      });
-      return selected;
-    }
-
-    function calcModTotal() {
-      if (!activeModDish) return;
-      const selected = getSelectedModifiers();
-      const extrasPrice = selected.reduce((sum, opt) => sum + opt.precio, 0);
-      const unitTotal = activeModDish.price + extrasPrice;
-      const total = unitTotal * activeModQty;
-      document.getElementById('modTotalBtn').textContent = fmt(total);
-      return { unitTotal, total, selected };
-    }
-
-    function confirmAddToOrder() {
-      const { unitTotal, selected } = calcModTotal();
-      const notes = document.getElementById('modSpecialNotes').value.trim();
-
-      cart.push({
-        dishId: activeModDish.id,
-        platoDocId: activeModDish.docId,
-        controlStock: !!activeModDish.controlStock,
-        name: activeModDish.name,
-        basePrice: activeModDish.price,
-        unitTotal: unitTotal,
-        qty: activeModQty,
-        selectedOptions: selected,
-        notes: notes,
-        subtotal: unitTotal * activeModQty
-      });
-
-      closeModifierModal();
-      updateCartBar();
-    }
-
-    function updateCartBar() {
-      const bar = document.getElementById('cartBar');
-      if (cart.length === 0) {
-        bar.classList.add('hidden');
-        return;
-      }
-      bar.classList.remove('hidden');
-
-      const count = cart.reduce((s, item) => s + item.qty, 0);
-      const total = cart.reduce((s, item) => s + item.subtotal, 0);
-
-      document.getElementById('cartCountBadge').textContent = count;
-      document.getElementById('cartTotal').textContent = fmt(total);
-    }
-
-    // --- RENDERIZACIÓN DE MEDIOS DE PAGO ---
-    function renderPaymentMethods() {
-      const list = document.getElementById('paymentMethodsList');
-      list.innerHTML = CFG.metodosPago.map((m, idx) => {
-        return `
-          <label class="flex items-center gap-2 cursor-pointer p-1.5 rounded-lg hover:bg-white/5">
-            <input type="radio" name="paymentMethod" value="${m.id}" ${idx === 0 ? 'checked' : ''} onchange="selectedPayment = '${m.id}'" class="accent-ember">
-            <span class="text-stone-200">${m.nombre}</span>
-          </label>
-        `;
-      }).join('');
-    }
-
-    // --- MODAL DE COMANDA / CHECKOUT ---
-    function openComandaModal() {
-      const modal = document.getElementById('orderModal');
-      const list = document.getElementById('modalItemsList');
-
-      if (cart.length === 0) {
-        alert('Tu orden está vacía. Elige algunos platos primero.');
-        return;
-      }
-
-      list.innerHTML = cart.map((item, idx) => {
-        const modsList = item.selectedOptions.map(o => `+ ${o.nombre} ${o.precio > 0 ? `(${fmt(o.precio)})` : ''}`).join(', ');
-        return `
-          <div class="p-2.5 rounded-2xl bg-darkwood border border-white/5 space-y-1">
-            <div class="flex justify-between items-start">
+          <!-- Tickets Container -->
+          <div class="mt-4 grid sm:grid-cols-2 gap-3 min-h-[280px]" id="kdsTicketsList">
+            
+            <!-- Pre-existing active ticket -->
+            <div class="bg-dark-850 rounded-2xl p-3.5 border border-white/10 flex flex-col justify-between">
               <div>
-                <span class="font-bold text-gold font-mono">${item.qty}x</span>
-                <span class="text-white ml-1 font-semibold">${item.name}</span>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-black text-white">Mesa 02</span>
+                  <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">03:15 min</span>
+                </div>
+                <ul class="text-[11px] text-slate-300 space-y-1 font-mono">
+                  <li>✔ 1x Tabla Parrillera</li>
+                  <li>✔ 2x Cerveza Artesanal</li>
+                </ul>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="font-mono text-gold font-bold">${fmt(item.subtotal)}</span>
-                <button onclick="removeCartItem(${idx})" class="text-stone-400 hover:text-red-400 text-xs px-1">✕</button>
-              </div>
+              <button onclick="this.closest('.bg-dark-850').remove()" class="mt-3 text-[10px] font-bold bg-white/5 hover:bg-emerald-900/40 text-emerald-300 py-1.5 rounded-lg border border-emerald-500/30 transition text-center">
+                ✔ Despachar Comanda
+              </button>
             </div>
-            ${modsList ? `<p class="text-[11px] text-stone-400 pl-5 leading-tight">${modsList}</p>` : ''}
-            ${item.notes ? `<p class="text-[11px] text-amber-300/80 pl-5 italic">📝 ${item.notes}</p>` : ''}
+
+            <!-- Empty slot / Target where new ticket lands -->
+            <div id="simEmptyState" class="border-2 border-dashed border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center text-slate-500">
+              <svg class="w-8 h-8 text-slate-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <p class="text-xs">Esperando nuevo pedido desde el simulador...</p>
+            </div>
+
           </div>
-        `;
-      }).join('');
 
-      updateModalTotals();
-      document.getElementById('orderSuccess').classList.add('hidden');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+          <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+            <span>⚡ Latencia de sincronización: <strong>&lt;0.2 seg</strong></span>
+            <span class="text-emerald-400 font-bold">100% Sin papel ni extravíos</span>
+          </div>
+        </div>
 
-    function removeCartItem(idx) {
-      cart.splice(idx, 1);
-      if (cart.length === 0) {
-        closeComandaModal();
-        updateCartBar();
-      } else {
-        openComandaModal();
-        updateCartBar();
-      }
-    }
+      </div>
 
-    function closeComandaModal() {
-      const modal = document.getElementById('orderModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
+    </div>
+  </section>
 
-    function updateModalTotals() {
-      const subtotal = cart.reduce((s, item) => s + item.subtotal, 0);
-      const isTipChecked = document.getElementById('tipCheckbox').checked;
-      const tip = isTipChecked ? Math.round(subtotal * (CFG.propinaSugeridaPct / 100)) : 0;
+  <!-- ================= MARQUEE TRUST BAR ================= -->
+  <section class="py-10 bg-dark-950 border-b border-white/10 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 mb-4 text-center">
+      <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
+        Más de 40.000 pedidos procesados sin comisiones por restaurantes en Chile y Latinoamérica
+      </span>
+    </div>
+    
+    <!-- Infinite Marquee Track -->
+    <div class="relative w-full overflow-hidden">
+      <div class="flex items-center gap-12 whitespace-nowrap animate-marquee">
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍝 Fravioli Pasta Bar</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍔 Street Food Burger Co.</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍕 Don Mario Trattoria</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍣 Sakura Nikkei Sushi</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">☕ Valparaíso Specialty Coffee</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🌮 Chingón Taquería</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🥩 Fuego & Brasa Steakhouse</span>
+        <!-- Duplicated for seamless loop -->
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍝 Fravioli Pasta Bar</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍔 Street Food Burger Co.</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍕 Don Mario Trattoria</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">🍣 Sakura Nikkei Sushi</span>
+        <span class="text-lg font-black text-slate-500 hover:text-white transition cursor-default">☕ Valparaíso Specialty Coffee</span>
+      </div>
+    </div>
+  </section>
 
-      let deliveryFee = 0;
-      if (serviceMode === 'delivery') {
-        const zoneSelect = document.getElementById('delivZone');
-        if (zoneSelect) deliveryFee = parseInt(zoneSelect.value) || 0;
-      }
+  <!-- ================= BENTO GRID FEATURES (21st.dev Style) ================= -->
+  <section id="caracteristicas" class="py-24 bg-dark-900 relative">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+          Arquitectura Todo-en-Uno
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4 tracking-tight">
+          Cada herramienta que tu local necesita, conectada en un solo lugar.
+        </h2>
+        <p class="text-slate-400 mt-4 text-base sm:text-lg">
+          Olvida pagar licencias separadas para menú QR, pantalla de cocina, facturador y chatbot. Sokify lo sincroniza todo.
+        </p>
+      </div>
 
-      let discountAmount = 0;
-      const discountLine = document.getElementById('discountLine');
-      if (descuentoAplicado) {
-        discountAmount = descuentoAplicado.tipo === 'porcentaje'
-          ? Math.round(subtotal * (descuentoAplicado.valor / 100))
-          : descuentoAplicado.valor;
-        discountAmount = Math.min(discountAmount, subtotal);
-        document.getElementById('discountLineLabel').textContent = `Descuento (${descuentoAplicado.codigo}):`;
-        document.getElementById('discountDisplay').textContent = '-' + fmt(discountAmount);
-        discountLine.classList.remove('hidden');
-        discountLine.classList.add('flex');
-      } else {
-        discountLine.classList.add('hidden');
-        discountLine.classList.remove('flex');
-      }
+      <!-- Bento Grid 3 columns -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      const total = Math.max(0, subtotal - discountAmount + tip + deliveryFee);
+        <!-- Bento 1: Menú QR (Col Span 2) -->
+        <div class="bento-card rounded-3xl p-8 lg:col-span-2 relative overflow-hidden group">
+          <div class="relative z-10 flex flex-col justify-between h-full">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 mb-6">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2m-6 0H4m6-11V4m0 16v-1m6-6a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+              </div>
+              <span class="text-xs font-mono text-brand-400 font-bold uppercase tracking-wider">Carta Digital Sin Comisiones</span>
+              <h3 class="text-2xl font-black text-white mt-1 mb-3">Menú Digital QR para Mesas, Retiro y Delivery</h3>
+              <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
+                Tus clientes escanean el QR con su propia cámara, eligen variantes (término de carne, ingredientes extra), agregan propina voluntaria y envían el pedido directo a la cocina o a tu WhatsApp. Sin descargar apps.
+              </p>
+            </div>
 
-      document.getElementById('subtotalDisplay').textContent = fmt(subtotal);
-      document.getElementById('tipDisplay').textContent = fmt(tip);
-      document.getElementById('tipAmountLabel').textContent = '+' + fmt(Math.round(subtotal * (CFG.propinaSugeridaPct / 100)));
-      document.getElementById('modalTotal').textContent = fmt(total);
-      return { subtotal, tip, deliveryFee, discountAmount, total };
-    }
+            <!-- Mini interactive badge preview -->
+            <div class="mt-6 flex flex-wrap gap-2 text-xs font-mono">
+              <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-slate-300">✔ Modificadores & Extras</span>
+              <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-slate-300">✔ Delivery por Zonas & Tarifa</span>
+              <span class="bg-white/5 border border-white/10 px-3 py-1 rounded-xl text-slate-300">✔ Fotos HD de platos</span>
+              <span class="bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-xl font-bold">0% Comisión</span>
+            </div>
+          </div>
+        </div>
 
-    // --- CÓDIGOS DE DESCUENTO ---
-    function aplicarDescuento() {
-      const input = document.getElementById('discountCodeInput');
-      const feedback = document.getElementById('discountFeedback');
-      const codigo = input.value.trim().toUpperCase();
-      feedback.classList.remove('hidden');
+        <!-- Bento 2: KDS Cocina en Vivo (Col Span 1) -->
+        <div class="bento-card rounded-3xl p-8 relative overflow-hidden group">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-6">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">Cero Papel</span>
+          <h3 class="text-2xl font-black text-white mt-1 mb-3">Cocina KDS en Tiempo Real</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Pantalla táctil para cocineros con semáforo inteligente de tiempos: verde para pedidos nuevos, amarillo para advertencia y rojo para comandas retrasadas.
+          </p>
+          <div class="mt-6 p-3 rounded-2xl bg-dark-950 border border-white/10 text-xs font-mono">
+            <div class="flex justify-between text-slate-400 mb-1">
+              <span>Tiempo promedio:</span>
+              <span class="text-emerald-400 font-bold">7.4 min</span>
+            </div>
+            <div class="w-full bg-white/10 h-1.5 rounded-full overflow-hidden">
+              <div class="bg-emerald-400 h-full w-3/4"></div>
+            </div>
+          </div>
+        </div>
 
-      if (!codigo) {
-        feedback.textContent = 'Ingresa un código primero.';
-        feedback.className = 'text-[11px] font-semibold text-amber-300';
-        return;
-      }
-
-      const subtotal = cart.reduce((s, item) => s + item.subtotal, 0);
-
-      window.descuentosRef().doc(codigo).get().then(doc => {
-        if (!doc.exists || doc.data().activo === false) {
-          descuentoAplicado = null;
-          feedback.textContent = '❌ Código no válido o inactivo.';
-          feedback.className = 'text-[11px] font-semibold text-red-400';
-          updateModalTotals();
-          return;
-        }
-
-        const d = doc.data();
-        if (d.minimoCompra && subtotal < d.minimoCompra) {
-          descuentoAplicado = null;
-          feedback.textContent = `❌ Pedido mínimo de ${fmt(d.minimoCompra)} para este código.`;
-          feedback.className = 'text-[11px] font-semibold text-red-400';
-          updateModalTotals();
-          return;
-        }
-        if (d.usosMax && (d.usosActuales || 0) >= d.usosMax) {
-          descuentoAplicado = null;
-          feedback.textContent = '❌ Este código ya alcanzó su límite de usos.';
-          feedback.className = 'text-[11px] font-semibold text-red-400';
-          updateModalTotals();
-          return;
-        }
-
-        descuentoAplicado = { codigo, tipo: d.tipo, valor: d.valor };
-        feedback.textContent = '✅ ¡Descuento aplicado!';
-        feedback.className = 'text-[11px] font-semibold text-emerald-400';
-        updateModalTotals();
-      }).catch(err => {
-        console.error('Error validando descuento:', err);
-        feedback.textContent = '⚠️ No pudimos validar el código, intenta de nuevo.';
-        feedback.className = 'text-[11px] font-semibold text-amber-300';
-      });
-    }
-
-    // --- ENVÍO DE ORDEN Y COMUNICACIÓN ---
-    function generateTicketText() {
-      const { subtotal, tip, discountAmount, total } = updateModalTotals();
-      const payObj = CFG.metodosPago.find(m => m.id === selectedPayment);
-      const payName = payObj ? payObj.nombre : 'Por definir';
-
-      let text = `🔥 *NUEVA COMANDA - ${CFG.nombre.toUpperCase()}* 🔥\n`;
-      text += `📍 *Destino:* ${serviceMode === 'mesa' ? currentTable : 'Delivery / Retiro'}\n`;
-      text += `🕒 *Hora:* ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}\n`;
-      text += `----------------------------------------\n`;
-
-      cart.forEach(item => {
-        text += `• *${item.qty}x ${item.name}* (${fmt(item.subtotal)})\n`;
-        if (item.selectedOptions.length > 0) {
-          item.selectedOptions.forEach(opt => {
-            text += `   - ${opt.nombre} ${opt.precio > 0 ? `(+${fmt(opt.precio)})` : ''}\n`;
-          });
-        }
-        if (item.notes) {
-          text += `   📝 *Nota:* ${item.notes}\n`;
-        }
-      });
-
-      text += `----------------------------------------\n`;
-      text += `Subtotal consumo: ${fmt(subtotal)}\n`;
-      if (discountAmount > 0) text += `Descuento (${descuentoAplicado.codigo}): -${fmt(discountAmount)}\n`;
-      if (tip > 0) text += `Propina sugerida (${CFG.propinaSugeridaPct}%): ${fmt(tip)}\n`;
-      text += `*TOTAL A PAGAR: ${fmt(total)}*\n`;
-      text += `----------------------------------------\n`;
-      text += `💳 *Medio de Pago:* ${payName}\n`;
-      return text;
-    }
-
-    function sendOrderWhatsApp() {
-      const text = generateTicketText();
-      const url = `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank');
-    }
-
-    function processOrder() {
-      if (cart.length === 0) return;
-      const ticketId = '#BRA-' + Math.floor(100 + Math.random() * 900);
-      const { subtotal, tip, deliveryFee, discountAmount, total } = updateModalTotals();
-      const payObj = CFG.metodosPago.find(m => m.id === selectedPayment);
-      const payName = payObj ? payObj.nombre : 'Por definir';
-
-      let customerName = 'Comensal Salón';
-      let fullAddress = null; // Firestore no acepta "undefined" en los campos, por eso null y no dejarlo sin asignar
-      if (serviceMode === 'delivery') {
-        customerName = (document.getElementById('delivName').value || 'Cliente Delivery') + ' (' + (document.getElementById('delivPhone').value || '') + ')';
-        const zoneSelect = document.getElementById('delivZone');
-        const zoneName = zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].getAttribute('data-zone') : '';
-        fullAddress = (document.getElementById('delivAddress').value || '') + ' · Zona: ' + zoneName;
-      }
-
-      // Estructura completa del pedido sincronizado con KDS
-      const orderPayload = {
-        id: ticketId,
-        createdAt: new Date().toISOString(),
-        status: 'nuevo',
-        type: serviceMode,
-        table: serviceMode === 'mesa' ? currentTable : null,
-        address: fullAddress,
-        customer: customerName,
-        items: cart.map(i => ({
-          name: i.name,
-          qty: i.qty,
-          mods: i.selectedOptions.map(o => o.nombre + (o.precio > 0 ? ` (+${fmt(o.precio)})` : '')),
-          price: i.subtotal
-        })),
-        subtotal: subtotal,
-        tip: tip,
-        deliveryFee: deliveryFee,
-        discountCode: descuentoAplicado ? descuentoAplicado.codigo : null,
-        discountAmount: discountAmount,
-        total: total,
-        payment: payName,
-        notes: cart.map(i => i.notes).filter(Boolean).join(', ')
-      };
-
-      // Guardar el pedido en Firestore: así llega en vivo a panel.html y
-      // cocina.html sin importar en qué celular/dispositivo esté abierto.
-      window.pedidosRef().add({
-        ...orderPayload,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
-        actualizarFichaCliente(total);
-        // Descuenta el stock de los platos que lo controlan (ej: "quedan 5 porciones de cazuela")
-        cart.forEach(item => {
-          if (item.controlStock && item.platoDocId) {
-            window.platosRef().doc(item.platoDocId).update({
-              stock: firebase.firestore.FieldValue.increment(-item.qty)
-            }).catch(err => console.error('Error descontando stock:', err));
-          }
-        });
-        if (descuentoAplicado) {
-          window.descuentosRef().doc(descuentoAplicado.codigo).update({
-            usosActuales: firebase.firestore.FieldValue.increment(1)
-          }).catch(err => console.error('Error registrando uso del descuento:', err));
-        }
-        document.getElementById('ticketIdLabel').textContent = ticketId;
-        document.getElementById('orderSuccess').classList.remove('hidden');
-
-        setTimeout(() => {
-          if (serviceMode === 'delivery') {
-            sendOrderWhatsApp();
-          }
-          cart = [];
-          descuentoAplicado = null;
-          document.getElementById('discountCodeInput').value = '';
-          document.getElementById('discountFeedback').classList.add('hidden');
-          updateCartBar();
-          renderMenu();
-          closeComandaModal();
-          alert('🛎️ ¡Comanda ' + ticketId + ' ingresada en Pantalla de Cocina (KDS)! El chef y los garzones ya tienen tu pedido.');
-        }, 1200);
-      }).catch(err => {
-        console.error('Error enviando pedido a Firestore:', err);
-        alert('⚠️ No pudimos enviar tu pedido al sistema. Igual lo mandamos por WhatsApp para que no se pierda.');
-        sendOrderWhatsApp();
-      });
-    }
-
-    // --- CRM: crea o actualiza la ficha del cliente al confirmar un pedido con delivery ---
-    function actualizarFichaCliente(total) {
-      if (serviceMode !== 'delivery') return; // en mesa no capturamos teléfono, no hay a quién fichar
-      const telRaw = document.getElementById('delivPhone').value;
-      const tel = window.normalizarTelefono(telRaw);
-      if (!tel) return;
-
-      const nombre = document.getElementById('delivName').value || 'Cliente';
-      window.clientesRef().doc(tel).set({
-        nombre,
-        telefono: telRaw,
-        totalPedidos: firebase.firestore.FieldValue.increment(1),
-        totalGastado: firebase.firestore.FieldValue.increment(total),
-        ultimaCompra: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true }).catch(err => console.error('Error actualizando ficha de cliente:', err));
-    }
-
-    // --- IMPRESIÓN DE COMANDA TÉRMICA (58mm / 80mm) ---
-    function printKitchenTicket() {
-      const { subtotal, tip, total } = updateModalTotals();
-      const ticket = document.getElementById('printableTicket');
-      const ticketId = '#BRA-' + Math.floor(100 + Math.random() * 900);
-
-      ticket.innerHTML = `
-        <div style="text-align: center; border-bottom: 1px dashed #000; padding-bottom: 5px; margin-bottom: 5px;">
-          <h2 style="margin: 0; font-size: 14px; font-weight: 800;">${CFG.nombre.toUpperCase()}</h2>
-          <p style="margin: 2px 0 0; font-size: 10px;">${CFG.direccion}</p>
-          <h3 style="margin: 4px 0 0; font-size: 13px; font-weight: 900;">*** COMANDA DE COCINA ***</h3>
-          <p style="margin: 2px 0 0; font-size: 11px; font-weight: bold;">${ticketId} · ${new Date().toLocaleTimeString('es-CL')}</p>
-          <p style="margin: 2px 0 0; font-size: 12px; font-weight: 900; background: #000; color: #fff; padding: 2px;">
-            ${serviceMode === 'mesa' ? currentTable.toUpperCase() : 'DELIVERY / RETIRO'}
+        <!-- Bento 3: POS & Arqueo de Caja (Col Span 1) -->
+        <div class="bento-card rounded-3xl p-8 relative overflow-hidden group">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-6">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <span class="text-xs font-mono text-amber-400 font-bold uppercase tracking-wider">Finanzas Claras</span>
+          <h3 class="text-2xl font-black text-white mt-1 mb-3">POS & Arqueo de Caja</h3>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Control de apertura y cierre de turno. Desglose exacto entre efectivo, transferencias y tarjetas. Cierra caja en 2 minutos sin descuadres.
           </p>
         </div>
 
-        <div style="border-bottom: 1px dashed #000; padding-bottom: 5px; margin-bottom: 5px;">
-          ${cart.map(i => `
-            <div style="margin-bottom: 6px;">
-              <div style="font-weight: 800; font-size: 12px;">${i.qty}x ${i.name.toUpperCase()}</div>
-              ${i.selectedOptions.map(o => `<div style="font-size: 10px; padding-left: 10px;">• ${o.nombre}</div>`).join('')}
-              ${i.notes ? `<div style="font-size: 10px; font-weight: bold; padding-left: 10px;">>> NOTA: ${i.notes}</div>` : ''}
+        <!-- Bento 4: Copiloto IA WhatsApp 24/7 (Col Span 2) -->
+        <div class="bento-card rounded-3xl p-8 lg:col-span-2 relative overflow-hidden group">
+          <div class="relative z-10 flex flex-col justify-between h-full">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-fuchsia-500/10 border border-fuchsia-500/30 flex items-center justify-center text-fuchsia-400 mb-6">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-6l-4 4v-4z"/></svg>
+              </div>
+              <span class="text-xs font-mono text-fuchsia-400 font-bold uppercase tracking-wider">Inteligencia Artificial</span>
+              <h3 class="text-2xl font-black text-white mt-1 mb-3">Copiloto IA para WhatsApp (Atención 24/7)</h3>
+              <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
+                Un bot inteligente entrenado con toda tu carta. Atiende dudas de clientes, informa horarios, toma el pedido y registra la dirección de delivery mientras tu equipo se enfoca en cocinar.
+              </p>
             </div>
-          `).join('')}
-        </div>
 
-        <div style="font-size: 10px; line-height: 1.4;">
-          <div style="display: flex; justify-content: space-between;">
-            <span>Subtotal:</span>
-            <span>${fmt(subtotal)}</span>
-          </div>
-          <div style="display: flex; justify-content: space-between;">
-            <span>Propina (10%):</span>
-            <span>${fmt(tip)}</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 12px; border-top: 1px solid #000; padding-top: 2px;">
-            <span>TOTAL:</span>
-            <span>${fmt(total)}</span>
+            <!-- WhatsApp Simulated Dialogue -->
+            <div class="mt-6 p-4 rounded-2xl bg-dark-950 border border-white/10 max-w-md text-xs space-y-2">
+              <div class="bg-white/10 p-2.5 rounded-xl text-slate-200">
+                💬 <em>"Hola! ¿Tienen opción vegetariana y hasta qué hora reparten?"</em>
+              </div>
+              <div class="bg-brand-950 border border-brand-500/30 p-2.5 rounded-xl text-brand-200 ml-4">
+                🤖 <strong>Sokify IA:</strong> <em>"¡Hola! Sí, tenemos la Burger Veggie NotBurguer ($7.990). Repartimos hoy hasta las 23:30 hrs. ¿Te gustaría armar tu pedido ahora?"</em>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div style="text-align: center; margin-top: 8px; border-top: 1px dashed #000; padding-top: 4px; font-size: 9px;">
-          Software por UNIVERSO693 SpA · universo693.com
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE SAVINGS CALCULATOR ================= -->
+  <section id="ahorro" class="py-24 bg-dark-950 border-t border-white/10 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-emerald-400 bg-emerald-950 border border-emerald-500/30 px-3 py-1 rounded-full">
+          Calculadora de Impacto Financiero
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4">¿Cuánto dinero estás regalando a las apps?</h2>
+        <p class="text-slate-400 mt-3 text-base">
+          Mueve el control deslizante para calcular tus ventas mensuales y comprueba cuánto dinero ahorras migrando tus pedidos directos a Sokify.
+        </p>
+      </div>
+
+      <!-- Calculator Box -->
+      <div class="bg-dark-900 border border-brand-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl relative">
+        
+        <!-- Slider Input -->
+        <div class="mb-10">
+          <div class="flex justify-between items-center mb-4">
+            <label for="salesRange" class="text-sm font-bold text-slate-300">Tus ventas mensuales estimadas:</label>
+            <span class="text-2xl sm:text-3xl font-black font-mono text-brand-300" id="salesDisplay">$5.000.000 CLP</span>
+          </div>
+          <input type="range" id="salesRange" min="1000000" max="25000000" step="500000" value="5000000" oninput="updateCalculator(this.value)" class="w-full h-3 bg-dark-800 rounded-lg appearance-none cursor-pointer accent-brand-500">
+          <div class="flex justify-between text-[11px] text-slate-500 font-mono mt-2">
+            <span>$1.000.000</span>
+            <span>$12.500.000</span>
+            <span>$25.000.000+</span>
+          </div>
         </div>
+
+        <!-- Comparative Output Grid -->
+        <div class="grid sm:grid-cols-2 gap-6 pt-6 border-t border-white/10">
+          
+          <!-- Delivery Apps Cost -->
+          <div class="bg-red-950/30 border border-red-500/30 rounded-2xl p-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-red-400 font-bold">Con Apps de Delivery (28% Comisión)</span>
+            <div class="text-3xl font-black font-mono text-red-400 mt-2" id="appCommissionDisplay">-$1.400.000</div>
+            <p class="text-xs text-slate-400 mt-2">Se va en comisiones todos los meses directo a la app externa.</p>
+          </div>
+
+          <!-- Sokify Flat Cost -->
+          <div class="bg-brand-950/40 border border-brand-500/40 rounded-2xl p-5">
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-300 font-bold">Con Sokify (Tarifa Plana Fija)</span>
+            <div class="text-3xl font-black font-mono text-emerald-400 mt-2">$58.904 <span class="text-xs font-normal text-slate-400">/mes</span></div>
+            <p class="text-xs text-slate-300 mt-2">0% de comisión. No importa cuánto vendas, pagas siempre lo mismo.</p>
+          </div>
+
+        </div>
+
+        <!-- Grand Yearly Savings Banner -->
+        <div class="mt-8 p-6 rounded-2xl bg-gradient-to-r from-emerald-950/70 via-emerald-900/40 to-dark-850 border border-emerald-500/40 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-mono uppercase text-emerald-300 font-bold tracking-wider">Tu Ahorro Anual Estimado:</span>
+            <div class="text-3xl sm:text-4xl font-black font-mono text-emerald-400 mt-1" id="yearlySavingsDisplay">
+              $16.093.152 CLP
+            </div>
+            <p class="text-xs text-slate-300 mt-1">Dinero que vuelve a tu bolsillo para reinvertir en tu local o personal.</p>
+          </div>
+          <button onclick="openTrialModal()" class="btn-shimmer bg-emerald-500 hover:bg-emerald-400 text-dark-950 font-black text-sm px-6 py-3.5 rounded-xl shadow-lg transition whitespace-nowrap">
+            Recuperar Mis Ganancias &rarr;
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PRICING SECTION ================= -->
+  <section id="precios" class="py-24 bg-dark-900 border-t border-white/10 relative">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+          Planes Transparentes
+        </span>
+        <h2 class="text-3xl sm:text-5xl font-black text-white mt-4">Elige el plan ideal para tu restaurante</h2>
+        <p class="text-slate-400 mt-3 text-base">
+          Todos los planes incluyen 15 días de prueba gratuita. Sin cobros sorpresa, sin contratos forzosos.
+        </p>
+
+        <!-- Billing Cycle Toggle (Monthly vs Annual) -->
+        <div class="mt-8 inline-flex items-center gap-3 bg-dark-950 p-1.5 rounded-2xl border border-white/10">
+          <button id="toggleMonthly" onclick="setBillingCycle('monthly')" class="text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition">
+            Facturación Mensual
+          </button>
+          <button id="toggleAnnual" onclick="setBillingCycle('annual')" class="text-xs font-bold px-4 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center gap-1.5">
+            <span>Facturación Anual</span>
+            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-emerald-500/30">20% OFF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 Pricing Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+
+        <!-- ADVANCED -->
+        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border border-white/10">
+          <div>
+            <h3 class="text-xl font-black text-white">Advanced</h3>
+            <p class="text-xs text-slate-400 mt-1 min-h-[32px]">El inicio perfecto para modernizar tu local y vender online.</p>
+            
+            <div class="my-6">
+              <span class="text-xs text-slate-500 line-through font-mono" id="strikeAdvanced">$11.764</span>
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl sm:text-4xl font-black font-mono text-white" id="priceAdvanced">$9.999</span>
+                <span class="text-xs text-slate-400 font-bold">/mes</span>
+              </div>
+            </div>
+
+            <button onclick="openTrialModal('Advanced')" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white transition mb-6">
+              Probar 15 Días Gratis
+            </button>
+
+            <ul class="space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Menú digital QR ilimitado</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Punto de Venta (PDV) básico</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Pantalla Cocina KDS</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Soporte por correo y chat</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- PREMIUM -->
+        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border border-white/10">
+          <div>
+            <h3 class="text-xl font-black text-white">Premium</h3>
+            <p class="text-xs text-slate-400 mt-1 min-h-[32px]">Automatiza pedidos y fideliza a tus clientes.</p>
+            
+            <div class="my-6">
+              <span class="text-xs text-slate-500 line-through font-mono" id="strikePremium">$29.412</span>
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl sm:text-4xl font-black font-mono text-white" id="pricePremium">$25.000</span>
+                <span class="text-xs text-slate-400 font-bold">/mes</span>
+              </div>
+            </div>
+
+            <button onclick="openTrialModal('Premium')" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white transition mb-6">
+              Probar 15 Días Gratis
+            </button>
+
+            <ul class="space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Todo lo de Advanced</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Hasta 400 pedidos al mes</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> CRM de clientes frecuentes</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Cupones y promociones</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ELITE (MÁS POPULAR) -->
+        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border-2 border-brand-500 shadow-2xl shadow-brand-500/20 relative scale-105 z-10 bg-dark-850">
+          <div class="absolute -top-3.5 right-6">
+            <span class="bg-brand-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+              Más Recomendado
+            </span>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-black text-white">Elite</h3>
+            <p class="text-xs text-brand-200 mt-1 min-h-[32px]">Control total, inventario y volumen sin límites.</p>
+            
+            <div class="my-6">
+              <span class="text-xs text-slate-500 line-through font-mono" id="strikeElite">$69.299</span>
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl sm:text-4xl font-black font-mono text-brand-300" id="priceElite">$58.904</span>
+                <span class="text-xs text-slate-400 font-bold">/mes</span>
+              </div>
+            </div>
+
+            <button onclick="openTrialModal('Elite')" class="btn-shimmer w-full py-3.5 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-500 text-white shadow-lg transition mb-6">
+              Probar 15 Días Gratis
+            </button>
+
+            <ul class="space-y-3 text-xs text-slate-200">
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> <strong>Pedidos 100% Ilimitados</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Control de Stock & Alertas</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Arqueo X/Z y Cierre de Caja</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400 font-bold">✔</span> Soporte Prioritario WhatsApp</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- IMPULSO IA -->
+        <div class="bento-card rounded-3xl p-6 flex flex-col justify-between border border-white/10">
+          <div>
+            <h3 class="text-xl font-black text-white">Impulso IA</h3>
+            <p class="text-xs text-slate-400 mt-1 min-h-[32px]">Tu copiloto IA 24/7 para duplicar tus ventas.</p>
+            
+            <div class="my-6">
+              <span class="text-xs text-slate-500 line-through font-mono" id="strikeImpulso">$179.882</span>
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl sm:text-4xl font-black font-mono text-white" id="priceImpulso">$152.900</span>
+                <span class="text-xs text-slate-400 font-bold">/mes</span>
+              </div>
+            </div>
+
+            <button onclick="openTrialModal('Impulso IA')" class="w-full py-3 px-4 rounded-xl font-bold text-xs bg-white/10 hover:bg-white/20 text-white transition mb-6">
+              Probar 15 Días Gratis
+            </button>
+
+            <ul class="space-y-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Todo lo del plan Elite</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Chatbot IA por WhatsApp 24/7</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Campañas masivas inteligentes</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Onboarding personal con asesor</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TESTIMONIALS ================= -->
+  <section class="py-24 bg-dark-950 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+          Historias Reales
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white mt-4">Lo que dicen los dueños de restaurantes</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        
+        <div class="bento-card rounded-3xl p-6 border border-white/10">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">★★★★★</div>
+          <p class="text-sm text-slate-300 leading-relaxed italic">
+            "Dejamos de depender de Rappi para los clientes que comen en el local o nos piden delivery directo. El primer mes ahorramos más de $1.200.000 en comisiones."
+          </p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-600/30 border border-brand-500/40 flex items-center justify-center font-bold text-white text-sm">MC</div>
+            <div>
+              <h4 class="text-xs font-bold text-white">Matías Calderón</h4>
+              <p class="text-[10px] text-slate-400">Dueño de Street Food Co.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-3xl p-6 border border-white/10">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">★★★★★</div>
+          <p class="text-sm text-slate-300 leading-relaxed italic">
+            "La pantalla de cocina KDS eliminó por completo los gritos y los papeles perdidos. Los platos salen 5 minutos más rápido y los garzones no se equivocan."
+          </p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-600/30 border border-brand-500/40 flex items-center justify-center font-bold text-white text-sm">FP</div>
+            <div>
+              <h4 class="text-xs font-bold text-white">Francisca Peña</h4>
+              <p class="text-[10px] text-slate-400">Chef ejecutiva en Fravioli</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bento-card rounded-3xl p-6 border border-white/10">
+          <div class="flex items-center gap-1 text-amber-400 text-sm mb-4">★★★★★</div>
+          <p class="text-sm text-slate-300 leading-relaxed italic">
+            "El soporte por WhatsApp es inmediato y la configuración nos tomó una tarde. Recomiendo Sokify a cualquier colega del rubro gastronómico."
+          </p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-600/30 border border-brand-500/40 flex items-center justify-center font-bold text-white text-sm">GA</div>
+            <div>
+              <h4 class="text-xs font-bold text-white">Gonzalo Araya</h4>
+              <p class="text-[10px] text-slate-400">Gerente en Don Mario Trattoria</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FAQ ACCORDION ================= -->
+  <section id="faq" class="py-24 bg-dark-900 border-t border-white/10">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8">
+      
+      <div class="text-center mb-14">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-400 bg-brand-950 border border-brand-500/30 px-3 py-1 rounded-full">
+          Dudas Frecuentes
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white mt-4">Todo lo que necesitas saber</h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <details class="group bento-card rounded-2xl p-5 border border-white/10" open>
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+            ¿Sokify cobra alguna comisión por los pedidos que recibo?
+            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+            <strong>Cero comisión.</strong> A diferencia de Uber Eats, PedidosYa o Rappi (que cobran entre un 25% y 32% por venta), en Sokify solo pagas tu suscripción mensual fija. El 100% del dinero de cada plato va directo a tu cuenta.
+          </p>
+        </details>
+
+        <details class="group bento-card rounded-2xl p-5 border border-white/10">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+            ¿Necesito comprar hardware costoso o computadores especiales?
+            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+            No. Sokify funciona desde cualquier navegador web en celulares, tablets o notebooks que ya tengas. También se conecta directamente a tus impresoras térmicas de 58mm y 80mm vía USB, red o Bluetooth.
+          </p>
+        </details>
+
+        <details class="group bento-card rounded-2xl p-5 border border-white/10">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+            ¿Qué incluye la prueba gratis de 15 días?
+            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+            Acceso completo y sin restricciones a todos los módulos: Menú QR, Cocina KDS en vivo, Punto de Venta y Arqueo de caja. No te pediremos tarjeta de crédito para comenzar.
+          </p>
+        </details>
+
+        <details class="group bento-card rounded-2xl p-5 border border-white/10">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-white text-base">
+            ¿Cómo subo mi menú y carta de platos?
+            <svg class="faq-chevron w-5 h-5 text-brand-400 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <p class="text-sm text-slate-300 mt-3 leading-relaxed">
+            Puedes cargar tus platos uno a uno en segundos con fotos y modificadores, o nuestro equipo de soporte puede ayudarte a migrar tu carta en PDF/Excel sin costo adicional.
+          </p>
+        </details>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FINAL CONVERSION CTA ================= -->
+  <section id="probar" class="py-24 bg-mesh-glow relative text-center border-t border-white/10 overflow-hidden">
+    <div class="max-w-4xl mx-auto px-5 sm:px-8 relative z-10">
+      <div class="w-16 h-16 rounded-3xl bg-brand-600/30 border border-brand-500/40 flex items-center justify-center mx-auto mb-6 shadow-xl shadow-brand-500/20">
+        <img src="assets/sokify-avatar.png" alt="Sokify" class="w-10 h-10 object-contain">
+      </div>
+      
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+        Comienza hoy a digitalizar tu restaurante sin comisiones.
+      </h2>
+      <p class="text-slate-300 mt-4 text-base sm:text-lg max-w-xl mx-auto">
+        Únete a cientos de negocios gastronómicos que tomaron el control de sus ventas con Sokify. 15 días gratis sin compromiso.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="openTrialModal()" class="w-full sm:w-auto btn-shimmer bg-brand-600 hover:bg-brand-500 text-white font-black text-base px-9 py-4 rounded-2xl shadow-xl shadow-brand-600/40 transition">
+          🚀 Crear Mi Restaurante Gratis
+        </button>
+        <a href="https://wa.me/56990387414?text=Hola%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20Sokify%20para%20mi%20local" class="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white font-bold text-base px-8 py-4 rounded-2xl border border-white/10 transition">
+          💬 Hablar con un Asesor
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-dark-950 border-t border-white/10 py-12 text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <img src="assets/sokify-avatar.png" alt="Sokify" class="w-7 h-7 object-contain">
+        <span class="text-white font-black text-base">Sokify</span>
+        <span class="text-slate-500">· Software Gastronómico 2026</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6 text-slate-400">
+        <a href="/panel.html" class="hover:text-white transition">Acceso Clientes</a>
+        <a href="/cocina.html" class="hover:text-white transition">Pantalla KDS</a>
+        <a href="/generador-qrs.html" class="hover:text-white transition">Generador QRs</a>
+        <a href="/demo-menu.html" class="hover:text-white transition">Demo Carta</a>
+        <a href="https://wa.me/56990387414" class="hover:text-emerald-400 transition">Soporte WhatsApp</a>
+      </div>
+
+      <p class="text-slate-600">
+        © 2026 Sokify Technologies. Todos los derechos reservados.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- ================= QUICK ONBOARDING MODAL ================= -->
+  <div id="trialModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl animate-in fade-in zoom-in duration-200">
+      
+      <button onclick="closeTrialModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white transition">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-brand-600/20 border border-brand-500/40 flex items-center justify-center mx-auto mb-3">
+          <img src="assets/sokify-avatar.png" alt="Sokify" class="w-8 h-8 object-contain">
+        </div>
+        <h3 class="text-xl font-black text-white">Comienza tu Prueba de 15 Días</h3>
+        <p class="text-xs text-slate-400 mt-1">Sin tarjeta de crédito. Acceso instantáneo a tu panel.</p>
+      </div>
+
+      <form id="trialForm" onsubmit="handleTrialSubmit(event)" class="space-y-4 text-left">
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Nombre de tu Restaurante / Local</label>
+          <input type="text" id="restaurantName" required placeholder="Ej: Pizzería Di Napoli" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Tu Nombre</label>
+          <input type="text" id="ownerName" required placeholder="Ej: Carlos Silva" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">WhatsApp de Contacto</label>
+          <input type="tel" id="ownerPhone" required placeholder="+56 9 1234 5678" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Plan seleccionado</label>
+          <select id="selectedPlan" class="w-full bg-dark-950 border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-brand-500">
+            <option value="Elite" selected>Elite ($58.904/mes) - Más Recomendado</option>
+            <option value="Advanced">Advanced ($9.999/mes)</option>
+            <option value="Premium">Premium ($25.000/mes)</option>
+            <option value="Impulso IA">Impulso IA ($152.900/mes)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full btn-shimmer bg-brand-600 hover:bg-brand-500 text-white font-black text-sm py-3.5 rounded-xl shadow-lg transition mt-2">
+          🚀 Activar Mi Cuenta Gratis
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= SCRIPTS: SIMULATOR, CALCULATOR & BILLING ================= -->
+  <script>
+    // 1. DUAL SIMULATOR LOGIC
+    let simCart = [];
+    let simOrderCounter = 104;
+
+    function addSimItem(name, price) {
+      simCart.push({ name, price });
+      renderSimCart();
+    }
+
+    function renderSimCart() {
+      const listEl = document.getElementById('simCartList');
+      const totalEl = document.getElementById('simCartTotal');
+      const btn = document.getElementById('simSendBtn');
+      const badge = document.getElementById('simItemCountBadge');
+
+      if (simCart.length === 0) {
+        listEl.innerHTML = '<span class="text-slate-500 italic">Haz clic en "+ Agregar" para probar...</span>';
+        totalEl.textContent = '$0';
+        btn.disabled = true;
+        btn.classList.add('bg-slate-800', 'text-slate-400', 'cursor-not-allowed');
+        btn.classList.remove('bg-brand-600', 'hover:bg-brand-500', 'text-white', 'btn-shimmer');
+        badge.classList.add('hidden');
+        return;
+      }
+
+      const total = simCart.reduce((sum, item) => sum + item.price, 0);
+      totalEl.textContent = '$' + total.toLocaleString('es-CL');
+
+      listEl.innerHTML = simCart.map(item => `
+        <div class="flex justify-between">
+          <span>1x ${item.name}</span>
+          <span class="text-emerald-400 font-bold">$${item.price.toLocaleString('es-CL')}</span>
+        </div>
+      `).join('');
+
+      btn.disabled = false;
+      btn.classList.remove('bg-slate-800', 'text-slate-400', 'cursor-not-allowed');
+      btn.classList.add('bg-brand-600', 'hover:bg-brand-500', 'text-white', 'btn-shimmer');
+      badge.textContent = simCart.length;
+      badge.classList.remove('hidden');
+    }
+
+    // Audio chime using Web Audio API (100% self contained, zero external dependencies)
+    function playBeepSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); // A5
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.45);
+      } catch (e) {
+        console.log('Audio disabled or blocked by browser', e);
+      }
+    }
+
+    function sendSimOrder() {
+      if (simCart.length === 0) return;
+
+      playBeepSound();
+      simOrderCounter++;
+
+      const kdsList = document.getElementById('kdsTicketsList');
+      const emptyState = document.getElementById('simEmptyState');
+      if (emptyState) emptyState.remove();
+
+      // Create new ticket element
+      const ticket = document.createElement('div');
+      ticket.className = 'bg-brand-950/60 border-2 border-brand-500 rounded-2xl p-3.5 flex flex-col justify-between shadow-xl shadow-brand-500/20 animate-in fade-in zoom-in duration-300';
+      ticket.id = 'ticket-' + simOrderCounter;
+
+      const itemsHtml = simCart.map(i => `<li>⚡ 1x ${i.name}</li>`).join('');
+
+      ticket.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-black text-white">Mesa 04 · #${simOrderCounter}</span>
+            <span class="text-[10px] font-mono font-bold text-brand-300 bg-brand-900 px-2 py-0.5 rounded animate-pulse" id="timer-${simOrderCounter}">00:01 seg</span>
+          </div>
+          <ul class="text-[11px] text-brand-100 space-y-1 font-mono">
+            ${itemsHtml}
+          </ul>
+        </div>
+        <button onclick="this.closest('.border-brand-500').remove()" class="mt-3 text-[10px] font-bold bg-brand-600 hover:bg-brand-500 text-white py-1.5 rounded-lg transition text-center shadow">
+          ✔ Listo para Servir
+        </button>
       `;
 
-      ticket.classList.remove('hidden');
-      window.print();
-      setTimeout(() => ticket.classList.add('hidden'), 500);
+      kdsList.prepend(ticket);
+
+      // Start ticker for this order
+      let seconds = 1;
+      const timerInterval = setInterval(() => {
+        seconds++;
+        const el = document.getElementById('timer-' + simOrderCounter);
+        if (el) {
+          const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+          const s = String(seconds % 60).padStart(2, '0');
+          el.textContent = `${m}:${s} min`;
+        } else {
+          clearInterval(timerInterval);
+        }
+      }, 1000);
+
+      // Clear cart
+      simCart = [];
+      renderSimCart();
+    }
+
+    // 2. SAVINGS CALCULATOR LOGIC
+    function updateCalculator(val) {
+      const sales = parseInt(val, 10);
+      document.getElementById('salesDisplay').textContent = '$' + sales.toLocaleString('es-CL') + ' CLP';
+
+      // 28% average commission on third party delivery apps
+      const appCommission = Math.round(sales * 0.28);
+      document.getElementById('appCommissionDisplay').textContent = '-$' + appCommission.toLocaleString('es-CL');
+
+      // Sokify Elite plan cost
+      const sokifyMonthly = 58904;
+      const monthlySavings = appCommission - sokifyMonthly;
+      const yearlySavings = Math.max(0, monthlySavings * 12);
+
+      document.getElementById('yearlySavingsDisplay').textContent = '$' + yearlySavings.toLocaleString('es-CL') + ' CLP';
+    }
+
+    // 3. BILLING CYCLE TOGGLE (MONTHLY VS ANNUAL)
+    let currentCycle = 'monthly';
+    const prices = {
+      monthly: {
+        Advanced: { cur: '$9.999', str: '$11.764' },
+        Premium: { cur: '$25.000', str: '$29.412' },
+        Elite: { cur: '$58.904', str: '$69.299' },
+        Impulso: { cur: '$152.900', str: '$179.882' }
+      },
+      annual: {
+        Advanced: { cur: '$7.999', str: '$9.999' },
+        Premium: { cur: '$19.990', str: '$25.000' },
+        Elite: { cur: '$46.990', str: '$58.904' },
+        Impulso: { cur: '$122.320', str: '$152.900' }
+      }
+    };
+
+    function setBillingCycle(cycle) {
+      currentCycle = cycle;
+      const btnM = document.getElementById('toggleMonthly');
+      const btnA = document.getElementById('toggleAnnual');
+
+      if (cycle === 'monthly') {
+        btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition';
+        btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-400 hover:text-white transition flex items-center gap-1.5';
+      } else {
+        btnA.className = 'text-xs font-bold px-4 py-2 rounded-xl bg-brand-600 text-white transition flex items-center gap-1.5';
+        btnM.className = 'text-xs font-bold px-4 py-2 rounded-xl text-slate-400 hover:text-white transition';
+      }
+
+      const p = prices[cycle];
+      document.getElementById('priceAdvanced').textContent = p.Advanced.cur;
+      document.getElementById('strikeAdvanced').textContent = p.Advanced.str;
+
+      document.getElementById('pricePremium').textContent = p.Premium.cur;
+      document.getElementById('strikePremium').textContent = p.Premium.str;
+
+      document.getElementById('priceElite').textContent = p.Elite.cur;
+      document.getElementById('strikeElite').textContent = p.Elite.str;
+
+      document.getElementById('priceImpulso').textContent = p.Impulso.cur;
+      document.getElementById('strikeImpulso').textContent = p.Impulso.str;
+    }
+
+    // 4. TRIAL MODAL LOGIC
+    function openTrialModal(plan = 'Elite') {
+      const modal = document.getElementById('trialModal');
+      const planSelect = document.getElementById('selectedPlan');
+      if (planSelect) planSelect.value = plan;
+      modal.classList.remove('hidden');
+    }
+
+    function closeTrialModal() {
+      document.getElementById('trialModal').classList.add('hidden');
+    }
+
+    function handleTrialSubmit(e) {
+      e.preventDefault();
+      const restaurant = document.getElementById('restaurantName').value.trim();
+      const owner = document.getElementById('ownerName').value.trim();
+      const phone = document.getElementById('ownerPhone').value.trim();
+      const plan = document.getElementById('selectedPlan').value;
+
+      // Redirect directly to panel with restaurant parameter for instant onboarding
+      const encodedRest = encodeURIComponent(restaurant);
+      const encodedPlan = encodeURIComponent(plan);
+      window.location.href = `/bienvenida.html?nombre=${encodedRest}&dueno=${encodeURIComponent(owner)}&plan=${encodedPlan}&telefono=${encodeURIComponent(phone)}`;
     }
   </script>
 
-  <!-- Inyección del Panel Modo Dueño para editar carta, stock y precios -->
-  <script src="/demos/modo-dueno.js"></script>
 </body>
 </html>

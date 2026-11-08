@@ -1,8 +1,8 @@
-# 🦉 Zocowl (Zoco OS) · Sistema Operativo Gastronómico y Punto de Venta Inteligente
+# 🦉 Sokify (Sokify) · Sistema Operativo Gastronómico y Punto de Venta Inteligente
 
-**Dominio Oficial:** [https://zocowl.com](https://zocowl.com)
+**Dominio Oficial:** [https://sokify.app](https://sokify.app)
 
-Zoco OS es una plataforma integral de gestión para restaurantes, cafeterías, dark kitchens y cadenas gastronómicas. Proporciona control total de pedidos, cocina multi-pantalla, menú digital QR, gestión de caja, inventario con alertas de stock, marketing automatizado y analítica de ventas en tiempo real sin comisiones por transacción.
+Sokify es una plataforma integral de gestión para restaurantes, cafeterías, dark kitchens y cadenas gastronómicas. Proporciona control total de pedidos, cocina multi-pantalla, menú digital QR, gestión de caja, inventario con alertas de stock, marketing automatizado y analítica de ventas en tiempo real sin comisiones por transacción.
 
 ---
 
@@ -22,7 +22,7 @@ Zoco OS es una plataforma integral de gestión para restaurantes, cafeterías, d
 | 👥 **Clientes CRM & Fidelidad** | `panel.html` (Tab Clientes) | Segmentación de clientes (VIP, Frecuente, En riesgo), historial de consumo y programa de puntos/cashback. |
 | 📢 **Marketing Gastronómico** | `panel.html` (Tab Marketing) | Códigos de descuento por porcentaje o monto fijo, envío masivo con IA y conexión a Google My Business. |
 | 🔌 **Integraciones & API Scopes** | `panel.html` (Tab Integraciones) | Conexión con MCP de IA (ChatGPT, Claude), apps de delivery (PedidosYa, Rappi, Uber Eats) y generación granular de API Keys con 20 scopes oficiales. |
-| 💎 **Planes de Suscripción Zoco** | `panel.html` (Checkout) | Flujo completo de upgrade en 3 pasos con cálculo de periodos (Anual/Semestral/Mensual) y cupones de bienvenida. |
+| 💎 **Planes de Suscripción Sokify** | `panel.html` (Checkout) | Flujo completo de upgrade en 3 pasos con cálculo de periodos (Anual/Semestral/Mensual) y cupones de bienvenida. |
 
 ---
 

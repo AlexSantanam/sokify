@@ -3,7 +3,8 @@
     { "source": "/panel", "destination": "/panel.html" },
     { "source": "/cocina", "destination": "/cocina.html" },
     { "source": "/kds", "destination": "/cocina.html" },
-    { "source": "/menu", "destination": "/index.html" },
+    { "source": "/menu", "destination": "/demo-menu.html" },
+    { "source": "/demo", "destination": "/demo-menu.html" },
     { "source": "/bienvenida", "destination": "/bienvenida.html" },
     { "source": "/qrs", "destination": "/generador-qrs.html" }
   ],

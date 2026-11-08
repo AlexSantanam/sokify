@@ -1,5 +1,5 @@
 /**
- * UNIVERSO693 · Plantilla Estándar: Starter Restaurante QR (Zoco OS)
+ * UNIVERSO693 · Plantilla Estándar: Starter Restaurante QR (Sokify)
  * Archivo de configuración central. Para personalizar un nuevo cliente,
  * solo debes editar este archivo sin tocar el código fuente.
  */
@@ -25,7 +25,7 @@ window.RESTAURANTE_CONFIG = {
   mesaDefault: "Mesa 07 · Terraza",
   totalMesasImprimibles: 20,
 
-  // Información de Despacho mostrada al cliente (estilo panel "Información" de Zoco OS)
+  // Información de Despacho mostrada al cliente (estilo panel "Información" de Sokify)
   tiempoEntregaMin: 25,
   tiempoEntregaMax: 50,
   pedidoMinimoDelivery: 6000,
@@ -61,7 +61,7 @@ window.RESTAURANTE_CONFIG = {
     { id: "postres", nombre: "🍨 Postres Porteños", icono: "🍨" }
   ],
 
-  // Catálogo de Platos con Modificadores estilo Zoco OS
+  // Catálogo de Platos con Modificadores estilo Sokify
   platos: [
     {
       id: 1,
