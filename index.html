@@ -819,14 +819,16 @@
             <div class="text-base font-black font-mono text-slate-900">+$12.900 <span class="text-[10px] text-slate-500 font-normal">/sucursal/mes</span></div>
           </div>
 
-          <!-- Add-on 4: Dominio Propio -->
-          <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg mb-3">
-              🌐
+          <!-- Add-on 4: Dominio Propio + Correos Corporativos Ilimitados -->
+          <div class="bg-white rounded-2xl p-5 border border-borderLight hover:border-brand-300 transition shadow-sm relative overflow-hidden group">
+            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg mb-3">
+              🌐✉️
             </div>
-            <h4 class="font-black text-sm text-slate-900 mb-1">Dominio Propio</h4>
-            <p class="text-xs text-slate-500 mb-3 leading-relaxed">Tu carta bajo tu propia URL (ej: menu.turestaurante.cl) con certificado SSL.</p>
-            <div class="text-base font-black font-mono text-slate-900">+$4.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
+            <h4 class="font-black text-sm text-slate-900 mb-1">Dominio + Correos Ilimitados</h4>
+            <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+              Tu dominio <strong>.cl o .com</strong> oficial, certificado SSL y casillas de correo ilimitadas (ej: <em>contacto@turestaurante.cl</em>) en tu celular o Gmail.
+            </p>
+            <div class="text-base font-black font-mono text-slate-900">+$6.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span></div>
           </div>
 
         </div>
@@ -1322,6 +1324,10 @@
               <span>📲 ¿Cómo paso mi carta o menú actual?</span>
               <span class="text-brand-600 font-bold">›</span>
             </button>
+            <button onclick="askPresetQuestion('correos')" class="text-left bg-white hover:bg-brand-50 border border-slate-200 hover:border-brand-300 px-3 py-2 rounded-xl text-slate-700 transition font-medium text-xs flex items-center justify-between">
+              <span>🌐 ¿Tienen dominio propio y correos corporativos?</span>
+              <span class="text-brand-600 font-bold">›</span>
+            </button>
           </div>
         </div>
 
@@ -1396,6 +1402,11 @@
         q: '¿Cómo paso mi carta o menú actual?',
         a: 'Es muy fácil y rápido 📲: puedes crear tus categorías y platos en minutos desde el panel, o si nos envías tu menú en PDF, foto o Instagram por WhatsApp, nuestro equipo te ayuda a migrarla <strong>completamente gratis</strong> para que empieces a vender hoy.',
         waText: 'Hola, tengo mi carta en PDF y quiero que me ayuden a subirla a Sokify'
+      },
+      'correos': {
+        q: '¿Tienen dominio propio y correos corporativos?',
+        a: '¡Sí, totalmente! 🌐✉️ Por solo <strong>$6.900 CLP/mes</strong> te entregamos tu propio dominio oficial <strong>.cl o .com</strong> (ej: <em>turestaurante.cl</em>) con certificado de seguridad SSL y <strong>cuentas de correo corporativo ilimitadas</strong> (<em>contacto@</em>, <em>reservas@</em>, <em>administracion@</em>) sincronizadas en tu celular y Gmail. Así proyectas máxima formalidad y dejas atrás el @gmail.com.',
+        waText: 'Hola Sofi, quiero información sobre el dominio propio y correos corporativos ilimitados'
       }
     };
 
@@ -1467,6 +1478,8 @@
           reply = '¡Así es! Te damos <strong>3 meses completos (90 días) gratis</strong> para ti y todo tu equipo, sin ingresar tarjeta de crédito ni contratos forzosos.';
         } else if (qLower.includes('impres') || qLower.includes('boleta') || qLower.includes('comanda')) {
           reply = 'Sokify funciona con cualquier impresora térmica USB, Bluetooth o red (58mm y 80mm) directo desde el navegador web.';
+        } else if (qLower.includes('correo') || qLower.includes('mail') || qLower.includes('dominio') || qLower.includes('corporativo')) {
+          reply = '¡Sí! Ofrecemos tu dominio propio (.cl o .com) + correos corporativos ilimitados (contacto@, reservas@, etc.) por solo <strong>$6.900 CLP/mes</strong> configurados en tus dispositivos.';
         } else {
           reply = `¡Excelente pregunta! Para darte el detalle exacto para tu restaurante, te conecto de inmediato con nuestro asesor humano en WhatsApp.`;
         }
