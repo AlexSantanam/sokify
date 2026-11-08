@@ -536,8 +536,8 @@
   <!-- ================= MARQUEE TRUST BAR ================= -->
   <section class="py-10 bg-white border-b border-borderLight overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 mb-4 text-center">
-      <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">
-        Más de 40.000 pedidos procesados sin comisiones por restaurantes en Chile y Latinoamérica
+      <span class="text-xs font-bold text-slate-500 uppercase tracking-widest" data-i18n="trust_marquee">
+        Más de 40.000 pedidos procesados sin comisiones por restaurantes en EE.UU., Latinoamérica y todo el mundo
       </span>
     </div>
 
@@ -743,20 +743,20 @@
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
       <div class="text-center max-w-3xl mx-auto mb-10">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
-          Estrategia de Masificación & Tarifas Justas
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full" data-i18n="pricing_badge">
+          Tarifas Justas & Sin Comisiones
         </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-4 tracking-tight">
+        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-4 tracking-tight" data-i18n="pricing_title">
           Comienza 100% Gratis hoy. Paga solo cuando ya estés vendiendo.
         </h2>
-        <p class="text-slate-600 mt-3 text-base sm:text-lg">
+        <p class="text-slate-600 mt-3 text-base sm:text-lg" data-i18n="pricing_subtitle">
           Sin costos ocultos ni comisiones abusivas. Te regalamos <strong>3 meses (90 días) completos</strong> para que tu equipo y clientes se acostumbren a Sokify.
         </p>
       </div>
 
       <!-- SELECTOR DINÁMICO DE MONEDA & DETECCIÓN GEOGRÁFICA -->
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
-        <span class="text-xs font-bold text-slate-500">Moneda de tu país:</span>
+        <span class="text-xs font-bold text-slate-500" data-i18n="currency_selector_label">Moneda de tu país:</span>
         <div class="inline-flex p-1 rounded-2xl bg-white border border-borderLight shadow-sm text-xs font-bold">
           <button type="button" onclick="setCurrency('CLP', true)" id="btnCurrencyCLP" class="px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-brand-600 text-white shadow-sm cursor-pointer">
             <span>🇨🇱</span>
@@ -893,9 +893,9 @@
             🌎
           </div>
           <div class="space-y-1">
-            <span class="font-black text-sm text-slate-900 block">Medios de Pago Flexibles en toda Latinoamérica & Global:</span>
-            <p class="text-slate-600">
-              Aceptamos <strong>PayPal en Dólares (USD)</strong> para cualquier país, <strong>Tarjetas de Crédito y Débito Internacionales</strong> (Visa, Mastercard, AMEX), <strong>Mercado Pago</strong> y Transferencias Bancarias.
+            <span class="font-black text-sm text-slate-900 block" data-i18n="payment_banner_title">Medios de Pago Globales (PayPal USD, Tarjetas Internacionales y Locales):</span>
+            <p class="text-slate-600" data-i18n="payment_banner_desc">
+              Aceptamos <strong>PayPal en Dólares (USD)</strong> para clientes en Estados Unidos, Reino Unido, Canadá, Europa, Latinoamérica y resto del mundo, además de <strong>Tarjetas Internacionales</strong> (Visa, Mastercard, AMEX) y pagos locales.
             </p>
           </div>
         </div>
@@ -1149,7 +1149,7 @@
         <div class="flex items-center gap-4 text-[11px] text-slate-400">
           <span>0% Comisión por Pedido</span>
           <span>·</span>
-          <span>Soporte 24/7 en toda Latinoamérica 🌎</span>
+          <span data-i18n="footer_support">Soporte 24/7 Global · English & Español 🌎</span>
         </div>
       </div>
 
@@ -1693,6 +1693,8 @@
     // =========================================================================
     // SISTEMA MULTILINGÜE (i18n): PT, ES, EN, FR
     // =========================================================================
+    // DICCIONARIOS DE INTERNACIONALIZACIÓN (ES, EN, PT, FR)
+    // =========================================================================
     const I18N = {
       es: {
         nav_simulador: 'Simulador en Vivo',
@@ -1711,7 +1713,15 @@
         hero_title_highlight: 'restaurante, sin comisiones.',
         hero_subtitle: 'Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.',
         hero_btn_trial: 'Comenzar Prueba Gratis (3 Meses (90 Días))',
-        hero_btn_simulator: 'Ver Simulador Interactivo'
+        hero_btn_simulator: 'Ver Simulador Interactivo',
+        trust_marquee: 'Más de 40.000 pedidos procesados sin comisiones por restaurantes en EE.UU., Latinoamérica y todo el mundo',
+        pricing_badge: 'Tarifas Justas & Sin Comisiones',
+        pricing_title: 'Comienza 100% Gratis hoy. Paga solo cuando ya estés vendiendo.',
+        pricing_subtitle: 'Sin costos ocultos ni comisiones abusivas. Te regalamos <strong>3 meses (90 días) completos</strong> para que tu equipo y clientes se acostumbren a Sokify.',
+        currency_selector_label: 'Moneda de tu país:',
+        payment_banner_title: 'Medios de Pago Globales (PayPal USD, Tarjetas Internacionales y Locales):',
+        payment_banner_desc: 'Aceptamos <strong>PayPal en Dólares (USD)</strong> para clientes en Estados Unidos, Reino Unido, Canadá, Europa, Latinoamérica y resto del mundo, además de <strong>Tarjetas Internacionales</strong> (Visa, Mastercard, AMEX) y pagos locales.',
+        footer_support: 'Soporte 24/7 Global · English & Español 🌎'
       },
       en: {
         nav_simulador: 'Live Simulator',
@@ -1730,7 +1740,15 @@
         hero_title_highlight: 'restaurant, zero commissions.',
         hero_subtitle: 'Smart QR digital menu, real-time kitchen display screen (KDS), cloud POS, and WhatsApp AI assistant. Designed to maximize your profit margin and serve twice as fast.',
         hero_btn_trial: 'Start Free Trial (3 Months (90 Days))',
-        hero_btn_simulator: 'View Interactive Simulator'
+        hero_btn_simulator: 'View Interactive Simulator',
+        trust_marquee: 'Over 40,000 commission-free orders processed by restaurants across the US, UK, Canada & worldwide',
+        pricing_badge: 'Fair Pricing & Zero Commissions',
+        pricing_title: 'Start 100% Free today. Only pay when you are already selling.',
+        pricing_subtitle: 'No hidden fees, no commission per order. Get <strong>3 full months (90 days)</strong> completely free for your staff and customers to experience Sokify.',
+        currency_selector_label: 'Currency for your country:',
+        payment_banner_title: 'Global Payment Methods (PayPal USD, International & Local Cards):',
+        payment_banner_desc: 'We accept <strong>PayPal in USD</strong> for clients in the US, UK, Canada, Europe, Latin America and worldwide, plus <strong>International Credit & Debit Cards</strong> (Visa, Mastercard, AMEX) and local payments.',
+        footer_support: '24/7 Global Support · English & Spanish 🌎'
       },
       pt: {
         nav_simulador: 'Simulador ao Vivo',
@@ -1749,7 +1767,15 @@
         hero_title_highlight: 'restaurante, sem comissões.',
         hero_subtitle: 'Cardápio digital QR inteligente, tela de cozinha KDS em tempo real, ponto de venda (POS) e copiloto com IA no WhatsApp. Projetado para lucrar mais e atender o dobro de rápido.',
         hero_btn_trial: 'Começar Teste Grátis (3 Meses (90 Dias))',
-        hero_btn_simulator: 'Ver Simulador Interativo'
+        hero_btn_simulator: 'Ver Simulador Interativo',
+        trust_marquee: 'Mais de 40.000 pedidos processados sem comissões por restaurantes em todo o mundo',
+        pricing_badge: 'Preços Justos & Sem Comissões',
+        pricing_title: 'Comece 100% Grátis hoje. Pague apenas quando já estiver vendendo.',
+        pricing_subtitle: 'Sem taxas ocultas, 0% comissão por pedido. Você ganha <strong>3 meses completos (90 dias)</strong> grátis.',
+        currency_selector_label: 'Moeda do seu país:',
+        payment_banner_title: 'Meios de Pagamento Globais (PayPal USD, Cartões Internacionais e Locais):',
+        payment_banner_desc: 'Aceitamos <strong>PayPal em Dólares (USD)</strong> para clientes nos EUA, Europa, América Latina e em todo o mundo, além de <strong>Cartões de Crédito e Débito Internacionais</strong>.',
+        footer_support: 'Suporte 24/7 Global · Português & Inglês 🌎'
       },
       fr: {
         nav_simulador: 'Simulateur en Direct',
@@ -1768,7 +1794,15 @@
         hero_title_highlight: 'restaurant, zéro commission.',
         hero_subtitle: 'Menu QR digital intelligent, écran de cuisine KDS en temps réel avec alertes, point de vente (POS) et copilote IA sur WhatsApp. Conçu pour maximiser vos marges.',
         hero_btn_trial: 'Commencer l\'Essai Gratuit (3 Mois (90 Jours))',
-        hero_btn_simulator: 'Voir le Simulateur Interactif'
+        hero_btn_simulator: 'Voir le Simulateur Interactif',
+        trust_marquee: 'Plus de 40 000 commandes traitées sans commission par des restaurants dans le monde entier',
+        pricing_badge: 'Tarifs Équitables & Zéro Commission',
+        pricing_title: 'Commencez 100% Gratuitement. Ne payez que lorsque vous vendez déjà.',
+        pricing_subtitle: 'Aucun frais caché, 0% de commission. Profitez de <strong>3 mois complets (90 jours)</strong> gratuits.',
+        currency_selector_label: 'Devise de votre pays :',
+        payment_banner_title: 'Moyens de Paiement Internationaux (PayPal USD, Cartes et Virements) :',
+        payment_banner_desc: 'Nous acceptons <strong>PayPal en Dollars (USD)</strong> pour les clients aux États-Unis, en Europe, au Canada et dans le monde entier, ainsi que les <strong>Cartes Bancaires Internationales</strong>.',
+        footer_support: 'Support 24/7 Mondial · Français & Anglais 🌎'
       }
     };
 
@@ -1901,38 +1935,52 @@
         if (btnCLP) btnCLP.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 text-slate-600 hover:text-slate-900 cursor-pointer';
         if (btnUSD) btnUSD.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-brand-600 text-white shadow-sm cursor-pointer';
 
+        const isEnglish = currentLanguage === 'en';
+
         // Plan Mensual
         if (valMonthly) valMonthly.textContent = '$16';
-        if (unitMonthly) unitMonthly.textContent = 'USD /mes';
-        if (subMonthly) subMonthly.textContent = 'Aplica después de tus primeros 3 meses gratis ($0)';
+        if (unitMonthly) unitMonthly.textContent = isEnglish ? 'USD /mo' : 'USD /mes';
+        if (subMonthly) subMonthly.textContent = isEnglish ? 'Applies after your first 3 months free ($0)' : 'Aplica después de tus primeros 3 meses gratis ($0)';
         if (linkMonthly) {
-          linkMonthly.href = 'https://universo693.com/pago?item=sokify-mensual&currency=USD&method=paypal';
-          linkMonthly.innerHTML = 'Pagar online con PayPal USD o Tarjeta &rarr;';
+          linkMonthly.href = isEnglish
+            ? 'https://universo693.com/pago?item=sokify-mensual&currency=USD&method=paypal&lang=en'
+            : 'https://universo693.com/pago?item=sokify-mensual&currency=USD&method=paypal';
+          linkMonthly.innerHTML = isEnglish ? 'Pay online with PayPal USD or Card &rarr;' : 'Pagar online con PayPal USD o Tarjeta &rarr;';
         }
 
         // Plan Anual
-        if (strikeAnnual) strikeAnnual.textContent = '$195 USD /año';
+        if (strikeAnnual) strikeAnnual.textContent = isEnglish ? '$195 USD /yr' : '$195 USD /año';
         if (valAnnual) valAnnual.textContent = '$69';
-        if (unitAnnual) unitAnnual.textContent = 'USD /año';
-        if (equivAnnual) equivAnnual.innerHTML = '⚡ Equivale a solo <strong>$5.75 USD al mes</strong> (Ahorras 64%)';
-        if (btnAnnual) btnAnnual.textContent = '💎 Asegurar Oferta Anual ($69 USD)';
+        if (unitAnnual) unitAnnual.textContent = isEnglish ? 'USD /yr' : 'USD /año';
+        if (equivAnnual) equivAnnual.innerHTML = isEnglish
+          ? '⚡ Equivalent to only <strong>$5.75 USD per month</strong> (Save 64%)'
+          : '⚡ Equivale a solo <strong>$5.75 USD al mes</strong> (Ahorras 64%)';
+        if (btnAnnual) btnAnnual.textContent = isEnglish ? '💎 Claim Founder Annual Offer ($69 USD)' : '💎 Asegurar Oferta Anual ($69 USD)';
         if (linkAnnual) {
-          linkAnnual.href = 'https://universo693.com/pago?item=sokify-anual&currency=USD&method=paypal';
-          linkAnnual.innerHTML = 'Pagar directo con PayPal USD o Tarjeta Internacional &rarr;';
+          linkAnnual.href = isEnglish
+            ? 'https://universo693.com/pago?item=sokify-anual&currency=USD&method=paypal&lang=en'
+            : 'https://universo693.com/pago?item=sokify-anual&currency=USD&method=paypal';
+          linkAnnual.innerHTML = isEnglish
+            ? 'Pay directly with PayPal USD or International Card &rarr;'
+            : 'Pagar directo con PayPal USD o Tarjeta Internacional &rarr;';
         }
 
         // Add-ons
-        if (add1) add1.innerHTML = '+$20 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
-        if (add2) add2.innerHTML = '+$10 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
-        if (add3) add3.innerHTML = '+$13 <span class="text-[10px] text-slate-500 font-normal">USD/sucursal/mes</span>';
-        if (add4) add4.innerHTML = '+$7 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
+        if (add1) add1.innerHTML = isEnglish ? '+$20 <span class="text-[10px] text-slate-500 font-normal">USD/mo</span>' : '+$20 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
+        if (add2) add2.innerHTML = isEnglish ? '+$10 <span class="text-[10px] text-slate-500 font-normal">USD/mo</span>' : '+$10 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
+        if (add3) add3.innerHTML = isEnglish ? '+$13 <span class="text-[10px] text-slate-500 font-normal">USD/location/mo</span>' : '+$13 <span class="text-[10px] text-slate-500 font-normal">USD/sucursal/mes</span>';
+        if (add4) add4.innerHTML = isEnglish ? '+$7 <span class="text-[10px] text-slate-500 font-normal">USD/mo</span>' : '+$7 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
 
-        if (addTitle2) addTitle2.textContent = 'Facturación Electrónica';
-        if (addDesc2) addDesc2.textContent = 'Emisión automática de boletas y facturas tributarias según la normativa de tu país.';
+        if (addTitle2) addTitle2.textContent = isEnglish ? 'Electronic Invoicing' : 'Facturación Electrónica';
+        if (addDesc2) addDesc2.textContent = isEnglish
+          ? 'Automated tax receipts and compliant electronic invoices according to local regulations.'
+          : 'Emisión automática de boletas y facturas tributarias según la normativa de tu país.';
 
         // Calculadora
-        if (calcSokifyCost) calcSokifyCost.innerHTML = '$16 <span class="text-xs font-normal text-slate-500">USD /mes</span>';
-        if (calcSokifyText) calcSokifyText.innerHTML = '¡3 primeros meses $0! O solo <strong>$5.75 USD/mes</strong> en plan anual ($69 USD/año). 0% comisión.';
+        if (calcSokifyCost) calcSokifyCost.innerHTML = isEnglish ? '$16 <span class="text-xs font-normal text-slate-500">USD /mo</span>' : '$16 <span class="text-xs font-normal text-slate-500">USD /mes</span>';
+        if (calcSokifyText) calcSokifyText.innerHTML = isEnglish
+          ? 'First 3 months $0! Or only <strong>$5.75 USD/mo</strong> on annual plan ($69 USD/yr). 0% commission.'
+          : '¡3 primeros meses $0! O solo <strong>$5.75 USD/mes</strong> en plan anual ($69 USD/año). 0% comisión.';
 
       } else {
         // CLP
@@ -1974,7 +2022,24 @@
       }
     }
 
-    // Autodetección geográfica inmediata (Timezone + IP)
+    const COUNTRY_NAMES = {
+      US: { name: 'United States 🇺🇸', lang: 'en' },
+      GB: { name: 'United Kingdom 🇬🇧', lang: 'en' },
+      CA: { name: 'Canada 🇨🇦', lang: 'en' },
+      AU: { name: 'Australia 🇦🇺', lang: 'en' },
+      NZ: { name: 'New Zealand 🇳🇿', lang: 'en' },
+      IE: { name: 'Ireland 🇮🇪', lang: 'en' },
+      MX: { name: 'México 🇲🇽', lang: 'es' },
+      CO: { name: 'Colombia 🇨🇴', lang: 'es' },
+      PE: { name: 'Perú 🇵🇪', lang: 'es' },
+      AR: { name: 'Argentina 🇦🇷', lang: 'es' },
+      BR: { name: 'Brasil 🇧🇷', lang: 'pt' },
+      ES: { name: 'España 🇪🇸', lang: 'es' },
+      FR: { name: 'France 🇫🇷', lang: 'fr' },
+      CL: { name: 'Chile 🇨🇱', lang: 'es' }
+    };
+
+    // Autodetección geográfica y de idioma global (Timezone + IP)
     async function initGeoDetection() {
       const savedCurr = localStorage.getItem('sokify_currency');
       if (savedCurr) {
@@ -1984,8 +2049,9 @@
         return;
       }
 
-      // 1. Detección instantánea por Timezone del navegador (0ms latencia)
+      // 1. Detección instantánea por Timezone y Locale del navegador (0ms latencia)
       let isChile = false;
+      const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
       try {
         const tz = (Intl && Intl.DateTimeFormat) ? Intl.DateTimeFormat().resolvedOptions().timeZone : '';
         if (tz && (tz.includes('Santiago') || tz.includes('Easter') || tz.includes('Chile'))) {
@@ -2002,7 +2068,8 @@
       } else {
         setCurrency('USD');
         const badge = document.getElementById('geoDetectedBadge');
-        if (badge) badge.textContent = '📍 Detectado: Internacional (USD)';
+        const isEn = navLang.startsWith('en');
+        if (badge) badge.textContent = isEn ? '📍 Detected: Global (USD)' : '📍 Detectado: Internacional (USD)';
       }
 
       // 2. Verificación asíncrona ligera por IP en background
@@ -2014,14 +2081,22 @@
         if (res.ok) {
           const data = await res.json();
           if (data && data.country) {
-            const countryCode = data.country.toUpperCase();
+            const code = data.country.toUpperCase();
             const badge = document.getElementById('geoDetectedBadge');
-            if (countryCode === 'CL') {
+            const info = COUNTRY_NAMES[code] || { name: `${code} 🌎`, lang: 'es' };
+
+            // Si el país es anglosajón y el usuario no fijó un idioma manual, cambiar a inglés
+            if (['US', 'GB', 'CA', 'AU', 'NZ', 'IE'].includes(code) && !localStorage.getItem('sokify_lang')) {
+              changeLanguage('en');
+            }
+
+            if (code === 'CL') {
               setCurrency('CLP');
-              if (badge) badge.textContent = '📍 Detectado: Chile 🇨🇱 (CLP)';
+              if (badge) badge.textContent = `📍 Detectado: ${info.name} (CLP)`;
             } else {
               setCurrency('USD');
-              if (badge) badge.textContent = `📍 Detectado: ${countryCode} 🌎 (USD)`;
+              const prefix = currentLanguage === 'en' ? '📍 Detected:' : '📍 Detectado:';
+              if (badge) badge.textContent = `${prefix} ${info.name} (USD)`;
             }
           }
         }
