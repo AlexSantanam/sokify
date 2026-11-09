@@ -3526,35 +3526,83 @@
                   <div>
                     <h3 class="font-black text-sm text-slate-900 flex items-center gap-2">
                       <span>📍</span>
-                      <span>Dirección del negocio</span>
+                      <span>Dirección del negocio (Punto de origen del delivery)</span>
                     </h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Ubicación de tu negocio y punto de origen de tus envíos a domicilio.</p>
+                    <p class="text-xs text-slate-500 mt-0.5">Escribe la dirección física de tu restaurante. El mapa y los radios por kilómetro se ubicarán automáticamente.</p>
                   </div>
                   <div class="flex items-center gap-2">
-                    <button type="button" onclick="detectarUbicacionGPS()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                    <button type="button" onclick="detectarUbicacionGPS()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer" title="Usar GPS (Para notebooks y celulares con sensor)">
                       <span>🎯</span>
-                      <span>Usar mi GPS</span>
-                    </button>
-                    <button type="button" onclick="geocodificarDireccion()" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition cursor-pointer">
-                      <span>🔍</span>
-                      <span>Fijar en Mapa</span>
+                      <span class="hidden sm:inline">Detectar GPS</span>
                     </button>
                   </div>
                 </div>
 
-                <div class="grid sm:grid-cols-12 gap-3 text-xs">
-                  <div class="sm:col-span-8">
-                    <label class="block font-bold text-slate-700 mb-1">Calle, Número, Comuna / Ciudad:</label>
-                    <input type="text" id="cfgBusinessAddress" value="Av. San Martín 820, Viña del Mar, Valparaíso" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-medium focus:bg-white focus:outline-none focus:border-blue-600 transition" placeholder="Ej: Av. Providencia 1234, Santiago" />
+                <!-- BUSCADOR INTELIGENTE DE DIRECCIONES CON AUTOCOMPLETADO EN VIVO -->
+                <div class="space-y-2">
+                  <label class="block font-bold text-xs text-slate-700">Calle, Número, Comuna o Ciudad:</label>
+                  <div class="relative flex items-center gap-2">
+                    <div class="relative flex-1">
+                      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-sm">
+                        🔍
+                      </div>
+                      <input 
+                        type="text" 
+                        id="cfgBusinessAddress" 
+                        value="Av. San Martín 820, Viña del Mar, Valparaíso" 
+                        oninput="onDireccionInput(this.value)" 
+                        onkeydown="onDireccionKeyDown(event)" 
+                        class="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-300 bg-white text-slate-900 font-semibold text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition shadow-xs" 
+                        placeholder="Ej: Fernanda 596, Villa Alemana o Providencia 1234, Santiago..." 
+                        autocomplete="off"
+                      />
+                      <button 
+                        type="button" 
+                        id="btnClearAddressInput"
+                        onclick="limpiarInputDireccion()" 
+                        class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 text-xs font-bold cursor-pointer"
+                        title="Borrar texto"
+                      >
+                        ✕
+                      </button>
+
+                      <!-- MENÚ DESPLEGABLE DE SUGERENCIAS EN VIVO (AUTOCOMPLETE) -->
+                      <div id="direccionAutocompleteDropdown" class="absolute left-0 right-0 top-full mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden hidden z-50 max-h-64 overflow-y-auto animate-in fade-in duration-150">
+                        <!-- Items inyectados dinámicamente -->
+                      </div>
+                    </div>
+
+                    <button 
+                      type="button" 
+                      id="btnBuscarDireccionManual" 
+                      onclick="geocodificarDireccion()" 
+                      class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-black text-xs sm:text-sm flex items-center gap-2 shadow-md shadow-blue-600/20 transition cursor-pointer shrink-0"
+                    >
+                      <span id="btnBuscarDirIcon">📍</span>
+                      <span id="btnBuscarDirText">Buscar y Fijar</span>
+                    </button>
                   </div>
-                  <div class="sm:col-span-2">
-                    <label class="block font-bold text-slate-700 mb-1">Latitud:</label>
-                    <input type="number" step="0.000001" id="cfgBusinessLat" value="-33.0152" onchange="actualizarCoordsDesdeInputs()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-mono text-xs focus:bg-white focus:outline-none focus:border-blue-600" />
+                  <p class="text-[11px] text-slate-400 font-medium">💡 Puedes escribir cualquier calle/ciudad y presionar <kbd class="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-300 text-slate-700 font-mono text-[10px]">Enter</kbd> o pulsar una sugerencia.</p>
+                </div>
+
+                <!-- COORDENADAS VINCULADAS -->
+                <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                  <div class="flex items-center gap-4 font-mono text-[11px]">
+                    <div>
+                      <span class="text-slate-400">Latitud:</span>
+                      <span id="lblBusinessLat" class="font-bold text-slate-700">-33.0152</span>
+                      <input type="hidden" id="cfgBusinessLat" value="-33.0152" />
+                    </div>
+                    <div>
+                      <span class="text-slate-400">Longitud:</span>
+                      <span id="lblBusinessLng" class="font-bold text-slate-700">-71.5516</span>
+                      <input type="hidden" id="cfgBusinessLng" value="-71.5516" />
+                    </div>
                   </div>
-                  <div class="sm:col-span-2">
-                    <label class="block font-bold text-slate-700 mb-1">Longitud:</label>
-                    <input type="number" step="0.000001" id="cfgBusinessLng" value="-71.5516" onchange="actualizarCoordsDesdeInputs()" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-mono text-xs focus:bg-white focus:outline-none focus:border-blue-600" />
-                  </div>
+                  <span class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>Punto de origen sincronizado con el mapa</span>
+                  </span>
                 </div>
               </div>
 
@@ -15208,6 +15256,17 @@
         return;
       }
 
+      if (deliveryConfig.direccion) {
+        const addrInp = document.getElementById('cfgBusinessAddress');
+        if (addrInp && (!addrInp.value || addrInp.value.includes('San Martín 820'))) {
+          addrInp.value = deliveryConfig.direccion;
+        }
+      }
+      const latLbl = document.getElementById('lblBusinessLat');
+      const lngLbl = document.getElementById('lblBusinessLng');
+      if (latLbl) latLbl.textContent = deliveryConfig.lat;
+      if (lngLbl) lngLbl.textContent = deliveryConfig.lng;
+
       if (!deliveryMap) {
         deliveryMap = L.map('deliveryCoverageMap', {
           zoomControl: true,
@@ -15234,16 +15293,46 @@
 
         restaurantMarker.bindPopup('<b>Tu Restaurante</b><br>Punto de partida de envíos').openPopup();
 
-        restaurantMarker.on('dragend', function (e) {
+        restaurantMarker.on('dragend', async function (e) {
           const pos = e.target.getLatLng();
-          deliveryConfig.lat = parseFloat(pos.lat.toFixed(6));
-          deliveryConfig.lng = parseFloat(pos.lng.toFixed(6));
+          const la = parseFloat(pos.lat.toFixed(6));
+          const lo = parseFloat(pos.lng.toFixed(6));
+          deliveryConfig.lat = la;
+          deliveryConfig.lng = lo;
           const latInp = document.getElementById('cfgBusinessLat');
           const lngInp = document.getElementById('cfgBusinessLng');
-          if (latInp) latInp.value = deliveryConfig.lat;
-          if (lngInp) lngInp.value = deliveryConfig.lng;
+          const latLbl = document.getElementById('lblBusinessLat');
+          const lngLbl = document.getElementById('lblBusinessLng');
+          if (latInp) latInp.value = la;
+          if (lngInp) lngInp.value = lo;
+          if (latLbl) latLbl.textContent = la;
+          if (lngLbl) lngLbl.textContent = lo;
           renderDeliveryCircles();
-          mostrarNotificacion(`📍 Ubicación del restaurante actualizada a [${deliveryConfig.lat}, ${deliveryConfig.lng}]`, 'info');
+          mostrarNotificacion(`📍 Pin movido a [${la}, ${lo}]. Obteniendo dirección...`, 'info');
+
+          // Búsqueda de dirección inversa para mantener el buscador sincronizado
+          try {
+            const revRes = await fetch(`https://photon.komoot.io/reverse?lat=${la}&lon=${lo}`);
+            const revData = await revRes.json();
+            if (revData && revData.features && revData.features[0]) {
+              const p = revData.features[0].properties || {};
+              const parts = [p.name, p.street, p.city || p.locality, p.state, p.country].filter(Boolean);
+              const addr = Array.from(new Set(parts)).join(', ');
+              if (addr) {
+                const addrInp = document.getElementById('cfgBusinessAddress');
+                if (addrInp) addrInp.value = addr;
+                deliveryConfig.direccion = addr;
+                mostrarNotificacion(`📍 Dirección fijada: ${addr}`);
+              }
+            }
+          } catch (re) {}
+
+          try {
+            localStorage.setItem('sokify_delivery_config', JSON.stringify(deliveryConfig));
+            if (window.restRef) {
+              window.restRef().set({ deliveryConfig: deliveryConfig }, { merge: true }).catch(() => {});
+            }
+          } catch (e) {}
         });
 
         // Clic en el mapa para simular entrega
@@ -15740,42 +15829,264 @@
       );
     }
 
+    // --- BUSCADOR INTELIGENTE DE DIRECCIONES CON AUTOCOMPLETADO Y GEOCODIFICACIÓN ---
+    let geocodeDebounceTimer = null;
+
+    function onDireccionInput(val) {
+      const btnClear = document.getElementById('btnClearAddressInput');
+      if (btnClear) btnClear.classList.toggle('hidden', !val || !val.trim());
+
+      clearTimeout(geocodeDebounceTimer);
+      const q = val ? val.trim() : '';
+      if (q.length < 3) {
+        cerrarSugerenciasDireccion();
+        return;
+      }
+
+      geocodeDebounceTimer = setTimeout(() => {
+        buscarSugerenciasDireccion(q);
+      }, 350);
+    }
+
+    function onDireccionKeyDown(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        cerrarSugerenciasDireccion();
+        geocodificarDireccion();
+      } else if (e.key === 'Escape') {
+        cerrarSugerenciasDireccion();
+      }
+    }
+
+    function limpiarInputDireccion() {
+      const inp = document.getElementById('cfgBusinessAddress');
+      if (inp) {
+        inp.value = '';
+        inp.focus();
+      }
+      const btnClear = document.getElementById('btnClearAddressInput');
+      if (btnClear) btnClear.classList.add('hidden');
+      cerrarSugerenciasDireccion();
+    }
+
+    function cerrarSugerenciasDireccion() {
+      const drop = document.getElementById('direccionAutocompleteDropdown');
+      if (drop) {
+        drop.classList.add('hidden');
+        drop.innerHTML = '';
+      }
+    }
+
+    async function buscarSugerenciasDireccion(query) {
+      const drop = document.getElementById('direccionAutocompleteDropdown');
+      if (!drop) return;
+
+      drop.innerHTML = `
+        <div class="p-3 text-center text-xs text-slate-500 flex items-center justify-center gap-2">
+          <span class="animate-spin text-blue-600">🔄</span>
+          <span>Buscando sugerencias para "${query}"...</span>
+        </div>
+      `;
+      drop.classList.remove('hidden');
+
+      try {
+        let suggestions = [];
+
+        // 1. Photon Geocoder (alta velocidad, sin límites de tasa y optimizado para autocompletar)
+        try {
+          const photonUrl = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=6`;
+          const res = await fetch(photonUrl);
+          const data = await res.json();
+          if (data && data.features && data.features.length > 0) {
+            suggestions = data.features.map(f => {
+              const p = f.properties || {};
+              const parts = [
+                p.name,
+                p.housenumber ? `N° ${p.housenumber}` : '',
+                p.street,
+                p.district || p.locality,
+                p.city,
+                p.state,
+                p.country
+              ].filter(Boolean);
+              const label = Array.from(new Set(parts)).join(', ');
+              return {
+                label: label || p.name || query,
+                lat: f.geometry.coordinates[1],
+                lng: f.geometry.coordinates[0]
+              };
+            });
+          }
+        } catch (pe) {
+          console.warn('Photon autocomplete error:', pe);
+        }
+
+        // 2. Si Photon no dio resultados, consultar Nominatim
+        if (suggestions.length === 0) {
+          const nomRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`);
+          const nomData = await nomRes.json();
+          if (nomData && nomData.length > 0) {
+            suggestions = nomData.map(n => ({
+              label: n.display_name,
+              lat: parseFloat(n.lat),
+              lng: parseFloat(n.lon)
+            }));
+          }
+        }
+
+        if (suggestions.length === 0) {
+          drop.innerHTML = `
+            <div class="p-3 text-center text-xs text-slate-400">
+              Presiona <kbd class="px-1 py-0.5 bg-slate-100 rounded text-slate-600 font-mono">Enter</kbd> o pulsa <strong>"Buscar y Fijar"</strong> para buscar en todo el mapa.
+            </div>
+          `;
+          return;
+        }
+
+        drop.innerHTML = suggestions.map((s) => {
+          const safeLabel = s.label.replace(/'/g, "\\'");
+          return `
+            <div 
+              onclick="seleccionarSugerenciaDireccion(${s.lat}, ${s.lng}, '${safeLabel}')" 
+              class="px-4 py-2.5 hover:bg-blue-50 transition cursor-pointer border-b border-slate-100 last:border-0 flex items-start gap-2.5 text-xs group text-left"
+            >
+              <span class="text-sm text-blue-600 mt-0.5 group-hover:scale-110 transition-transform">📍</span>
+              <div class="flex-1 overflow-hidden">
+                <div class="font-bold text-slate-800 truncate">${s.label}</div>
+                <div class="text-[10px] text-slate-400 font-mono">Lat: ${s.lat.toFixed(5)} · Lon: ${s.lng.toFixed(5)}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.warn('Error en sugerencias de dirección:', err);
+        drop.innerHTML = `
+          <div class="p-3 text-center text-xs text-slate-500">
+            Pulsa <strong>"Buscar y Fijar"</strong> para ubicar en el mapa.
+          </div>
+        `;
+      }
+    }
+
+    function seleccionarSugerenciaDireccion(lat, lng, addressText) {
+      const inp = document.getElementById('cfgBusinessAddress');
+      if (inp) inp.value = addressText;
+      cerrarSugerenciasDireccion();
+      aplicarCoordenadasRestaurante(lat, lng, addressText);
+    }
+
+    function aplicarCoordenadasRestaurante(lat, lng, addressText) {
+      deliveryConfig.lat = parseFloat(parseFloat(lat).toFixed(6));
+      deliveryConfig.lng = parseFloat(parseFloat(lng).toFixed(6));
+      if (addressText) deliveryConfig.direccion = addressText;
+
+      const latInp = document.getElementById('cfgBusinessLat');
+      const lngInp = document.getElementById('cfgBusinessLng');
+      const latLbl = document.getElementById('lblBusinessLat');
+      const lngLbl = document.getElementById('lblBusinessLng');
+      if (latInp) latInp.value = deliveryConfig.lat;
+      if (lngInp) lngInp.value = deliveryConfig.lng;
+      if (latLbl) latLbl.textContent = deliveryConfig.lat;
+      if (lngLbl) lngLbl.textContent = deliveryConfig.lng;
+
+      if (deliveryMap) {
+        deliveryMap.flyTo([deliveryConfig.lat, deliveryConfig.lng], 14, { duration: 1.2 });
+        if (restaurantMarker) {
+          restaurantMarker.setLatLng([deliveryConfig.lat, deliveryConfig.lng]);
+          restaurantMarker.bindPopup(`<b>${CFG.nombre || 'Tu Restaurante'}</b><br>${addressText || 'Punto de origen de envíos'}`).openPopup();
+        }
+        renderDeliveryCircles();
+      }
+
+      try {
+        localStorage.setItem('sokify_delivery_config', JSON.stringify(deliveryConfig));
+        if (window.restRef) {
+          window.restRef().set({
+            deliveryConfig: deliveryConfig,
+            direccion: addressText || deliveryConfig.direccion
+          }, { merge: true }).catch(() => {});
+        }
+      } catch (e) {}
+
+      mostrarNotificacion(`📍 Dirección fijada: ${addressText ? addressText.substring(0, 40) + '...' : ''}`);
+    }
+
     async function geocodificarDireccion() {
       const addrInp = document.getElementById('cfgBusinessAddress');
       const query = addrInp ? addrInp.value.trim() : '';
       if (!query) {
-        alert('Escribe una dirección para buscar en el mapa.');
+        alert('Escribe una calle, comuna o ciudad para buscar en el mapa.');
+        addrInp?.focus();
         return;
       }
 
+      cerrarSugerenciasDireccion();
+      const btn = document.getElementById('btnBuscarDireccionManual');
+      const btnTxt = document.getElementById('btnBuscarDirText');
+      if (btnTxt) btnTxt.textContent = 'Buscando...';
+      if (btn) btn.disabled = true;
+
       mostrarNotificacion(`🔍 Buscando coordenadas para: "${query}"...`, 'info');
+
       try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        if (data && data.length > 0) {
-          const first = data[0];
-          deliveryConfig.lat = parseFloat(parseFloat(first.lat).toFixed(6));
-          deliveryConfig.lng = parseFloat(parseFloat(first.lon).toFixed(6));
+        let bestMatch = null;
 
-          const latInp = document.getElementById('cfgBusinessLat');
-          const lngInp = document.getElementById('cfgBusinessLng');
-          if (latInp) latInp.value = deliveryConfig.lat;
-          if (lngInp) lngInp.value = deliveryConfig.lng;
-
-          if (deliveryMap) {
-            deliveryMap.setView([deliveryConfig.lat, deliveryConfig.lng], 14);
-            if (restaurantMarker) restaurantMarker.setLatLng([deliveryConfig.lat, deliveryConfig.lng]);
-            renderDeliveryCircles();
+        // Intento 1: Photon OpenStreetMap
+        try {
+          const pRes = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=1`);
+          const pData = await pRes.json();
+          if (pData && pData.features && pData.features.length > 0) {
+            const f = pData.features[0];
+            bestMatch = {
+              lat: f.geometry.coordinates[1],
+              lng: f.geometry.coordinates[0],
+              name: f.properties?.name || query
+            };
           }
-          mostrarNotificacion(`✅ Dirección encontrada y fijada en el mapa`);
-        } else {
-          alert('No se encontraron coordenadas exactas para esa dirección. Puedes arrastrar el pin 🏪 directamente sobre el mapa.');
+        } catch (pe) {
+          console.warn('Photon search error:', pe);
         }
-      } catch (e) {
-        console.error(e);
-        alert('Error buscando dirección. Puedes arrastrar el marcador del restaurante en el mapa.');
+
+        // Intento 2: Nominatim OpenStreetMap
+        if (!bestMatch) {
+          try {
+            const nRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`);
+            const nData = await nRes.json();
+            if (nData && nData.length > 0) {
+              bestMatch = {
+                lat: parseFloat(nData[0].lat),
+                lng: parseFloat(nData[0].lon),
+                name: nData[0].display_name
+              };
+            }
+          } catch (ne) {
+            console.warn('Nominatim search error:', ne);
+          }
+        }
+
+        if (bestMatch) {
+          aplicarCoordenadasRestaurante(bestMatch.lat, bestMatch.lng, query);
+        } else {
+          alert(`No encontramos la dirección "${query}". Intenta agregando la comuna o país (ejemplo: "${query}, Chile"), o arrastra el pin 🏪 en el mapa.`);
+        }
+      } catch (err) {
+        console.error('Error buscando dirección:', err);
+        alert('Hubo un inconveniente buscando la dirección. Puedes arrastrar el marcador 🏪 directamente en el mapa.');
+      } finally {
+        if (btnTxt) btnTxt.textContent = 'Buscar y Fijar';
+        if (btn) btn.disabled = false;
       }
     }
+
+    // Cerrar sugerencias al hacer clic fuera del buscador
+    document.addEventListener('click', (e) => {
+      const box = document.getElementById('cfgBusinessAddress');
+      const drop = document.getElementById('direccionAutocompleteDropdown');
+      if (drop && !drop.contains(e.target) && e.target !== box) {
+        cerrarSugerenciasDireccion();
+      }
+    });
 
     function actualizarCoordsDesdeInputs() {
       const latInp = document.getElementById('cfgBusinessLat');
@@ -15784,13 +16095,7 @@
       const lo = parseFloat(lngInp?.value);
 
       if (!isNaN(la) && !isNaN(lo)) {
-        deliveryConfig.lat = la;
-        deliveryConfig.lng = lo;
-        if (deliveryMap) {
-          deliveryMap.setView([la, lo]);
-          if (restaurantMarker) restaurantMarker.setLatLng([la, lo]);
-          renderDeliveryCircles();
-        }
+        aplicarCoordenadasRestaurante(la, lo);
       }
     }
 
