@@ -556,14 +556,14 @@
                     <span class="text-sm">💡</span>
                     <span>Sugerir una idea</span>
                   </button>
-                  <button type="button" onclick="mostrarNotificacion('📜 Términos y Condiciones vigentes de Sokify v2.0')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center justify-between transition-colors cursor-pointer">
+                  <button type="button" onclick="abrirModalTerminos()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center justify-between transition-colors cursor-pointer">
                     <div class="flex items-center gap-2.5">
                       <span class="text-sm">⚖️</span>
                       <span>Términos y condiciones</span>
                     </div>
                     <span class="text-[10px] text-slate-400">∨</span>
                   </button>
-                  <button type="button" onclick="mostrarNotificacion('🏬 Funcionalidad Multi-Sucursales disponible en Plan Premium')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer">
+                  <button type="button" onclick="abrirModalGestionarSucursales()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer">
                     <span class="text-sm">🏬</span>
                     <span>Sucursales</span>
                   </button>
@@ -1486,10 +1486,10 @@
                   0-0 of 0
                 </div>
                 <div class="flex items-center gap-1 text-slate-400">
-                  <button class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Primera página">|◀</button>
-                  <button class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Página anterior">◀</button>
-                  <button class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Página siguiente">▶</button>
-                  <button class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Última página">▶|</button>
+                  <button type="button" onclick="cambiarPaginaFinanzas('first')" class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Primera página">|◀</button>
+                  <button type="button" onclick="cambiarPaginaFinanzas('prev')" class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Página anterior">◀</button>
+                  <button type="button" onclick="cambiarPaginaFinanzas('next')" class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Página siguiente">▶</button>
+                  <button type="button" onclick="cambiarPaginaFinanzas('last')" class="p-1 hover:text-slate-800 disabled:opacity-30 cursor-pointer" title="Última página">▶|</button>
                 </div>
               </div>
             </div>
@@ -2811,7 +2811,7 @@
                       <div class="aspect-video rounded-xl bg-slate-100 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" class="w-full h-full object-cover">
                       </div>
-                      <button class="w-full py-2 rounded-xl bg-blue-600 text-white font-black text-xs text-center shadow-md">
+                      <button type="button" onclick="abrirPreviewMenuDigital()" class="w-full py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs text-center shadow-md cursor-pointer transition-colors">
                         Order online (Pedir aquí)
                       </button>
                     </div>
@@ -3479,7 +3479,7 @@
                 </div>
 
                 <div>
-                  <button onclick="mostrarNotificacion('Integraciones de Delivery próximamente')" class="px-4 py-2 rounded-xl border border-blue-600 text-blue-600 hover:bg-blue-50 font-bold text-xs transition-colors cursor-pointer">
+                  <button onclick="switchTab('integraciones')" class="px-4 py-2 rounded-xl border border-blue-600 text-blue-600 hover:bg-blue-50 font-bold text-xs transition-colors cursor-pointer">
                     Ir a integraciones
                   </button>
                 </div>
@@ -3835,7 +3835,7 @@
                 <h3 class="font-black text-sm text-slate-900">Herramientas de Impulso y Retención</h3>
                 <p class="text-xs text-slate-500">Crea promociones y cupones de descuento automáticos para aumentar el ticket promedio de compra.</p>
                 <div class="pt-2">
-                  <button type="button" onclick="mostrarNotificacion('Módulo de cupones listo para configurar')" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">
+                  <button type="button" onclick="abrirModalCrearDescuento()" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">
                     Crear cupón de descuento
                   </button>
                 </div>
@@ -4701,7 +4701,7 @@
                       <span>🏪</span>
                       <span>Listar tiendas de Rappi</span>
                     </button>
-                    <button type="button" onclick="mostrarNotificacion('ℹ️ Guía paso a paso: Solicita tus API Keys a partners@rappi.com')" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+                    <button type="button" onclick="abrirModalTutorialPartners('Rappi')" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs transition-colors cursor-pointer">
                       Ver tutorial de conexión
                     </button>
                   </div>
@@ -4827,9 +4827,9 @@
                   <p class="text-xs text-slate-600">Configura una URL de webhook para recibir eventos de pedidos en tiempo real en formato JSON.</p>
                   <div class="space-y-1">
                     <label class="block text-[11px] font-bold text-slate-700">Webhook URL:</label>
-                    <input type="text" placeholder="https://tu-servidor.com/webhook/pedidos" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-600">
+                    <input id="inputWebhookUrl" type="url" placeholder="https://tu-servidor.com/webhook/pedidos" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-600">
                   </div>
-                  <button type="button" onclick="mostrarNotificacion('✅ Webhook guardado exitosamente')" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">
+                  <button type="button" onclick="guardarWebhookConfig()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs cursor-pointer transition-colors">
                     Guardar Webhook
                   </button>
                 </div>
@@ -4848,7 +4848,7 @@
                 <p class="text-xs text-slate-500">Genera y administra tokens de acceso a la API para conectar tu restaurante con sistemas externos.</p>
               </div>
               <div class="flex items-center gap-2">
-                <button type="button" onclick="mostrarNotificacion('📄 Abriendo especificación OpenAPI / Swagger de Sokify REST API v1...')" class="px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
+                <button type="button" onclick="abrirModalDocApi()" class="px-4 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
                   <span>📄</span>
                   <span>Ver documentación</span>
                 </button>
@@ -5507,7 +5507,7 @@
                 <span class="font-semibold text-slate-900 ml-1">Indica sin límites. ¡No hay tope de referidos!</span>
               </div>
             </div>
-            <button type="button" onclick="mostrarNotificacion('👥 Accediendo a la comunidad VIP de Sokify Partners...')" class="shrink-0 px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-black text-xs transition-colors cursor-pointer flex items-center gap-2 shadow-sm">
+            <button type="button" onclick="abrirModalComunidadReferidos()" class="shrink-0 px-4 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 text-white font-black text-xs transition-colors cursor-pointer flex items-center gap-2 shadow-sm">
               <span>👥</span>
               <span>Únete al Grupo y Gana Premios!</span>
             </button>
@@ -5736,7 +5736,7 @@
                 Obtén tu propio dominio ".com"
               </button>
               <span class="text-xs text-slate-400 font-medium">o</span>
-              <button type="button" onclick="mostrarNotificacion('✏️ Cambiando subdominio: contacta a soporte para personalizar tu enlace sokify.app')" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors cursor-pointer flex items-center gap-1.5">
+              <button type="button" onclick="abrirModalCambiarSubdominio()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors cursor-pointer flex items-center gap-1.5">
                 <span>✏️</span>
                 <span>Cambiar mi enlace "sokify.app"</span>
               </button>
@@ -5896,7 +5896,7 @@
               </div>
               <div class="flex items-center gap-4 text-xs font-bold text-blue-600">
                 <button type="button" onclick="switchTab('configuraciones', 'pagos')" class="hover:underline cursor-pointer">Ir a medios de pago</button>
-                <button type="button" onclick="mostrarNotificacion('ℹ️ El modo solo lectura permite a los clientes ver platos y precios sin enviar pedidos al sistema')" class="hover:underline cursor-pointer flex items-center gap-1">
+                <button type="button" onclick="toggleExplicacionSoloLectura()" class="hover:underline cursor-pointer flex items-center gap-1">
                   <span>¿Cómo funciona?</span>
                   <span>▼</span>
                 </button>
@@ -6204,6 +6204,513 @@
 
     </div>
   </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: GESTIÓN MULTI-SUCURSALES -->
+  <!-- ========================================================================= -->
+  <div id="modalGestionarSucursales" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 space-y-5 shadow-2xl border border-slate-100 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl font-bold">🏬</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Gestión Multi-Sucursales</h3>
+            <p class="text-[11px] text-slate-400">Administra múltiples locales o franquicias desde un único panel central</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalGestionarSucursales()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- SUCURSAL ACTIVA Y LISTADO -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="font-black text-xs text-slate-800 uppercase tracking-wider">Tus Locales Conectados</h4>
+          <span id="badgeTotalSucursales" class="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-full">1 local activo</span>
+        </div>
+        <div id="contenedorListaSucursales" class="space-y-2">
+          <!-- Inyección JS -->
+        </div>
+      </div>
+
+      <!-- FORMULARIO NUEVA SUCURSAL -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+        <h4 class="font-black text-xs text-slate-900 flex items-center gap-1.5">
+          <span>+</span>
+          <span>Dar de alta nueva sucursal</span>
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Nombre del Local *</label>
+            <input id="sucursalNuevoNombre" type="text" placeholder="Ej: Sucursal Quilpué Centro" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Teléfono Local *</label>
+            <input id="sucursalNuevoTelefono" type="text" placeholder="Ej: +56 9 1234 5678" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">Dirección Comercial *</label>
+            <input id="sucursalNuevaDireccion" type="text" placeholder="Ej: Av. Los Carrera 850, Quilpué" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">Encargado / Administrador de Sucursal</label>
+            <input id="sucursalNuevoEncargado" type="text" placeholder="Ej: Cristian Gómez" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-semibold focus:outline-none focus:border-indigo-600">
+          </div>
+        </div>
+        <button type="button" onclick="guardarNuevaSucursal()" class="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-md shadow-indigo-600/20 transition-all cursor-pointer">
+          Guardar y Habilitar Sucursal
+        </button>
+      </div>
+
+      <div class="flex justify-end pt-1">
+        <button type="button" onclick="cerrarModalGestionarSucursales()" class="py-2 px-5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: AGREGAR IMPRESORA TÉRMICA 80MM -->
+  <!-- ========================================================================= -->
+  <div id="modalNuevaImpresora" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-xl font-bold">🖨️</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Conectar Impresora Térmica</h3>
+            <p class="text-[11px] text-slate-400">Enrutamiento automático de comandas por comanda y estación</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalNuevaImpresora()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <form onsubmit="guardarNuevaImpresora(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nombre o Alias de la Impresora *</label>
+          <input id="inputImpNombre" type="text" required placeholder="Ej: Cocina Salón, Barra Cocteles, Despacho Delivery" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Estación Destino *</label>
+            <select id="selectImpDestino" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+              <option value="cocina">🍳 Cocina (Platos calientes)</option>
+              <option value="bar">🍸 Barra / Bebidas</option>
+              <option value="recepcion">🧾 Caja / Recepción</option>
+              <option value="delivery">🛵 Despacho Delivery</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Ancho de Papel *</label>
+            <select id="selectImpAncho" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+              <option value="80mm">80 mm (Estándar restaurante)</option>
+              <option value="58mm">58 mm (Compacto portátil)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Tipo de Conexión *</label>
+            <select id="selectImpTipoConexion" onchange="actualizarPlaceholderConexionImp()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+              <option value="red">Red Ethernet / WiFi (TCP/IP)</option>
+              <option value="usb">Cable USB Directo (ESC/POS)</option>
+              <option value="bluetooth">Bluetooth Inalámbrico</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1" id="labelImpDireccion">IP Local en Red *</label>
+            <input id="inputImpIp" type="text" required placeholder="192.168.1.160" value="192.168.1.160" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-mono font-bold focus:outline-none focus:border-blue-600">
+          </div>
+        </div>
+
+        <div class="p-3 bg-blue-50/70 border border-blue-200 rounded-xl text-[11px] text-blue-800 space-y-1">
+          <div class="font-bold flex items-center gap-1.5">
+            <span>💡</span>
+            <span>Impresión directa por protocolo ESC/POS</span>
+          </div>
+          <p>Al asignarla a una estación, los pedidos que contengan ítems de esa categoría se imprimirán automáticamente al ser confirmados en el PDV.</p>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <button type="button" onclick="cerrarModalNuevaImpresora()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md shadow-slate-900/20 transition-all cursor-pointer">Guardar Impresora</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CÓDIGOS QR INTERACTIVOS DE MESAS Y LOCAL -->
+  <!-- ========================================================================= -->
+  <div id="modalVerQRsLocal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">📱</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Códigos QR del Restaurante</h3>
+            <p class="text-[11px] text-slate-400">Descarga, imprime o comparte códigos QR para tus mesas y barra</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalQR()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- SELECTOR DE DESTINO QR -->
+      <div class="space-y-1">
+        <label class="block font-bold text-slate-700 text-xs">Selecciona el código QR a visualizar:</label>
+        <select id="selectQrModalTipo" onchange="actualizarVisualizacionQr()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+          <option value="menu">Menú Digital General (Para salón, mostrador o afiches)</option>
+          <option value="mesa-1">Mesa 1 (Identifica automáticamente la comanda)</option>
+          <option value="mesa-2">Mesa 2</option>
+          <option value="mesa-3">Mesa 3</option>
+          <option value="mesa-4">Mesa 4</option>
+          <option value="mesa-5">Mesa 5</option>
+          <option value="mesa-6">Mesa 6</option>
+          <option value="mesa-7">Mesa 7</option>
+          <option value="mesa-8">Mesa 8</option>
+          <option value="barra">Barra / Terraza</option>
+          <option value="delivery">Canal Pedidos a Domicilio (WhatsApp)</option>
+        </select>
+      </div>
+
+      <!-- CONTENEDOR PREVIEW QR -->
+      <div class="text-center p-5 bg-slate-50 rounded-2xl border border-slate-200 space-y-3 shadow-inner">
+        <img id="imgQrModalPreview" src="" alt="Código QR" class="w-48 h-48 mx-auto rounded-xl shadow-sm bg-white p-2">
+        <div class="space-y-1">
+          <div id="labelQrModalDestino" class="font-black text-xs text-slate-900">Menú Digital General</div>
+          <div id="labelQrModalUrl" class="font-mono text-[11px] text-blue-600 break-all select-all font-semibold">https://sokify.app/menu.html</div>
+        </div>
+      </div>
+
+      <!-- BOTONES DE ACCIÓN -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <button type="button" onclick="descargarQrQuick()" class="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/20 transition-all cursor-pointer">
+          <span>📥</span>
+          <span>Descargar PNG</span>
+        </button>
+        <button type="button" onclick="copiarEnlaceQrActual()" class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+          <span>📋</span>
+          <span>Copiar link</span>
+        </button>
+        <button type="button" onclick="imprimirCartelMesa()" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+          <span>🖨️</span>
+          <span>Imprimir ficha</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: PERSONALIZAR SUBDOMINIO SOKIFY -->
+  <!-- ========================================================================= -->
+  <div id="modalCambiarSubdominio" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">✏️</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Personalizar enlace sokify.app</h3>
+            <p class="text-[11px] text-slate-400">Define el nombre web para que tus clientes te encuentren rápido</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalCambiarSubdominio()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nuevo enlace web:</label>
+          <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus-within:border-blue-600">
+            <span class="text-slate-400 font-mono font-medium">https://</span>
+            <input id="inputNuevoSubdominioSlug" type="text" placeholder="nombre-de-tu-local" class="bg-transparent text-slate-900 font-black font-mono w-full px-1 focus:outline-none">
+            <span class="text-slate-500 font-mono font-bold">.sokify.app</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1">Usa solo letras minúsculas, números o guiones (ej: nono-pizzas, sushi-house).</p>
+        </div>
+
+        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-emerald-800 text-[11px] space-y-1">
+          <div class="font-bold">✔ Enlace activo e instantáneo</div>
+          <div>Al guardar, el código QR y el link público se actualizarán inmediatamente para tus comandas y redes sociales.</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-1">
+        <button type="button" onclick="cerrarModalCambiarSubdominio()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
+        <button type="button" onclick="guardarNuevoSubdominio()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer">Guardar Enlace</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: TÉRMINOS Y CONDICIONES VIGENTES -->
+  <!-- ========================================================================= -->
+  <div id="modalTerminosCondiciones" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 space-y-5 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-bold">⚖️</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Términos y Condiciones del Servicio Sokify</h3>
+            <p class="text-[11px] text-slate-400">Versión 2.0 · Plataforma SaaS Operada por Universo693</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalTerminos()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-4 text-xs text-slate-600 overflow-y-auto pr-2 leading-relaxed flex-1">
+        <div class="space-y-1">
+          <h4 class="font-black text-slate-900 text-xs">1. Objeto y Alcance de la Plataforma</h4>
+          <p>Sokify es una plataforma integral de gestión gastronómica SaaS que proporciona Punto de Venta (PDV/POS), Carta Digital QR sin comisiones, Pantalla de Cocina en tiempo real (KDS), Arqueo de Caja y Facturación Electrónica para restaurantes, cafeterías, dark kitchens y locales de comida.</p>
+        </div>
+
+        <div class="space-y-1">
+          <h4 class="font-black text-slate-900 text-xs">2. Propiedad Exclusiva de Datos</h4>
+          <p>El restaurante o usuario administrador conserva en todo momento el 100% de la propiedad intelectual y comercial sobre su menú, datos de sus clientes registrados, historial de ventas, recetas y base de datos. Sokify no monetiza, no vende ni comparte información de clientes con terceros.</p>
+        </div>
+
+        <div class="space-y-1">
+          <h4 class="font-black text-slate-900 text-xs">3. Disponibilidad del Servicio (SLA 99.9%)</h4>
+          <p>La infraestructura en la nube cuenta con alta disponibilidad garantizada de 99.9% de operatividad, con modo offline de contingencia en el navegador para que tu cocina y mostrador nunca detengan su operación ante interrupciones de internet.</p>
+        </div>
+
+        <div class="space-y-1">
+          <h4 class="font-black text-slate-900 text-xs">4. Seguridad y Cifrado</h4>
+          <p>Todas las comunicaciones entre tu terminal, los teléfonos de tus comensales y el servidor están cifradas con protocolos SSL/TLS de 256 bits bajo estrictos estándares de seguridad bancaria y almacenamiento distribuido.</p>
+        </div>
+
+        <div class="space-y-1">
+          <h4 class="font-black text-slate-900 text-xs">5. Soporte y Actualizaciones Continuas</h4>
+          <p>Todas las actualizaciones de software, nuevas características, parches y mejoras de velocidad se despliegan automáticamente sin requerir instalaciones complejas ni pagos sorpresa por nuevas versiones.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2 border-t border-slate-100 shrink-0">
+        <button type="button" onclick="cerrarModalTerminos()" class="py-2.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all cursor-pointer">
+          Aceptar y Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CENTRO DE AYUDA Y GUÍAS -->
+  <!-- ========================================================================= -->
+  <div id="modalCentroAyuda" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 space-y-5 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">📘</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Centro de Ayuda y Base de Conocimientos</h3>
+            <p class="text-[11px] text-slate-400">Guías rápidas y respuestas a las preguntas más frecuentes de Sokify</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalCentroAyuda()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- BUSCADOR -->
+      <div class="relative shrink-0">
+        <input id="inputBuscarAyuda" onkeyup="filtrarCentroAyuda()" type="text" placeholder="🔍 Escribe lo que buscas (ej: impresora, delivery, caja, qr, platos)..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600">
+      </div>
+
+      <!-- ARTICULOS FAQ -->
+      <div id="contenedorArticulosAyuda" class="space-y-3 overflow-y-auto pr-1 flex-1 text-xs">
+        <details class="p-4 bg-slate-50 rounded-2xl border border-slate-200 group cursor-pointer" open>
+          <summary class="font-black text-slate-900 flex items-center justify-between list-none">
+            <span class="flex items-center gap-2"><span>📱</span> ¿Cómo actualizar mi Menú Digital y fotos?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
+            Ve al menú lateral izquierdo &gt; <strong>Menú</strong>. Haz clic en <strong>"+ Nuevo Plato"</strong> o edita cualquier plato existente con el icono de lápiz. Puedes subir fotos directas, definir variantes (tamaño, acompañamiento) y ocultar productos agotados al instante.
+          </p>
+        </details>
+
+        <details class="p-4 bg-slate-50 rounded-2xl border border-slate-200 group cursor-pointer">
+          <summary class="font-black text-slate-900 flex items-center justify-between list-none">
+            <span class="flex items-center gap-2"><span>🖨️</span> ¿Cómo conectar impresoras térmicas de 80mm?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
+            En <strong>Configuraciones &gt; Impresoras y tickets</strong> pulsa <strong>"+ Agregar impresora"</strong>. Asigna la IP de red local (ej: 192.168.1.150) o USB y escoge a qué estación enviará las comandas (Cocina, Bar o Recepción). Puedes pulsar <strong>"Imprimir Prueba"</strong> para verificar.
+          </p>
+        </details>
+
+        <details class="p-4 bg-slate-50 rounded-2xl border border-slate-200 group cursor-pointer">
+          <summary class="font-black text-slate-900 flex items-center justify-between list-none">
+            <span class="flex items-center gap-2"><span>🗺️</span> ¿Cómo configurar los radios de cobertura y costo de delivery?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
+            Ingresa a <strong>Configuraciones &gt; Coberturas y repartidores</strong>. Escribe la dirección de tu local en el buscador para posicionar el pin. Sokify dibuja anillos concéntricos en el mapa y calcula el costo exacto según los kilómetros entre tu local y el cliente.
+          </p>
+        </details>
+
+        <details class="p-4 bg-slate-50 rounded-2xl border border-slate-200 group cursor-pointer">
+          <summary class="font-black text-slate-900 flex items-center justify-between list-none">
+            <span class="flex items-center gap-2"><span>💵</span> ¿Cómo abrir y cerrar la caja diaria?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
+            En la barra superior o en el aviso amarillo pulsa <strong>"Abrir o cuadrar caja"</strong>. Ingresa el fondo inicial en efectivo. Al terminar la jornada, ingresa el dinero contado y Sokify calculará automáticamente las diferencias entre ventas reales y efectivo en gaveta.
+          </p>
+        </details>
+
+        <details class="p-4 bg-slate-50 rounded-2xl border border-slate-200 group cursor-pointer">
+          <summary class="font-black text-slate-900 flex items-center justify-between list-none">
+            <span class="flex items-center gap-2"><span>💻</span> ¿Cómo instalar Sokify en mi PC como aplicación?</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
+            Haz clic en el botón <strong>"Instalar App PC"</strong> de la barra superior. En Chrome o Edge pulsa "Instalar" y se creará un acceso directo en tu escritorio con soporte de pantalla completa.
+          </p>
+        </details>
+      </div>
+
+      <!-- SOPORTE DIRECTO WHATSAPP -->
+      <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-200 flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">💬</span>
+          <div>
+            <div class="font-black text-xs text-slate-900">¿Tienes dudas o necesitas asistencia técnica?</div>
+            <div class="text-[11px] text-emerald-800">Nuestro equipo de soporte humano te responde en minutos por WhatsApp</div>
+          </div>
+        </div>
+        <a href="https://wa.me/56937517173?text=Hola,%20necesito%20soporte%20con%20mi%20cuenta%20Sokify" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
+          <span>Abrir WhatsApp</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ESPECIFICACIÓN REST API & OPENAPI DOCS -->
+  <!-- ========================================================================= -->
+  <div id="modalDocApi" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 space-y-5 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-xl font-bold">💻</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Sokify REST API & OpenAPI Docs</h3>
+            <p class="text-[11px] text-slate-400">Endpoints públicos v1 para conectar ERPs, CRM y apps externas</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalDocApi()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 font-mono text-[11px] space-y-1">
+          <div class="text-slate-400 font-bold">BASE URL:</div>
+          <div class="text-blue-600 font-bold">https://api.sokify.app/v1</div>
+          <div class="text-slate-400 font-bold pt-1">HEADER REQUERIDO:</div>
+          <div class="text-slate-800">Authorization: Bearer &lt;tu_token_secreto&gt;</div>
+        </div>
+
+        <!-- ENDPOINTS -->
+        <div class="space-y-3">
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded font-mono font-black text-[10px] bg-emerald-100 text-emerald-800">GET</span>
+              <span class="font-mono font-bold text-slate-900 text-xs">/v1/pedidos</span>
+              <span class="text-[10px] text-slate-400 ml-auto">Obtener comandas y estados</span>
+            </div>
+            <div class="bg-slate-900 text-slate-100 p-2.5 rounded-lg font-mono text-[10px] overflow-x-auto">
+curl -X GET "https://api.sokify.app/v1/pedidos?estado=pendiente" \
+  -H "Authorization: Bearer sok_live_7x9a8f2e..."
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded font-mono font-black text-[10px] bg-blue-100 text-blue-800">POST</span>
+              <span class="font-mono font-bold text-slate-900 text-xs">/v1/pedidos</span>
+              <span class="text-[10px] text-slate-400 ml-auto">Crear comanda externa</span>
+            </div>
+            <div class="bg-slate-900 text-slate-100 p-2.5 rounded-lg font-mono text-[10px] overflow-x-auto">
+curl -X POST "https://api.sokify.app/v1/pedidos" \
+  -H "Authorization: Bearer sok_live_..." \
+  -H "Content-Type: application/json" \
+  -d '{"canal":"delivery","cliente":{"nombre":"Alexis S."},"items":[{"nombre":"Pizza Napolitana","precio":8900}]}'
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded font-mono font-black text-[10px] bg-amber-100 text-amber-800">POST</span>
+              <span class="font-mono font-bold text-slate-900 text-xs">/v1/webhooks</span>
+              <span class="text-[10px] text-slate-400 ml-auto">Suscribirse a eventos</span>
+            </div>
+            <p class="text-[11px] text-slate-500">Recibe un POST inmediato a tu servidor cuando un pedido cambia a: <code>pedido.creado</code>, <code>cocina.preparado</code> o <code>pedido.entregado</code>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-100 shrink-0">
+        <button type="button" onclick="copiarOpenApiSpec()" class="py-2 px-4 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 cursor-pointer">
+          Copiar OpenAPI Spec
+        </button>
+        <button type="button" onclick="cerrarModalDocApi()" class="py-2 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs cursor-pointer">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: GUÍA DE CONEXIÓN DELIVERY PARTNERS -->
+  <!-- ========================================================================= -->
+  <div id="modalTutorialPartners" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-bold">🛵</span>
+          <div>
+            <h3 id="tutorialPartnerTitulo" class="font-black text-sm text-slate-900">Guía de Conexión Partner</h3>
+            <p class="text-[11px] text-slate-400">Vincula tus tiendas de Rappi, Uber Eats y PedidosYa con Sokify</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalTutorialPartners()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-600">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">1</span>
+          <div>
+            <div class="font-bold text-slate-900 text-xs">Accede al portal de tu aplicación</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Inicia sesión en Rappi Aliados, Uber Eats Manager o PedidosYa Partner Portal.</div>
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">2</span>
+          <div>
+            <div class="font-bold text-slate-900 text-xs">Solicita tu ID de Integración POS</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">En la sección <em>Integraciones / API</em>, selecciona "Integración POS Directo" o escribe a tu ejecutivo asignado.</div>
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
+          <span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">3</span>
+          <div>
+            <div class="font-bold text-slate-900 text-xs">Ingresa tu Store ID en Sokify</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Haz clic en <strong>"Listar tiendas"</strong>, ingresa tu código de local y activa la sincronización en vivo.</div>
+          </div>
+        </div>
+
+        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-[11px] space-y-1">
+          <div class="font-bold">⭐ Beneficio exclusivo Sokify:</div>
+          <p>Tus pedidos de Rappi se imprimirán automáticamente con tu código QR de menú directo para que tus clientes puedan pedirte directamente a ti sin pagar comisión la próxima vez.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-1">
+        <button type="button" onclick="cerrarModalTutorialPartners()" class="py-2.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs cursor-pointer">
+          Entendido
+        </button>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ========================================================================= -->
   <!-- MODAL 2: APERTURA / CIERRE Y ARQUEO DE CAJA REGISTRADORA -->
@@ -7939,7 +8446,7 @@
             </div>
           </div>
           <div>
-            <button type="button" onclick="mostrarNotificacion('📘 Abriendo base de conocimientos y guías Sokify...')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
+            <button type="button" onclick="abrirModalCentroAyuda()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
               <span>Abrir ayuda</span>
               <span>↗</span>
             </button>
@@ -8112,7 +8619,7 @@
                   </div>
                   <p class="text-[11px] text-emerald-700 font-bold mt-1">Uso libre sin costo de ingreso</p>
                 </div>
-                <button onclick="cerrarModalPlanes(); mostrarNotificacion('🎉 ¡Tu periodo de 3 meses gratis está 100% activo!', 'success');" class="w-full py-3 px-4 rounded-xl font-black text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-500/20 transition">
+                <button onclick="activarTrialTresMeses()" class="w-full py-3 px-4 rounded-xl font-black text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-500/20 transition">
                   Comenzar 3 Meses Gratis
                 </button>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
@@ -9973,7 +10480,7 @@
                 </div>
               </div>
             </div>
-            <button class="w-8 h-8 rounded-xl bg-white group-hover:bg-brand-600 border border-slate-200 group-hover:border-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center font-black text-sm shrink-0 shadow-xs transition-colors">
+            <button class="w-8 h-8 rounded-xl bg-white group-hover:bg-brand-600 border border-slate-200 group-hover:border-brand-600 text-slate-600 group-hover:text-white flex items-center justify-center font-black text-sm shrink-0 shadow-xs transition-colors cursor-pointer" onclick="event.stopPropagation(); agregarAlPedido('${p.docId}')" title="Agregar al pedido">
               +
             </button>
           </div>
@@ -16321,7 +16828,7 @@
             </td>
             <td class="py-3 px-4 text-center">
               ${isAdmin ? `
-                <button onclick="mostrarNotificacion('Gestionar perfil de Administrador')" class="text-blue-600 hover:underline font-bold text-[11px] cursor-pointer">
+                <button onclick="abrirModalMiCuenta()" class="text-blue-600 hover:underline font-bold text-[11px] cursor-pointer">
                   Gestionar mi perfil
                 </button>
               ` : `
@@ -16429,6 +16936,521 @@
       cerrarModalPersonalizarTicket();
       mostrarNotificacion('✅ Plantilla de ticket térmico guardada');
     }
+
+    
+    // =========================================================================
+    // GESTIÓN MULTI-SUCURSALES
+    // =========================================================================
+    let sucursalesLocales = JSON.parse(localStorage.getItem('sokify_sucursales') || 'null') || [
+      { id: 'suc-1', nombre: 'Casa Matriz (Principal)', direccion: 'Fernanda 596, Villa Alemana', telefono: '+56 9 3751 7173', encargada: 'Administrador', activa: true }
+    ];
+    let sucursalActivaId = localStorage.getItem('sokify_sucursal_activa_id') || 'suc-1';
+
+    function abrirModalGestionarSucursales() {
+      renderListaSucursales();
+      document.getElementById('modalGestionarSucursales')?.classList.remove('hidden');
+    }
+
+    function cerrarModalGestionarSucursales() {
+      document.getElementById('modalGestionarSucursales')?.classList.add('hidden');
+    }
+
+    function renderListaSucursales() {
+      const container = document.getElementById('contenedorListaSucursales');
+      const badge = document.getElementById('badgeTotalSucursales');
+      if (badge) badge.textContent = `${sucursalesLocales.length} local${sucursalesLocales.length > 1 ? 'es' : ''} registrado${sucursalesLocales.length > 1 ? 's' : ''}`;
+      if (!container) return;
+
+      container.innerHTML = sucursalesLocales.map(suc => {
+        const isActiva = suc.id === sucursalActivaId;
+        return `
+          <div class="p-3.5 rounded-2xl border ${isActiva ? 'border-indigo-400 bg-indigo-50/50 ring-2 ring-indigo-500/10' : 'border-slate-200 bg-white'} flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-xs text-slate-900">${suc.nombre}</span>
+                ${isActiva ? `<span class="bg-indigo-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> ACTIVA AHORA</span>` : `<span class="bg-slate-100 text-slate-500 font-bold text-[10px] px-2 py-0.5 rounded-full">Secundaria</span>`}
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center gap-2">
+                <span>📍 ${suc.direccion}</span>
+                ${suc.telefono ? `<span>· 📞 ${suc.telefono}</span>` : ''}
+              </div>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              ${isActiva ? `
+                <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-3 py-1.5 rounded-xl">Local en Operación</span>
+              ` : `
+                <button type="button" onclick="cambiarSucursalActiva('${suc.id}')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs cursor-pointer transition-colors shadow-xs">
+                  Cambiar a este local
+                </button>
+                <button type="button" onclick="eliminarSucursal('${suc.id}')" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer" title="Eliminar sucursal">
+                  🗑️
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function guardarNuevaSucursal() {
+      const nombre = document.getElementById('sucursalNuevoNombre')?.value?.trim();
+      const direccion = document.getElementById('sucursalNuevaDireccion')?.value?.trim();
+      const telefono = document.getElementById('sucursalNuevoTelefono')?.value?.trim();
+      const encargado = document.getElementById('sucursalNuevoEncargado')?.value?.trim();
+
+      if (!nombre || !direccion) {
+        mostrarNotificacion('⚠️ Ingresa al menos el nombre y la dirección de la sucursal', 'warning');
+        return;
+      }
+
+      const nueva = {
+        id: 'suc-' + Date.now(),
+        nombre,
+        direccion,
+        telefono: telefono || '+56 9 0000 0000',
+        encargada: encargado || 'Administrador',
+        activa: false
+      };
+
+      sucursalesLocales.push(nueva);
+      localStorage.setItem('sokify_sucursales', JSON.stringify(sucursalesLocales));
+
+      if (document.getElementById('sucursalNuevoNombre')) document.getElementById('sucursalNuevoNombre').value = '';
+      if (document.getElementById('sucursalNuevaDireccion')) document.getElementById('sucursalNuevaDireccion').value = '';
+      if (document.getElementById('sucursalNuevoTelefono')) document.getElementById('sucursalNuevoTelefono').value = '';
+      if (document.getElementById('sucursalNuevoEncargado')) document.getElementById('sucursalNuevoEncargado').value = '';
+
+      renderListaSucursales();
+      mostrarNotificacion(`🏢 Sucursal "${nombre}" dada de alta correctamente`, 'success');
+    }
+
+    function cambiarSucursalActiva(id) {
+      const suc = sucursalesLocales.find(s => s.id === id);
+      if (!suc) return;
+      sucursalActivaId = id;
+      localStorage.setItem('sokify_sucursal_activa_id', id);
+
+      const addrInput = document.getElementById('cfgBusinessAddress');
+      if (addrInput) addrInput.value = suc.direccion;
+
+      renderListaSucursales();
+      mostrarNotificacion(`🔄 Conectado a local: ${suc.nombre}`, 'success');
+    }
+
+    function eliminarSucursal(id) {
+      if (sucursalesLocales.length <= 1) {
+        mostrarNotificacion('⚠️ Debes mantener al menos una sucursal principal registrada', 'warning');
+        return;
+      }
+      if (!confirm('¿Seguro que deseas eliminar esta sucursal del sistema?')) return;
+      sucursalesLocales = sucursalesLocales.filter(s => s.id !== id);
+      if (sucursalActivaId === id) {
+        sucursalActivaId = sucursalesLocales[0].id;
+        localStorage.setItem('sokify_sucursal_activa_id', sucursalActivaId);
+      }
+      localStorage.setItem('sokify_sucursales', JSON.stringify(sucursalesLocales));
+      renderListaSucursales();
+      mostrarNotificacion('🗑️ Sucursal eliminada');
+    }
+
+    // =========================================================================
+    // ENRUTAMIENTO Y GESTIÓN DE IMPRESORAS TÉRMICAS 80MM
+    // =========================================================================
+    let impresorasTermicas = JSON.parse(localStorage.getItem('sokify_impresoras_termicas') || 'null') || [
+      { id: 'imp-cocina', nombre: 'Cocina Principal', ip: '192.168.1.150', destino: 'cocina', activa: true, ancho: '80mm' },
+      { id: 'imp-barra', nombre: 'Barra y Bebidas', ip: '192.168.1.151', destino: 'bar', activa: true, ancho: '80mm' },
+      { id: 'imp-caja', nombre: 'Caja Mostrador', ip: '192.168.1.152', destino: 'recepcion', activa: true, ancho: '80mm' }
+    ];
+
+    function abrirModalNuevaImpresora() {
+      document.getElementById('modalNuevaImpresora')?.classList.remove('hidden');
+    }
+
+    function cerrarModalNuevaImpresora() {
+      document.getElementById('modalNuevaImpresora')?.classList.add('hidden');
+    }
+
+    function actualizarPlaceholderConexionImp() {
+      const tipo = document.getElementById('selectImpTipoConexion')?.value;
+      const label = document.getElementById('labelImpDireccion');
+      const input = document.getElementById('inputImpIp');
+      if (!label || !input) return;
+      if (tipo === 'red') {
+        label.textContent = 'IP Local en Red *';
+        input.placeholder = '192.168.1.160';
+        input.value = '192.168.1.160';
+      } else if (tipo === 'usb') {
+        label.textContent = 'Puerto USB del Sistema *';
+        input.placeholder = 'USB001 / COM1';
+        input.value = 'USB001';
+      } else {
+        label.textContent = 'Nombre Dispositivo Bluetooth *';
+        input.placeholder = 'BT-Printer-80';
+        input.value = 'BT-Printer-80';
+      }
+    }
+
+    function guardarNuevaImpresora(e) {
+      if (e) e.preventDefault();
+      const nombre = document.getElementById('inputImpNombre')?.value?.trim();
+      const destino = document.getElementById('selectImpDestino')?.value || 'cocina';
+      const ancho = document.getElementById('selectImpAncho')?.value || '80mm';
+      const ip = document.getElementById('inputImpIp')?.value?.trim() || '192.168.1.150';
+
+      if (!nombre) {
+        mostrarNotificacion('⚠️ Ingresa un nombre para la impresora');
+        return;
+      }
+
+      const nuevaImp = {
+        id: 'imp-' + Date.now(),
+        nombre,
+        destino,
+        ancho,
+        ip,
+        activa: true
+      };
+
+      impresorasTermicas.push(nuevaImp);
+      localStorage.setItem('sokify_impresoras_termicas', JSON.stringify(impresorasTermicas));
+      renderImpresorasEnrutadas();
+      cerrarModalNuevaImpresora();
+      mostrarNotificacion(`🖨️ Impresora "${nombre}" (${ancho}) vinculada a ${destino.toUpperCase()}`, 'success');
+    }
+
+    function probarImpresionTermica(impId) {
+      const imp = (impresorasTermicas && Array.isArray(impresorasTermicas))
+        ? (impresorasTermicas.find(i => i.id === impId) || { nombre: 'Impresora Térmica 80mm', ip: '192.168.1.150', destino: 'COCINA', ancho: '80mm' })
+        : { nombre: 'Impresora Térmica 80mm', ip: '192.168.1.150', destino: 'COCINA', ancho: '80mm' };
+
+      const now = new Date();
+      const fechaStr = now.toLocaleDateString('es-CL') + ' ' + now.toLocaleTimeString('es-CL');
+
+      const testTicketHtml = `
+        <div style="font-family: 'Courier New', monospace; width: 80mm; max-width: 280px; margin: 0 auto; padding: 12px; font-size: 12px; line-height: 1.3; color: #000; border-bottom: 2px dashed #000;">
+          <div style="text-align: center; font-weight: bold; font-size: 15px; margin-bottom: 6px;">
+            === SOKIFY TICKET DE PRUEBA ===
+          </div>
+          <div style="text-align: center; font-size: 11px; margin-bottom: 8px;">
+            SISTEMA GASTRONÓMICO PROFESIONAL
+          </div>
+          <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+          <div><strong>IMPRESORA:</strong> ${imp.nombre}</div>
+          <div><strong>ESTACIÓN:</strong> ${imp.destino.toUpperCase()}</div>
+          <div><strong>DIRECCIÓN / PUERTO:</strong> ${imp.ip || 'Red Directa'}</div>
+          <div><strong>ANCHO DE PAPEL:</strong> ${imp.ancho || '80mm'}</div>
+          <div><strong>FECHA / HORA:</strong> ${fechaStr}</div>
+          <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+          <div style="font-size: 11px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span>1x Test de caracteres ESC/POS</span>
+              <span>OK</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>1x Test de corte de papel (Cut)</span>
+              <span>OK</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>1x Sensor de gaveta de dinero</span>
+              <span>OK</span>
+            </div>
+          </div>
+          <div style="border-top: 1px dashed #000; margin: 6px 0;"></div>
+          <div style="text-align: center; font-weight: bold; font-size: 11px; margin-top: 6px;">
+            ¡CONEXIÓN TÉRMICA OPERATIVA AL 100%!
+          </div>
+          <div style="text-align: center; font-size: 9px; color: #555; margin-top: 4px;">
+            powered by Sokify v2.0
+          </div>
+        </div>
+      `;
+
+      const printBox = document.getElementById('printArea');
+      if (printBox) {
+        printBox.innerHTML = testTicketHtml;
+        window.print();
+      }
+
+      mostrarNotificacion(`🖨️ Enviando comando de prueba ESC/POS a ${imp.nombre} (${imp.ip})...`, 'success');
+    }
+
+    // =========================================================================
+    // MODAL DE CÓDIGOS QR INTERACTIVOS
+    // =========================================================================
+    let qrSeleccionActual = 'menu';
+
+    function abrirModalQR() {
+      actualizarVisualizacionQr();
+      document.getElementById('modalVerQRsLocal')?.classList.remove('hidden');
+    }
+
+    function cerrarModalQR() {
+      document.getElementById('modalVerQRsLocal')?.classList.add('hidden');
+    }
+
+    function actualizarVisualizacionQr() {
+      const tipo = document.getElementById('selectQrModalTipo')?.value || 'menu';
+      qrSeleccionActual = tipo;
+
+      const baseHost = window.location.origin || 'https://sokify.app';
+      let url = `${baseHost}/menu.html`;
+      let label = 'Menú Digital General';
+
+      if (tipo.startsWith('mesa-')) {
+        const numMesa = tipo.replace('mesa-', '');
+        url = `${baseHost}/menu.html?mesa=${numMesa}`;
+        label = `Mesa N° ${numMesa} (Salón)`;
+      } else if (tipo === 'barra') {
+        url = `${baseHost}/menu.html?zona=barra`;
+        label = 'Barra & Terraza';
+      } else if (tipo === 'delivery') {
+        url = `${baseHost}/menu.html?tipo=delivery`;
+        label = 'Menú Delivery / Pedidos Web';
+      }
+
+      const img = document.getElementById('imgQrModalPreview');
+      const lblDest = document.getElementById('labelQrModalDestino');
+      const lblUrl = document.getElementById('labelQrModalUrl');
+
+      if (img) img.src = `https://api.qrserver.com/v1/create-qr-code/?size=350x350&margin=10&data=${encodeURIComponent(url)}`;
+      if (lblDest) lblDest.textContent = label;
+      if (lblUrl) lblUrl.textContent = url;
+    }
+
+    function descargarQrQuick() {
+      const lblUrl = document.getElementById('labelQrModalUrl');
+      const url = lblUrl?.textContent || window.location.href;
+      const downloadUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=15&format=png&data=${encodeURIComponent(url)}`;
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = `sokify-qr-${qrSeleccionActual}.png`;
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      mostrarNotificacion('📥 Descargando código QR en alta calidad...');
+    }
+
+    function copiarEnlaceQrActual() {
+      const lblUrl = document.getElementById('labelQrModalUrl');
+      const url = lblUrl?.textContent || '';
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url);
+        mostrarNotificacion('📋 Enlace copiado al portapapeles: ' + url, 'success');
+      } else {
+        prompt('Copia tu enlace:', url);
+      }
+    }
+
+    function imprimirCartelMesa() {
+      const lblDest = document.getElementById('labelQrModalDestino')?.textContent || 'Mesa';
+      const lblUrl = document.getElementById('labelQrModalUrl')?.textContent || '';
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=450x450&margin=10&data=${encodeURIComponent(lblUrl)}`;
+
+      const printWin = window.open('', '_blank', 'width=600,height=700');
+      if (printWin) {
+        printWin.document.write(`
+          <html>
+            <head>
+              <title>Imprimir QR - ${lblDest}</title>
+              <style>
+                body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 40px; margin: 0; }
+                .card { border: 3px solid #0F172A; border-radius: 24px; padding: 30px; max-width: 380px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+                h1 { font-size: 24px; margin: 0 0 8px 0; color: #0F172A; }
+                p { font-size: 13px; color: #64748B; margin: 0 0 20px 0; font-weight: 500; }
+                img { width: 260px; height: 260px; border-radius: 16px; }
+                .footer { margin-top: 20px; font-size: 11px; font-weight: 800; color: #4338CA; text-transform: uppercase; letter-spacing: 1px; }
+              </style>
+            </head>
+            <body>
+              <div class="card">
+                <h1>ESCANEA Y PIDE AQUÍ</h1>
+                <p>${lblDest} · Menú Digital sin demoras</p>
+                <img src="${qrApiUrl}" onload="window.print(); window.close();">
+                <div class="footer">¡Pide a tu ritmo desde tu teléfono!</div>
+              </div>
+            </body>
+          </html>
+        `);
+        printWin.document.close();
+      }
+    }
+
+    // =========================================================================
+    // PERSONALIZACIÓN DE SUBDOMINIO SOKIFY
+    // =========================================================================
+    function abrirModalCambiarSubdominio() {
+      const banner = document.getElementById('bannerSubdominioLabel');
+      const input = document.getElementById('inputNuevoSubdominioSlug');
+      if (banner && input) {
+        const curr = banner.textContent.replace(/"/g, '').replace('.sokify.app', '').trim();
+        input.value = curr;
+      }
+      document.getElementById('modalCambiarSubdominio')?.classList.remove('hidden');
+    }
+
+    function cerrarModalCambiarSubdominio() {
+      document.getElementById('modalCambiarSubdominio')?.classList.add('hidden');
+    }
+
+    function guardarNuevoSubdominio() {
+      const input = document.getElementById('inputNuevoSubdominioSlug');
+      let val = input?.value?.trim().toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '') || '';
+      if (!val) {
+        mostrarNotificacion('⚠️ Ingresa un subdominio válido (letras, números y guiones)');
+        return;
+      }
+
+      const nuevoEnlace = `${val}.sokify.app`;
+      const banner = document.getElementById('bannerSubdominioLabel');
+      if (banner) banner.textContent = `"${nuevoEnlace}"`;
+      localStorage.setItem('sokify_subdominio_slug', val);
+      cerrarModalCambiarSubdominio();
+      mostrarNotificacion(`✅ Subdominio actualizado a https://${nuevoEnlace}`, 'success');
+    }
+
+    // =========================================================================
+    // MODALES LEGALES, AYUDA Y API
+    // =========================================================================
+    function abrirModalTerminos() {
+      document.getElementById('modalTerminosCondiciones')?.classList.remove('hidden');
+    }
+
+    function cerrarModalTerminos() {
+      document.getElementById('modalTerminosCondiciones')?.classList.add('hidden');
+    }
+
+    function abrirModalCentroAyuda() {
+      document.getElementById('modalCentroAyuda')?.classList.remove('hidden');
+    }
+
+    function cerrarModalCentroAyuda() {
+      document.getElementById('modalCentroAyuda')?.classList.add('hidden');
+    }
+
+    function filtrarCentroAyuda() {
+      const q = document.getElementById('inputBuscarAyuda')?.value?.toLowerCase().trim() || '';
+      const items = document.querySelectorAll('#contenedorArticulosAyuda details');
+      items.forEach(d => {
+        const text = d.textContent.toLowerCase();
+        if (!q || text.includes(q)) {
+          d.style.display = 'block';
+          if (q) d.setAttribute('open', '');
+        } else {
+          d.style.display = 'none';
+        }
+      });
+    }
+
+    function copiarOpenApiSpec() {
+      const spec = {
+        openapi: '3.1.0',
+        info: { title: 'Sokify API', version: '1.0.0', description: 'API REST para gestión de restaurantes y comandas Sokify' },
+        servers: [{ url: 'https://api.sokify.app/v1' }],
+        paths: {
+          '/pedidos': {
+            get: { summary: 'Listar pedidos' },
+            post: { summary: 'Crear comanda' }
+          },
+          '/carta': {
+            get: { summary: 'Carta digital y productos' }
+          }
+        }
+      };
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(JSON.stringify(spec, null, 2));
+      }
+      mostrarNotificacion('📋 Especificación OpenAPI v3.1 copiada al portapapeles', 'success');
+    }
+
+    function abrirModalDocApi() {
+      document.getElementById('modalDocApi')?.classList.remove('hidden');
+    }
+
+    function cerrarModalDocApi() {
+      document.getElementById('modalDocApi')?.classList.add('hidden');
+    }
+
+    function abrirModalTutorialPartners(platform) {
+      const tit = document.getElementById('tutorialPartnerTitulo');
+      if (tit) tit.textContent = `Guía de Conexión: ${platform || 'Delivery Partner'}`;
+      document.getElementById('modalTutorialPartners')?.classList.remove('hidden');
+    }
+
+    function cerrarModalTutorialPartners() {
+      document.getElementById('modalTutorialPartners')?.classList.add('hidden');
+    }
+
+    function guardarWebhookConfig() {
+      const input = document.getElementById('inputWebhookUrl');
+      const val = input?.value?.trim();
+      if (!val || (!val.startsWith('http://') && !val.startsWith('https://'))) {
+        mostrarNotificacion('⚠️ Ingresa una URL válida que empiece con https://', 'warning');
+        return;
+      }
+      localStorage.setItem('sokify_custom_webhook_url', val);
+      mostrarNotificacion('✅ Webhook para eventos en tiempo real guardado correctamente', 'success');
+    }
+
+    function toggleExplicacionSoloLectura() {
+      alert('ℹ️ Modo Solo Lectura de Carta:\n\nAl activarlo, tus comensales pueden navegar por el menú digital, ver fotos, descripciones y precios actualizados en tiempo real desde el QR, pero el botón de enviar comandas queda en modo catálogo.\n\nIdeal para: horarios de descanso, cocina cerrada, eventos privados o días de salón lleno.');
+    }
+
+    function abrirModalComunidadReferidos() {
+      window.open('https://chat.whatsapp.com/GzSokifyPartnersVIP2026', '_blank');
+      mostrarNotificacion('👥 Conectando con la comunidad VIP de Sokify Partners...', 'success');
+    }
+
+    function activarTrialTresMeses() {
+      cerrarModalPlanes();
+      try {
+        if (typeof db !== 'undefined' && typeof currentRestaurantId !== 'undefined' && currentRestaurantId) {
+          db.collection('restaurants').doc(currentRestaurantId).set({
+            plan: 'Trial 90 Días Premium (Activo)',
+            trialActivadoEn: new Date().toISOString()
+          }, { merge: true }).catch(console.warn);
+        }
+      } catch (err) {}
+      mostrarNotificacion('🎉 ¡Tu periodo de 3 meses gratis está 100% activo!', 'success');
+    }
+
+    function abrirPreviewMenuDigital() {
+      window.open('menu.html', '_blank');
+    }
+
+    // =========================================================================
+    // PAGINACIÓN INTERACTIVA DE FINANZAS
+    // =========================================================================
+    let finanzasPaginaActual = 1;
+    let finanzasItemsPorPagina = 25;
+
+    function cambiarPaginaFinanzas(accion) {
+      let filtrados = [...registrosFinancieros];
+      const fTipo = document.getElementById('finanzasFiltroTipo')?.value || 'todos';
+      const fMetodo = document.getElementById('finanzasFiltroMetodo')?.value || 'todos';
+      const fCuenta = document.getElementById('finanzasFiltroCuenta')?.value || 'todas';
+
+      if (fTipo !== 'todos') filtrados = filtrados.filter(r => r.tipo === fTipo);
+      if (fMetodo !== 'todos') filtrados = filtrados.filter(r => r.metodoPago === fMetodo);
+      if (fCuenta !== 'todas') filtrados = filtrados.filter(r => (r.cuenta || '').includes(fCuenta) || (r.caja || '').includes(fCuenta));
+
+      const totalItems = filtrados.length;
+      const totalPaginas = Math.max(1, Math.ceil(totalItems / finanzasItemsPorPagina));
+
+      if (accion === 'first') {
+        finanzasPaginaActual = 1;
+      } else if (accion === 'prev') {
+        if (finanzasPaginaActual > 1) finanzasPaginaActual--;
+      } else if (accion === 'next') {
+        if (finanzasPaginaActual < totalPaginas) finanzasPaginaActual++;
+      } else if (accion === 'last') {
+        finanzasPaginaActual = totalPaginas;
+      }
+
+      renderFinanzasRegistros();
+      mostrarNotificacion(`Página ${finanzasPaginaActual} de ${totalPaginas}`);
+    }
+
 
     function renderImpresorasEnrutadas() {
       const box = document.getElementById('listaImpresorasEnrutadas');
