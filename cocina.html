@@ -121,8 +121,8 @@
               EN VIVO
             </span>
           </div>
-          <p class="text-xs text-slate-400">
-            Fravioli, Street Food · Sistema Integral de Comandas y Despacho
+          <p id="kdsSubtitle" class="text-xs text-slate-400">
+            Restaurante · Sistema Integral de Comandas y Despacho
           </p>
         </div>
       </div>
@@ -355,6 +355,11 @@
 
   <!-- LÓGICA DE NEGOCIO Y SINCRONIZACIÓN EN TIEMPO REAL (FIRESTORE) -->
   <script>
+    const CFG = window.RESTAURANTE_CONFIG || {};
+    const subEl = document.getElementById('kdsSubtitle');
+    if (subEl) subEl.textContent = `${CFG.nombre || 'Restaurante'} · Sistema Integral de Comandas y Despacho`;
+    document.title = `Pantalla de Cocina & KDS · ${CFG.nombre || 'Sokify'}`;
+
     let orders = [];
     let knownOrderIds = new Set();
     let subscribed = false;

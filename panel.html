@@ -457,28 +457,28 @@
               <span class="hidden sm:inline">Soporte</span>
             </button>
 
-            <!-- PILL PERFIL DE RESTAURANTE (TIPO SOKIFY: FRAVIOLI, STREET FOOD) -->
+            <!-- PILL PERFIL DE RESTAURANTE (DINÁMICO CON SOKIFY) -->
             <div class="relative">
               <button onclick="toggleDropdownPerfil()" class="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer text-left">
-                <span class="w-7 h-7 rounded-full bg-slate-900 border border-white/20 flex items-center justify-center text-xs font-black shrink-0 text-white">
-                  FS
+                <span id="topProfileAvatarInitials" class="w-7 h-7 rounded-full bg-slate-900 border border-white/20 flex items-center justify-center text-xs font-black shrink-0 text-white">
+                  SK
                 </span>
-                <span class="font-bold text-xs text-white hidden md:inline truncate max-w-[130px]">Fravioli, Street Food</span>
+                <span id="topProfileRestName" class="font-bold text-xs text-white hidden md:inline truncate max-w-[130px]">Mi Restaurante</span>
                 <span id="perfilArrow" class="text-[10px] text-white/80 transition-transform">▼</span>
               </button>
 
-              <!-- DROPDOWN PERFIL DE USUARIO (TIPO CAPTURA 3) -->
+              <!-- DROPDOWN PERFIL DE USUARIO (DINÁMICO) -->
               <div id="dropdownPerfilUsuario" class="absolute right-0 top-full mt-2 w-72 bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-100 p-2 space-y-1.5 hidden z-50 animate-in fade-in zoom-in duration-150">
                 
                 <!-- CABECERA DE PERFIL -->
                 <div class="p-3 bg-slate-50 rounded-xl space-y-1">
                   <div class="flex items-center justify-between">
                     <div>
-                      <div class="font-extrabold text-xs text-slate-900">Fravioli, Street Food</div>
-                      <div class="text-[11px] text-slate-500 font-medium">fravioli.va@gmail.com</div>
-                      <div class="text-[10px] text-blue-600 font-bold mt-0.5">Free · Admin</div>
+                      <div id="dropdownProfileRestName" class="font-extrabold text-xs text-slate-900">Mi Restaurante</div>
+                      <div id="dropdownProfileEmail" class="text-[11px] text-slate-500 font-medium">admin@sokify.app</div>
+                      <div id="dropdownProfilePlan" class="text-[10px] text-blue-600 font-bold mt-0.5">Free · Admin</div>
                     </div>
-                    <span class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">FS</span>
+                    <span id="dropdownProfileAvatarInitials" class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">SK</span>
                   </div>
                   <div class="pt-1.5 border-t border-slate-200/60 text-[10px] text-slate-400 font-medium flex items-center gap-1">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -540,7 +540,7 @@
 
                   <div class="border-t border-slate-100 my-1"></div>
 
-                  <button type="button" onclick="firebase.auth().signOut()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-red-50 text-red-600 flex items-center gap-2.5 transition-colors cursor-pointer">
+                  <button type="button" onclick="cerrarSesionUsuario()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-red-50 text-red-600 flex items-center gap-2.5 transition-colors cursor-pointer">
                     <span class="text-sm">🚪</span>
                     <span>Cerrar sesión</span>
                   </button>
@@ -5650,7 +5650,7 @@
                 🔗
               </span>
               <p class="text-xs text-slate-700 font-medium">
-                Cambia tu enlace <strong class="text-slate-900 font-mono">"fravioli.sokify.app"</strong> a un dominio <strong class="text-slate-900 font-bold">".com"</strong> para que tus clientes lo recuerden fácilmente.
+                Cambia tu enlace <strong id="bannerSubdominioLabel" class="text-slate-900 font-mono">"fravioli.sokify.app"</strong> a un dominio <strong class="text-slate-900 font-bold">".com"</strong> para que tus clientes lo recuerden fácilmente.
               </p>
             </div>
             <div class="flex items-center gap-2.5 flex-wrap shrink-0">
@@ -5702,16 +5702,16 @@
                 <div class="space-y-3 flex-1">
                   <div>
                     <h5 class="font-black text-slate-900 text-sm">Página de bienvenida</h5>
-                    <a href="bienvenida.html" target="_blank" class="text-xs font-mono font-bold text-blue-600 hover:underline break-all">
+                    <a id="qrLinkBienvenida" href="bienvenida.html" target="_blank" class="text-xs font-mono font-bold text-blue-600 hover:underline break-all">
                       https://fravioli.sokify.app
                     </a>
                   </div>
                   <div class="flex items-center gap-2 pt-1">
-                    <button type="button" onclick="compartirEnlaceQr('https://fravioli.sokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="compartirEnlaceQr(document.getElementById('qrLinkBienvenida')?.textContent?.trim() || 'https://fravioli.sokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
                       <span>🔗</span>
                       <span>Compartir</span>
                     </button>
-                    <button type="button" onclick="descargarQrEnlace('https://fravioli.sokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="descargarQrEnlace(document.getElementById('qrLinkBienvenida')?.textContent?.trim() || 'https://fravioli.sokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
                       <span>🏷️</span>
                       <span>Descargar QR</span>
                     </button>
@@ -5725,7 +5725,7 @@
                 <div class="w-36 h-52 bg-white rounded-2xl border-4 border-slate-800 shadow-md p-1.5 flex flex-col justify-between shrink-0 text-slate-900 text-center overflow-hidden">
                   <div class="h-10 bg-amber-100 rounded-lg flex items-center justify-center text-xs">🍔</div>
                   <div class="space-y-1 py-1 text-left px-1">
-                    <div class="text-[9px] font-extrabold truncate">Fravioli Food</div>
+                    <div id="qrMiniMockupNombre" class="text-[9px] font-extrabold truncate">Fravioli Food</div>
                     <div class="h-2 bg-slate-100 rounded w-3/4"></div>
                     <div class="h-2 bg-slate-100 rounded w-1/2"></div>
                   </div>
@@ -5735,12 +5735,12 @@
                 <div class="space-y-3 flex-1">
                   <div>
                     <h5 class="font-black text-slate-900 text-sm">Página de productos</h5>
-                    <a href="index.html" target="_blank" class="text-xs font-mono font-bold text-blue-600 hover:underline break-all">
+                    <a id="qrLinkProductos" href="index.html" target="_blank" class="text-xs font-mono font-bold text-blue-600 hover:underline break-all">
                       https://fravioli.sokify.app/products
                     </a>
                   </div>
                   <div class="flex items-center gap-2 pt-1">
-                    <button type="button" onclick="compartirEnlaceQr('https://fravioli.sokify.app/products', 'Página de Productos')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="compartirEnlaceQr(document.getElementById('qrLinkProductos')?.textContent?.trim() || 'https://fravioli.sokify.app/products', 'Página de Productos')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
                       <span>🔗</span>
                       <span>Compartir</span>
                     </button>
@@ -8603,15 +8603,15 @@
       <div class="space-y-3 text-xs">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Nombre del Restaurante</label>
-          <input type="text" value="Fravioli, Street Food" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+          <input id="miCuentaNegocio" type="text" value="Mi Restaurante" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Correo Electrónico</label>
-          <input type="email" value="fravioli.va@gmail.com" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+          <input id="miCuentaEmail" type="email" value="admin@sokify.app" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Rol en el Negocio</label>
-          <input type="text" value="Administrador Principal (Owner)" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+          <input id="miCuentaRol" type="text" value="Administrador Principal (Owner)" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
         </div>
       </div>
       <div class="pt-2">
@@ -9165,12 +9165,133 @@
       toggleSidebarAcordeon('integracionesSubmenu', 'integracionesArrow', 'integraciones');
     }
 
+    // --- HELPERS DE IDENTIDAD MULTI-TENANT Y PERFIL DE USUARIO ---
+    function calcularInicialesRestaurante(nombre) {
+      if (!nombre) return 'SK';
+      const clean = nombre.trim().replace(/[^a-zA-Z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+      if (clean.length === 0) return 'SK';
+      if (clean.length === 1) return clean[0].substring(0, 2).toUpperCase();
+      return (clean[0][0] + clean[clean.length - 1][0]).toUpperCase();
+    }
+
+    function syncUserProfileAndRestaurantUI(restName, ownerEmail, plan) {
+      const name = restName || localStorage.getItem('sokify_restaurant_name') || CFG.nombre || 'Mi Restaurante';
+      const email = ownerEmail || localStorage.getItem('sokify_owner_email') || (firebase.auth().currentUser ? firebase.auth().currentUser.email : '') || 'admin@sokify.app';
+      const userPlan = (plan || localStorage.getItem('sokify_plan') || 'Free').toString();
+      const initials = calcularInicialesRestaurante(name);
+      const restSlug = window.RESTAURANT_ID || localStorage.getItem('sokify_restaurant_id') || 'menu';
+
+      CFG.nombre = name;
+
+      // 1. Sidebar y Login brand
+      const sbName = document.getElementById('restNameSidebar');
+      if (sbName) sbName.textContent = name;
+      const loginBrand = document.getElementById('loginBrandLabel');
+      if (loginBrand) loginBrand.textContent = name + ' · Gestión Integral Gastronómica';
+      document.title = 'Sokify · ' + name;
+
+      // 2. Pill superior de perfil
+      const topInit = document.getElementById('topProfileAvatarInitials');
+      if (topInit) topInit.textContent = initials;
+      const topName = document.getElementById('topProfileRestName');
+      if (topName) topName.textContent = name;
+
+      // 3. Dropdown de usuario y Mi Cuenta
+      const dropName = document.getElementById('dropdownProfileRestName');
+      if (dropName) dropName.textContent = name;
+      const dropEmail = document.getElementById('dropdownProfileEmail');
+      if (dropEmail) dropEmail.textContent = email;
+      const dropPlan = document.getElementById('dropdownProfilePlan');
+      if (dropPlan) {
+        const cleanPlan = userPlan.charAt(0).toUpperCase() + userPlan.slice(1);
+        dropPlan.textContent = `${cleanPlan} · Admin`;
+      }
+      const dropInit = document.getElementById('dropdownProfileAvatarInitials');
+      if (dropInit) dropInit.textContent = initials;
+
+      const mcNeg = document.getElementById('miCuentaNegocio');
+      if (mcNeg) mcNeg.value = name;
+      const mcEmail = document.getElementById('miCuentaEmail');
+      if (mcEmail) mcEmail.value = email;
+
+      // 4. Cabecera pestaña Menú
+      const menuNom = document.getElementById('menuNegocioNombre');
+      if (menuNom) menuNom.textContent = name;
+      const menuSlug = document.getElementById('menuSlugPreview');
+      if (menuSlug) menuSlug.textContent = 'carta-online/' + restSlug;
+
+      // 5. Simulador de Menú Digital
+      const simTop = document.getElementById('simNombreTop');
+      if (simTop) simTop.textContent = name;
+      const simFoot = document.getElementById('simFooterNombre');
+      if (simFoot) simFoot.textContent = 'Menú Digital de ' + name;
+
+      // 6. WhatsApp Chatbot
+      const chatNom = document.getElementById('chatbotRestName');
+      if (chatNom) chatNom.textContent = name;
+      const chatAvat = document.getElementById('chatbotAvatarNombre');
+      if (chatAvat) chatAvat.textContent = name;
+
+      // 7. Configuración General > Negocio & Ticket
+      const inpNeg = document.getElementById('inputNegocioNombre');
+      if (inpNeg && (!inpNeg.value || inpNeg.value === 'Fravioli, Street Food')) {
+        inpNeg.value = name;
+      }
+      const ticketPie = document.getElementById('inputTicketPie');
+      if (ticketPie && (!ticketPie.value || ticketPie.value.includes('Fravioli'))) {
+        ticketPie.value = `¡Gracias por su visita a ${name}!`;
+      }
+      if (typeof ticketConfig !== 'undefined') {
+        ticketConfig.pie = `¡Gracias por su visita a ${name}!`;
+      }
+
+      // 8. Equipo de usuarios (actualizar rol admin)
+      if (typeof equipoUsuarios !== 'undefined' && Array.isArray(equipoUsuarios)) {
+        const adminUser = equipoUsuarios.find(u => u.rol === 'Admin');
+        if (adminUser) {
+          adminUser.nombre = name;
+          adminUser.email = email;
+          adminUser.local = restSlug;
+        }
+      }
+
+      // 9. QR generator preview links
+      const bannerSub = document.getElementById('bannerSubdominioLabel');
+      if (bannerSub) bannerSub.textContent = `"${restSlug}.sokify.app"`;
+      const qrBienv = document.getElementById('qrLinkBienvenida');
+      if (qrBienv) {
+        qrBienv.textContent = `https://${restSlug}.sokify.app`;
+        qrBienv.href = `bienvenida.html?r=${encodeURIComponent(restSlug)}`;
+      }
+      const qrProd = document.getElementById('qrLinkProductos');
+      if (qrProd) {
+        qrProd.textContent = `https://${restSlug}.sokify.app/products`;
+        qrProd.href = `menu.html?r=${encodeURIComponent(restSlug)}`;
+      }
+      const qrMockNom = document.getElementById('qrMiniMockupNombre');
+      if (qrMockNom) qrMockNom.textContent = name;
+    }
+
+    function cerrarSesionUsuario() {
+      localStorage.removeItem('sokify_restaurant_id');
+      localStorage.removeItem('sokify_restaurant_name');
+      localStorage.removeItem('sokify_owner_name');
+      localStorage.removeItem('sokify_owner_email');
+      localStorage.removeItem('sokify_owner_phone');
+      localStorage.removeItem('sokify_plan');
+      firebase.auth().signOut().then(() => {
+        window.location.href = 'index.html';
+      }).catch(() => {
+        window.location.href = 'index.html';
+      });
+    }
+
     // --- LOGIN ---
     const customStoredName = localStorage.getItem('sokify_restaurant_name');
     if (customStoredName) CFG.nombre = customStoredName;
-    document.getElementById('restNameSidebar').textContent = CFG.nombre;
-    document.getElementById('loginBrandLabel').textContent = CFG.nombre + ' · Gestión Integral Gastronómica';
-    document.title = 'Sokify · ' + CFG.nombre;
+    const initialEmail = localStorage.getItem('sokify_owner_email') || '';
+    const initialPlan = localStorage.getItem('sokify_plan') || 'Free';
+    syncUserProfileAndRestaurantUI(CFG.nombre, initialEmail, initialPlan);
 
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
@@ -9191,6 +9312,45 @@
       if (user) {
         gate.classList.add('hidden');
         app.classList.remove('hidden');
+
+        let storedRestId = localStorage.getItem('sokify_restaurant_id');
+        let currentRestName = localStorage.getItem('sokify_restaurant_name');
+        let currentEmail = user.email || localStorage.getItem('sokify_owner_email') || '';
+        let currentPlan = localStorage.getItem('sokify_plan') || 'Free';
+
+        // Si no hay local guardado o es el demo fravioli, intentar asociar con la cuenta de Firestore del usuario
+        try {
+          if (!storedRestId || storedRestId === 'fravioli') {
+            const qByUid = await window.db.collection('restaurantes').where('ownerUids', 'array-contains', user.uid).limit(1).get();
+            if (!qByUid.empty) {
+              const rDoc = qByUid.docs[0];
+              const rData = rDoc.data();
+              storedRestId = rDoc.id;
+              currentRestName = rData.nombre || rData.nombreNegocio || currentRestName;
+              currentPlan = rData.plan || currentPlan;
+              localStorage.setItem('sokify_restaurant_id', storedRestId);
+              localStorage.setItem('sokify_restaurant_name', currentRestName);
+              window.RESTAURANT_ID = storedRestId;
+            } else {
+              const qByEmail = await window.db.collection('restaurantes').where('email', '==', user.email).limit(1).get();
+              if (!qByEmail.empty) {
+                const rDoc = qByEmail.docs[0];
+                const rData = rDoc.data();
+                storedRestId = rDoc.id;
+                currentRestName = rData.nombre || rData.nombreNegocio || currentRestName;
+                currentPlan = rData.plan || currentPlan;
+                localStorage.setItem('sokify_restaurant_id', storedRestId);
+                localStorage.setItem('sokify_restaurant_name', currentRestName);
+                window.RESTAURANT_ID = storedRestId;
+              }
+            }
+          }
+        } catch (authLookupErr) {
+          console.warn('Error resolviendo restaurante del usuario:', authLookupErr);
+        }
+
+        syncUserProfileAndRestaurantUI(currentRestName, currentEmail, currentPlan);
+
         if (!subscribed) {
           subscribed = true;
           await window.seedIfEmpty();
@@ -9208,6 +9368,16 @@
       // Configuración del Restaurante
       window.restRef().onSnapshot(snap => {
         const data = snap.data() || {};
+        
+        // Sincronizar nombre de negocio, email y plan en tiempo real
+        const dynName = data.nombreNegocio || data.nombre || localStorage.getItem('sokify_restaurant_name') || CFG.nombre;
+        const dynEmail = data.email || (firebase.auth().currentUser ? firebase.auth().currentUser.email : '') || localStorage.getItem('sokify_owner_email');
+        const dynPlan = data.plan || localStorage.getItem('sokify_plan') || 'Free';
+        if (dynName) {
+          CFG.nombre = dynName;
+          localStorage.setItem('sokify_restaurant_name', dynName);
+        }
+        syncUserProfileAndRestaurantUI(dynName, dynEmail, dynPlan);
         currentStoreOpen = window.calcularAbiertoAhora(data) && !data.pausaManual;
         const pausado = !!data.pausaManual;
 
