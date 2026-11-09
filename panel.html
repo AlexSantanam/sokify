@@ -2,11 +2,17 @@
 <html lang="es">
 <head>
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sokify">
+  <link rel="apple-touch-icon" href="assets/sokify-avatar.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sokify · Panel de Control Gastronómico</title>
 
-  <meta name="theme-color" content="#0F172A" />
+  <meta name="theme-color" content="#2563EB" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -404,8 +410,17 @@
           </button>
         </div>
 
+        <!-- BOTÓN INSTALAR PWA ESCRITORIO -->
+        <button type="button" onclick="descargarAppEscritorio()" class="w-full flex items-center justify-between py-2 px-3 rounded-xl bg-gradient-to-r from-blue-900/60 to-indigo-950/60 hover:from-blue-800/80 hover:to-indigo-900/80 border border-blue-500/30 text-blue-200 hover:text-white transition-all text-xs font-bold cursor-pointer group shadow-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-sm group-hover:scale-110 transition-transform">💻</span>
+            <span>Instalar App PC</span>
+          </div>
+          <span class="text-[9px] bg-blue-500/30 text-blue-300 px-1.5 py-0.5 rounded font-mono font-bold">PWA</span>
+        </button>
+
         <!-- LOGOUT -->
-        <button onclick="firebase.auth().signOut()" class="w-full flex items-center justify-center gap-2 py-1.5 text-[11px] font-bold text-slate-500 hover:text-red-400 transition-colors cursor-pointer">
+        <button onclick="cerrarSesionUsuario()" class="w-full flex items-center justify-center gap-2 py-1.5 text-[11px] font-bold text-slate-500 hover:text-red-400 transition-colors cursor-pointer">
           <span>🚪 Cerrar Sesión</span>
         </button>
       </div>
@@ -433,6 +448,10 @@
             <button onclick="abrirModalPlanes()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-white text-slate-900 hover:bg-slate-50 font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-white/20">
               <span class="text-slate-900 font-black">⚡</span>
               <span>Actualiza tu Plan</span>
+            </button>
+            <button id="btnInstalarAppDesktop" onclick="descargarAppEscritorio()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-emerald-300/40">
+              <span>💻</span>
+              <span class="hidden md:inline">Instalar App PC</span>
             </button>
           </div>
 
@@ -514,9 +533,12 @@
 
                   <div class="border-t border-slate-100 my-1"></div>
 
-                  <button type="button" onclick="descargarAppEscritorio()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer">
-                    <span class="text-sm">📥</span>
-                    <span>Descargar App de escritorio</span>
+                  <button type="button" onclick="descargarAppEscritorio()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 flex items-center justify-between transition-colors cursor-pointer text-blue-700">
+                    <div class="flex items-center gap-2.5">
+                      <span class="text-sm">💻</span>
+                      <span class="font-bold">Descargar App de escritorio</span>
+                    </div>
+                    <span class="text-[9px] bg-blue-100 text-blue-700 font-extrabold px-1.5 py-0.5 rounded font-mono">PWA</span>
                   </button>
                   <button type="button" onclick="abrirModalSoporte()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer">
                     <span class="text-sm">🎧</span>
@@ -8620,7 +8642,88 @@
     </div>
   </div>
 
-  <div id="printArea" class="hidden"></div>
+  <!-- ========================================================================= -->
+  <!-- MODAL: INSTALAR APP DE ESCRITORIO (PWA) -->
+  <!-- ========================================================================= -->
+  <div id="modalInstalarPwa" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+      
+      <!-- CABECERA -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xl shadow-md shadow-blue-500/25 shrink-0">
+            💻
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base sm:text-lg flex items-center gap-1.5">
+              Instalar App de Escritorio
+              <span class="text-[10px] bg-blue-100 text-blue-700 font-extrabold px-2 py-0.5 rounded-full font-mono">PWA</span>
+            </h3>
+            <p class="text-xs text-slate-500 font-medium">Usa Sokify como un programa nativo en tu PC o Mac</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalInstalarPwa()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- BENEFICIOS CLAVE -->
+      <div class="grid grid-cols-3 gap-2.5 text-center">
+        <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-100">
+          <div class="text-lg">⚡</div>
+          <div class="font-extrabold text-[11px] text-slate-800 mt-1">Más Rápido</div>
+          <div class="text-[9px] text-slate-400">Sin pestañas ni barras</div>
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-100">
+          <div class="text-lg">🖨️</div>
+          <div class="font-extrabold text-[11px] text-slate-800 mt-1">Impresión Directa</div>
+          <div class="text-[9px] text-slate-400">Tickets PDV y KDS</div>
+        </div>
+        <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-100">
+          <div class="text-lg">🖥️</div>
+          <div class="font-extrabold text-[11px] text-slate-800 mt-1">Acceso Directo</div>
+          <div class="text-[9px] text-slate-400">En tu Escritorio / Barra</div>
+        </div>
+      </div>
+
+      <!-- BOTÓN PRINCIPAL DE INSTALACIÓN (PROMPT AUTOMÁTICO) -->
+      <div id="boxBotonInstalarDirecto">
+        <button type="button" onclick="ejecutarInstalacionPwa()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white font-black text-sm shadow-xl shadow-blue-600/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer">
+          <span class="text-base">🚀</span>
+          <span>Instalar Sokify en Este Equipo</span>
+        </button>
+      </div>
+
+      <!-- GUÍA PASO A PASO VISUAL (CHROME / EDGE / BRAVE) -->
+      <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/60 space-y-2.5 text-xs">
+        <div class="font-extrabold text-slate-800 flex items-center gap-1.5">
+          <span>ℹ️</span>
+          <span>¿Cómo instalar manualmente si no aparece el aviso automático?</span>
+        </div>
+        <ol class="space-y-2 text-slate-600 pl-4 list-decimal font-medium leading-relaxed">
+          <li>
+            <strong>En Google Chrome o Brave:</strong> Mira a la derecha en la barra de direcciones superior (donde escribes la URL) y pulsa el icono <strong>💻 "Instalar Sokify"</strong>.
+          </li>
+          <li>
+            <strong>En Microsoft Edge:</strong> Pulsa el icono <strong>[+]</strong> o <strong>"Aplicación disponible"</strong> en la barra de URL y selecciona <em>Instalar</em>.
+          </li>
+          <li>
+            <strong>Menú de 3 puntos (⋮):</strong> También puedes hacer clic en el menú del navegador <strong>(⋮)</strong> &gt; <strong>"Guardar y compartir"</strong> o <strong>"Aplicaciones"</strong> &gt; <strong>"Instalar este sitio como aplicación"</strong>.
+          </li>
+        </ol>
+      </div>
+
+      <!-- ACCIONES DE PIE: PANTALLA COMPLETA + CERRAR -->
+      <div class="flex items-center gap-2 pt-1">
+        <button type="button" onclick="togglePantallaCompletaPwa()" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+          <span>⛶</span>
+          <span>Pantalla Completa</span>
+        </button>
+        <button type="button" onclick="cerrarModalInstalarPwa()" class="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors cursor-pointer">
+          Entendido
+        </button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- ========================================================================= -->
   <!-- ESTILOS ADICIONALES Y COMPONENTES TÁCTILES -->
@@ -16984,9 +17087,110 @@
       document.getElementById('modalMiCuenta')?.classList.add('hidden');
     }
 
+    // =========================================================================
+    // INTEGRACIÓN PWA: DESCARGAR E INSTALAR COMO APP DE ESCRITORIO
+    // =========================================================================
+    let deferredPrompt = null;
+
+    // Registrar Service Worker para PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then((registration) => {
+          console.log('✅ Sokify PWA Service Worker activo con alcance:', registration.scope);
+        }).catch((err) => {
+          console.warn('Nota: PWA Service Worker no pudo registrarse:', err);
+        });
+      });
+    }
+
+    // Capturar evento antes de instalar en PC (Chrome, Edge, Brave, Opera)
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log('💡 Evento beforeinstallprompt capturado. PWA lista para instalación en PC.');
+      
+      const btnTop = document.getElementById('btnInstalarAppDesktop');
+      if (btnTop) {
+        btnTop.classList.remove('hidden');
+        btnTop.classList.add('flex');
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      console.log('🎉 Sokify PWA instalada exitosamente en el sistema.');
+      mostrarNotificacion('🎉 ¡Sokify se instaló con éxito en tu escritorio!');
+      cerrarModalInstalarPwa();
+      const btnTop = document.getElementById('btnInstalarAppDesktop');
+      if (btnTop) {
+        btnTop.innerHTML = '<span>✅</span><span class="hidden md:inline">App Instalada</span>';
+        btnTop.classList.remove('animate-pulse');
+      }
+    });
+
     function descargarAppEscritorio() {
       toggleDropdownPerfil(false);
-      mostrarNotificacion('📥 Instalador de escritorio PWA listo. Pulsa "Instalar aplicación" en la barra de tu navegador.');
+      if (deferredPrompt) {
+        ejecutarInstalacionPwa();
+      } else {
+        abrirModalInstalarPwa();
+      }
+    }
+
+    async function ejecutarInstalacionPwa() {
+      if (deferredPrompt) {
+        try {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log('Resultado de elección PWA del usuario:', outcome);
+          if (outcome === 'accepted') {
+            mostrarNotificacion('📥 Instalando Sokify en tu equipo...');
+            deferredPrompt = null;
+            cerrarModalInstalarPwa();
+            return;
+          }
+        } catch (err) {
+          console.warn('Error al activar prompt nativo de PWA:', err);
+        }
+      }
+      // Si no hubo prompt directo o el usuario lo cerró, mostrar el asistente con instrucciones
+      abrirModalInstalarPwa();
+    }
+
+    function abrirModalInstalarPwa() {
+      const modal = document.getElementById('modalInstalarPwa');
+      if (modal) modal.classList.remove('hidden');
+
+      // Si ya está ejecutándose como aplicación independiente instalada
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      const boxBtn = document.getElementById('boxBotonInstalarDirecto');
+      if (isStandalone && boxBtn) {
+        boxBtn.innerHTML = `
+          <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-2.5 text-emerald-800 text-xs font-bold">
+            <span class="text-base">✅</span>
+            <span>Sokify ya está corriendo en tu PC como una Aplicación de Escritorio independiente.</span>
+          </div>
+        `;
+      }
+    }
+
+    function cerrarModalInstalarPwa() {
+      const modal = document.getElementById('modalInstalarPwa');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function togglePantallaCompletaPwa() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+          mostrarNotificacion('🖥️ Pantalla completa activada (Ideal para caja PDV)');
+        }).catch(() => {
+          mostrarNotificacion('Pulsa F11 para activar pantalla completa en tu equipo');
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
     }
 
     // Inicialización del primer tab
