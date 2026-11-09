@@ -389,149 +389,333 @@
   </section>
 
   <!-- ================= LIVE INTERACTIVE DUAL SIMULATOR ================= -->
-  <section id="simulador" class="relative py-16 bg-canvas border-y border-borderLight">
+  <section id="simulador" class="relative py-16 bg-canvas border-y border-borderLight overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full mb-3">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-          Simulador 100% Interactivo en Tiempo Real
+        <div class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full mb-3 shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+          Demo Interactivo en Vivo · Auto-Pedido & Punto de Venta
         </div>
-        <h2 class="text-3xl sm:text-4xl font-black text-slate-900">Haz la prueba ahora mismo</h2>
-        <p class="text-slate-600 mt-2 text-sm sm:text-base">
-          Agrega un plato desde el celular del cliente a la izquierda, presiona <strong class="text-brand-600">"Enviar a Cocina"</strong> y mira cómo entra la comanda al instante en la pantalla KDS a la derecha.
+        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Haz la prueba ahora mismo</h2>
+        <p class="text-slate-600 mt-2 text-sm sm:text-base leading-relaxed">
+          Pide desde el <strong class="text-slate-900 font-bold">celular del cliente</strong> a la izquierda, presiona <strong class="text-brand-600 font-bold">"Enviar Pedido"</strong> y mira cómo entra la comanda al instante en la <strong class="text-slate-900 font-bold">pantalla de pedidos PDV</strong> del restaurante a la derecha.
         </p>
       </div>
 
-      <!-- The Dual Grid Simulator (dark device screens on purpose, like a real phone/KDS) -->
-      <div class="grid lg:grid-cols-12 gap-8 items-start">
+      <!-- The Dual Grid Simulator: Phone Mockup (Left) + Sync Arrow + POS Tablet Mockup (Right) -->
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-4 items-center">
 
         <!-- PANE 1: CLIENT SMARTPHONE (Col span 5) -->
-        <div class="lg:col-span-5 bg-dark-950 rounded-3xl p-5 border border-white/10 shadow-2xl relative">
-          <!-- Phone Speaker Notch -->
-          <div class="w-32 h-4 bg-dark-850 rounded-b-xl mx-auto mb-4 border-b border-x border-white/10 flex items-center justify-center">
-            <div class="w-10 h-1 bg-white/20 rounded-full"></div>
-          </div>
+        <div class="lg:col-span-5 relative flex justify-center">
+          
+          <!-- Outer Phone Chassis with realistic titanium finish and 3D shadow -->
+          <div class="w-full max-w-[340px] rounded-[52px] p-3.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] ring-1 ring-white/10 relative">
+            
+            <!-- Left side volume rocker buttons -->
+            <div class="absolute -left-[7px] top-24 w-[3px] h-8 bg-slate-700 rounded-l"></div>
+            <div class="absolute -left-[7px] top-36 w-[3px] h-12 bg-slate-700 rounded-l"></div>
+            <div class="absolute -left-[7px] top-52 w-[3px] h-12 bg-slate-700 rounded-l"></div>
+            <!-- Right side power button -->
+            <div class="absolute -right-[7px] top-32 w-[3px] h-16 bg-slate-700 rounded-r"></div>
 
-          <div class="flex items-center justify-between pb-3 border-b border-white/10">
-            <div>
-              <span class="text-[10px] uppercase font-mono tracking-wider text-brand-400 font-bold">Vista Cliente · Menú QR</span>
-              <h3 class="text-sm font-black text-white">Parrillada & Burger Sokify</h3>
-            </div>
-            <span class="text-[11px] font-mono bg-brand-950 text-brand-300 border border-brand-500/30 px-2 py-0.5 rounded-md font-bold">Mesa 04</span>
-          </div>
-
-          <!-- Dishes to click -->
-          <div class="space-y-3 mt-4" id="simDishes">
-            <!-- Dish 1 -->
-            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">🍔</span>
-                <div>
-                  <h4 class="text-xs font-bold text-white">Burger Doble Trufada</h4>
-                  <p class="text-[11px] font-mono text-emerald-400 font-bold">$8.990</p>
+            <!-- Inner Phone Screen Glass -->
+            <div class="rounded-[42px] overflow-hidden bg-slate-950 text-white border border-white/5 flex flex-col justify-between shadow-inner relative min-h-[580px]">
+              
+              <!-- Dynamic Island & Speaker & Status Bar -->
+              <div class="pt-2.5 px-6 flex items-center justify-between text-[11px] font-semibold text-slate-300">
+                <span class="font-mono font-bold">9:41</span>
+                <!-- Dynamic Island -->
+                <div class="w-24 h-5 bg-black rounded-full flex items-center justify-between px-2.5 shadow-sm border border-white/10">
+                  <div class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center">
+                    <div class="w-1 h-1 rounded-full bg-blue-900/60"></div>
+                  </div>
+                  <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                </div>
+                <!-- Status icons -->
+                <div class="flex items-center gap-1.5 text-[10px]">
+                  <span>5G</span>
+                  <span>📶</span>
+                  <span>🔋</span>
                 </div>
               </div>
-              <button onclick="addSimItem('Burger Doble Trufada', 8990)" class="text-xs bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl transition">
-                + Agregar
-              </button>
-            </div>
 
-            <!-- Dish 2 -->
-            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">🍟</span>
-                <div>
-                  <h4 class="text-xs font-bold text-white">Papas Cheddar & Bacon</h4>
-                  <p class="text-[11px] font-mono text-emerald-400 font-bold">$4.200</p>
+              <!-- Phone Content Area -->
+              <div class="p-4 space-y-3 flex-1 flex flex-col">
+                
+                <!-- Restaurant Header with Banner & Table Badge -->
+                <div class="p-3 rounded-2xl bg-gradient-to-r from-brand-950/80 via-dark-850 to-slate-900 border border-brand-500/20 shadow-md">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <div class="w-8 h-8 rounded-xl bg-brand-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-brand-600/30">
+                        🍔
+                      </div>
+                      <div>
+                        <div class="text-[9px] font-mono uppercase tracking-wider text-brand-300 font-bold">Menú Digital QR</div>
+                        <h3 class="text-xs font-black text-white leading-tight">Parrillada & Burger Sokify</h3>
+                      </div>
+                    </div>
+                    <span class="text-[10px] font-mono bg-brand-500/20 text-brand-300 border border-brand-500/40 px-2 py-0.5 rounded-lg font-black animate-pulse">Mesa 04</span>
+                  </div>
+                  <div class="mt-2 pt-1.5 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400">
+                    <span class="flex items-center gap-1 text-emerald-400 font-bold">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                      Local Abierto · Auto-pedido
+                    </span>
+                    <span class="font-mono text-slate-400">0% Comisión</span>
+                  </div>
                 </div>
-              </div>
-              <button onclick="addSimItem('Papas Cheddar & Bacon', 4200)" class="text-xs bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl transition">
-                + Agregar
-              </button>
-            </div>
 
-            <!-- Dish 3 -->
-            <div class="flex items-center justify-between p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">🍹</span>
-                <div>
-                  <h4 class="text-xs font-bold text-white">Limonada Menta Jengibre</h4>
-                  <p class="text-[11px] font-mono text-emerald-400 font-bold">$2.900</p>
+                <!-- Food Category Filter Pills -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-[10px]">
+                  <span class="px-2.5 py-1 rounded-full bg-brand-600 text-white font-bold whitespace-nowrap shadow-xs">🔥 Populares</span>
+                  <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Burgers</span>
+                  <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Papas</span>
+                  <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Bebidas</span>
                 </div>
+
+                <!-- Dishes List -->
+                <div class="space-y-2 flex-1">
+                  <!-- Dish 1 -->
+                  <div class="p-2 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-2xl p-1 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">🍔</span>
+                      <div>
+                        <div class="flex items-center gap-1">
+                          <h4 class="text-xs font-bold text-white leading-tight">Burger Doble Trufada</h4>
+                          <span class="text-[8px] bg-amber-500/20 text-amber-300 px-1 py-0.2 rounded font-bold">Top</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 leading-tight">200g angus, cheddar, trufa</p>
+                        <p class="text-[11px] font-mono text-emerald-400 font-black mt-0.5">$8.990</p>
+                      </div>
+                    </div>
+                    <button type="button" onclick="addSimItem('Burger Doble Trufada', 8990)" class="shrink-0 text-xs bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-xl transition shadow-md shadow-brand-600/20 cursor-pointer">
+                      + Agregar
+                    </button>
+                  </div>
+
+                  <!-- Dish 2 -->
+                  <div class="p-2 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-2xl p-1 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">🍟</span>
+                      <div>
+                        <div class="flex items-center gap-1">
+                          <h4 class="text-xs font-bold text-white leading-tight">Papas Cheddar & Bacon</h4>
+                        </div>
+                        <p class="text-[10px] text-slate-400 leading-tight">Rústicas, salsa cheddar y tocino</p>
+                        <p class="text-[11px] font-mono text-emerald-400 font-black mt-0.5">$4.200</p>
+                      </div>
+                    </div>
+                    <button type="button" onclick="addSimItem('Papas Cheddar & Bacon', 4200)" class="shrink-0 text-xs bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-xl transition shadow-md shadow-brand-600/20 cursor-pointer">
+                      + Agregar
+                    </button>
+                  </div>
+
+                  <!-- Dish 3 -->
+                  <div class="p-2 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-2xl p-1 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">🍹</span>
+                      <div>
+                        <div class="flex items-center gap-1">
+                          <h4 class="text-xs font-bold text-white leading-tight">Limonada Menta Jengibre</h4>
+                        </div>
+                        <p class="text-[10px] text-slate-400 leading-tight">Frappé con menta fresca</p>
+                        <p class="text-[11px] font-mono text-emerald-400 font-black mt-0.5">$2.900</p>
+                      </div>
+                    </div>
+                    <button type="button" onclick="addSimItem('Limonada Menta Jengibre', 2900)" class="shrink-0 text-xs bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-xl transition shadow-md shadow-brand-600/20 cursor-pointer">
+                      + Agregar
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Floating Cart Tray inside the phone -->
+                <div class="mt-auto pt-2.5 border-t border-white/10 bg-slate-900/80 -mx-4 -mb-4 p-3.5 rounded-b-[40px] space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-400 flex items-center gap-1 text-[11px]">
+                      <span>🛒 Carrito:</span>
+                      <span id="simItemCountLabel" class="font-bold text-white font-mono">0 platos</span>
+                    </span>
+                    <span class="font-mono font-black text-emerald-400 text-sm" id="simCartTotal">$0</span>
+                  </div>
+                  <div id="simCartList" class="text-[10px] text-slate-300 font-mono space-y-1 max-h-16 overflow-y-auto pr-1">
+                    <span class="text-slate-500 italic">Haz clic en "+ Agregar" para probar...</span>
+                  </div>
+                  <button type="button" id="simSendBtn" onclick="sendSimOrder()" disabled class="w-full bg-slate-800 text-slate-400 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-not-allowed">
+                    <span>🛒 Enviar Pedido a Cocina & PDV</span>
+                    <span id="simItemCountBadge" class="hidden bg-brand-500 text-white px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                  </button>
+                </div>
+
               </div>
-              <button onclick="addSimItem('Limonada Menta Jengibre', 2900)" class="text-xs bg-brand-600 hover:bg-brand-500 text-white font-bold px-3 py-1.5 rounded-xl transition">
-                + Agregar
-              </button>
+
+              <!-- Home Indicator Bar -->
+              <div class="pb-1.5 pt-0 flex justify-center">
+                <div class="w-28 h-1 bg-white/20 rounded-full"></div>
+              </div>
+
             </div>
           </div>
 
-          <!-- Simulator Cart Preview -->
-          <div class="mt-4 pt-3 border-t border-white/10">
-            <div class="flex items-center justify-between text-xs mb-2">
-              <span class="text-slate-400">Total acumulado en carrito:</span>
-              <span class="font-mono font-bold text-white text-sm" id="simCartTotal">$0</span>
-            </div>
-            <div id="simCartList" class="text-[11px] text-slate-300 font-mono space-y-1 mb-3 min-h-[30px]">
-              <span class="text-slate-500 italic">Haz clic en "+ Agregar" para probar...</span>
-            </div>
-            <button id="simSendBtn" onclick="sendSimOrder()" disabled class="w-full bg-slate-800 text-slate-400 font-black text-xs py-3 rounded-xl transition flex items-center justify-center gap-2 cursor-not-allowed">
-              <span>🛒 Enviar Pedido a Cocina</span>
-              <span id="simItemCountBadge" class="hidden bg-brand-500 text-white px-1.5 py-0.2 rounded-full text-[10px]">0</span>
-            </button>
-          </div>
         </div>
 
-        <!-- ARROW INDICATOR (Desktop only) -->
-        <div class="hidden lg:flex lg:col-span-1 items-center justify-center self-center">
-          <div class="w-12 h-12 rounded-full bg-white border border-brand-200 shadow-soft flex items-center justify-center text-brand-600 animate-pulse">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <!-- ARROW & WEBSOCKET SYNC INDICATOR -->
+        <div class="hidden lg:flex lg:col-span-1 flex-col items-center justify-center self-center gap-2">
+          <div class="text-[10px] font-mono font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full uppercase tracking-tighter text-center whitespace-nowrap shadow-xs">
+            ⚡ &lt;0.2 seg
           </div>
+          <div class="w-12 h-12 rounded-2xl bg-white border-2 border-brand-300 shadow-md flex items-center justify-center text-brand-600 animate-pulse relative">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+            <span class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
+          </div>
+          <span class="text-[9px] font-mono text-slate-400 font-bold uppercase text-center tracking-tighter">WebSocket</span>
         </div>
 
-        <!-- PANE 2: KITCHEN DISPLAY SCREEN (KDS) (Col span 6) -->
-        <div class="lg:col-span-6 bg-dark-950 rounded-3xl p-5 border border-white/10 shadow-2xl">
-          <!-- KDS Header Bar -->
-          <div class="flex items-center justify-between pb-3 border-b border-white/10">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
-              <span class="text-xs font-mono font-bold text-white">COCINA KDS SOKIFY (TIEMPO REAL)</span>
-            </div>
-            <span class="text-[10px] font-mono text-slate-400 bg-white/5 px-2 py-0.5 rounded">Audio activado 🔔</span>
-          </div>
+        <!-- PANE 2: PANTALLA DE PEDIDOS PDV (RECEPCIÓN EN TIEMPO REAL) (Col span 6) -->
+        <div class="lg:col-span-6 relative flex justify-center">
 
-          <!-- Tickets Container -->
-          <div class="mt-4 grid sm:grid-cols-2 gap-3 min-h-[280px]" id="kdsTicketsList">
+          <!-- Desktop POS Monitor / Tablet Chassis -->
+          <div class="w-full rounded-[36px] p-4 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.6)] ring-1 ring-white/10 relative">
 
-            <!-- Pre-existing active ticket -->
-            <div class="bg-dark-850 rounded-2xl p-3.5 border border-white/10 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-black text-white">Mesa 02</span>
-                  <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded">03:15 min</span>
-                </div>
-                <ul class="text-[11px] text-slate-300 space-y-1 font-mono">
-                  <li>✔ 1x Tabla Parrillera</li>
-                  <li>✔ 2x Cerveza Artesanal</li>
-                </ul>
+            <!-- Front Camera & Status LED in top bezel -->
+            <div class="flex items-center justify-between px-3 pb-2 text-[10px] text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="font-mono font-bold text-white text-[11px]">TERMINAL TÁCTIL PDV SOKIFY</span>
               </div>
-              <button onclick="this.closest('.bg-dark-850').remove()" class="mt-3 text-[10px] font-bold bg-white/5 hover:bg-emerald-900/40 text-emerald-300 py-1.5 rounded-lg border border-emerald-500/30 transition text-center">
-                ✔ Despachar Comanda
-              </button>
+              <div class="w-2 h-2 rounded-full bg-black border border-white/20 mx-auto"></div>
+              <div class="flex items-center gap-2">
+                <span class="font-mono bg-white/5 px-2 py-0.5 rounded text-emerald-400 font-bold">10 Mbps · 0ms</span>
+              </div>
             </div>
 
-            <!-- Empty slot / Target where new ticket lands -->
-            <div id="simEmptyState" class="border-2 border-dashed border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center text-center text-slate-500">
-              <svg class="w-8 h-8 text-slate-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              <p class="text-xs">Esperando nuevo pedido desde el simulador...</p>
+            <!-- POS Screen Display -->
+            <div class="rounded-[24px] overflow-hidden bg-slate-950 text-white border border-white/10 flex flex-col min-h-[550px] shadow-inner">
+
+              <!-- Top POS Status Bar -->
+              <div class="bg-slate-900/90 px-4 py-2.5 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded-lg bg-brand-600 text-white flex items-center justify-center font-black text-xs shadow-xs">
+                    S
+                  </div>
+                  <div>
+                    <span class="font-black text-white text-xs">Punto de Venta (PDV)</span>
+                    <span class="text-[10px] text-slate-400 block font-medium">Recepción y comandeo en vivo</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2 text-[11px]">
+                  <span class="bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-md font-bold flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Caja Abierta
+                  </span>
+                  <span class="text-slate-400 font-mono bg-white/5 px-2 py-0.5 rounded" id="posClock">12:45 PM</span>
+                  <span class="text-slate-300 bg-brand-950 border border-brand-500/30 px-2 py-0.5 rounded font-mono font-bold text-[10px]">Audio 🔔</span>
+                </div>
+              </div>
+
+              <!-- POS Channels Bar -->
+              <div class="bg-slate-900/40 px-4 py-2 border-b border-white/5 flex items-center gap-2 overflow-x-auto text-xs">
+                <button type="button" class="px-3 py-1 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-[11px] flex items-center gap-1.5 cursor-pointer">
+                  <span>🧾 Mostrador</span>
+                  <span class="bg-white/10 text-slate-300 px-1.5 py-0.1 rounded text-[10px]">0</span>
+                </button>
+                <button type="button" class="px-3 py-1 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-[11px] flex items-center gap-1.5 cursor-pointer">
+                  <span>🛵 A domicilio</span>
+                  <span class="bg-white/10 text-slate-300 px-1.5 py-0.1 rounded text-[10px]">0</span>
+                </button>
+                <button type="button" class="px-3 py-1 rounded-xl bg-brand-600 text-white font-bold text-[11px] flex items-center gap-1.5 shadow-sm shadow-brand-600/30">
+                  <span>🍽️ Mesas</span>
+                  <span id="posCountMesas" class="bg-white text-brand-900 font-black px-1.5 py-0.1 rounded text-[10px]">1</span>
+                </button>
+              </div>
+
+              <!-- POS Filter Chips -->
+              <div class="px-4 py-2 bg-slate-950 border-b border-white/5 flex items-center justify-between text-[11px]">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/40 font-bold">✓ Todo</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 font-bold flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                    Pendientes (<span id="posBadgeNuevos">1</span>)
+                  </span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-slate-400 font-medium">En cocina</span>
+                </div>
+                <span class="text-slate-400 font-mono text-[10px]">KDS & Comanderas enlazadas</span>
+              </div>
+
+              <!-- Orders Board Container (Cards Grid) -->
+              <div class="p-3.5 grid sm:grid-cols-2 gap-3 flex-1 overflow-y-auto" id="posOrdersGrid">
+
+                <!-- Existing Order in Restaurant -->
+                <div class="bg-slate-900/90 rounded-2xl p-3.5 border border-white/10 flex flex-col justify-between shadow-md">
+                  <div>
+                    <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                      <div>
+                        <div class="flex items-center gap-1.5">
+                          <span class="font-black text-white text-xs">Mesa 02</span>
+                          <span class="text-[9px] font-mono text-slate-400">#103</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 block font-medium">Salón Principal</span>
+                      </div>
+                      <span class="text-[10px] font-mono font-bold text-amber-300 bg-amber-950 border border-amber-500/30 px-2 py-0.5 rounded">04:12 min</span>
+                    </div>
+
+                    <div class="mt-2.5 space-y-1 font-mono text-[11px] text-slate-300">
+                      <div class="flex justify-between">
+                        <span>✔ 1x Tabla Parrillera</span>
+                        <span class="text-slate-400">$18.900</span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>✔ 2x Cerveza Artesanal</span>
+                        <span class="text-slate-400">$6.000</span>
+                      </div>
+                    </div>
+
+                    <div class="mt-2 pt-2 border-t border-white/5 flex justify-between font-mono font-bold text-xs">
+                      <span class="text-slate-400">Total:</span>
+                      <span class="text-white">$24.900</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-3 pt-2 border-t border-white/10 flex items-center gap-1.5">
+                    <button type="button" onclick="posImprimirTicket('103')" class="flex-1 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 font-bold text-[10px] transition cursor-pointer flex items-center justify-center gap-1">
+                      <span>🖨️</span> Ticket
+                    </button>
+                    <button type="button" onclick="this.closest('.bg-slate-900\\/90').remove()" class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition cursor-pointer text-center shadow">
+                      ✔ Servido
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Empty State Slot: Target where new order from smartphone arrives -->
+                <div id="posEmptySlot" class="border-2 border-dashed border-white/10 rounded-2xl p-5 flex flex-col items-center justify-center text-center text-slate-500 bg-white/[0.02]">
+                  <div class="w-10 h-10 rounded-full bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 mb-2 animate-pulse">
+                    📡
+                  </div>
+                  <h5 class="text-xs font-bold text-slate-300 mb-1">Esperando pedido desde el celular...</h5>
+                  <p class="text-[10px] text-slate-500 max-w-[200px] leading-tight">
+                    Toca <strong class="text-slate-300 font-bold">"+ Agregar"</strong> en el celular a la izquierda y pulsa <strong class="text-brand-400 font-bold">"Enviar Pedido"</strong>
+                  </p>
+                </div>
+
+              </div>
+
+              <!-- POS Terminal Bottom Bar -->
+              <div class="bg-slate-900/90 px-4 py-2 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+                <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Conexión directa: Salón ↔ Caja ↔ Cocina
+                </span>
+                <span class="font-mono text-slate-400 text-[10px]">100% Cero Comisiones</span>
+              </div>
+
             </div>
 
+            <!-- Monitor Base Stand Shadow effect -->
+            <div class="w-48 h-2.5 bg-black/40 rounded-full mx-auto mt-2 blur-xs"></div>
           </div>
 
-          <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-            <span>⚡ Latencia de sincronización: <strong>&lt;0.2 seg</strong></span>
-            <span class="text-emerald-400 font-bold">100% Sin papel ni extravíos</span>
-          </div>
         </div>
 
       </div>
@@ -1227,7 +1411,7 @@
 
   <!-- ================= SCRIPTS: SIMULATOR, CALCULATOR & BILLING ================= -->
   <script>
-    // 1. DUAL SIMULATOR LOGIC
+    // 1. DUAL SIMULATOR LOGIC: CELULAR PRO & PDV SOKIFY
     let simCart = [];
     let simOrderCounter = 104;
 
@@ -1239,51 +1423,71 @@
     function renderSimCart() {
       const listEl = document.getElementById('simCartList');
       const totalEl = document.getElementById('simCartTotal');
+      const countLabel = document.getElementById('simItemCountLabel');
       const btn = document.getElementById('simSendBtn');
       const badge = document.getElementById('simItemCountBadge');
+
+      if (!listEl || !totalEl || !btn) return;
 
       if (simCart.length === 0) {
         listEl.innerHTML = '<span class="text-slate-500 italic">Haz clic en "+ Agregar" para probar...</span>';
         totalEl.textContent = '$0';
+        if (countLabel) countLabel.textContent = '0 platos';
         btn.disabled = true;
         btn.classList.add('bg-slate-800', 'text-slate-400', 'cursor-not-allowed');
-        btn.classList.remove('bg-brand-600', 'hover:bg-brand-500', 'text-white', 'btn-shimmer');
-        badge.classList.add('hidden');
+        btn.classList.remove('bg-brand-600', 'hover:bg-brand-500', 'text-white', 'btn-shimmer', 'cursor-pointer');
+        if (badge) badge.classList.add('hidden');
         return;
       }
 
       const total = simCart.reduce((sum, item) => sum + item.price, 0);
       totalEl.textContent = '$' + total.toLocaleString('es-CL');
+      if (countLabel) countLabel.textContent = `${simCart.length} plato${simCart.length > 1 ? 's' : ''}`;
 
       listEl.innerHTML = simCart.map(item => `
-        <div class="flex justify-between">
-          <span>1x ${item.name}</span>
-          <span class="text-emerald-400 font-bold">$${item.price.toLocaleString('es-CL')}</span>
+        <div class="flex justify-between items-center py-0.5">
+          <span>✔ 1x ${item.name}</span>
+          <span class="text-emerald-400 font-bold font-mono">$${item.price.toLocaleString('es-CL')}</span>
         </div>
       `).join('');
 
       btn.disabled = false;
       btn.classList.remove('bg-slate-800', 'text-slate-400', 'cursor-not-allowed');
-      btn.classList.add('bg-brand-600', 'hover:bg-brand-500', 'text-white', 'btn-shimmer');
-      badge.textContent = simCart.length;
-      badge.classList.remove('hidden');
+      btn.classList.add('bg-brand-600', 'hover:bg-brand-500', 'text-white', 'btn-shimmer', 'cursor-pointer');
+      if (badge) {
+        badge.textContent = simCart.length;
+        badge.classList.remove('hidden');
+      }
     }
 
-    // Audio chime using Web Audio API (100% self contained, zero external dependencies)
+    // Audio chime using Web Audio API (Dual-tone POS Bell chime)
     function playBeepSound() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); // A5
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.45);
+        
+        // Primera nota alegre D5
+        const osc1 = audioCtx.createOscillator();
+        const gain1 = audioCtx.createGain();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+        gain1.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+        osc1.connect(gain1);
+        gain1.connect(audioCtx.destination);
+        osc1.start();
+        osc1.stop(audioCtx.currentTime + 0.38);
+
+        // Segunda nota cristalina A5
+        const osc2 = audioCtx.createOscillator();
+        const gain2 = audioCtx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(880, audioCtx.currentTime + 0.12); // A5
+        gain2.gain.setValueAtTime(0.3, audioCtx.currentTime + 0.12);
+        gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.55);
+        osc2.connect(gain2);
+        gain2.connect(audioCtx.destination);
+        osc2.start(audioCtx.currentTime + 0.12);
+        osc2.stop(audioCtx.currentTime + 0.58);
       } catch (e) {
         console.log('Audio disabled or blocked by browser', e);
       }
@@ -1295,33 +1499,68 @@
       playBeepSound();
       simOrderCounter++;
 
-      const kdsList = document.getElementById('kdsTicketsList');
-      const emptyState = document.getElementById('simEmptyState');
-      if (emptyState) emptyState.remove();
+      const posGrid = document.getElementById('posOrdersGrid');
+      const emptySlot = document.getElementById('posEmptySlot');
+      if (emptySlot) emptySlot.remove();
 
-      // Create new ticket element
+      // Incrementar contadores en la barra superior del PDV
+      const badgeNuevos = document.getElementById('posBadgeNuevos');
+      const countMesas = document.getElementById('posCountMesas');
+      if (badgeNuevos) badgeNuevos.textContent = '2';
+      if (countMesas) countMesas.textContent = '2';
+
+      const totalOrder = simCart.reduce((sum, item) => sum + item.price, 0);
+      const itemsHtml = simCart.map(i => `
+        <div class="flex justify-between items-center text-slate-300">
+          <span>⚡ 1x ${i.name}</span>
+          <span class="text-slate-400 font-mono">$${i.price.toLocaleString('es-CL')}</span>
+        </div>
+      `).join('');
+
+      // Create new interactive ticket card inside the POS terminal
       const ticket = document.createElement('div');
-      ticket.className = 'bg-brand-950/60 border-2 border-brand-500 rounded-2xl p-3.5 flex flex-col justify-between shadow-xl shadow-brand-500/20 animate-in fade-in zoom-in duration-300';
-      ticket.id = 'ticket-' + simOrderCounter;
-
-      const itemsHtml = simCart.map(i => `<li>⚡ 1x ${i.name}</li>`).join('');
+      ticket.className = 'bg-brand-950/70 border-2 border-brand-500 rounded-2xl p-3.5 flex flex-col justify-between shadow-xl shadow-brand-500/25 ring-2 ring-brand-500/40 animate-in fade-in zoom-in duration-300';
+      ticket.id = 'pos-ticket-' + simOrderCounter;
 
       ticket.innerHTML = `
         <div>
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-black text-white">Mesa 04 · #${simOrderCounter}</span>
-            <span class="text-[10px] font-mono font-bold text-brand-300 bg-brand-900 px-2 py-0.5 rounded animate-pulse" id="timer-${simOrderCounter}">00:01 seg</span>
+          <div class="flex items-center justify-between pb-2 border-b border-brand-500/30">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-black text-white text-xs">Mesa 04</span>
+                <span class="text-[9px] font-mono text-brand-300">#${simOrderCounter}</span>
+              </div>
+              <span class="text-[9px] text-brand-300 font-medium block">📱 Menú QR (Auto-pedido)</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[9px] font-mono font-black text-brand-200 bg-brand-900 border border-brand-400/50 px-2 py-0.5 rounded animate-pulse" id="timer-${simOrderCounter}">00:01 seg</span>
+              <span class="text-[8px] bg-emerald-500/20 text-emerald-300 px-1 py-0.2 rounded font-bold block mt-0.5">● NUEVO</span>
+            </div>
           </div>
-          <ul class="text-[11px] text-brand-100 space-y-1 font-mono">
+
+          <div class="mt-2.5 space-y-1 font-mono text-[11px]">
             ${itemsHtml}
-          </ul>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-brand-500/30 flex justify-between font-mono font-bold text-xs">
+            <span class="text-brand-300">Total a Cobrar:</span>
+            <span class="text-emerald-400 font-black">$${totalOrder.toLocaleString('es-CL')}</span>
+          </div>
         </div>
-        <button onclick="this.closest('.border-brand-500').remove()" class="mt-3 text-[10px] font-bold bg-brand-600 hover:bg-brand-500 text-white py-1.5 rounded-lg transition text-center shadow">
-          ✔ Listo para Servir
-        </button>
+
+        <div class="mt-3 pt-2 border-t border-brand-500/30 flex items-center gap-1.5">
+          <button type="button" onclick="posImprimirTicket('${simOrderCounter}')" class="py-1.5 px-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-slate-200 font-bold text-[10px] transition cursor-pointer flex items-center justify-center gap-1 shadow-xs">
+            <span>🖨️</span> Ticket
+          </button>
+          <button type="button" id="btnAceptar-${simOrderCounter}" onclick="posAceptarComanda('${simOrderCounter}')" class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] transition cursor-pointer text-center shadow-md shadow-emerald-600/30">
+            ✅ Aceptar y Comandar
+          </button>
+        </div>
       `;
 
-      kdsList.prepend(ticket);
+      if (posGrid) {
+        posGrid.prepend(ticket);
+      }
 
       // Start ticker for this order
       let seconds = 1;
@@ -1337,10 +1576,41 @@
         }
       }, 1000);
 
-      // Clear cart
+      // Limpiar carrito en el celular
       simCart = [];
       renderSimCart();
     }
+
+    function posAceptarComanda(id) {
+      const ticket = document.getElementById('pos-ticket-' + id);
+      const btn = document.getElementById('btnAceptar-' + id);
+      if (btn && ticket) {
+        btn.textContent = '✔ Servir Comanda';
+        btn.className = 'flex-1 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-bold text-[10px] transition cursor-pointer text-center shadow';
+        btn.onclick = () => {
+          ticket.remove();
+          const badgeNuevos = document.getElementById('posBadgeNuevos');
+          if (badgeNuevos) badgeNuevos.textContent = '1';
+        };
+        ticket.className = 'bg-slate-900/90 border border-emerald-500/50 rounded-2xl p-3.5 flex flex-col justify-between shadow-md transition-all';
+      }
+      playBeepSound();
+    }
+
+    function posImprimirTicket(id) {
+      alert(`🖨️ Imprimiendo Comanda #${id} en Impresora Térmica 80mm de Cocina (ESC/POS)...`);
+    }
+
+    // Actualizar reloj dinámico del PDV
+    function updatePosClock() {
+      const el = document.getElementById('posClock');
+      if (el) {
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+      }
+    }
+    setInterval(updatePosClock, 30000);
+    setTimeout(updatePosClock, 100);
 
     // 2. SAVINGS CALCULATOR LOGIC
     function updateCalculator(val) {
