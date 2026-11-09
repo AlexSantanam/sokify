@@ -113,17 +113,25 @@
         <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Sokify</h2>
         <p class="text-xs text-slate-500 font-medium" id="loginBrandLabel">Gestión Integral Gastronómica</p>
       </div>
-      <form id="loginForm" class="space-y-3">
+      <form id="loginForm" class="space-y-3.5">
         <div>
           <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Correo Administrador</label>
           <input id="loginEmail" type="email" required placeholder="admin@tulocal.cl" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all" />
         </div>
         <div>
-          <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Contraseña</label>
-          <input id="loginPass" type="password" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all" />
+          <div class="flex items-center justify-between mb-1">
+            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Contraseña</label>
+            <button type="button" onclick="recuperarContrasenaLogin()" class="text-[10px] text-brand-600 hover:underline font-bold cursor-pointer">¿Olvidaste tu contraseña?</button>
+          </div>
+          <div class="relative">
+            <input id="loginPass" type="password" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-3.5 pr-10 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all" />
+            <button type="button" onclick="toggleMostrarPasswordLogin()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 text-sm cursor-pointer" title="Mostrar/ocultar contraseña">
+              <span id="eyeIconLogin">👁️</span>
+            </button>
+          </div>
         </div>
-        <p id="loginError" class="hidden text-xs text-red-500 font-bold bg-red-50 p-2.5 rounded-xl border border-red-200"></p>
-        <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs tracking-wide shadow-lg shadow-brand-600/30 transition-all cursor-pointer">
+        <p id="loginError" class="hidden text-xs text-red-600 font-bold bg-red-50 p-2.5 rounded-xl border border-red-200 leading-relaxed"></p>
+        <button id="btnLoginSubmit" type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs tracking-wide shadow-lg shadow-brand-600/30 transition-all cursor-pointer">
           Ingresar al Panel
         </button>
       </form>
@@ -8863,6 +8871,22 @@
   <!-- ========================================================================= -->
   <script>
     const CFG = window.RESTAURANTE_CONFIG;
+    let equipoUsuarios = [
+      { id: 'usr-1', nombre: 'Diego Cacerez dely', email: 'd.cacerez03@gmail.com', local: 'local', rol: 'Rider', activo: false },
+      { id: 'usr-2', nombre: 'Jeniffer', email: 'jeniffer.mella.a@gmail.com', local: 'local', rol: 'Rider', activo: false },
+      { id: 'usr-3', nombre: 'Alex', email: 'alexis.santana.miranda@gmail.com', local: 'local', rol: 'Rider', activo: false },
+      { id: 'usr-4', nombre: 'Administrador', email: 'admin@sokify.app', local: 'local', rol: 'Admin', activo: true }
+    ];
+    let ticketConfig = {
+      ancho: '80mm',
+      numeroGrande: true,
+      notasNegrita: true,
+      timers: true,
+      pie: '¡Gracias por su visita!'
+    };
+    window.equipoUsuarios = equipoUsuarios;
+    window.ticketConfig = ticketConfig;
+
     let categorias = [];
     let productos = [];
     let clientes = [];
@@ -9444,17 +9468,100 @@
     const initialPlan = localStorage.getItem('sokify_plan') || 'Free';
     syncUserProfileAndRestaurantUI(CFG.nombre, initialEmail, initialPlan);
 
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
+    // Pre-completar correo si ya existe en sesión
+    const emailField = document.getElementById('loginEmail');
+    if (emailField && initialEmail && !emailField.value) {
+      emailField.value = initialEmail;
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPass').value;
       const errEl = document.getElementById('loginError');
+      const submitBtn = document.getElementById('btnLoginSubmit');
+
       errEl.classList.add('hidden');
-      firebase.auth().signInWithEmailAndPassword(email, pass).catch((err) => {
-        errEl.textContent = 'Correo o contraseña incorrectos.';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '⏳ Verificando credenciales...';
+      }
+
+      try {
+        await firebase.auth().signInWithEmailAndPassword(email, pass);
+      } catch (err) {
+        console.warn('Error al iniciar sesión:', err.code, err.message);
+
+        // Si el usuario no existe en Firebase Auth, intentar registrarlo automáticamente
+        if (err.code === 'auth/user-not-found') {
+          try {
+            if (submitBtn) submitBtn.innerHTML = '⏳ Creando cuenta nueva...';
+            const userCred = await firebase.auth().createUserWithEmailAndPassword(email, pass);
+            const user = userCred.user;
+            const storedRestId = localStorage.getItem('sokify_restaurant_id') || 'mi-restaurante';
+            await window.db.collection('restaurantes').doc(storedRestId).set({
+              ownerUids: firebase.firestore.FieldValue.arrayUnion(user.uid),
+              email: email
+            }, { merge: true });
+            return;
+          } catch (createErr) {
+            console.error('Error registrando cuenta:', createErr);
+          }
+        }
+
+        let msg = 'Correo o contraseña incorrectos.';
+        if (err.code === 'auth/wrong-password') {
+          msg = '⚠️ Contraseña incorrecta. Por favor verifica tu clave o pulsa "¿Olvidaste tu contraseña?".';
+        } else if (err.code === 'auth/user-not-found') {
+          msg = '⚠️ No existe una cuenta registrada con este correo.';
+        } else if (err.code === 'auth/invalid-email') {
+          msg = '⚠️ El formato del correo electrónico no es válido.';
+        } else if (err.code === 'auth/too-many-requests') {
+          msg = '⚠️ Demasiados intentos fallidos. Espera unos minutos antes de volver a intentar.';
+        } else if (err.code === 'auth/network-request-failed') {
+          msg = '⚠️ Error de conexión. Revisa tu conexión a internet.';
+        } else if (err.message) {
+          msg = '⚠️ ' + err.message;
+        }
+
+        errEl.textContent = msg;
         errEl.classList.remove('hidden');
-      });
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Ingresar al Panel';
+        }
+      }
     });
+
+    function toggleMostrarPasswordLogin() {
+      const passInp = document.getElementById('loginPass');
+      const eyeIcon = document.getElementById('eyeIconLogin');
+      if (passInp) {
+        if (passInp.type === 'password') {
+          passInp.type = 'text';
+          if (eyeIcon) eyeIcon.textContent = '🙈';
+        } else {
+          passInp.type = 'password';
+          if (eyeIcon) eyeIcon.textContent = '👁️';
+        }
+      }
+    }
+
+    async function recuperarContrasenaLogin() {
+      const email = document.getElementById('loginEmail')?.value.trim();
+      if (!email) {
+        alert('Ingresa primero tu correo en el campo "Correo Administrador" para enviarte el enlace.');
+        document.getElementById('loginEmail')?.focus();
+        return;
+      }
+      try {
+        await firebase.auth().sendPasswordResetEmail(email);
+        alert(`📧 ¡Listo! Enviamos un enlace de restablecimiento de contraseña a "${email}". Revisa tu bandeja de entrada o spam.`);
+      } catch (err) {
+        alert('No pudimos enviar el correo de recuperación: ' + (err.message || 'Verifica tu correo.'));
+      }
+    }
 
     let subscribed = false;
     firebase.auth().onAuthStateChanged(async (user) => {
@@ -15065,48 +15172,7 @@
     let pagosCfgSubtab = 'contraentrega';
     let modoImpresionSokify = 'web';
 
-    let equipoUsuarios = [
-      {
-        id: 'usr-1',
-        nombre: 'Diego Cacerez dely',
-        email: 'd.cacerez03@gmail.com',
-        local: 'fravioli',
-        rol: 'Rider',
-        activo: false
-      },
-      {
-        id: 'usr-2',
-        nombre: 'Jeniffer',
-        email: 'jeniffer.mella.a@gmail.com',
-        local: 'fravioli',
-        rol: 'Rider',
-        activo: false
-      },
-      {
-        id: 'usr-3',
-        nombre: 'Alex',
-        email: 'alexis.santana.miranda@gmail.com',
-        local: 'fravioli',
-        rol: 'Rider',
-        activo: false
-      },
-      {
-        id: 'usr-4',
-        nombre: 'Fravioli',
-        email: 'fravioli.va@gmail.com',
-        local: 'fravioli',
-        rol: 'Admin',
-        activo: true
-      }
-    ];
-
-    let ticketConfig = {
-      ancho: '80mm',
-      numeroGrande: true,
-      notasNegrita: true,
-      timers: true,
-      pie: '¡Gracias por su visita a Fravioli Street Food!'
-    };
+    // equipoUsuarios y ticketConfig están inicializados arriba en scope global
 
     function setConfiguracionesSubtab(subtab) {
       configSubtab = subtab || 'general';
