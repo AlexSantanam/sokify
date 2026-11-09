@@ -392,7 +392,7 @@
   <section id="simulador" class="relative py-16 bg-canvas border-y border-borderLight overflow-hidden">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
-      <div class="text-center max-w-2xl mx-auto mb-12">
+      <div class="text-center max-w-2xl mx-auto mb-10">
         <div class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full mb-3 shadow-xs">
           <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
           Demo Interactivo en Vivo · Auto-Pedido & Punto de Venta
@@ -403,43 +403,43 @@
         </p>
       </div>
 
-      <!-- The Dual Grid Simulator: Phone Mockup (Left) + Sync Arrow + Desktop PC Monitor Mockup (Right) -->
-      <div class="grid lg:grid-cols-12 gap-8 lg:gap-4 items-center">
+      <!-- The Dual Grid Simulator: Compact Phone (Left) + Sync Wave + Grand Desktop PC Monitor (Right) -->
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-4 items-center justify-items-center">
 
-        <!-- PANE 1: CLIENT SMARTPHONE (Col span 5) -->
-        <div class="lg:col-span-5 relative flex flex-col items-center">
+        <!-- PANE 1: COMPACT CLIENT SMARTPHONE (Col span 4) -->
+        <div class="lg:col-span-4 relative flex flex-col items-center">
           
-          <!-- Label sobre el dispositivo -->
-          <div class="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[11px] font-bold shadow-sm border border-slate-700">
+          <!-- Label sobre el celular -->
+          <div class="mb-2.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold shadow-xs border border-slate-700">
             <span>📱</span>
-            <span>Smartphone del Cliente · Menú QR</span>
+            <span>Smartphone Cliente · Menú QR</span>
           </div>
 
-          <!-- Outer Phone Chassis with realistic titanium finish and 3D shadow -->
-          <div class="w-full max-w-[310px] rounded-[50px] p-3.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-4 border-slate-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.55)] ring-1 ring-white/10 relative">
+          <!-- Outer Phone Chassis: Scaled down, slim titanium body -->
+          <div class="w-full max-w-[225px] rounded-[38px] p-2.5 bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-[3px] border-slate-700/80 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.5)] ring-1 ring-white/10 relative">
             
-            <!-- Left side volume rocker buttons -->
-            <div class="absolute -left-[6px] top-24 w-[3px] h-8 bg-slate-700 rounded-l"></div>
-            <div class="absolute -left-[6px] top-36 w-[3px] h-12 bg-slate-700 rounded-l"></div>
-            <div class="absolute -left-[6px] top-52 w-[3px] h-12 bg-slate-700 rounded-l"></div>
+            <!-- Left side volume buttons -->
+            <div class="absolute -left-[5px] top-20 w-[2.5px] h-6 bg-slate-700 rounded-l"></div>
+            <div class="absolute -left-[5px] top-28 w-[2.5px] h-9 bg-slate-700 rounded-l"></div>
+            <div class="absolute -left-[5px] top-40 w-[2.5px] h-9 bg-slate-700 rounded-l"></div>
             <!-- Right side power button -->
-            <div class="absolute -right-[6px] top-32 w-[3px] h-16 bg-slate-700 rounded-r"></div>
+            <div class="absolute -right-[5px] top-24 w-[2.5px] h-11 bg-slate-700 rounded-r"></div>
 
             <!-- Inner Phone Screen Glass -->
-            <div class="rounded-[40px] overflow-hidden bg-slate-950 text-white border border-white/5 flex flex-col justify-between shadow-inner relative min-h-[560px]">
+            <div class="rounded-[30px] overflow-hidden bg-slate-950 text-white border border-white/5 flex flex-col justify-between shadow-inner relative min-h-[435px]">
               
               <!-- Dynamic Island & Status Bar -->
-              <div class="pt-2.5 px-5 flex items-center justify-between text-[11px] font-semibold text-slate-300">
-                <span class="font-mono font-bold text-[10px]">9:41</span>
+              <div class="pt-2 px-3.5 flex items-center justify-between text-[9px] font-semibold text-slate-300">
+                <span class="font-mono font-bold text-[8.5px]">9:41</span>
                 <!-- Dynamic Island -->
-                <div class="w-24 h-5 bg-black rounded-full flex items-center justify-between px-2.5 shadow-sm border border-white/10">
-                  <div class="w-2 h-2 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center">
-                    <div class="w-1 h-1 rounded-full bg-blue-900/60"></div>
+                <div class="w-16 h-3.5 bg-black rounded-full flex items-center justify-between px-1.5 shadow-sm border border-white/10">
+                  <div class="w-1.5 h-1.5 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center">
+                    <div class="w-0.5 h-0.5 rounded-full bg-blue-900/60"></div>
                   </div>
-                  <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <div class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></div>
                 </div>
                 <!-- Status icons -->
-                <div class="flex items-center gap-1 text-[10px]">
+                <div class="flex items-center gap-1 text-[8.5px]">
                   <span>5G</span>
                   <span>📶</span>
                   <span>🔋</span>
@@ -447,117 +447,115 @@
               </div>
 
               <!-- Phone Content Area -->
-              <div class="p-3.5 space-y-3 flex-1 flex flex-col">
+              <div class="p-2.5 space-y-2 flex-1 flex flex-col">
                 
                 <!-- Restaurant Header with Banner & Table Badge -->
-                <div class="p-3 rounded-2xl bg-gradient-to-r from-brand-950/80 via-dark-850 to-slate-900 border border-brand-500/20 shadow-md">
+                <div class="p-2 rounded-xl bg-gradient-to-r from-brand-950/80 via-dark-850 to-slate-900 border border-brand-500/20 shadow-xs">
                   <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <div class="w-8 h-8 rounded-xl bg-brand-600 text-white font-black text-sm flex items-center justify-center shadow-md shadow-brand-600/30">
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-6 h-6 rounded-lg bg-brand-600 text-white font-black text-xs flex items-center justify-center shadow-xs">
                         🍔
                       </div>
                       <div>
-                        <div class="text-[9px] font-mono uppercase tracking-wider text-brand-300 font-bold">Menú Digital QR</div>
-                        <h3 class="text-xs font-black text-white leading-tight">Parrillada & Burger Sokify</h3>
+                        <div class="text-[7.5px] font-mono uppercase tracking-wider text-brand-300 font-bold">Menú QR</div>
+                        <h3 class="text-[9.5px] font-black text-white leading-tight">Parrillada & Burger</h3>
                       </div>
                     </div>
-                    <span class="text-[10px] font-mono bg-brand-500/20 text-brand-300 border border-brand-500/40 px-2 py-0.5 rounded-lg font-black animate-pulse">Mesa 04</span>
+                    <span class="text-[8px] font-mono bg-brand-500/20 text-brand-300 border border-brand-500/40 px-1.5 py-0.2 rounded font-black animate-pulse">Mesa 04</span>
                   </div>
-                  <div class="mt-2 pt-1.5 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400">
+                  <div class="mt-1 pt-1 border-t border-white/10 flex items-center justify-between text-[7.5px] text-slate-400">
                     <span class="flex items-center gap-1 text-emerald-400 font-bold">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                      Local Abierto · Auto-pedido
+                      <span class="w-1 h-1 rounded-full bg-emerald-400 animate-ping"></span>
+                      Abierto · Auto-pedido
                     </span>
                     <span class="font-mono text-slate-400">0% Comisión</span>
                   </div>
                 </div>
 
                 <!-- Food Category Filter Pills -->
-                <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5 text-[10px]">
-                  <span class="px-2.5 py-1 rounded-full bg-brand-600 text-white font-bold whitespace-nowrap shadow-xs">🔥 Populares</span>
-                  <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Burgers</span>
-                  <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Papas</span>
-                  <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Bebidas</span>
+                <div class="flex items-center gap-1 overflow-x-auto pb-0.5 text-[8.5px]">
+                  <span class="px-2 py-0.5 rounded-full bg-brand-600 text-white font-bold whitespace-nowrap shadow-xs">🔥 Populares</span>
+                  <span class="px-2 py-0.5 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Burgers</span>
+                  <span class="px-2 py-0.5 rounded-full bg-white/5 text-slate-300 font-medium whitespace-nowrap">Papas</span>
                 </div>
 
-                <!-- Dishes List -->
-                <div class="space-y-2 flex-1">
+                <!-- Dishes List (Compact Cards) -->
+                <div class="space-y-1.5 flex-1">
                   <!-- Dish 1 -->
-                  <div class="p-2 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-2">
-                      <span class="text-2xl p-1 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">🍔</span>
+                  <div class="p-1.5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-1.5">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-base p-1 bg-white/5 rounded-lg group-hover:scale-105 transition-transform">🍔</span>
                       <div>
                         <div class="flex items-center gap-1">
-                          <h4 class="text-xs font-bold text-white leading-tight">Burger Doble Trufada</h4>
-                          <span class="text-[8px] bg-amber-500/20 text-amber-300 px-1 py-0.2 rounded font-bold">Top</span>
+                          <h4 class="text-[9.5px] font-bold text-white leading-tight">Burger Doble Trufada</h4>
                         </div>
-                        <p class="text-[10px] text-slate-400 leading-tight">200g angus, cheddar, trufa</p>
-                        <p class="text-[11px] font-mono text-emerald-400 font-black mt-0.5">$8.990</p>
+                        <p class="text-[8px] text-slate-400 leading-tight">200g angus, cheddar</p>
+                        <p class="text-[9.5px] font-mono text-emerald-400 font-black mt-0.5">$8.990</p>
                       </div>
                     </div>
-                    <button type="button" onclick="addSimItem('Burger Doble Trufada', 8990)" class="shrink-0 text-xs bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-xl transition shadow-md shadow-brand-600/20 cursor-pointer">
+                    <button type="button" onclick="addSimItem('Burger Doble Trufada', 8990)" class="shrink-0 text-[8.5px] bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2 py-1 rounded-lg transition shadow-xs cursor-pointer">
                       + Agregar
                     </button>
                   </div>
 
                   <!-- Dish 2 -->
-                  <div class="p-2 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-2">
-                      <span class="text-2xl p-1 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">🍟</span>
+                  <div class="p-1.5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-1.5">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-base p-1 bg-white/5 rounded-lg group-hover:scale-105 transition-transform">🍟</span>
                       <div>
                         <div class="flex items-center gap-1">
-                          <h4 class="text-xs font-bold text-white leading-tight">Papas Cheddar & Bacon</h4>
+                          <h4 class="text-[9.5px] font-bold text-white leading-tight">Papas Cheddar & Bacon</h4>
                         </div>
-                        <p class="text-[10px] text-slate-400 leading-tight">Rústicas, salsa cheddar y tocino</p>
-                        <p class="text-[11px] font-mono text-emerald-400 font-black mt-0.5">$4.200</p>
+                        <p class="text-[8px] text-slate-400 leading-tight">Rústicas con tocino</p>
+                        <p class="text-[9.5px] font-mono text-emerald-400 font-black mt-0.5">$4.200</p>
                       </div>
                     </div>
-                    <button type="button" onclick="addSimItem('Papas Cheddar & Bacon', 4200)" class="shrink-0 text-xs bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-xl transition shadow-md shadow-brand-600/20 cursor-pointer">
+                    <button type="button" onclick="addSimItem('Papas Cheddar & Bacon', 4200)" class="shrink-0 text-[8.5px] bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2 py-1 rounded-lg transition shadow-xs cursor-pointer">
                       + Agregar
                     </button>
                   </div>
 
                   <!-- Dish 3 -->
-                  <div class="p-2 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-2">
-                    <div class="flex items-center gap-2">
-                      <span class="text-2xl p-1 bg-white/5 rounded-xl group-hover:scale-110 transition-transform">🍹</span>
+                  <div class="p-1.5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/40 transition group flex items-center justify-between gap-1.5">
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-base p-1 bg-white/5 rounded-lg group-hover:scale-105 transition-transform">🍹</span>
                       <div>
                         <div class="flex items-center gap-1">
-                          <h4 class="text-xs font-bold text-white leading-tight">Limonada Menta Jengibre</h4>
+                          <h4 class="text-[9.5px] font-bold text-white leading-tight">Limonada Menta</h4>
                         </div>
-                        <p class="text-[10px] text-slate-400 leading-tight">Frappé con menta fresca</p>
-                        <p class="text-[11px] font-mono text-emerald-400 font-black mt-0.5">$2.900</p>
+                        <p class="text-[8px] text-slate-400 leading-tight">Frappé natural</p>
+                        <p class="text-[9.5px] font-mono text-emerald-400 font-black mt-0.5">$2.900</p>
                       </div>
                     </div>
-                    <button type="button" onclick="addSimItem('Limonada Menta Jengibre', 2900)" class="shrink-0 text-xs bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-xl transition shadow-md shadow-brand-600/20 cursor-pointer">
+                    <button type="button" onclick="addSimItem('Limonada Menta Jengibre', 2900)" class="shrink-0 text-[8.5px] bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-bold px-2 py-1 rounded-lg transition shadow-xs cursor-pointer">
                       + Agregar
                     </button>
                   </div>
                 </div>
 
                 <!-- Floating Cart Tray inside the phone -->
-                <div class="mt-auto pt-2.5 border-t border-white/10 bg-slate-900/80 -mx-3.5 -mb-3.5 p-3.5 rounded-b-[38px] space-y-2">
-                  <div class="flex items-center justify-between text-xs">
-                    <span class="text-slate-400 flex items-center gap-1 text-[11px]">
+                <div class="mt-auto pt-2 border-t border-white/10 bg-slate-900/90 -mx-2.5 -mb-2.5 p-2.5 rounded-b-[28px] space-y-1.5">
+                  <div class="flex items-center justify-between text-[9px]">
+                    <span class="text-slate-400 flex items-center gap-1">
                       <span>🛒 Carrito:</span>
                       <span id="simItemCountLabel" class="font-bold text-white font-mono">0 platos</span>
                     </span>
-                    <span class="font-mono font-black text-emerald-400 text-sm" id="simCartTotal">$0</span>
+                    <span class="font-mono font-black text-emerald-400 text-[11px]" id="simCartTotal">$0</span>
                   </div>
-                  <div id="simCartList" class="text-[10px] text-slate-300 font-mono space-y-1 max-h-16 overflow-y-auto pr-1">
-                    <span class="text-slate-500 italic">Haz clic en "+ Agregar" para probar...</span>
+                  <div id="simCartList" class="text-[8.5px] text-slate-300 font-mono space-y-0.5 max-h-12 overflow-y-auto pr-0.5">
+                    <span class="text-slate-500 italic">Haz clic en "+ Agregar"...</span>
                   </div>
-                  <button type="button" id="simSendBtn" onclick="sendSimOrder()" disabled class="w-full bg-slate-800 text-slate-400 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-2 cursor-not-allowed">
-                    <span>🛒 Enviar Pedido a Cocina & PDV</span>
-                    <span id="simItemCountBadge" class="hidden bg-brand-500 text-white px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                  <button type="button" id="simSendBtn" onclick="sendSimOrder()" disabled class="w-full bg-slate-800 text-slate-400 font-black text-[9.5px] py-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-not-allowed">
+                    <span>🛒 Enviar Pedido a PDV</span>
+                    <span id="simItemCountBadge" class="hidden bg-brand-500 text-white px-1 py-0.1 rounded-full text-[8px]">0</span>
                   </button>
                 </div>
 
               </div>
 
               <!-- Home Indicator Bar -->
-              <div class="pb-1.5 pt-0 flex justify-center">
-                <div class="w-24 h-1 bg-white/20 rounded-full"></div>
+              <div class="pb-1 pt-0 flex justify-center">
+                <div class="w-16 h-0.5 bg-white/20 rounded-full"></div>
               </div>
 
             </div>
@@ -565,34 +563,34 @@
 
         </div>
 
-        <!-- ARROW & WEBSOCKET SYNC INDICATOR -->
+        <!-- ARROW & WEBSOCKET SYNC INDICATOR (Col span 1) -->
         <div class="hidden lg:flex lg:col-span-1 flex-col items-center justify-center self-center gap-2">
-          <div class="text-[10px] font-mono font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full uppercase tracking-tighter text-center whitespace-nowrap shadow-xs">
+          <div class="text-[9px] font-mono font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full uppercase tracking-tighter text-center whitespace-nowrap shadow-xs">
             ⚡ &lt;0.2 seg
           </div>
-          <div class="w-12 h-12 rounded-2xl bg-white border-2 border-brand-300 shadow-md flex items-center justify-center text-brand-600 animate-pulse relative">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="w-10 h-10 rounded-xl bg-white border-2 border-brand-300 shadow-md flex items-center justify-center text-brand-600 animate-pulse relative">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
             </svg>
-            <span class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
+            <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white animate-ping"></span>
           </div>
-          <span class="text-[9px] font-mono text-slate-400 font-bold uppercase text-center tracking-tighter">WebSocket</span>
+          <span class="text-[8px] font-mono text-slate-400 font-bold uppercase text-center tracking-tighter">WebSocket</span>
         </div>
 
-        <!-- PANE 2: MONITOR PC / ALL-IN-ONE (IDÉNTICO AL MOCKUP DE UNIVERSO 693) (Col span 6) -->
-        <div class="lg:col-span-6 relative flex flex-col items-center">
+        <!-- PANE 2: GRAND MONITOR PC / ALL-IN-ONE (IDÉNTICO AL MOCKUP DE UNIVERSO 693) (Col span 7) -->
+        <div class="lg:col-span-7 relative flex flex-col items-center w-full">
 
-          <!-- Label sobre el dispositivo -->
-          <div class="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-[11px] font-bold shadow-sm border border-slate-700">
+          <!-- Label sobre el monitor -->
+          <div class="mb-2.5 inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-slate-900 text-white text-[10px] font-bold shadow-xs border border-slate-700">
             <span>🖥️</span>
             <span>Monitor PC / Terminal PDV Sokify (Caja & Cocina)</span>
           </div>
 
           <!-- DESKTOP PC / iMAC MONITOR CHASSIS -->
-          <div class="w-full max-w-[620px] flex flex-col items-center">
+          <div class="w-full max-w-[660px] flex flex-col items-center">
 
             <!-- Monitor Outer Frame -->
-            <div class="w-full bg-[#18181B] rounded-[22px] p-2.5 sm:p-3 pb-0 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.5)] border-2 border-slate-700/80 relative ring-1 ring-white/10">
+            <div class="w-full bg-[#18181B] rounded-[24px] p-2.5 sm:p-3.5 pb-0 shadow-[0_25px_60px_-10px_rgba(0,0,0,0.5)] border-2 border-slate-700/80 relative ring-1 ring-white/10">
 
               <!-- Top Bezel Web Camera & Mic Indicator -->
               <div class="flex items-center justify-center gap-1.5 mb-2">
@@ -603,7 +601,7 @@
               </div>
 
               <!-- POS Screen Display Surface -->
-              <div class="rounded-t-xl overflow-hidden bg-slate-950 text-white border border-white/10 flex flex-col min-h-[480px] shadow-inner">
+              <div class="rounded-t-xl overflow-hidden bg-slate-950 text-white border border-white/10 flex flex-col min-h-[500px] shadow-inner">
 
                 <!-- Top POS Status Bar -->
                 <div class="bg-slate-900/90 px-4 py-2 border-b border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs">
@@ -656,7 +654,7 @@
                 </div>
 
                 <!-- Orders Board Container (Cards Grid) -->
-                <div class="p-3 grid sm:grid-cols-2 gap-2.5 flex-1 overflow-y-auto" id="posOrdersGrid">
+                <div class="p-3.5 grid sm:grid-cols-2 gap-3 flex-1 overflow-y-auto" id="posOrdersGrid">
 
                   <!-- Existing Order in Restaurant -->
                   <div class="bg-slate-900/90 rounded-2xl p-3 border border-white/10 flex flex-col justify-between shadow-md">
@@ -705,7 +703,7 @@
                       📡
                     </div>
                     <h5 class="text-xs font-bold text-slate-300 mb-1">Esperando comanda en vivo...</h5>
-                    <p class="text-[10px] text-slate-500 max-w-[180px] leading-tight">
+                    <p class="text-[10px] text-slate-500 max-w-[200px] leading-tight">
                       Toca <strong class="text-slate-300 font-bold">"+ Agregar"</strong> en el celular y pulsa <strong class="text-brand-400 font-bold">"Enviar Pedido"</strong>
                     </p>
                   </div>
