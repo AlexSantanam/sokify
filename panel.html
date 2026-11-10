@@ -166,7 +166,7 @@
             <img src="assets/sokify-avatar.png" alt="Sokify" class="w-10 h-10 rounded-full object-contain shadow-md shadow-purple-950/40 ring-2 ring-white/20">
             <div class="overflow-hidden">
               <h1 class="text-sm font-black text-white tracking-wide truncate">Sokify</h1>
-              <p id="restNameSidebar" class="text-[11px] text-slate-400 truncate font-semibold">Fravioli, Street Food</p>
+              <p id="restNameSidebar" class="text-[11px] text-slate-400 truncate font-semibold">La Brasa & Leña</p>
             </div>
           </div>
           <button onclick="toggleSidebar(false)" class="md:hidden text-slate-400 hover:text-white p-1">
@@ -9866,6 +9866,21 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // --- HELPERS DE IDENTIDAD MULTI-TENANT Y PERFIL DE USUARIO ---
+    function sanitizeRestaurantName(val) {
+      if (!val) return null;
+      const str = String(val).trim();
+      if (!str || str.toLowerCase() === 'null' || str.toLowerCase() === 'undefined' || str.toLowerCase() === 'nan') {
+        return null;
+      }
+      return str;
+    }
+
+    function getDefaultRestaurantName() {
+      return (typeof CFG !== 'undefined' && sanitizeRestaurantName(CFG.nombre)) ||
+             (typeof RESTAURANTE_CONFIG !== 'undefined' && sanitizeRestaurantName(RESTAURANTE_CONFIG.nombre)) ||
+             'La Brasa & Leña';
+    }
+
     function calcularInicialesRestaurante(nombre) {
       if (!nombre) return 'SK';
       const clean = nombre.trim().replace(/[^a-zA-Z0-9\s]/g, '').split(/\s+/).filter(Boolean);
@@ -9875,13 +9890,22 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     function syncUserProfileAndRestaurantUI(restName, ownerEmail, plan) {
-      const name = restName || localStorage.getItem('sokify_restaurant_name') || CFG.nombre || 'Mi Restaurante';
+      const defaultName = getDefaultRestaurantName();
+      const validParam = sanitizeRestaurantName(restName);
+      const validStored = sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name'));
+      const validCfg = sanitizeRestaurantName(typeof CFG !== 'undefined' ? CFG.nombre : null);
+      const name = validParam || validStored || validCfg || defaultName;
       const email = ownerEmail || localStorage.getItem('sokify_owner_email') || (firebase.auth().currentUser ? firebase.auth().currentUser.email : '') || 'admin@sokify.app';
       const userPlan = (plan || localStorage.getItem('sokify_plan') || 'Free').toString();
       const initials = calcularInicialesRestaurante(name);
       const restSlug = window.RESTAURANT_ID || localStorage.getItem('sokify_restaurant_id') || 'menu';
 
       CFG.nombre = name;
+      if (name && name !== 'null') {
+        localStorage.setItem('sokify_restaurant_name', name);
+      } else {
+        localStorage.removeItem('sokify_restaurant_name');
+      }
 
       // 1. Sidebar y Login brand
       const sbName = document.getElementById('restNameSidebar');
@@ -9987,8 +10011,17 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // --- LOGIN ---
-    const customStoredName = localStorage.getItem('sokify_restaurant_name');
-    if (customStoredName) CFG.nombre = customStoredName;
+    // Limpiar posible valor corrupto "null" o "undefined" en localStorage
+    const rawStored = localStorage.getItem('sokify_restaurant_name');
+    if (!sanitizeRestaurantName(rawStored)) {
+      localStorage.removeItem('sokify_restaurant_name');
+    }
+    const customStoredName = sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name'));
+    if (customStoredName) {
+      CFG.nombre = customStoredName;
+    } else {
+      CFG.nombre = getDefaultRestaurantName();
+    }
     const initialEmail = localStorage.getItem('sokify_owner_email') || '';
     const initialPlan = localStorage.getItem('sokify_plan') || 'Free';
     syncUserProfileAndRestaurantUI(CFG.nombre, initialEmail, initialPlan);
@@ -10097,7 +10130,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         app.classList.remove('hidden');
 
         let storedRestId = localStorage.getItem('sokify_restaurant_id');
-        let currentRestName = localStorage.getItem('sokify_restaurant_name');
+        let currentRestName = sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name')) || getDefaultRestaurantName();
         let currentEmail = user.email || localStorage.getItem('sokify_owner_email') || '';
         let currentPlan = localStorage.getItem('sokify_plan') || 'Free';
 
@@ -10107,9 +10140,9 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             const qByUid = await window.db.collection('restaurantes').where('ownerUids', 'array-contains', user.uid).limit(1).get();
             if (!qByUid.empty) {
               const rDoc = qByUid.docs[0];
-              const rData = rDoc.data();
+              const rData = rDoc.data() || {};
               storedRestId = rDoc.id;
-              currentRestName = rData.nombre || rData.nombreNegocio || currentRestName;
+              currentRestName = sanitizeRestaurantName(rData.nombre) || sanitizeRestaurantName(rData.nombreNegocio) || currentRestName;
               currentPlan = rData.plan || currentPlan;
               localStorage.setItem('sokify_restaurant_id', storedRestId);
               localStorage.setItem('sokify_restaurant_name', currentRestName);
@@ -10118,9 +10151,9 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
               const qByEmail = await window.db.collection('restaurantes').where('email', '==', user.email).limit(1).get();
               if (!qByEmail.empty) {
                 const rDoc = qByEmail.docs[0];
-                const rData = rDoc.data();
+                const rData = rDoc.data() || {};
                 storedRestId = rDoc.id;
-                currentRestName = rData.nombre || rData.nombreNegocio || currentRestName;
+                currentRestName = sanitizeRestaurantName(rData.nombre) || sanitizeRestaurantName(rData.nombreNegocio) || currentRestName;
                 currentPlan = rData.plan || currentPlan;
                 localStorage.setItem('sokify_restaurant_id', storedRestId);
                 localStorage.setItem('sokify_restaurant_name', currentRestName);
@@ -10153,7 +10186,10 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         const data = snap.data() || {};
         
         // Sincronizar nombre de negocio, email y plan en tiempo real
-        const dynName = data.nombreNegocio || data.nombre || localStorage.getItem('sokify_restaurant_name') || CFG.nombre;
+        const dynName = sanitizeRestaurantName(data.nombreNegocio) ||
+                        sanitizeRestaurantName(data.nombre) ||
+                        sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name')) ||
+                        getDefaultRestaurantName();
         const dynEmail = data.email || (firebase.auth().currentUser ? firebase.auth().currentUser.email : '') || localStorage.getItem('sokify_owner_email');
         const dynPlan = data.plan || localStorage.getItem('sokify_plan') || 'Free';
         if (dynName) {
