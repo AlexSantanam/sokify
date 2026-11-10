@@ -113,7 +113,7 @@
           <img src="assets/sokify-avatar.png" alt="Sokify Logo" class="w-full h-full object-contain">
         </div>
         <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Sokify</h2>
-        <p class="text-xs text-slate-500 font-medium" id="loginBrandLabel">Gestión Integral Gastronómica</p>
+        <p class="text-xs text-slate-500 font-medium" id="loginBrandLabel">Gestión Integral para Restaurantes & Comercios</p>
       </div>
       <form id="loginForm" class="space-y-3.5">
         <div>
@@ -141,7 +141,7 @@
         <a href="/#probar" class="text-brand-600 font-bold hover:underline block">
           ¿No tienes cuenta? Regístrate y obtén 3 Meses Gratis &rarr;
         </a>
-        <p class="text-[11px] text-slate-400">Software Gastronómico Sokify · Acceso Seguro</p>
+        <p class="text-[11px] text-slate-400">Software de Gestión y Ventas Sokify · Acceso Seguro</p>
       </div>
     </div>
   </div>
@@ -4010,7 +4010,20 @@
                 <!-- NOMBRE DE LA EMPRESA -->
                 <div>
                   <label class="block font-bold text-slate-700 mb-1.5">Nombre de la Empresa</label>
-                  <input id="inputNegocioNombre" type="text" value="Fravioli, Street Food" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+                  <input id="inputNegocioNombre" type="text" value="La Brasa & Leña" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+                </div>
+
+                <!-- RUBRO / TIPO DE NEGOCIO -->
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1.5">Rubro / Tipo de Comercio</label>
+                  <select id="selectNegocioRubro" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-blue-600">
+                    <option value="restaurante">🍽️ Restaurante / Pizzería / Gastronomía</option>
+                    <option value="licoreria">🍾 Licorería / Botillería / Vinos & Bebidas</option>
+                    <option value="almacen">🏪 Almacén / Minimarket / Abarrotes</option>
+                    <option value="cafeteria">☕ Cafetería / Panadería / Pastelería</option>
+                    <option value="darkstore">📦 Dark Store / Delivery Exclusivo</option>
+                    <option value="comercio">🛍️ Otro Comercio Minorista</option>
+                  </select>
                 </div>
 
                 <!-- WHATSAPP PARA PEDIDOS CON BANDERA -->
@@ -10232,6 +10245,11 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         }
         actualizarModalHorariosUI(data);
 
+        if (data.rubroNegocio) {
+          const rubroEl = document.getElementById('selectNegocioRubro');
+          if (rubroEl) rubroEl.value = data.rubroNegocio;
+        }
+
         // Sincronizar Google Maps y Píxeles de Tracking guardados
         if (data.googleMapsUrl) {
           const gmInp = document.getElementById('inputGoogleMapsReviewUrl');
@@ -10355,6 +10373,11 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       window.restRef().get().then(snap => {
         const data = snap.data() || {};
         actualizarModalHorariosUI(data);
+
+        if (data.rubroNegocio) {
+          const rubroEl = document.getElementById('selectNegocioRubro');
+          if (rubroEl) rubroEl.value = data.rubroNegocio;
+        }
 
         // Sincronizar Google Maps y Píxeles de Tracking guardados
         if (data.googleMapsUrl) {
@@ -16798,6 +16821,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     // --- INFORMACIÓN DEL NEGOCIO ---
     function guardarInfoNegocio() {
       const nombre = document.getElementById('inputNegocioNombre')?.value.trim();
+      const rubro = document.getElementById('selectNegocioRubro')?.value || 'restaurante';
       const whatsapp = document.getElementById('inputNegocioWhatsapp')?.value.trim();
       const moneda = document.getElementById('selectNegocioMoneda')?.value;
       const idioma = document.getElementById('selectNegocioIdioma')?.value;
@@ -16806,6 +16830,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       if (window.restRef) {
         window.restRef().set({
           nombreNegocio: nombre,
+          rubroNegocio: rubro,
           whatsappPedidos: whatsapp,
           moneda,
           idioma,
