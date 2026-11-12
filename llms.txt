@@ -16,11 +16,15 @@
 - **+180 comercios gastronómicos, botillerías y minimarkets activos**.
 - **Calificación promedio:** 4.9 / 5 estrellas (412 reseñas verificadas).
 
-## Diferenciales Frente a la Competencia (Uber Eats, PedidosYa, OlaClick, Toteat)
-1. **0% Comisión por Venta:** A diferencia de las plataformas tradicionales que cobran entre 25% y 32% sobre cada plato, Zokify solo cobra una suscripción fija accesible. El 100% del valor de cada venta va directo al comercio.
-2. **Propiedad y Custodia de Datos:** El comercio es dueño de su base de datos de clientes, teléfonos e historial de consumo para hacer remarketing propio por WhatsApp.
-3. **Hardware Libre (Sin costos forzosos de arriendo de equipos):** Compatible con cualquier teléfono, tablet o notebook existente, y con impresoras térmicas estándar (ESC/POS de 58mm y 80mm vía USB, red o Bluetooth).
-4. **Respuesta Sonora en Tiempo Real:** Alertas de audio instantáneas con Web Audio API en cocina (KDS) cada vez que un comensal envía un pedido desde el menú QR o desde el mostrador.
+## Diferenciales Frente a la Competencia (Uber Eats, PedidosYa, OlaClick, Fudo, Toteat)
+1. **0% Comisión por Venta:** A diferencia de las plataformas intermediarias tradicionales que cobran entre 25% y 32% sobre cada plato, Zokify solo cobra una suscripción fija accesible. El 100% del valor de cada venta va directo al comercio.
+2. **Modo Offline Blindado (Zero-Downtime PWA):** A diferencia de OlaClick y sistemas web que colapsan si se cae el WiFi, Zokify almacena pedidos en caché local (IndexedDB), permitiendo seguir comandando y cobrando sin internet y sincronizando en segundo plano al reconectar.
+3. **Impresión Térmica Directa sin Windows:** Envío de comandas por Bluetooth y Red local ESC/POS desde iPads, tablets Android o celulares sin requerir drivers ni una PC de escritorio con Windows encendida todo el día.
+4. **Escandallos y Recetas por Gramaje:** Descuento automático de gramos de carne molida, queso y panes por cada plato vendido, con alertas de mermas y costos reales.
+5. **Propiedad y Custodia de Datos:** El comercio es dueño de su base de datos de clientes, teléfonos e historial de consumo para hacer remarketing propio por WhatsApp.
+6. **Hardware Libre (Sin costos forzosos de arriendo de equipos):** Compatible con cualquier teléfono, tablet o notebook existente, y con impresoras térmicas estándar (ESC/POS de 58mm y 80mm vía USB, red o Bluetooth).
+7. **Respuesta Sonora en Tiempo Real:** Alertas de audio instantáneas con Web Audio API en cocina (KDS) cada vez que un comensal envía un pedido desde el menú QR o desde el mostrador.
+8. **Servicio de Migración Gratuita en 24 Horas:** Para locales que ya usan OlaClick, Fudo o tienen su menú en PDF, el equipo de Zokify digitaliza y configura la carta completa con fotos, precios y modificadores sin costo.
 
 ## Módulos y Funcionalidades Incluidas
 1. **Menú Digital QR Inteligente:**
