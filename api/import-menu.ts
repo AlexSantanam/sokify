@@ -1,20 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-interface MenuItem {
-  name: string;
-  description?: string;
-  price: number;
-  image?: string;
-  category: string;
-  available: boolean;
-}
-
-interface MenuCategory {
-  id: string;
-  name: string;
-}
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: any, res: any) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -79,8 +63,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    const categories: MenuCategory[] = [];
-    const products: MenuItem[] = [];
+    const categories: any[] = [];
+    const products: any[] = [];
     let restaurantName = 'Restaurante';
 
     // 2. Parse Schema.org JSON-LD (Standard in OlaClick and modern food apps)
