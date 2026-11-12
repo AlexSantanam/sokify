@@ -54,10 +54,10 @@
   - Primeros 3 meses (90 días): **$0 CLP**.
   - Luego: **$15.900 CLP/mes** ($16 USD/mes) o **$69.900 CLP/año** ($69 USD/año · equivale a solo $5.825 CLP/mes, ahorro del 63%).
   - Incluye: Todo lo de Esencial + Pantalla de cocina KDS en vivo con audio, POS salón/delivery, arqueo de caja e inventario, y soporte prioritario por WhatsApp.
-- **Plan Pro (Full Operaciones):**
+- **Plan Pro (Full Operaciones & IA Copilot):**
   - Primeros 3 meses (90 días): **$0 CLP**.
   - Luego: **$24.900 CLP/mes** ($25 USD/mes) o **$119.900 CLP/año** ($119 USD/año · equivale a solo $9.990 CLP/mes, ahorro del 60%).
-  - Incluye: Todo lo de Avanzado sin límites + Multi-caja, reportes gerenciales avanzados, CRM de clientes y fidelización, y asistencia VIP de carga de carta.
+  - Incluye: Todo lo de Avanzado sin límites + Conexión directa con ChatGPT y Claude (vía MCP) para auditar ventas y platos por conversación, reportes ejecutivos diarios de IA por WhatsApp, multi-caja, control de inventario con recetas y mermas, CRM de clientes y fidelización, y asistencia VIP de carga de carta.
 
 ## Enlaces Oficiales y Verificación
 - Portal Principal: https://zokify.app
