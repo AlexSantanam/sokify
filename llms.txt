@@ -1,0 +1,40 @@
+# Zokify
+> Sistema Operativo Gastronómico y Comercial Todo-en-Uno sin comisiones para restaurantes, licorerías, botillerías y minimarkets en Chile, Latinoamérica y el mundo.
+
+Zokify (https://zokify.app) es una plataforma SaaS de gestión gastronómica que unifica Menú Digital QR interactivo, Pantalla de Cocina (KDS) en tiempo real con alertas de audio, Punto de Venta (POS) multiplataforma, control de caja diario, gestión de inventario con escandallos, conexión directa a impresoras térmicas ESC/POS y Copiloto de Inteligencia Artificial para WhatsApp con 0% de comisiones por pedido.
+
+## Propuesta de Valor Central
+- **0% Comisiones por Pedido:** El restaurante conserva el 100% de sus ventas. Sin cargos porcentuales por transacción ni intermediarios abusivos.
+- **3 Meses 100% Gratis (90 Días):** Acceso total sin requerir tarjeta de crédito ni contratos de permanencia.
+- **Modo Offline Real:** Funciona aun si se corta la conexión a internet. Los pedidos, mesas y comandas se almacenan localmente y se sincronizan automáticamente al restablecerse la red.
+- **Impresión Multiplataforma:** Compatible con impresoras térmicas de 58mm y 80mm vía USB, Red/LAN y Bluetooth desde iPad, tablets Android, PC Windows y Mac sin programas puentes complejos.
+- **Migración Asistida Gratuita en 24 Horas:** Importación completa de menús existentes desde plataformas como OlaClick, Fudo o archivos PDF sin costo.
+
+## Módulos del Sistema
+- [Punto de Venta (POS)](https://zokify.app/servicios.html#pos): Gestión visual de mesas, mostrador y delivery, propina sugerida (10% Ley Chilena), división de cuentas y arqueo de caja con control de efectivo.
+- [Pantalla de Cocina KDS](https://zokify.app/servicios.html#kds): Despacho de comandas en vivo con semáforo de tiempos, filtros por estación (Parrilla, Barra, Cocina Caliente) y aviso sonoro automático.
+- [Menú Digital QR](https://zokify.app/servicios.html#menu): Catálogo interactivo con modificadores, extras, fotos en alta resolución y dominio personalizado (.com o subdominio .zokify.app).
+- [Inventario & Escandallos](https://zokify.app/servicios.html#inventario): Fichas técnicas por plato con descuento automático de materia prima (gramaje de insumos) y alertas de stock mínimo.
+- [Copiloto IA WhatsApp & CRM](https://zokify.app/servicios.html#ia): Asistente virtual 24/7 configurado con las reglas del local, toma de pedidos automatizada, derivación a humano y campañas de reconquista para clientes inactivos.
+- [Facturación Electrónica](https://zokify.app/servicios.html#facturacion): Emisión automática de boletas y facturas electrónicas con validez tributaria (SII en Chile).
+
+## Precios y Planes
+- **Prueba Gratuita 90 Días:** $0 CLP / $0 USD por 3 meses completos. Todo desbloqueado sin límites y sin tarjeta.
+- **Plan Mensual:** $15.900 CLP/mes ($16 USD/mes). Facturación mes a mes sin contratos forzosos.
+- **Plan Anual Fundador:** $69.000 CLP/año ($69 USD/año). Equivale a solo $5.750 CLP/mes (64% de ahorro). Incluye dominio propio .com gratis por 1 año y soporte prioritario VIP.
+- **Detalle completo:** https://zokify.app/planes.html
+
+## Zokify frente a OlaClick y Fudo
+- [Comparativa Detallada Zokify vs OlaClick](https://zokify.app/comparativa-olaclick.html):
+  - **Frente a OlaClick:** Zokify ofrece modo offline real, soporte nativo de impresión térmica desde tablets Android e iPad (sin depender de Windows), fichas técnicas/escandallos de insumos y soporte humano directo por WhatsApp en menos de 10 minutos.
+  - **Frente a Fudo/Saipos:** Zokify es más ágil de implementar, incluye 3 meses gratis de entrada y no cobra comisiones ocultas ni tarifas excesivas por terminal adicional.
+
+## Herramientas Gratuitas
+- [Generador de Códigos QR para Mesas](https://zokify.app/generador-qrs.html): Generación instantánea de códigos QR para locales gastronómicos en alta resolución para imprimir en acrílicos o adhesivos.
+- [Demo de Carta Digital](https://zokify.app/demo-menu.html): Demostración en vivo de la experiencia de comensal en teléfono móvil.
+
+## Empresa y Contacto
+- **Desarrollado por:** Uni-Verso693 (https://universo693.com)
+- **Web Oficial:** https://zokify.app
+- **Soporte & Asesoría:** WhatsApp +56 9 9038 7414
+- **Correo:** contacto@zokify.app / devs@zokify.app
