@@ -301,10 +301,6 @@
 
       <!-- Desktop Navigation Menu -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
-        <a href="#vitrina" data-i18n="nav_vitrina" class="hover:text-brand-600 transition-colors flex items-center gap-1.5 font-bold text-slate-900">
-          <span class="w-2 h-2 rounded-full bg-brand-500"></span>
-          Vitrina
-        </a>
         <a href="#simulador" data-i18n="nav_simulador" class="hover:text-brand-600 transition-colors flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
           Simulador en Vivo
@@ -841,112 +837,80 @@
     </div>
   </section>
 
-  <!-- ================= MULTI-RUBRO / VITRINA DE COMERCIOS: ADAPTABLE A TU LOCAL ================= -->
-  <section id="vitrina" class="py-20 bg-slate-50 border-b border-borderLight relative scroll-mt-20">
+  <!-- ================= MULTI-RUBRO: ADAPTABLE A TU COMERCIO ================= -->
+  <section class="py-16 bg-slate-50 border-b border-borderLight relative">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 shadow-xs">
-          <span>🛍️</span> Vitrina Pública de Soluciones & Comercios
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-mono font-bold tracking-widest uppercase text-brand-700 bg-brand-50 border border-brand-200 px-3 py-1 rounded-full">
+          Versatilidad para Todo Tipo de Local
         </span>
-        <h2 class="text-3xl sm:text-5xl font-black text-slate-900 mt-4 tracking-tight">
-          Un solo sistema, adaptado a la vitrina de tu negocio
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mt-3 tracking-tight">
+          Un solo sistema, adaptado al ritmo de tu negocio
         </h2>
-        <p class="text-slate-600 mt-3 text-base sm:text-lg">
-          Ya sea que vendas platos a la mesa, combos de licor a medianoche o abarrotes de barrio, Zokify exhibe tu catálogo digital y se ajusta a tu operativa con 0% comisión.
+        <p class="text-slate-600 mt-2 text-sm sm:text-base">
+          Ya sea que vendas platos a la mesa, combos de licor a medianoche o abarrotes de barrio, Zokify se ajusta a tu operativa.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <!-- Rubro 1: Restaurantes & Gastronomía -->
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-orange-50 border border-orange-200 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-              🍽️
-            </div>
-            <div class="text-[10px] font-mono uppercase tracking-wider text-orange-600 font-bold mb-1">Gastronomía & Salón</div>
-            <h3 class="text-lg font-black text-slate-900 mb-2">Restaurantes, Pizzerías & Sushi</h3>
-            <p class="text-xs text-slate-600 leading-relaxed mb-4">
-              Menú digital QR en mesa con fotos HD, modificadores de ingredientes, pantalla de cocina (KDS) en tiempo real y punto de venta para salón o delivery directo.
-            </p>
-            <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-orange-700 mb-4">
-              <span class="bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">Comanda KDS</span>
-              <span class="bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">Mesas & QR</span>
-              <span class="bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">0% Comisión</span>
-            </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition group">
+          <div class="w-12 h-12 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-105 transition-transform">
+            🍽️
           </div>
-          <a href="/demo-menu.html" target="_blank" class="w-full py-2.5 px-3 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold text-xs flex items-center justify-center gap-1.5 transition border border-orange-200">
-            <span>Ver Carta Demo en Vivo</span>
-            <span>&rarr;</span>
-          </a>
+          <h3 class="text-base font-black text-slate-900 mb-1.5">Restaurantes & Pizzerías</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            Menú digital QR en mesa, pantalla de cocina (KDS) para no perder comandas, y punto de venta para salón o delivery directo.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-orange-700">
+            <span class="bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">Comanda KDS</span>
+            <span class="bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">Mesas & QR</span>
+          </div>
         </div>
 
         <!-- Rubro 2: Licorerías & Botillerías -->
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-              🍾
-            </div>
-            <div class="text-[10px] font-mono uppercase tracking-wider text-purple-600 font-bold mb-1">Venta Nocturna & Delivery</div>
-            <h3 class="text-lg font-black text-slate-900 mb-2">Licorerías & Botillerías</h3>
-            <p class="text-xs text-slate-600 leading-relaxed mb-4">
-              Catálogo nocturno de licores, cervezas y promos con hielo. Pedidos automáticos por WhatsApp y delivery propio sin pagar el 30% que quitan las aplicaciones.
-            </p>
-            <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-purple-700 mb-4">
-              <span class="bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">Packs & Promos</span>
-              <span class="bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">Venta Nocturna</span>
-              <span class="bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">WhatsApp IA</span>
-            </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition group">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-105 transition-transform">
+            🍾
           </div>
-          <button onclick="openTrialModal('Licorerías y Botillerías')" class="w-full py-2.5 px-3 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center gap-1.5 transition border border-purple-200 cursor-pointer">
-            <span>Digitalizar mi Botillería</span>
-            <span>&rarr;</span>
-          </button>
+          <h3 class="text-base font-black text-slate-900 mb-1.5">Licorerías & Botillerías</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            Catálogo nocturno de licores, cervezas y promos con hielo. Pedidos automáticos por WhatsApp y delivery propio sin el 30% de comisión de las apps.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-purple-700">
+            <span class="bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">Packs & Promos</span>
+            <span class="bg-purple-50 px-2 py-0.5 rounded-md border border-purple-200">Venta Nocturna</span>
+          </div>
         </div>
 
         <!-- Rubro 3: Almacenes & Minimarkets -->
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-              🏪
-            </div>
-            <div class="text-[10px] font-mono uppercase tracking-wider text-emerald-600 font-bold mb-1">Comercio & Retail Local</div>
-            <h3 class="text-lg font-black text-slate-900 mb-2">Almacenes & Minimarkets</h3>
-            <p class="text-xs text-slate-600 leading-relaxed mb-4">
-              Punto de venta express para mostrador, control de inventario y stock crítico, arqueo de caja diario y catálogo web para vecinos del sector con despacho local.
-            </p>
-            <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-emerald-700 mb-4">
-              <span class="bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Control de Stock</span>
-              <span class="bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Caja Rápida</span>
-              <span class="bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Ticket Térmico</span>
-            </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-105 transition-transform">
+            🏪
           </div>
-          <button onclick="openTrialModal('Almacén o Minimarket')" class="w-full py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center gap-1.5 transition border border-emerald-200 cursor-pointer">
-            <span>Digitalizar mi Almacén</span>
-            <span>&rarr;</span>
-          </button>
+          <h3 class="text-base font-black text-slate-900 mb-1.5">Almacenes & Minimarkets</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            Punto de venta express para mostrador, control de inventario y stock crítico, arqueo de caja diario y catálogo web para vecinos del sector.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-emerald-700">
+            <span class="bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Control de Stock</span>
+            <span class="bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">Caja Rápida</span>
+          </div>
         </div>
 
         <!-- Rubro 4: Cafeterías & Pastelerías -->
-        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group flex flex-col justify-between">
-          <div>
-            <div class="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-              ☕
-            </div>
-            <div class="text-[10px] font-mono uppercase tracking-wider text-amber-600 font-bold mb-1">Cafetería & Panadería</div>
-            <h3 class="text-lg font-black text-slate-900 mb-2">Cafeterías & Pastelerías</h3>
-            <p class="text-xs text-slate-600 leading-relaxed mb-4">
-              Cobro rápido al paso, ticket térmico de barra, personalización de café y repostería, y programa de fidelidad de clientes para compras recurrentes.
-            </p>
-            <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-amber-700 mb-4">
-              <span class="bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Ticket Térmico</span>
-              <span class="bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Fidelización</span>
-              <span class="bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Auto-Pedido QR</span>
-            </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition group">
+          <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-2xl mb-4 group-hover:scale-105 transition-transform">
+            ☕
           </div>
-          <button onclick="openTrialModal('Cafetería o Pastelería')" class="w-full py-2.5 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-xs flex items-center justify-center gap-1.5 transition border border-amber-200 cursor-pointer">
-            <span>Digitalizar mi Cafetería</span>
-            <span>&rarr;</span>
-          </button>
+          <h3 class="text-base font-black text-slate-900 mb-1.5">Cafeterías & Pastelerías</h3>
+          <p class="text-xs text-slate-600 leading-relaxed mb-4">
+            Cobro rápido al paso, ticket térmico de barra, personalización de café y repostería, y programa de fidelidad para clientes frecuentes.
+          </p>
+          <div class="flex flex-wrap gap-1.5 text-[10px] font-bold text-amber-700">
+            <span class="bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Ticket Térmico</span>
+            <span class="bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">Fidelización</span>
+          </div>
         </div>
       </div>
     </div>
@@ -2323,7 +2287,6 @@
     // =========================================================================
     const I18N = {
       es: {
-        nav_vitrina: 'Vitrina',
         nav_simulador: 'Simulador en Vivo',
         nav_modulos: 'Módulos',
         nav_calculadora: 'Calculadora Ahorro',
@@ -2334,13 +2297,13 @@
         top_badge: 'Lanzamiento 2026',
         top_text: '🎉 Prueba Zokify <strong>3 meses gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.',
         top_cta: 'Comenzar ahora →',
-        hero_pill_title: '3 Meses 100% Gratis ($0)',
-        hero_pill_sub: '+40.000 órdenes procesadas con 0% comisión',
+        hero_pill_title: '3 Meses 100% Gratis sin tarjeta',
+        hero_pill_sub: 'Potencia tus pedidos directos sin intermediarios',
         hero_title_pre: 'El piloto automático de tu',
-        hero_title_highlight: 'restaurante, sin comisiones.',
-        hero_subtitle: '<strong>Zokify es el software POS, menú digital QR y pantalla de cocina (KDS)</strong> que permite a restaurantes, botillerías y almacenes recibir pedidos directos por mesa, mostrador y WhatsApp con IA <strong>sin pagar el 28% de comisión de las apps de delivery</strong>.',
-        hero_btn_trial: 'Comenzar 3 Meses Gratis ($0)',
-        hero_btn_simulator: 'Probar Simulador en Vivo',
+        hero_title_highlight: 'negocio, sin comisiones.',
+        hero_subtitle: 'Catálogo digital QR inteligente, comanda en vivo (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para restaurantes, licorerías, almacenes y minimarkets que buscan vender directo y multiplicar su margen.',
+        hero_btn_trial: 'Comenzar Prueba Gratis (3 Meses (90 Días))',
+        hero_btn_simulator: 'Ver Simulador Interactivo',
         trust_marquee: 'Más de 40.000 pedidos procesados sin comisiones por restaurantes, licorerías y almacenes en todo el mundo',
         pricing_badge: 'Tarifas Justas & Sin Comisiones',
         pricing_title: 'Comienza 100% Gratis hoy. Paga solo cuando ya estés vendiendo.',
@@ -2351,7 +2314,6 @@
         footer_support: 'Soporte 24/7 Global · English & Español'
       },
       en: {
-        nav_vitrina: 'Showcase',
         nav_simulador: 'Live Simulator',
         nav_modulos: 'Modules',
         nav_calculadora: 'Savings Calculator',
