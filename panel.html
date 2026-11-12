@@ -8595,7 +8595,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       <!-- Banner de Oferta Exclusiva -->
       <div class="bg-[#0b1b36] text-white py-2.5 px-4 text-center text-xs sm:text-sm font-medium flex items-center justify-center gap-2 shadow-inner">
         <span>🎉</span>
-        <span><strong>¡Promoción de Lanzamiento!</strong> <strong>3 MESES GRATIS</strong> para tu restaurante. Luego solo $15.900/mes o $69.000/año.</span>
+        <span><strong>¡Promoción de Lanzamiento!</strong> <strong>3 MESES A COSTO $0</strong> en todos los planes. Plan Esencial $5.900/mes ($39.900/año) · Plan Avanzado $15.900/mes ($69.900/año) · Plan Pro $24.900/mes ($119.900/año).</span>
       </div>
 
       <!-- CONTENEDOR PRINCIPAL -->
@@ -8628,121 +8628,161 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
             </div>
           </div>
 
-          <!-- Cuadrícula de 4 Planes -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <!-- Cuadrícula de 3 Planes Oficiales -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch max-w-6xl mx-auto">
             
-            <!-- PLAN 1: 3 MESES GRATIS -->
+            <!-- PLAN 1: PLAN ESENCIAL ($5.900/MES o $39.900/AÑO) -->
             <div class="bg-white rounded-2xl border-2 border-emerald-500 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition relative bg-gradient-to-b from-emerald-50/40 to-white">
               <div class="absolute -top-3.5 left-6">
                 <span class="bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-                  🎁 3 MESES GRATIS
+                  🎁 3 MESES A COSTO $0
                 </span>
               </div>
               <div class="space-y-4">
                 <div>
-                  <h3 class="text-2xl font-black text-slate-900">3 Meses Gratis</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">90 días de prueba completa sin tarjeta</p>
+                  <h3 class="text-2xl font-black text-slate-900">Plan Esencial</h3>
+                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Ideal para iniciar y digitalizar tus pedidos sin comisiones.</p>
                 </div>
-                <div>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-4xl font-black text-emerald-600 font-mono">$ 0</span>
-                    <span class="text-xs font-semibold text-slate-500">por 90 días</span>
+                <div class="space-y-2.5">
+                  <div class="inline-flex items-center gap-1.5 bg-emerald-100/80 border border-emerald-300 text-emerald-800 px-2.5 py-1 rounded-lg text-[11px] font-black">
+                    <span>✨ Primeros 3 meses: $0 (90 días gratis)</span>
                   </div>
-                  <p class="text-[11px] text-emerald-700 font-bold mt-1">Uso libre sin costo de ingreso</p>
+                  <div>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Luego Mensual:</span>
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-3xl font-black text-slate-900 font-mono">$ 5.900</span>
+                      <span class="text-xs font-semibold text-slate-500">/mes</span>
+                    </div>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] font-black uppercase text-emerald-800">Plan Anual Esencial</span>
+                      <span class="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-full">Ahorra 44%</span>
+                    </div>
+                    <div class="flex items-baseline gap-1 mt-0.5">
+                      <span class="text-xl font-black text-emerald-700 font-mono">$ 39.900</span>
+                      <span class="text-[11px] font-semibold text-emerald-700">/año</span>
+                    </div>
+                    <p class="text-[10px] text-emerald-700 font-bold">Equivale a $ 3.325 al mes</p>
+                  </div>
                 </div>
-                <button onclick="activarTrialTresMeses()" class="w-full py-3 px-4 rounded-xl font-black text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-500/20 transition">
-                  Comenzar 3 Meses Gratis
-                </button>
+                <div class="space-y-2">
+                  <button onclick="seleccionarPlanCheckout('Plan Esencial', 3325, 5900, '3 primeros meses $0 · Luego $5.900/mes o $39.900/año')" class="w-full py-3 px-4 rounded-xl font-black text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-500/20 transition">
+                    Elegir Plan Esencial ($5.900/mes o $39.900/año)
+                  </button>
+                  <button onclick="activarTrialTresMeses()" class="w-full py-2 px-3 rounded-xl font-bold text-[11px] bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition">
+                    Activar 3 Meses Gratis ($0)
+                  </button>
+                </div>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Menú QR & Pedidos ilimitados</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Pantalla Cocina KDS en vivo</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Punto de Venta POS & Arqueo</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span><strong>3 primeros meses a costo $0</strong></span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Menú Digital QR Ilimitado</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Punto de Venta POS esencial</span></div>
                   <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>0% de comisiones por pedido</span></div>
                 </div>
               </div>
             </div>
 
-            <!-- PLAN 2: MENSUAL DE ENGANCHE ($15.900) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition">
-              <div class="space-y-4">
-                <div>
-                  <h3 class="text-2xl font-black text-slate-900">Plan Mensual</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Tarifa justa mes a mes después de tus 3 meses</p>
-                </div>
-                <div>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-slate-900 font-mono">$ 15.900</span>
-                    <span class="text-xs font-semibold text-slate-500">/mes</span>
-                  </div>
-                  <p class="text-[11px] text-slate-500 italic mt-1">Cancela cuando quieras, sin contratos</p>
-                </div>
-                <button onclick="seleccionarPlanCheckout('Plan Mensual', 15900, 15900, 'Tarifa justa mes a mes después de tus 3 meses gratis')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white shadow-md transition">
-                  Elegir Mensual ($15.900)
-                </button>
-                <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Todo lo de los 3 meses gratis</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Pedidos 100% ilimitados</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Soporte prioritario WhatsApp</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Cero comisiones a terceros</span></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- PLAN 3: ANUAL FUNDADOR ($69.000 / AÑO - RECOMENDADO) -->
+            <!-- PLAN 2: PLAN AVANZADO ($15.900/MES o $69.900/AÑO) -->
             <div class="bg-white rounded-2xl border-2 border-purple-600 p-6 flex flex-col justify-between shadow-xl relative transition scale-105 z-10 bg-gradient-to-b from-purple-50/60 to-white">
               <div class="absolute -top-3.5 right-6">
                 <span class="bg-purple-600 text-white text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
-                  🔥 MEJOR ENGANCHE (64% OFF)
+                  ⭐ MÁS ELEGIDO · 3 MESES GRATIS
                 </span>
               </div>
               <div class="space-y-4">
                 <div>
-                  <h3 class="text-2xl font-black text-slate-900">Anual Fundador</h3>
-                  <p class="text-xs text-purple-700 font-bold mt-1 min-h-[32px]">Paga el año de una sola vez y ahorra $120.000</p>
+                  <h3 class="text-2xl font-black text-slate-900">Plan Avanzado</h3>
+                  <p class="text-xs text-purple-700 font-bold mt-1 min-h-[32px]">Control gastronómico completo en salón, cocina KDS y delivery.</p>
                 </div>
-                <div>
-                  <span class="text-xs text-slate-400 line-through">$ 190.800 /año</span>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-purple-600 font-mono">$ 69.000</span>
-                    <span class="text-xs font-semibold text-slate-500">/año</span>
+                <div class="space-y-2.5">
+                  <div class="inline-flex items-center gap-1.5 bg-purple-100/80 border border-purple-300 text-purple-900 px-2.5 py-1 rounded-lg text-[11px] font-black">
+                    <span>✨ Primeros 3 meses: $0 (90 días gratis)</span>
                   </div>
-                  <p class="text-[11px] text-emerald-600 font-bold mt-1">⚡ Equivale a solo $ 5.750 al mes</p>
+                  <div>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Luego Mensual:</span>
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-3xl font-black text-slate-900 font-mono">$ 15.900</span>
+                      <span class="text-xs font-semibold text-slate-500">/mes</span>
+                    </div>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-purple-50 border border-purple-200">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] font-black uppercase text-purple-900">Plan Anual Avanzado</span>
+                      <span class="text-[10px] font-bold bg-purple-600 text-white px-2 py-0.5 rounded-full">Ahorra 63%</span>
+                    </div>
+                    <div class="flex items-baseline gap-1 mt-0.5">
+                      <span class="text-xl font-black text-purple-700 font-mono">$ 69.900</span>
+                      <span class="text-[11px] font-semibold text-purple-700">/año</span>
+                    </div>
+                    <p class="text-[10px] text-emerald-700 font-bold">⚡ Equivale a solo $ 5.825 al mes</p>
+                  </div>
                 </div>
-                <button onclick="seleccionarPlanCheckout('Anual Fundador', 5750, 15900, 'Paga el año de una sola vez por $69.000 y ahorra más del 64%')" class="w-full py-3 px-4 rounded-xl font-black text-sm bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/25 transition">
-                  Asegurar Anual ($69.000/año)
-                </button>
+                <div class="space-y-2">
+                  <button onclick="seleccionarPlanCheckout('Plan Avanzado', 5825, 15900, '3 primeros meses $0 · Luego $15.900/mes o $69.900/año')" class="w-full py-3 px-4 rounded-xl font-black text-xs bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/25 transition">
+                    Elegir Plan Avanzado ($15.900/mes o $69.900/año)
+                  </button>
+                  <button onclick="activarTrialTresMeses()" class="w-full py-2 px-3 rounded-xl font-bold text-[11px] bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 transition">
+                    Activar 3 Meses Gratis ($0)
+                  </button>
+                </div>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span class="font-bold text-slate-900">Año completo asegurado (12 meses)</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Precio congelado de por vida</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Soporte VIP WhatsApp 24/7</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Asistencia para subir tu carta</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span class="font-bold text-slate-900">3 primeros meses a costo $0</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Todo el Plan Esencial + Cocina KDS en vivo</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>POS completo, arqueo de caja e inventario</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Soporte directo WhatsApp</span></div>
                 </div>
               </div>
             </div>
 
-            <!-- PLAN 4: ANUAL + COPILOTO IA WHATSAPP -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition">
+            <!-- PLAN 3: PLAN PRO ($24.900/MES o $119.900/AÑO) -->
+            <div class="bg-white rounded-2xl border-2 border-slate-900 p-6 flex flex-col justify-between shadow-sm hover:shadow-lg transition relative">
+              <div class="absolute -top-3.5 left-6">
+                <span class="bg-slate-900 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+                  🚀 3 MESES GRATIS · FULL PRO
+                </span>
+              </div>
               <div class="space-y-4">
                 <div>
-                  <h3 class="text-2xl font-black text-slate-900">Anual + IA 🤖</h3>
-                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Sistema completo + Asistente IA WhatsApp</p>
+                  <h3 class="text-2xl font-black text-slate-900">Plan Pro</h3>
+                  <p class="text-xs text-slate-500 mt-1 min-h-[32px]">Máxima potencia, automatización avanzada y soporte VIP 24/7.</p>
                 </div>
-                <div>
-                  <span class="text-xs text-slate-400 line-through">$ 240.000 /año</span>
-                  <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-3xl font-black text-slate-900 font-mono">$ 88.900</span>
-                    <span class="text-xs font-semibold text-slate-500">/año</span>
+                <div class="space-y-2.5">
+                  <div class="inline-flex items-center gap-1.5 bg-emerald-100/80 border border-emerald-300 text-emerald-800 px-2.5 py-1 rounded-lg text-[11px] font-black">
+                    <span>✨ Primeros 3 meses: $0 (90 días gratis)</span>
                   </div>
-                  <p class="text-[11px] text-purple-700 font-bold mt-1">Incluye Add-on Copiloto IA 24/7</p>
+                  <div>
+                    <span class="text-[10px] uppercase font-bold text-slate-400 block">Luego Mensual:</span>
+                    <div class="flex items-baseline gap-1">
+                      <span class="text-3xl font-black text-slate-900 font-mono">$ 24.900</span>
+                      <span class="text-xs font-semibold text-slate-500">/mes</span>
+                    </div>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-slate-100 border border-slate-300">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[10px] font-black uppercase text-slate-800">Plan Anual Pro</span>
+                      <span class="text-[10px] font-bold bg-slate-900 text-white px-2 py-0.5 rounded-full">Ahorra 60%</span>
+                    </div>
+                    <div class="flex items-baseline gap-1 mt-0.5">
+                      <span class="text-xl font-black text-slate-900 font-mono">$ 119.900</span>
+                      <span class="text-[11px] font-semibold text-slate-700">/año</span>
+                    </div>
+                    <p class="text-[10px] text-emerald-700 font-bold">Equivale a $ 9.990 al mes</p>
+                  </div>
                 </div>
-                <button onclick="seleccionarPlanCheckout('Anual + IA', 7408, 19900, 'Sistema completo + Copiloto IA para WhatsApp por $88.900/año')" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-slate-900 hover:bg-slate-800 text-white shadow-md transition">
-                  Elegir Anual + IA
-                </button>
+                <div class="space-y-2">
+                  <button onclick="seleccionarPlanCheckout('Plan Pro', 9990, 24900, '3 primeros meses $0 · Luego $24.900/mes o $119.900/año')" class="w-full py-3 px-4 rounded-xl font-black text-xs bg-slate-900 hover:bg-slate-800 text-white shadow-md transition">
+                    Elegir Plan Pro ($24.900/mes o $119.900/año)
+                  </button>
+                  <button onclick="activarTrialTresMeses()" class="w-full py-2 px-3 rounded-xl font-bold text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 transition">
+                    Activar 3 Meses Gratis ($0)
+                  </button>
+                </div>
                 <div class="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-700 font-medium">
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Todo lo del Plan Anual Fundador</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span class="font-bold text-purple-700">Chatbot IA 24/7 por WhatsApp</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Toma pedidos automáticos de noche</span></div>
-                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Respuestas inmediatas a clientes</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span class="font-bold text-slate-900">3 primeros meses a costo $0</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Todo el Plan Avanzado sin límites</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Multi-caja, CRM de clientes y reportes Pro</span></div>
+                  <div class="flex items-start gap-2"><span class="text-emerald-500 font-bold">✔</span><span>Soporte VIP 24/7 + migración de carta</span></div>
                 </div>
               </div>
             </div>
@@ -18341,10 +18381,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     let planSeleccionado = {
-      nombre: 'Anual Fundador',
-      precioMensual: 5750,
+      nombre: 'Plan Avanzado',
+      precioMensual: 5825,
       precioOriginal: 15900,
-      descripcion: 'Máximo control y personalización',
+      descripcion: 'Control gastronómico completo en salón, cocina KDS y delivery',
       periodo: 'anual',
       cupon: null,
       descuento: 0
@@ -18421,8 +18461,9 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (periodo === 'anual') {
         meses = 12;
         precioBasePorMes = planSeleccionado.precioMensual;
-        const ahorroTotal = (planSeleccionado.precioOriginal - planSeleccionado.precioMensual) * 12;
-        textoAhorro = `Ahorras $ ${ahorroTotal.toLocaleString('es-CL')} con el pago anual + Dominio gratis`;
+        const exactAnnual = planSeleccionado.precioOriginal === 5900 ? 39900 : planSeleccionado.precioOriginal === 15900 ? 69900 : planSeleccionado.precioOriginal === 24900 ? 119900 : precioBasePorMes * 12;
+        const ahorroTotal = (planSeleccionado.precioOriginal * 12) - exactAnnual;
+        textoAhorro = `Ahorras $ ${ahorroTotal.toLocaleString('es-CL')} con el pago anual`;
       } else if (periodo === 'semestral') {
         meses = 6;
         precioBasePorMes = Math.round(planSeleccionado.precioMensual * 1.08);
@@ -18431,10 +18472,12 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       } else {
         meses = 1;
         precioBasePorMes = planSeleccionado.precioOriginal;
-        textoAhorro = 'Facturación mensual sin permanencia';
+        textoAhorro = 'Facturación mensual sin permanencia (primeros 3 meses $0)';
       }
       
-      let subtotal = precioBasePorMes * meses;
+      let subtotal = periodo === 'anual'
+        ? (planSeleccionado.precioOriginal === 5900 ? 39900 : planSeleccionado.precioOriginal === 15900 ? 69900 : planSeleccionado.precioOriginal === 24900 ? 119900 : precioBasePorMes * 12)
+        : precioBasePorMes * meses;
       let totalFinal = subtotal;
 
       if (planSeleccionado.cupon) {
