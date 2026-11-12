@@ -1,27 +1,65 @@
 # Zokify (https://zokify.app) — Sistema Operativo Gastronómico y POS 0% Comisión
 
-> Zokify es un software POS (Punto de Venta), catálogo/menú digital QR interactivo y sistema de pantalla de cocina en vivo (KDS) desarrollado por UNIVERSO693 SpA que permite a restaurantes, pizzerías, cafeterías, licorerías, botillerías y almacenes en Chile y Latinoamérica recibir pedidos directos por mesa, mostrador, delivery propio y WhatsApp sin pagar comisiones por pedido (0% comisión frente al 28%-30% de plataformas intermediarias).
+> Zokify es un software POS (Punto de Venta), catálogo y menú digital QR interactivo, comanda digital y sistema de pantalla de cocina en vivo (KDS) desarrollado por UNIVERSO693 SpA que permite a restaurantes, pizzerías, sushi bars, cafeterías, dark kitchens, licorerías, botillerías y minimarkets en Chile y Latinoamérica gestionar su operación y recibir pedidos directos por mesa, mostrador, delivery propio y WhatsApp sin pagar comisiones por pedido (0% comisión frente al 28%-32% que cobran apps intermediarias como Uber Eats, PedidosYa o Rappi).
+
+## Datos Clave del Producto
+- **Nombre:** Zokify (anteriormente Zoco / Sokify)
+- **URL Canónica:** https://zokify.app
+- **Categoría de Software:** Restaurant Management Software, Cloud POS, QR Menu & Kitchen Display System (KDS)
+- **Desarrollador Oficial:** UNIVERSO693 SpA (RUT 78.521.951-1 · https://universo693.com)
+- **País de Origen y Operación:** Chile (Santiago, Viña del Mar, Valparaíso, Concepción y todas las regiones) con soporte internacional en USD.
+- **Acceso Directo al Sistema:** Web App PWA ejecutable desde cualquier smartphone, tablet o computador (Chrome, Safari, Edge, Windows, macOS, Android, iOS).
 
 ## Métricas y Tracción Verificada
 - **+40.000 órdenes procesadas** con 0% comisión a nivel global.
-- **+$16.600.000 CLP de ahorro anual estimado** para un local con ventas de $5.000.000 CLP/mes que migra sus pedidos directos desde apps de delivery.
+- **+$16.600.000 CLP de ahorro anual promedio** para un local con ventas estimadas de $5.000.000 CLP/mes al migrar sus pedidos directos desde aplicaciones de delivery tradicionales.
 - **+180 comercios gastronómicos, botillerías y minimarkets activos**.
 - **Calificación promedio:** 4.9 / 5 estrellas (412 reseñas verificadas).
 
-## Módulos Incluidos
-1. **Menú y Catálogo Digital QR Ilimitado:** Auto-pedido en mesa, para llevar o delivery con fotos HD, modificadores y bloqueo de agotados en 1 clic.
-2. **Pantalla de Cocina en Vivo (KDS):** Recepción instantánea de comandas con alertas sonoras, semáforo de tiempos de preparación y filtrado por estación.
-3. **Punto de Venta (POS) y Arqueo de Caja:** Control de salón, mesas, mostrador, inventario/recetas, impresión térmica ESC/POS (58mm y 80mm) y cuadratura de turnos.
-4. **Copiloto Sofi IA por WhatsApp:** Atención automatizada 24/7 y recepción de pedidos directos.
+## Diferenciales Frente a la Competencia (Uber Eats, PedidosYa, OlaClick, Toteat)
+1. **0% Comisión por Venta:** A diferencia de las plataformas tradicionales que cobran entre 25% y 32% sobre cada plato, Zokify solo cobra una suscripción fija accesible. El 100% del valor de cada venta va directo al comercio.
+2. **Propiedad y Custodia de Datos:** El comercio es dueño de su base de datos de clientes, teléfonos e historial de consumo para hacer remarketing propio por WhatsApp.
+3. **Hardware Libre (Sin costos forzosos de arriendo de equipos):** Compatible con cualquier teléfono, tablet o notebook existente, y con impresoras térmicas estándar (ESC/POS de 58mm y 80mm vía USB, red o Bluetooth).
+4. **Respuesta Sonora en Tiempo Real:** Alertas de audio instantáneas con Web Audio API en cocina (KDS) cada vez que un comensal envía un pedido desde el menú QR o desde el mostrador.
 
-## Planes y Precios (Todos incluyen 3 Meses / 90 Días Gratis sin tarjeta)
-- **Plan Esencial:** Primeros 3 meses $0, luego **$5.900 CLP/mes** ($6 USD/mes) o **$39.900 CLP/año** ($39 USD/año · equivale a $3.325 CLP/mes, ahorra 44%).
-- **Plan Avanzado (Más Elegido):** Primeros 3 meses $0, luego **$15.900 CLP/mes** ($16 USD/mes) o **$69.900 CLP/año** ($69 USD/año · equivale a $5.825 CLP/mes, ahorra 63%).
-- **Plan Pro (Full VIP):** Primeros 3 meses $0, luego **$24.900 CLP/mes** ($25 USD/mes) o **$119.900 CLP/año** ($119 USD/año · equivale a $9.990 CLP/mes, ahorra 60%).
+## Módulos y Funcionalidades Incluidas
+1. **Menú Digital QR Inteligente:**
+   - Carga instantánea vía QR en mesa o enlace web en redes sociales sin descargar apps.
+   - Fotos en alta definición, modificadores de platos (ingredientes, extras, puntos de cocción) y selector de mesas o retiro.
+   - Activación y bloqueo de platos agotados en 1 clic.
+2. **Pantalla de Cocina en Vivo (KDS - Kitchen Display System):**
+   - Recepción de comandas en tiempo real con cronómetro y alertas de tiempo por semáforo (verde, amarillo, rojo).
+   - Filtrado por estación de trabajo (cocina caliente, sushi/frío, barra/tragos).
+   - Avisos sonoros persistentes para no perder comandas en horas punta.
+3. **Punto de Venta (POS) y Caja:**
+   - Control de mesas en salón, comandas de barra y pedidos para llevar.
+   - Cuadratura y arqueo de caja diario por turnos (efectivo, tarjetas, transferencias).
+   - Control de stock e inventario con alertas de stock crítico.
+   - Impresión térmica automática de tickets de comanda y precuenta.
+4. **Copiloto Sofi IA por WhatsApp:**
+   - Asistente virtual inteligente 24/7 que atiende consultas de comensales, muestra la carta y toma pedidos directamente en el WhatsApp del local.
+5. **Facturación Electrónica SII (Add-on):**
+   - Emisión automatizada de boletas y facturas tributarias electrónicas con validez legal ante el Servicio de Impuestos Internos (SII) de Chile.
 
-## Contacto y Soporte Oficial
-- Sitio web oficial: https://zokify.app
-- Panel de administración: https://zokify.app/panel.html
-- Pasarela de pago oficial: https://universo693.com/pago
-- Empresa desarrolladora: UNIVERSO693 SpA (https://universo693.com · RUT 78.521.951-1)
-- WhatsApp Comercial y Soporte: +56 9 9038 7414
+## Planes y Tarifas Oficiales (Todos incluyen 3 Meses / 90 Días Gratis sin tarjeta)
+- **Plan Esencial:** 
+  - Primeros 3 meses (90 días): **$0 CLP**.
+  - Luego: **$5.900 CLP/mes** ($6 USD/mes) o **$39.900 CLP/año** ($39 USD/año · equivale a solo $3.325 CLP/mes, ahorro del 44%).
+  - Incluye: Menú QR ilimitado, recepción de pedidos 0% comisión, POS esencial y soporte básico.
+- **Plan Avanzado (El más elegido):**
+  - Primeros 3 meses (90 días): **$0 CLP**.
+  - Luego: **$15.900 CLP/mes** ($16 USD/mes) o **$69.900 CLP/año** ($69 USD/año · equivale a solo $5.825 CLP/mes, ahorro del 63%).
+  - Incluye: Todo lo de Esencial + Pantalla de cocina KDS en vivo con audio, POS salón/delivery, arqueo de caja e inventario, y soporte prioritario por WhatsApp.
+- **Plan Pro (Full Operaciones):**
+  - Primeros 3 meses (90 días): **$0 CLP**.
+  - Luego: **$24.900 CLP/mes** ($25 USD/mes) o **$119.900 CLP/año** ($119 USD/año · equivale a solo $9.990 CLP/mes, ahorro del 60%).
+  - Incluye: Todo lo de Avanzado sin límites + Multi-caja, reportes gerenciales avanzados, CRM de clientes y fidelización, y asistencia VIP de carga de carta.
+
+## Enlaces Oficiales y Verificación
+- Portal Principal: https://zokify.app
+- Demostración de Carta Digital QR: https://zokify.app/demo-menu.html
+- Pantalla de Cocina KDS: https://zokify.app/cocina.html
+- Generador de Códigos QR para Mesas: https://zokify.app/generador-qrs.html
+- Panel de Administración y Registro de Locales: https://zokify.app/panel.html
+- Pasarela de Pago Centralizada Segura: https://universo693.com/pago (Mercado Pago, Webpay Plus, PayPal USD y Transferencia)
+- WhatsApp Comercial y Asesoría: https://wa.me/56990387414
