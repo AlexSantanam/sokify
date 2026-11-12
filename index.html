@@ -12,13 +12,14 @@
   <link rel="apple-touch-icon" href="assets/zokify-avatar.png">
 
   <!-- SEO Primary Meta Tags -->
-  <title>Zokify · El Sistema Operativo para tu Restaurante | Cero Comisiones</title>
-  <meta name="title" content="Zokify · El Sistema Operativo para tu Restaurante | Cero Comisiones">
-  <meta name="description" content="Aumenta tus ventas y ahorra millones en comisiones. Menú digital QR, cocina KDS en vivo, punto de venta (POS), arqueo de caja y asistente IA por WhatsApp en una sola plataforma. Prueba 3 meses gratis (90 días).">
-  <meta name="keywords" content="software restaurantes, menú digital QR, punto de venta restaurante, KDS cocina, comanda digital, software gastronómico chile, pedidos whatsapp restaurante, universo693">
+  <title>Zokify · Software POS y Menú QR sin Comisiones (Chile)</title>
+  <meta name="title" content="Zokify · Software POS y Menú QR sin Comisiones (Chile)">
+  <meta name="description" content="Zokify es el software POS, menú digital QR y cocina KDS que permite a restaurantes, licorerías y comercios vender sin pagar comisiones. +40.000 órdenes procesadas y hasta $16.6M de ahorro anual. Prueba 3 meses gratis.">
+  <meta name="keywords" content="software restaurantes, menú digital QR, punto de venta restaurante, KDS cocina, comanda digital, software gastronómico chile, pedidos whatsapp restaurante, zokify, universo693">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://zokify.app/">
+  <link rel="preload" as="image" href="assets/hero-chef-tablet.jpg" fetchpriority="high">
   <meta name="google-site-verification" content="googlee3c25234bc27b18f" />
 
   <!-- Schema.org Rich Structured Data -->
@@ -62,7 +63,12 @@
             }
           ]
         },
-        "description": "Sistema operativo gastronómico inteligente: menú digital QR interactivo, pantalla de cocina KDS en tiempo real con alertas de audio, punto de venta (POS) y 0% comisión por pedido.",
+        "description": "Zokify es un software POS (Punto de Venta), menú digital QR interactivo y pantalla de cocina KDS en tiempo real que permite a restaurantes, botillerías y almacenes recibir pedidos directos sin pagar comisiones por pedido (0% comisión).",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "412"
+        },
         "creator": {
           "@type": "Organization",
           "name": "Uni-Verso693",
@@ -119,21 +125,21 @@
   <meta property="og:url" content="https://zokify.app/">
   <meta property="og:title" content="Zokify · El Sistema Operativo para tu Negocio | Cero Comisiones">
   <meta property="og:description" content="Gestiona tu restaurante, licorería o minimarket sin comisiones. Menú digital QR, cocina KDS en vivo, punto de venta (POS) y asistente IA. Prueba 3 meses gratis (90 días).">
-  <meta property="og:image" content="https://zokify.app/assets/og-whatsapp.jpg">
-  <meta property="og:image:secure_url" content="https://zokify.app/assets/og-whatsapp.jpg">
+  <meta property="og:image" content="https://zokify.app/assets/og-whatsapp.jpg?v=2">
+  <meta property="og:image:secure_url" content="https://zokify.app/assets/og-whatsapp.jpg?v=2">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Zokify · Sistema Operativo para Restaurantes y Comercios">
-  <link rel="image_src" href="https://zokify.app/assets/og-whatsapp.jpg">
-  <meta itemprop="image" content="https://zokify.app/assets/og-whatsapp.jpg">
+  <meta property="og:image:alt" content="Zokify · Sistema Operativo para Restaurantes, Licorerías y Comercios">
+  <link rel="image_src" href="https://zokify.app/assets/og-whatsapp.jpg?v=2">
+  <meta itemprop="image" content="https://zokify.app/assets/og-whatsapp.jpg?v=2">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://zokify.app/">
   <meta name="twitter:title" content="Zokify · El Sistema Operativo para tu Negocio">
   <meta name="twitter:description" content="Menú digital QR, cocina KDS en tiempo real y POS sin comisiones por pedido. Prueba 3 meses gratis.">
-  <meta name="twitter:image" content="https://zokify.app/assets/og-whatsapp.jpg">
+  <meta name="twitter:image" content="https://zokify.app/assets/og-whatsapp.jpg?v=2">
 
   <!-- Fonts: Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -262,32 +268,11 @@
     details[open] .faq-chevron { transform: rotate(180deg); }
   </style>
 
-  <!-- Schema.org Structured Data for Google -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Zokify",
-    "operatingSystem": "Web, iOS, Android, Windows, Mac",
-    "applicationCategory": "BusinessApplication",
-    "offers": {
-      "@type": "Offer",
-      "price": "9999",
-      "priceCurrency": "CLP"
-    },
-    "description": "Sistema operativo integral para restaurantes sin comisiones: Menú digital QR, Cocina KDS en vivo, Punto de venta y Chatbot IA.",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "412"
-    }
-  }
-  </script>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-  <script src="firebase-config.js"></script>
+  <!-- Firebase SDK (Deferred so it never blocks First Contentful Paint) -->
+  <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script defer src="firebase-config.js"></script>
 </head>
 
 <body class="bg-white text-slate-900 font-sans antialiased selection:bg-brand-600 selection:text-white overflow-x-hidden">
@@ -307,7 +292,7 @@
 
       <!-- Brand Logo -->
       <a href="/" class="flex items-center gap-2.5 group">
-        <img src="assets/zokify-avatar.png" alt="Zokify Logo" class="w-16 h-16 object-contain -my-2">
+        <img src="assets/zokify-avatar.png" alt="Zokify Logo" width="64" height="64" decoding="async" class="w-16 h-16 object-contain -my-2">
         <div class="flex flex-col">
           <span class="text-3xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">Zokify</span>
           <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase -mt-1 font-bold">Restaurant OS</span>
