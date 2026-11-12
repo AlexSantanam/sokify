@@ -18542,11 +18542,16 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     function confirmarActivacionPlan() {
       const planName = (planSeleccionado.nombre || '').toLowerCase();
       const periodo = planSeleccionado.periodo || 'anual';
+      const isAnual = planName.includes('anual') || periodo === 'anual';
       
       let itemId = 'sokify-mensual';
-      if (planName.includes('anual') || periodo === 'anual') {
+      if (planName.includes('esencial')) {
+        itemId = isAnual ? 'sokify-esencial-anual' : 'sokify-esencial-mensual';
+      } else if (planName.includes('pro')) {
+        itemId = isAnual ? 'sokify-pro-anual' : 'sokify-pro-mensual';
+      } else if (isAnual) {
         itemId = planName.includes('ia') ? 'sokify-anual-ia' : 'sokify-anual';
-      } else if (planName.includes('mensual') || periodo === 'mensual') {
+      } else {
         itemId = 'sokify-mensual';
       }
 
