@@ -30,7 +30,7 @@
         "name": "Zokify",
         "url": "https://zokify.app",
         "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web, iOS, Android",
+        "operatingSystem": "Web, iOS, Android, Windows, macOS",
         "offers": {
           "@type": "AggregateOffer",
           "priceCurrency": "CLP",
@@ -67,6 +67,43 @@
           "name": "Uni-Verso693",
           "url": "https://universo693.com"
         }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Zokify solo sirve para restaurantes o funciona para licorerías y almacenes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sirve para cualquier comercio con venta local o pedidos directos: restaurantes, licorerías, botillerías, almacenes de barrio, minimarkets, cafeterías y dark stores. Cuenta con catálogo digital web para que tus clientes pidan por QR o WhatsApp, punto de venta (POS) para cobrar en mostrador, control de inventario de productos y stock, e impresión de boletas o comandas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Zokify cobra alguna comisión por los pedidos que recibo?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cero comisión. A diferencia de los intermediarios tradicionales con comisión porcentual (que descuentan entre un 25% y 32% por pedido), en Zokify solo pagas tu suscripción fija. El 100% del dinero de cada plato va directo a tu cuenta."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Necesito comprar hardware costoso o computadores especiales?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Zokify funciona desde cualquier navegador web en celulares, tablets o notebooks que ya tengas. También se conecta directamente a tus impresoras térmicas de 58mm y 80mm vía USB, red o Bluetooth."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué incluye la prueba gratis de 3 meses (90 días)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Acceso completo durante 90 días a todos los módulos: Menú QR, Cocina KDS en tiempo real, Punto de Venta (POS) y Arqueo de caja. Sin tarjeta de crédito requerida. Si decides continuar después de los 3 meses, puedes elegir el plan mensual de solo $15.900 o el anual de $69.000."
+            }
+          }
+        ]
       }
     ]
   }
@@ -74,10 +111,17 @@
 
   <!-- Open Graph / Facebook / WhatsApp -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Zokify">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:locale:alternate" content="es_LA">
+  <meta property="og:locale:alternate" content="en_US">
   <meta property="og:url" content="https://zokify.app/">
-  <meta property="og:title" content="Zokify · El Sistema Operativo para tu Restaurante">
-  <meta property="og:description" content="Gestiona tu restaurante sin pagarle un tercio de tus ventas a las apps. Menú QR, Cocina en Vivo y Punto de Venta. Prueba 3 meses gratis (90 días).">
+  <meta property="og:title" content="Zokify · El Sistema Operativo para tu Negocio | Cero Comisiones">
+  <meta property="og:description" content="Gestiona tu restaurante, licorería o minimarket sin comisiones. Menú digital QR, pantalla de cocina KDS en vivo, punto de venta (POS) y asistente IA. Prueba 3 meses gratis (90 días).">
   <meta property="og:image" content="https://zokify.app/assets/zokify-logo.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Zokify · Software Gastronómico y Punto de Venta">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
@@ -1423,7 +1467,7 @@
 
         <details class="group bento-card rounded-2xl p-5">
           <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-base">
-            ¿Qué incluye la prueba gratis de 15 días?
+            ¿Qué incluye la prueba gratis de 3 meses (90 días)?
             <svg class="faq-chevron w-5 h-5 text-brand-600 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </summary>
           <p class="text-sm text-slate-600 mt-3 leading-relaxed">

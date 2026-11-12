@@ -1,0 +1,14 @@
+# robots.txt for Zokify (https://zokify.app)
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /generador-qrs.html
+Allow: /demo-menu.html
+Allow: /menu.html
+Allow: /cocina.html
+Allow: /assets/
+Disallow: /panel.html
+
+# Sitemaps
+Sitemap: https://zokify.app/sitemap.xml
+Sitemap: https://www.zokify.app/sitemap.xml
