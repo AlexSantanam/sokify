@@ -6,11 +6,11 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Sokify">
-  <link rel="apple-touch-icon" href="assets/sokify-avatar.png">
+  <meta name="apple-mobile-web-app-title" content="Zokify">
+  <link rel="apple-touch-icon" href="assets/zokify-avatar.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sokify · Panel de Control Gastronómico</title>
+  <title>Zokify · Panel de Control Gastronómico</title>
 
   <meta name="theme-color" content="#2563EB" />
 
@@ -110,9 +110,9 @@
     <div class="w-full max-w-sm bg-white rounded-3xl p-8 space-y-4 shadow-elevated border border-slate-100">
       <div class="text-center space-y-1.5 mb-2">
         <div class="w-16 h-16 mx-auto rounded-2xl bg-white border border-slate-100 shadow-sm p-2 flex items-center justify-center">
-          <img src="assets/sokify-avatar.png" alt="Sokify Logo" class="w-full h-full object-contain">
+          <img src="assets/zokify-avatar.png" alt="Zokify Logo" class="w-full h-full object-contain">
         </div>
-        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Sokify</h2>
+        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Zokify</h2>
         <p class="text-xs text-slate-500 font-medium" id="loginBrandLabel">Gestión Integral para Restaurantes & Comercios</p>
       </div>
       <form id="loginForm" class="space-y-3.5">
@@ -143,7 +143,7 @@
         <a href="/#probar" class="text-brand-600 font-bold hover:underline block">
           ¿No tienes cuenta? Regístrate y obtén 3 Meses Gratis &rarr;
         </a>
-        <p class="text-[11px] text-slate-400">Software de Gestión y Ventas Sokify · Acceso Seguro</p>
+        <p class="text-[11px] text-slate-400">Software de Gestión y Ventas Zokify · Acceso Seguro</p>
       </div>
     </div>
   </div>
@@ -157,7 +157,7 @@
     <div id="sidebarBackdrop" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40 hidden md:hidden"></div>
 
     <!-- --------------------------------------------------------------------- -->
-    <!-- 1. SIDEBAR LATERAL PROFESIONAL (ESTRUCTURA TIPO SAAS / SOKIFY) -->
+    <!-- 1. SIDEBAR LATERAL PROFESIONAL (ESTRUCTURA TIPO SAAS / ZOKIFY) -->
     <!-- --------------------------------------------------------------------- -->
     <aside id="mainSidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-sidebar text-slate-300 z-50 flex flex-col transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0 md:sticky md:top-0 md:h-screen shrink-0 border-r border-slate-800 overflow-hidden">
       
@@ -165,9 +165,9 @@
       <div class="flex-1 min-h-0 flex flex-col">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between shrink-0">
           <div class="flex items-center gap-3">
-            <img src="assets/sokify-avatar.png" alt="Sokify" class="w-10 h-10 rounded-full object-contain shadow-md shadow-purple-950/40 ring-2 ring-white/20">
+            <img src="assets/zokify-avatar.png" alt="Zokify" class="w-10 h-10 rounded-full object-contain shadow-md shadow-purple-950/40 ring-2 ring-white/20">
             <div class="overflow-hidden">
-              <h1 class="text-sm font-black text-white tracking-wide truncate">Sokify</h1>
+              <h1 class="text-sm font-black text-white tracking-wide truncate">Zokify</h1>
               <p id="restNameSidebar" class="text-[11px] text-slate-400 truncate font-semibold">La Brasa & Leña</p>
             </div>
           </div>
@@ -388,10 +388,10 @@
             </div>
           </div>
 
-          <!-- SOKIFY APP STORE -->
+          <!-- ZOKIFY APP STORE -->
           <button onclick="switchTab('appstore')" class="nav-btn group w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white cursor-pointer" data-tab="appstore">
             <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2"/></svg>
-            <span>Sokify App Store</span>
+            <span>Zokify App Store</span>
           </button>
 
         </nav>
@@ -400,14 +400,14 @@
       <!-- FOOTER DEL SIDEBAR: ESTADO DEL MENÚ EN VIVO + ACCESOS RÁPIDOS -->
       <div class="p-3 border-t border-slate-800 space-y-2 bg-slate-950/40 shrink-0">
         
-        <!-- BANNER REFERIDOS / COMPARTIR Y GANAR (TIPO SOKIFY US$ 20) -->
+        <!-- BANNER REFERIDOS / COMPARTIR Y GANAR (TIPO ZOKIFY US$ 20) -->
         <button onclick="switchTab('referidos')" class="nav-btn w-full text-left p-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black shadow-lg shadow-orange-500/20 transition-all cursor-pointer group" data-tab="referidos">
           <div class="flex items-center gap-1.5 text-xs">
             <svg class="w-3.5 h-3.5 text-amber-200 fill-amber-200" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             <span class="tracking-wide">US$ 20</span>
           </div>
           <div class="text-[10px] font-medium text-white/90 group-hover:text-white leading-tight mt-0.5">
-            Indicando a Sokify en segundos
+            Indicando a Zokify en segundos
           </div>
         </button>
 
@@ -457,18 +457,18 @@
     <!-- --------------------------------------------------------------------- -->
     <div class="flex-1 flex flex-col min-h-screen overflow-y-auto">
 
-      <!-- TOPBAR SUPERIOR AZUL OFICIAL (TIPO SOKIFY CAPTURAS 1, 2 Y 3) -->
+      <!-- TOPBAR SUPERIOR AZUL OFICIAL (TIPO ZOKIFY CAPTURAS 1, 2 Y 3) -->
       <header class="bg-blue-600 text-white px-4 sm:px-6 py-2.5 sticky top-0 z-40 shadow-md">
         <div class="flex items-center justify-between gap-3">
           
-          <!-- IZQUIERDA: LOGO SOKIFY + BOTÓN ACTUALIZA TU PLAN -->
+          <!-- IZQUIERDA: LOGO ZOKIFY + BOTÓN ACTUALIZA TU PLAN -->
           <div class="flex items-center gap-2 sm:gap-3">
             <button onclick="toggleSidebar(true)" class="md:hidden p-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white flex items-center justify-center">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
             <div class="flex items-center gap-2 pr-2">
-              <img src="assets/sokify-avatar.png" alt="Sokify" class="w-7 h-7 rounded-full object-contain shadow-sm ring-1 ring-white/30">
-              <span class="font-black text-sm sm:text-base tracking-tight text-white">Sokify</span>
+              <img src="assets/zokify-avatar.png" alt="Zokify" class="w-7 h-7 rounded-full object-contain shadow-sm ring-1 ring-white/30">
+              <span class="font-black text-sm sm:text-base tracking-tight text-white">Zokify</span>
             </div>
             <button onclick="abrirModalPlanes()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-white text-slate-900 hover:bg-slate-50 font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-white/20">
               <svg class="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -501,7 +501,7 @@
               <span class="hidden sm:inline">Soporte</span>
             </button>
 
-            <!-- PILL PERFIL DE RESTAURANTE (DINÁMICO CON SOKIFY) -->
+            <!-- PILL PERFIL DE RESTAURANTE (DINÁMICO CON ZOKIFY) -->
             <div class="relative">
               <button onclick="toggleDropdownPerfil()" class="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer text-left">
                 <span id="topProfileAvatarInitials" class="w-7 h-7 rounded-full bg-slate-900 border border-white/20 flex items-center justify-center text-xs font-black shrink-0 text-white">
@@ -519,7 +519,7 @@
                   <div class="flex items-center justify-between">
                     <div>
                       <div id="dropdownProfileRestName" class="font-extrabold text-xs text-slate-900">Mi Restaurante</div>
-                      <div id="dropdownProfileEmail" class="text-[11px] text-slate-500 font-medium">admin@sokify.app</div>
+                      <div id="dropdownProfileEmail" class="text-[11px] text-slate-500 font-medium">admin@zokify.app</div>
                       <div id="dropdownProfilePlan" class="text-[10px] text-blue-600 font-bold mt-0.5">Free · Admin</div>
                     </div>
                     <span id="dropdownProfileAvatarInitials" class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">SK</span>
@@ -601,7 +601,7 @@
             <div id="popoverNotificaciones" class="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-100 overflow-hidden hidden z-50 animate-in fade-in zoom-in duration-150">
               
               <div class="p-4 border-b border-slate-100 flex items-center justify-between">
-                <h4 class="font-black text-slate-900 text-sm">Notificaciones Sokify</h4>
+                <h4 class="font-black text-slate-900 text-sm">Notificaciones Zokify</h4>
                 <button type="button" onclick="marcarTodasNotificacionesLeidas()" class="text-xs font-bold text-blue-600 hover:underline cursor-pointer">
                   Marcar todas leídas
                 </button>
@@ -617,7 +617,7 @@
                   </div>
                   <div class="space-y-1 flex-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Sokify por $1.499</span>
+                      <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Zokify por $1.499</span>
                       <span class="text-[10px] text-amber-500 font-bold flex items-center gap-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         <span>alrededor de 5 horas</span>
@@ -639,7 +639,7 @@
                   </div>
                   <div class="space-y-1 flex-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Sokify por $1.499</span>
+                      <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Zokify por $1.499</span>
                       <span class="text-[10px] text-amber-500 font-bold flex items-center gap-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         <span>1 día</span>
@@ -661,7 +661,7 @@
                   </div>
                   <div class="space-y-1 flex-1">
                     <div class="flex items-center justify-between">
-                      <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Sokify por $1.499</span>
+                      <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Zokify por $1.499</span>
                       <span class="text-[10px] text-amber-500 font-bold flex items-center gap-1">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         <span>2 días</span>
@@ -712,7 +712,7 @@
       <main class="flex-1 p-4 md:p-6 max-w-7xl w-full mx-auto space-y-6">
 
         <!-- =================================================================== -->
-        <!-- TAB 1: PEDIDOS PDV (BANDEJA CENTRAL DE PEDIDOS Y CAJA SOKIFY) -->
+        <!-- TAB 1: PEDIDOS PDV (BANDEJA CENTRAL DE PEDIDOS Y CAJA ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-pedidos" class="panel-pane space-y-4">
           
@@ -886,11 +886,11 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 2: PANTALLA DE COCINA KDS INTEGRADA (MULTI-ESTACIÓN SOKIFY) -->
+        <!-- TAB 2: PANTALLA DE COCINA KDS INTEGRADA (MULTI-ESTACIÓN ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-cocina" class="panel-pane space-y-4 hidden">
           
-          <!-- TOP BAR DE ESTACIONES Y ACCIONES DE COCINA (IDÉNTICO A SOKIFY) -->
+          <!-- TOP BAR DE ESTACIONES Y ACCIONES DE COCINA (IDÉNTICO A ZOKIFY) -->
           <div class="bg-white rounded-2xl border border-borderLight p-4 flex flex-wrap items-center justify-between gap-3 shadow-soft">
             
             <!-- SELECTOR DE ESTACIÓN: COCINA PRINCIPAL / BARRA / TODAS -->
@@ -995,7 +995,7 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 3: MÓDULO DE VENTAS (HISTORIAL, CAJAS Y REPORTES TIPO SOKIFY) -->
+        <!-- TAB 3: MÓDULO DE VENTAS (HISTORIAL, CAJAS Y REPORTES TIPO ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-ventas" class="panel-pane space-y-5 hidden">
           
@@ -1118,7 +1118,7 @@
               </div>
             </div>
 
-            <!-- CAJA CERRADA: EMPTY STATE (IDÉNTICO A SOKIFY IMAGEN 2) -->
+            <!-- CAJA CERRADA: EMPTY STATE (IDÉNTICO A ZOKIFY IMAGEN 2) -->
             <div id="cajaClosedView" class="bg-white rounded-3xl border border-borderLight p-8 md:p-12 text-center max-w-xl mx-auto space-y-6 shadow-soft my-6">
               <div class="w-28 h-28 mx-auto rounded-3xl bg-amber-50 border border-amber-200 flex items-center justify-center text-6xl shadow-inner">
                 📠
@@ -1287,7 +1287,7 @@
                   <div class="text-xs font-bold text-slate-500 mt-2">Cantidad de pedidos</div>
                 </div>
 
-                <!-- TABLA DESGLOSADA POR TIPO DE SERVICIO (IDÉNTICA A SOKIFY) -->
+                <!-- TABLA DESGLOSADA POR TIPO DE SERVICIO (IDÉNTICA A ZOKIFY) -->
                 <div class="lg:col-span-8 overflow-x-auto">
                   <table class="w-full text-left text-xs">
                     <thead class="bg-slate-50 border-b border-borderLight text-[10px] font-black text-slate-400 uppercase tracking-wider font-mono">
@@ -1365,7 +1365,7 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 3.5: MÓDULO FINANCIERO (REGISTROS Y CUENTAS TIPO SOKIFY) -->
+        <!-- TAB 3.5: MÓDULO FINANCIERO (REGISTROS Y CUENTAS TIPO ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-finanzas" class="panel-pane space-y-5 hidden">
           
@@ -1391,7 +1391,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 1: REGISTROS FINANCIEROS (IMAGEN 1 SOKIFY) -->
+          <!-- SUBVIEW 1: REGISTROS FINANCIEROS (IMAGEN 1 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewFinanzasRegistros" class="space-y-4">
             
@@ -1415,7 +1415,7 @@
               </div>
             </div>
 
-            <!-- BARRA DE FILTROS (TIPO SOKIFY) -->
+            <!-- BARRA DE FILTROS (TIPO ZOKIFY) -->
             <div class="bg-white rounded-2xl border border-borderLight p-3.5 shadow-soft flex flex-wrap items-center gap-2.5 text-xs">
               <!-- RANGO DE FECHAS -->
               <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-bold">
@@ -1484,12 +1484,12 @@
                     </tr>
                   </thead>
                   <tbody id="finanzasRegistrosTableBody" class="divide-y divide-slate-100">
-                    <!-- Inyección dinámica con soporte de estado vacío idéntico a Sokify -->
+                    <!-- Inyección dinámica con soporte de estado vacío idéntico a Zokify -->
                   </tbody>
                 </table>
               </div>
 
-              <!-- PAGINACIÓN INFERIOR (TIPO SOKIFY) -->
+              <!-- PAGINACIÓN INFERIOR (TIPO ZOKIFY) -->
               <div class="p-3.5 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-end gap-6 text-xs text-slate-500 font-medium">
                 <div class="flex items-center gap-2">
                   <span>Items per page:</span>
@@ -1514,7 +1514,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 2: CUENTAS Y MÉTODOS DE PAGO (IMAGEN 2 SOKIFY) -->
+          <!-- SUBVIEW 2: CUENTAS Y MÉTODOS DE PAGO (IMAGEN 2 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewFinanzasCuentas" class="space-y-6 hidden">
             
@@ -1570,11 +1570,11 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 4: MENÚ > PÁGINA DE PRODUCTOS (EXACTO A IMAGEN 1 SOKIFY) -->
+        <!-- TAB 4: MENÚ > PÁGINA DE PRODUCTOS (EXACTO A IMAGEN 1 ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-productos" class="panel-pane space-y-5 hidden">
           
-          <!-- BANNER SUPERIOR DE PORTADA Y MARCA (TIPO SOKIFY) -->
+          <!-- BANNER SUPERIOR DE PORTADA Y MARCA (TIPO ZOKIFY) -->
           <div class="bg-white rounded-3xl border border-borderLight overflow-hidden shadow-soft">
             <!-- PORTADA -->
             <div class="relative h-32 sm:h-44 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-900 flex items-end p-4">
@@ -1609,7 +1609,7 @@
                 <div>
                   <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Negocio</span>
                   <h2 id="menuNegocioNombre" class="text-lg sm:text-xl font-black text-slate-900 tracking-tight">Fravioli, Street Food</h2>
-                  <span class="text-[11px] font-mono text-slate-400" id="menuSlugPreview">carta-online/sokify</span>
+                  <span class="text-[11px] font-mono text-slate-400" id="menuSlugPreview">carta-online/zokify</span>
                 </div>
               </div>
 
@@ -1634,7 +1634,7 @@
             </div>
           </div>
 
-          <!-- BARRA HORIZONTAL DE CATEGORÍAS (CARRUSEL TIPO SOKIFY) -->
+          <!-- BARRA HORIZONTAL DE CATEGORÍAS (CARRUSEL TIPO ZOKIFY) -->
           <div class="bg-white rounded-2xl border border-borderLight p-2 shadow-soft flex items-center gap-2">
             <button onclick="switchTab('categorias')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-2 shrink-0 cursor-pointer shadow-sm">
               <span>☰</span>
@@ -1956,7 +1956,7 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 4.8: INVENTARIO (EXACTO A IMAGEN SOKIFY) -->
+        <!-- TAB 4.8: INVENTARIO (EXACTO A IMAGEN ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-inventario" class="panel-pane space-y-5 hidden">
           
@@ -1974,7 +1974,7 @@
             </div>
           </div>
 
-          <!-- BARRA DE FILTROS Y MÉTRICAS (EXACTO A IMAGEN SOKIFY) -->
+          <!-- BARRA DE FILTROS Y MÉTRICAS (EXACTO A IMAGEN ZOKIFY) -->
           <div class="bg-white rounded-2xl border border-borderLight p-3.5 shadow-soft flex flex-wrap items-center justify-between gap-3 text-xs">
             
             <!-- FILTROS DE ESTADO / PILLS A LA IZQUIERDA -->
@@ -2039,7 +2039,7 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 4.9: CHATBOT WHATSAPP (EXACTO A IMAGEN SOKIFY) -->
+        <!-- TAB 4.9: CHATBOT WHATSAPP (EXACTO A IMAGEN ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-chatbot" class="panel-pane space-y-6 hidden">
           
@@ -2330,7 +2330,7 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 6: CLIENTES (CRM Y FIDELIDAD - EXACTO A IMAGEN SOKIFY) -->
+        <!-- TAB 6: CLIENTES (CRM Y FIDELIDAD - EXACTO A IMAGEN ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-clientes" class="panel-pane space-y-5 hidden">
           
@@ -2367,7 +2367,7 @@
                 </div>
               </div>
 
-              <!-- BOTÓN NUEVO CLIENTE (AZUL TIPO SOKIFY) -->
+              <!-- BOTÓN NUEVO CLIENTE (AZUL TIPO ZOKIFY) -->
               <button onclick="abrirModalNuevoCliente()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition-all cursor-pointer">
                 <span>+</span>
                 <span>Nuevo cliente</span>
@@ -2406,7 +2406,7 @@
             </div>
           </div>
 
-          <!-- TABLA DE CLIENTES (COLUMNAS IDÉNTICAS A SOKIFY) -->
+          <!-- TABLA DE CLIENTES (COLUMNAS IDÉNTICAS A ZOKIFY) -->
           <div class="bg-white rounded-2xl border border-borderLight overflow-hidden shadow-soft">
             <div class="overflow-x-auto">
               <table class="w-full text-left text-xs">
@@ -2457,11 +2457,11 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 7: MARKETING GASTRONÓMICO COMPLETO (EXACTO A SOKIFY) -->
+        <!-- TAB 7: MARKETING GASTRONÓMICO COMPLETO (EXACTO A ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-marketing" class="panel-pane space-y-6 hidden">
           
-          <!-- SUB-BARRA DE NAVEGACIÓN DE MARKETING (EXACTA A SUBMENÚ SOKIFY) -->
+          <!-- SUB-BARRA DE NAVEGACIÓN DE MARKETING (EXACTA A SUBMENÚ ZOKIFY) -->
           <div class="bg-white rounded-2xl border border-borderLight p-2 flex flex-wrap items-center justify-between gap-2 shadow-soft">
             <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl overflow-x-auto no-scrollbar">
               <button onclick="setMarketingSubtab('codigos')" id="subtabBtnMktCodigos" class="mkt-tab-pill px-4 py-2 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm cursor-pointer flex items-center gap-2">
@@ -2493,7 +2493,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 1: CÓDIGOS DE DESCUENTO (IMAGEN 1 SOKIFY) -->
+          <!-- SUBVIEW 1: CÓDIGOS DE DESCUENTO (IMAGEN 1 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewMktCodigos" class="space-y-4">
             
@@ -2508,7 +2508,7 @@
                   <input id="inputBuscarDescuentos" type="text" placeholder="Buscar un descuento..." oninput="filtrarDescuentos(this.value)" class="w-full bg-white border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600 shadow-xs">
                 </div>
 
-                <!-- Botón Crear descuento (Azul Sokify) -->
+                <!-- Botón Crear descuento (Azul Zokify) -->
                 <button onclick="abrirModalCrearDescuento()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition-all cursor-pointer shrink-0">
                   <span>+</span>
                   <span>Crear descuento</span>
@@ -2541,7 +2541,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 2: PROGRAMA DE FIDELIDAD (IMAGEN 2 SOKIFY) -->
+          <!-- SUBVIEW 2: PROGRAMA DE FIDELIDAD (IMAGEN 2 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewMktFidelidad" class="space-y-6 hidden">
             
@@ -2693,7 +2693,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 3: ENVÍO MASIVO CON IA & WHATSAPP (IMÁGENES 3 Y 4 SOKIFY) -->
+          <!-- SUBVIEW 3: ENVÍO MASIVO CON IA & WHATSAPP (IMÁGENES 3 Y 4 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewMktEnvio" class="space-y-6 hidden">
             
@@ -2809,7 +2809,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 4: GOOGLE FOR RESTAURANTS (IMAGEN 5 SOKIFY) -->
+          <!-- SUBVIEW 4: GOOGLE FOR RESTAURANTS (IMAGEN 5 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewMktGoogle" class="space-y-6 hidden">
             
@@ -2874,7 +2874,7 @@
                 <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
                   <h4 class="font-bold text-slate-900">Enlace de tu Menú para Google Business:</h4>
                   <div class="flex items-center gap-2">
-                    <input id="inputGoogleMenuUrl" type="text" readonly class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-700" value="https://fravioli.sokify.menu">
+                    <input id="inputGoogleMenuUrl" type="text" readonly class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-700" value="https://fravioli.zokify.app">
                     <button onclick="copiarLinkMenuParaGoogle()" class="px-3 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs cursor-pointer">Copiar</button>
                   </div>
                   <p class="text-[10px] text-slate-400">Pégalo en el campo "Enlace para pedidos en línea" de tu Google Business Profile.</p>
@@ -2894,7 +2894,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 5: RESEÑAS Y REPUTACIÓN (IMAGEN 1 SOKIFY) -->
+          <!-- SUBVIEW 5: RESEÑAS Y REPUTACIÓN (IMAGEN 1 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewMktResenas" class="space-y-6 hidden">
             
@@ -3081,7 +3081,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 6: HERRAMIENTAS DE RASTREO (IMAGEN 2 SOKIFY) -->
+          <!-- SUBVIEW 6: HERRAMIENTAS DE RASTREO (IMAGEN 2 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewMktRastreo" class="space-y-6 hidden">
             
@@ -3310,7 +3310,7 @@
         </section>
 
         <!-- =================================================================== -->
-        <!-- TAB 8: CONFIGURACIONES COMPLETO (EXACTO A SOKIFY) -->
+        <!-- TAB 8: CONFIGURACIONES COMPLETO (EXACTO A ZOKIFY) -->
         <!-- =================================================================== -->
         <section id="tab-configuraciones" class="panel-pane space-y-6 hidden">
           
@@ -3341,7 +3341,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 1: CONFIGURACIÓN GENERAL (IMAGEN 1 SOKIFY) -->
+          <!-- SUBVIEW 1: CONFIGURACIÓN GENERAL (IMAGEN 1 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewCfgGeneral" class="space-y-6">
             <div class="space-y-1">
@@ -3490,7 +3490,7 @@
                       </span>
                     </div>
                     <p class="text-xs text-slate-500 font-medium mt-1">
-                      Recibe y gestiona en Sokify los pedidos de tus apps conectadas (Rappi, PedidosYa, UberEats).
+                      Recibe y gestiona en Zokify los pedidos de tus apps conectadas (Rappi, PedidosYa, UberEats).
                     </p>
                   </div>
                 </div>
@@ -3862,7 +3862,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 2: MÉTODOS DE PAGO (IMAGEN 2 SOKIFY) -->
+          <!-- SUBVIEW 2: MÉTODOS DE PAGO (IMAGEN 2 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewCfgPagos" class="space-y-6 hidden">
             
@@ -3992,7 +3992,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 3: INFORMACIÓN DEL NEGOCIO (IMAGEN 3 SOKIFY) -->
+          <!-- SUBVIEW 3: INFORMACIÓN DEL NEGOCIO (IMAGEN 3 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewCfgNegocio" class="space-y-6 hidden">
             
@@ -4167,7 +4167,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 4: EQUIPO Y ROLES (IMAGEN 4 SOKIFY) -->
+          <!-- SUBVIEW 4: EQUIPO Y ROLES (IMAGEN 4 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewCfgEquipo" class="space-y-6 hidden">
             
@@ -4304,7 +4304,7 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUBVIEW 5: IMPRESORAS Y TICKETS (IMAGEN 5 SOKIFY) -->
+          <!-- SUBVIEW 5: IMPRESORAS Y TICKETS (IMAGEN 5 ZOKIFY) -->
           <!-- ================================================================= -->
           <div id="viewCfgImpresoras" class="space-y-6 hidden">
             
@@ -4327,7 +4327,7 @@
               <div class="bg-white rounded-2xl border-2 border-blue-600 p-5 shadow-soft space-y-4">
                 <div class="flex items-start justify-between gap-3">
                   <div class="flex items-start gap-3">
-                    <input type="radio" name="modoImpresionSokify" id="radioImpManualWeb" checked onchange="setModoImpresion('web')" class="mt-1 accent-blue-600 cursor-pointer">
+                    <input type="radio" name="modoImpresionZokify" id="radioImpManualWeb" checked onchange="setModoImpresion('web')" class="mt-1 accent-blue-600 cursor-pointer">
                     <div>
                       <label for="radioImpManualWeb" class="font-black text-sm text-slate-900 flex items-center gap-2 cursor-pointer">
                         <span>🌐</span>
@@ -4385,7 +4385,7 @@
               <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft">
                 <div class="flex items-start justify-between gap-3">
                   <div class="flex items-start gap-3">
-                    <input type="radio" name="modoImpresionSokify" id="radioImpTablet" onchange="setModoImpresion('tablet')" class="mt-1 accent-blue-600 cursor-pointer">
+                    <input type="radio" name="modoImpresionZokify" id="radioImpTablet" onchange="setModoImpresion('tablet')" class="mt-1 accent-blue-600 cursor-pointer">
                     <div>
                       <label for="radioImpTablet" class="font-black text-sm text-slate-900 flex items-center gap-2 cursor-pointer">
                         <span>📱</span>
@@ -4404,7 +4404,7 @@
               <div class="bg-white rounded-2xl border border-borderLight p-5 shadow-soft">
                 <div class="flex items-start justify-between gap-3">
                   <div class="flex items-start gap-3">
-                    <input type="radio" name="modoImpresionSokify" id="radioImpAutoPc" onchange="setModoImpresion('pc')" class="mt-1 accent-blue-600 cursor-pointer">
+                    <input type="radio" name="modoImpresionZokify" id="radioImpAutoPc" onchange="setModoImpresion('pc')" class="mt-1 accent-blue-600 cursor-pointer">
                     <div>
                       <label for="radioImpAutoPc" class="font-black text-sm text-slate-900 flex items-center gap-2 cursor-pointer">
                         <span>💻</span>
@@ -4441,11 +4441,11 @@
         </section>
 
         <!-- ================================================================= -->
-        <!-- TAB: INTEGRACIONES (MCP IA, PARTNERS DELIVERY & API KEYS TIPO SOKIFY) -->
+        <!-- TAB: INTEGRACIONES (MCP IA, PARTNERS DELIVERY & API KEYS TIPO ZOKIFY) -->
         <!-- ================================================================= -->
         <section id="tab-integraciones" class="panel-pane space-y-6 hidden">
 
-          <!-- SUBNAV PILLS (TIPO SOKIFY: ASISTENTES DE IA / MCP, PARTNERS, API KEYS) -->
+          <!-- SUBNAV PILLS (TIPO ZOKIFY: ASISTENTES DE IA / MCP, PARTNERS, API KEYS) -->
           <div class="bg-white rounded-2xl border border-borderLight p-1.5 flex flex-wrap items-center gap-1.5 shadow-soft">
             <button id="subtabBtnIntegMcp" onclick="setIntegracionesSubtab('mcp')" class="integ-pill-btn px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-slate-900 text-white shadow-sm cursor-pointer">
               <span>🤖</span>
@@ -4472,13 +4472,13 @@
                 <div class="space-y-4 max-w-xl text-center md:text-left">
                   <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>Sokify MCP · Conectado</span>
+                    <span>Zokify MCP · Conectado</span>
                   </div>
                   <h2 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight leading-tight">
                     Tu restaurante, conectado a la inteligencia artificial en minutos.
                   </h2>
                   <p class="text-sm text-slate-300 leading-relaxed">
-                    Consulta tus ventas, administra pedidos y conoce mejor tu negocio desde ChatGPT o Claude. Instala el conector oficial de Sokify, inicia sesión y empieza a usarlo. Sin claves API ni configuraciones técnicas.
+                    Consulta tus ventas, administra pedidos y conoce mejor tu negocio desde ChatGPT o Claude. Instala el conector oficial de Zokify, inicia sesión y empieza a usarlo. Sin claves API ni configuraciones técnicas.
                   </p>
                 </div>
 
@@ -4489,7 +4489,7 @@
                       <div class="flex items-center gap-2">
                         <span class="text-xl">👩‍🍳</span>
                         <div class="text-left">
-                          <div class="text-xs font-bold text-white">Chef IA Sokify</div>
+                          <div class="text-xs font-bold text-white">Chef IA Zokify</div>
                           <div class="text-[10px] text-emerald-400">● En línea</div>
                         </div>
                       </div>
@@ -4515,7 +4515,7 @@
                   </div>
                   <div>
                     <h3 class="font-black text-slate-900 text-base">ChatGPT</h3>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">Conector oficial de Sokify</p>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Conector oficial de Zokify</p>
                   </div>
                   <p class="text-xs text-slate-600 max-w-sm">
                     Consulta ventas, pedidos, clientes y actualiza la disponibilidad de platos directamente conversando con OpenAI ChatGPT.
@@ -4534,7 +4534,7 @@
                   </div>
                   <div>
                     <h3 class="font-black text-slate-900 text-base">Claude</h3>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">Conector oficial de Sokify</p>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Conector oficial de Zokify</p>
                   </div>
                   <p class="text-xs text-slate-600 max-w-sm">
                     Administra tu restaurante conversando con Anthropic Claude. Análisis profundo de márgenes, fidelización y reportes automáticos.
@@ -4546,9 +4546,9 @@
               </div>
             </div>
 
-            <!-- QUÉ PUEDES HACER CON SOKIFY E IA (PROMPT CARDS) -->
+            <!-- QUÉ PUEDES HACER CON ZOKIFY E IA (PROMPT CARDS) -->
             <div class="space-y-4">
-              <h3 class="font-black text-slate-900 text-base">¿Qué puedes hacer con Sokify e IA?</h3>
+              <h3 class="font-black text-slate-900 text-base">¿Qué puedes hacer con Zokify e IA?</h3>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 
                 <div class="bg-white rounded-2xl border border-borderLight p-5 space-y-3 shadow-soft flex flex-col justify-between">
@@ -4604,8 +4604,8 @@
                 <div class="space-y-2 flex gap-3 items-start">
                   <div class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0">1</div>
                   <div>
-                    <h4 class="font-bold text-slate-900 text-xs">Encuentra Sokify</h4>
-                    <p class="text-[11px] text-slate-500">Busca la app de Sokify en la tienda de GPTs de ChatGPT o añade el conector en Claude.</p>
+                    <h4 class="font-bold text-slate-900 text-xs">Encuentra Zokify</h4>
+                    <p class="text-[11px] text-slate-500">Busca la app de Zokify en la tienda de GPTs de ChatGPT o añade el conector en Claude.</p>
                   </div>
                 </div>
 
@@ -4613,7 +4613,7 @@
                   <div class="w-7 h-7 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0">2</div>
                   <div>
                     <h4 class="font-bold text-slate-900 text-xs">Autoriza tu cuenta</h4>
-                    <p class="text-[11px] text-slate-500">Inicia sesión con tus credenciales de Sokify para vincular tu restaurante de forma segura.</p>
+                    <p class="text-[11px] text-slate-500">Inicia sesión con tus credenciales de Zokify para vincular tu restaurante de forma segura.</p>
                   </div>
                 </div>
 
@@ -4636,7 +4636,7 @@
                   <span>Opciones avanzadas para desarrolladores y agentes</span>
                 </h3>
                 <p class="text-xs text-slate-400">
-                  ¿Usas herramientas de desarrollo o agentes autónomos? Conecta Sokify MCP mediante JSON en Claude Code, Cursor, VS Code, Kiro o configuración manual:
+                  ¿Usas herramientas de desarrollo o agentes autónomos? Conecta Zokify MCP mediante JSON en Claude Code, Cursor, VS Code, Kiro o configuración manual:
                 </p>
               </div>
 
@@ -4896,7 +4896,7 @@
                   ⚡
                 </div>
                 <div>
-                  <h4 class="font-black text-slate-900 text-sm">Conecta tu asistente de IA a Sokify</h4>
+                  <h4 class="font-black text-slate-900 text-sm">Conecta tu asistente de IA a Zokify</h4>
                   <p class="text-xs text-slate-600">Usa el Protocolo de Contexto de Modelo (MCP) para conectar Claude, ChatGPT o Cursor con tu restaurante sin necesidad de crear tokens manualmente.</p>
                 </div>
               </div>
@@ -4937,7 +4937,7 @@
               </div>
             </div>
 
-            <!-- TOKENS GENERADOS (TIPO SOKIFY CAPTURAS) -->
+            <!-- TOKENS GENERADOS (TIPO ZOKIFY CAPTURAS) -->
             <div class="bg-white rounded-2xl border border-borderLight shadow-soft overflow-hidden">
               <div class="p-5 border-b border-slate-100 flex items-center justify-between">
                 <div>
@@ -4972,7 +4972,7 @@
                 </table>
               </div>
 
-              <!-- ESTADO VACÍO CUANDO NO HAY TOKENS (TIPO CAPTURA SOKIFY) -->
+              <!-- ESTADO VACÍO CUANDO NO HAY TOKENS (TIPO CAPTURA ZOKIFY) -->
               <div id="emptyStateTokens" class="p-12 text-center space-y-3">
                 <div class="w-12 h-12 mx-auto rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-2xl font-bold shadow-inner">
                   🗝️
@@ -4988,7 +4988,7 @@
 
             </div>
 
-            <!-- TABLA OFICIAL: INFORMACIÓN SOBRE SCOPES (TIPO SOKIFY CAPTURA 1 Y 2) -->
+            <!-- TABLA OFICIAL: INFORMACIÓN SOBRE SCOPES (TIPO ZOKIFY CAPTURA 1 Y 2) -->
             <div class="bg-white rounded-2xl border border-borderLight shadow-soft overflow-hidden">
               <div class="p-5 border-b border-slate-100 flex items-center justify-between">
                 <div>
@@ -5097,7 +5097,7 @@
         </section>
 
         <!-- ================================================================= -->
-        <!-- TAB: SOKIFY APP STORE / APPS Y COMPLEMENTOS (TIPO SOKIFY) -->
+        <!-- TAB: ZOKIFY APP STORE / APPS Y COMPLEMENTOS (TIPO ZOKIFY) -->
         <!-- ================================================================= -->
         <section id="tab-appstore" class="panel-pane space-y-6 hidden">
 
@@ -5113,7 +5113,7 @@
             </a>
           </div>
 
-          <!-- FILTRO DE CATEGORÍAS TIPO SOKIFY -->
+          <!-- FILTRO DE CATEGORÍAS TIPO ZOKIFY -->
           <div class="bg-white rounded-2xl border border-borderLight p-3 sm:p-4 shadow-soft flex flex-wrap items-center justify-between gap-3">
             <div class="flex flex-wrap items-center gap-2">
               <button id="btnCatDelivery" onclick="filtrarAppStore('delivery')" class="appstore-cat-btn px-4 py-2.5 rounded-xl text-xs font-bold transition-all border-2 border-blue-600 bg-blue-50/50 text-blue-700 cursor-pointer flex flex-col items-start leading-tight">
@@ -5148,7 +5148,7 @@
             </div>
           </div>
 
-          <!-- GRID DE TARJETAS DE APPS (TIPO SOKIFY CAPTURA) -->
+          <!-- GRID DE TARJETAS DE APPS (TIPO ZOKIFY CAPTURA) -->
           <div id="gridAppStore" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             
             <!-- CARD 1: PEDIDOSYA -->
@@ -5174,7 +5174,7 @@
                 </div>
 
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  Recibe pedidos de PedidosYa en Sokify y gestiona el despacho automático con repartidores.
+                  Recibe pedidos de PedidosYa en Zokify y gestiona el despacho automático con repartidores.
                 </p>
               </div>
 
@@ -5206,7 +5206,7 @@
                 </div>
 
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  Recibe pedidos de Rappi en Sokify, imprime comanda térmica y añade QR a tu menú digital a 0% comisión.
+                  Recibe pedidos de Rappi en Zokify, imprime comanda térmica y añade QR a tu menú digital a 0% comisión.
                 </p>
               </div>
 
@@ -5238,7 +5238,7 @@
                 </div>
 
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  Pedidos Rappi Turbo en Sokify con flujo prioritario de preparación express en menos de 10 minutos.
+                  Pedidos Rappi Turbo en Zokify con flujo prioritario de preparación express en menos de 10 minutos.
                 </p>
               </div>
 
@@ -5270,7 +5270,7 @@
                 </div>
 
                 <p class="text-xs text-slate-600 leading-relaxed">
-                  Conecta Uber Eats con Sokify para sincronizar stock en tiempo real y recepción directa en cocina.
+                  Conecta Uber Eats con Zokify para sincronizar stock en tiempo real y recepción directa en cocina.
                 </p>
               </div>
 
@@ -5351,7 +5351,7 @@
                     🟢
                   </div>
                   <div>
-                    <h4 class="font-black text-slate-900 text-base leading-tight">ChatGPT Sokify MCP</h4>
+                    <h4 class="font-black text-slate-900 text-base leading-tight">ChatGPT Zokify MCP</h4>
                     <span class="text-[11px] text-emerald-600 font-bold flex items-center gap-1.5 mt-0.5">
                       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                       <span>Conectado</span>
@@ -5412,7 +5412,7 @@
         </section>
 
         <!-- ================================================================= -->
-        <!-- TAB: SISTEMA DE COMPARTIR Y GANAR / REFERIDOS (TIPO SOKIFY) -->
+        <!-- TAB: SISTEMA DE COMPARTIR Y GANAR / REFERIDOS (TIPO ZOKIFY) -->
         <!-- ================================================================= -->
         <section id="tab-referidos" class="panel-pane space-y-6 hidden">
 
@@ -5438,7 +5438,7 @@
               <div class="lg:col-span-7 space-y-5">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold">
                   <span>✔</span>
-                  <span>HABILITADO — TU CUENTA SOKIFY ESTÁ ACTIVA</span>
+                  <span>HABILITADO — TU CUENTA ZOKIFY ESTÁ ACTIVA</span>
                 </div>
 
                 <div class="space-y-2">
@@ -5498,7 +5498,7 @@
 
                   <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl p-1.5 pl-3">
                     <span class="text-slate-400 text-xs">🔗</span>
-                    <input id="inputLinkReferido" type="text" readonly value="https://panel.sokify.app/join/l72a6Caq" class="bg-transparent text-xs font-mono font-bold text-slate-800 flex-1 outline-none select-all truncate">
+                    <input id="inputLinkReferido" type="text" readonly value="https://panel.zokify.app/join/l72a6Caq" class="bg-transparent text-xs font-mono font-bold text-slate-800 flex-1 outline-none select-all truncate">
                     <button type="button" onclick="copiarLinkReferido()" class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors cursor-pointer shrink-0">
                       Copiar
                     </button>
@@ -5741,7 +5741,7 @@
         </section>
 
         <!-- ================================================================= -->
-        <!-- TAB: MIS ENLACES Y CÓDIGOS QR (TIPO SOKIFY CAPTURAS 2, 3 Y 4) -->
+        <!-- TAB: MIS ENLACES Y CÓDIGOS QR (TIPO ZOKIFY CAPTURAS 2, 3 Y 4) -->
         <!-- ================================================================= -->
         <section id="tab-qrenlaces" class="panel-pane space-y-6 hidden">
 
@@ -5758,7 +5758,7 @@
                 🔗
               </span>
               <p class="text-xs text-slate-700 font-medium">
-                Cambia tu enlace <strong id="bannerSubdominioLabel" class="text-slate-900 font-mono">"fravioli.sokify.app"</strong> a un dominio <strong class="text-slate-900 font-bold">".com"</strong> para que tus clientes lo recuerden fácilmente.
+                Cambia tu enlace <strong id="bannerSubdominioLabel" class="text-slate-900 font-mono">"fravioli.zokify.app"</strong> a un dominio <strong class="text-slate-900 font-bold">".com"</strong> para que tus clientes lo recuerden fácilmente.
               </p>
             </div>
             <div class="flex items-center gap-2.5 flex-wrap shrink-0">
@@ -5768,7 +5768,7 @@
               <span class="text-xs text-slate-400 font-medium">o</span>
               <button type="button" onclick="abrirModalCambiarSubdominio()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-colors cursor-pointer flex items-center gap-1.5">
                 <span>✏️</span>
-                <span>Cambiar mi enlace "sokify.app"</span>
+                <span>Cambiar mi enlace "zokify.app"</span>
               </button>
             </div>
           </div>
@@ -5804,22 +5804,22 @@
                     <div class="h-4 bg-emerald-600 rounded text-[8px] font-bold flex items-center justify-center">WhatsApp</div>
                     <div class="h-4 bg-slate-800 rounded text-[8px] font-bold flex items-center justify-center">Código WiFi</div>
                   </div>
-                  <div class="text-[7px] text-slate-400 pb-1">Sokify Digital</div>
+                  <div class="text-[7px] text-slate-400 pb-1">Zokify Digital</div>
                 </div>
 
                 <div class="space-y-3 flex-1">
                   <div>
                     <h5 class="font-black text-slate-900 text-sm">Página de bienvenida</h5>
                     <a id="qrLinkBienvenida" href="bienvenida.html" target="_blank" class="text-xs font-mono font-bold text-blue-600 hover:underline break-all">
-                      https://fravioli.sokify.app
+                      https://fravioli.zokify.app
                     </a>
                   </div>
                   <div class="flex items-center gap-2 pt-1">
-                    <button type="button" onclick="compartirEnlaceQr(document.getElementById('qrLinkBienvenida')?.textContent?.trim() || 'https://fravioli.sokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="compartirEnlaceQr(document.getElementById('qrLinkBienvenida')?.textContent?.trim() || 'https://fravioli.zokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
                       <span>🔗</span>
                       <span>Compartir</span>
                     </button>
-                    <button type="button" onclick="descargarQrEnlace(document.getElementById('qrLinkBienvenida')?.textContent?.trim() || 'https://fravioli.sokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="descargarQrEnlace(document.getElementById('qrLinkBienvenida')?.textContent?.trim() || 'https://fravioli.zokify.app', 'Página de Bienvenida')" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
                       <span>🏷️</span>
                       <span>Descargar QR</span>
                     </button>
@@ -5844,15 +5844,15 @@
                   <div>
                     <h5 class="font-black text-slate-900 text-sm">Página de productos</h5>
                     <a id="qrLinkProductos" href="index.html" target="_blank" class="text-xs font-mono font-bold text-blue-600 hover:underline break-all">
-                      https://fravioli.sokify.app/products
+                      https://fravioli.zokify.app/products
                     </a>
                   </div>
                   <div class="flex items-center gap-2 pt-1">
-                    <button type="button" onclick="compartirEnlaceQr(document.getElementById('qrLinkProductos')?.textContent?.trim() || 'https://fravioli.sokify.app/products', 'Página de Productos')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="compartirEnlaceQr(document.getElementById('qrLinkProductos')?.textContent?.trim() || 'https://fravioli.zokify.app/products', 'Página de Productos')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 cursor-pointer">
                       <span>🔗</span>
                       <span>Compartir</span>
                     </button>
-                    <button type="button" onclick="descargarQrEnlace('https://fravioli.sokify.app/products', 'Página de Productos')" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
+                    <button type="button" onclick="descargarQrEnlace('https://fravioli.zokify.app/products', 'Página de Productos')" class="px-3.5 py-2 rounded-xl border border-slate-200 hover:bg-white text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
                       <span>🏷️</span>
                       <span>Descargar QR</span>
                     </button>
@@ -5958,13 +5958,13 @@
                   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
                     <h5 class="font-extrabold text-xs text-slate-900">Página de bienvenida</h5>
                     <div class="text-[11px] font-mono text-blue-600 font-bold break-all">
-                      https://fravioli.sokify.app/?type=read
+                      https://fravioli.zokify.app/?type=read
                     </div>
                     <div class="flex items-center gap-1.5 pt-1">
-                      <button type="button" onclick="compartirEnlaceQr('https://fravioli.sokify.app/?type=read', 'Bienvenida Solo Lectura')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition-colors cursor-pointer">
+                      <button type="button" onclick="compartirEnlaceQr('https://fravioli.zokify.app/?type=read', 'Bienvenida Solo Lectura')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition-colors cursor-pointer">
                         Compartir
                       </button>
-                      <button type="button" onclick="descargarQrEnlace('https://fravioli.sokify.app/?type=read', 'Bienvenida Solo Lectura')" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-white text-slate-700 font-bold text-[11px] transition-colors cursor-pointer">
+                      <button type="button" onclick="descargarQrEnlace('https://fravioli.zokify.app/?type=read', 'Bienvenida Solo Lectura')" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-white text-slate-700 font-bold text-[11px] transition-colors cursor-pointer">
                         Descargar QR
                       </button>
                     </div>
@@ -5973,13 +5973,13 @@
                   <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
                     <h5 class="font-extrabold text-xs text-slate-900">Página de productos</h5>
                     <div class="text-[11px] font-mono text-blue-600 font-bold break-all">
-                      https://fravioli.sokify.app/products/?type=read
+                      https://fravioli.zokify.app/products/?type=read
                     </div>
                     <div class="flex items-center gap-1.5 pt-1">
-                      <button type="button" onclick="compartirEnlaceQr('https://fravioli.sokify.app/products/?type=read', 'Productos Solo Lectura')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition-colors cursor-pointer">
+                      <button type="button" onclick="compartirEnlaceQr('https://fravioli.zokify.app/products/?type=read', 'Productos Solo Lectura')" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition-colors cursor-pointer">
                         Compartir
                       </button>
-                      <button type="button" onclick="descargarQrEnlace('https://fravioli.sokify.app/products/?type=read', 'Productos Solo Lectura')" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-white text-slate-700 font-bold text-[11px] transition-colors cursor-pointer">
+                      <button type="button" onclick="descargarQrEnlace('https://fravioli.zokify.app/products/?type=read', 'Productos Solo Lectura')" class="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-white text-slate-700 font-bold text-[11px] transition-colors cursor-pointer">
                         Descargar QR
                       </button>
                     </div>
@@ -6408,7 +6408,7 @@
         <img id="imgQrModalPreview" src="" alt="Código QR" class="w-48 h-48 mx-auto rounded-xl shadow-sm bg-white p-2">
         <div class="space-y-1">
           <div id="labelQrModalDestino" class="font-black text-xs text-slate-900">Menú Digital General</div>
-          <div id="labelQrModalUrl" class="font-mono text-[11px] text-blue-600 break-all select-all font-semibold">https://sokify.app/menu.html</div>
+          <div id="labelQrModalUrl" class="font-mono text-[11px] text-blue-600 break-all select-all font-semibold">https://zokify.app/menu.html</div>
         </div>
       </div>
 
@@ -6431,7 +6431,7 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: PERSONALIZAR SUBDOMINIO SOKIFY -->
+  <!-- MODAL: PERSONALIZAR SUBDOMINIO ZOKIFY -->
   <!-- ========================================================================= -->
   <div id="modalCambiarSubdominio" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
@@ -6439,7 +6439,7 @@
         <div class="flex items-center gap-2.5">
           <span class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">✏️</span>
           <div>
-            <h3 class="font-black text-sm text-slate-900">Personalizar enlace sokify.app</h3>
+            <h3 class="font-black text-sm text-slate-900">Personalizar enlace zokify.app</h3>
             <p class="text-[11px] text-slate-400">Define el nombre web para que tus clientes te encuentren rápido</p>
           </div>
         </div>
@@ -6452,7 +6452,7 @@
           <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus-within:border-blue-600">
             <span class="text-slate-400 font-mono font-medium">https://</span>
             <input id="inputNuevoSubdominioSlug" type="text" placeholder="nombre-de-tu-local" class="bg-transparent text-slate-900 font-black font-mono w-full px-1 focus:outline-none">
-            <span class="text-slate-500 font-mono font-bold">.sokify.app</span>
+            <span class="text-slate-500 font-mono font-bold">.zokify.app</span>
           </div>
           <p class="text-[10px] text-slate-400 mt-1">Usa solo letras minúsculas, números o guiones (ej: nono-pizzas, sushi-house).</p>
         </div>
@@ -6479,7 +6479,7 @@
         <div class="flex items-center gap-2.5">
           <span class="w-10 h-10 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-xl font-bold">⚖️</span>
           <div>
-            <h3 class="font-black text-sm text-slate-900">Términos y Condiciones del Servicio Sokify</h3>
+            <h3 class="font-black text-sm text-slate-900">Términos y Condiciones del Servicio Zokify</h3>
             <p class="text-[11px] text-slate-400">Versión 2.0 · Plataforma SaaS Operada por Universo693</p>
           </div>
         </div>
@@ -6489,12 +6489,12 @@
       <div class="space-y-4 text-xs text-slate-600 overflow-y-auto pr-2 leading-relaxed flex-1">
         <div class="space-y-1">
           <h4 class="font-black text-slate-900 text-xs">1. Objeto y Alcance de la Plataforma</h4>
-          <p>Sokify es una plataforma integral de gestión gastronómica SaaS que proporciona Punto de Venta (PDV/POS), Carta Digital QR sin comisiones, Pantalla de Cocina en tiempo real (KDS), Arqueo de Caja y Facturación Electrónica para restaurantes, cafeterías, dark kitchens y locales de comida.</p>
+          <p>Zokify es una plataforma integral de gestión gastronómica SaaS que proporciona Punto de Venta (PDV/POS), Carta Digital QR sin comisiones, Pantalla de Cocina en tiempo real (KDS), Arqueo de Caja y Facturación Electrónica para restaurantes, cafeterías, dark kitchens y locales de comida.</p>
         </div>
 
         <div class="space-y-1">
           <h4 class="font-black text-slate-900 text-xs">2. Propiedad Exclusiva de Datos</h4>
-          <p>El restaurante o usuario administrador conserva en todo momento el 100% de la propiedad intelectual y comercial sobre su menú, datos de sus clientes registrados, historial de ventas, recetas y base de datos. Sokify no monetiza, no vende ni comparte información de clientes con terceros.</p>
+          <p>El restaurante o usuario administrador conserva en todo momento el 100% de la propiedad intelectual y comercial sobre su menú, datos de sus clientes registrados, historial de ventas, recetas y base de datos. Zokify no monetiza, no vende ni comparte información de clientes con terceros.</p>
         </div>
 
         <div class="space-y-1">
@@ -6531,7 +6531,7 @@
           <span class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">📘</span>
           <div>
             <h3 class="font-black text-sm text-slate-900">Centro de Ayuda y Base de Conocimientos</h3>
-            <p class="text-[11px] text-slate-400">Guías rápidas y respuestas a las preguntas más frecuentes de Sokify</p>
+            <p class="text-[11px] text-slate-400">Guías rápidas y respuestas a las preguntas más frecuentes de Zokify</p>
           </div>
         </div>
         <button type="button" onclick="cerrarModalCentroAyuda()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
@@ -6570,7 +6570,7 @@
             <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
           </summary>
           <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
-            Ingresa a <strong>Configuraciones &gt; Coberturas y repartidores</strong>. Escribe la dirección de tu local en el buscador para posicionar el pin. Sokify dibuja anillos concéntricos en el mapa y calcula el costo exacto según los kilómetros entre tu local y el cliente.
+            Ingresa a <strong>Configuraciones &gt; Coberturas y repartidores</strong>. Escribe la dirección de tu local en el buscador para posicionar el pin. Zokify dibuja anillos concéntricos en el mapa y calcula el costo exacto según los kilómetros entre tu local y el cliente.
           </p>
         </details>
 
@@ -6580,13 +6580,13 @@
             <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
           </summary>
           <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
-            En la barra superior o en el aviso amarillo pulsa <strong>"Abrir o cuadrar caja"</strong>. Ingresa el fondo inicial en efectivo. Al terminar la jornada, ingresa el dinero contado y Sokify calculará automáticamente las diferencias entre ventas reales y efectivo en gaveta.
+            En la barra superior o en el aviso amarillo pulsa <strong>"Abrir o cuadrar caja"</strong>. Ingresa el fondo inicial en efectivo. Al terminar la jornada, ingresa el dinero contado y Zokify calculará automáticamente las diferencias entre ventas reales y efectivo en gaveta.
           </p>
         </details>
 
         <details class="p-4 bg-slate-50 rounded-2xl border border-slate-200 group cursor-pointer">
           <summary class="font-black text-slate-900 flex items-center justify-between list-none">
-            <span class="flex items-center gap-2"><span>💻</span> ¿Cómo instalar Sokify en mi PC como aplicación?</span>
+            <span class="flex items-center gap-2"><span>💻</span> ¿Cómo instalar Zokify en mi PC como aplicación?</span>
             <span class="text-slate-400 group-open:rotate-180 transition-transform">▼</span>
           </summary>
           <p class="text-slate-600 mt-2.5 leading-relaxed text-[11px]">
@@ -6604,7 +6604,7 @@
             <div class="text-[11px] text-emerald-800">Nuestro equipo de soporte humano te responde en minutos por WhatsApp</div>
           </div>
         </div>
-        <a href="https://wa.me/56937517173?text=Hola,%20necesito%20soporte%20con%20mi%20cuenta%20Sokify" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
+        <a href="https://wa.me/56937517173?text=Hola,%20necesito%20soporte%20con%20mi%20cuenta%20Zokify" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
           <span>Abrir WhatsApp</span>
           <span>↗</span>
         </a>
@@ -6621,7 +6621,7 @@
         <div class="flex items-center gap-2.5">
           <span class="w-10 h-10 rounded-2xl bg-slate-900 text-white flex items-center justify-center text-xl font-bold">💻</span>
           <div>
-            <h3 class="font-black text-sm text-slate-900">Sokify REST API & OpenAPI Docs</h3>
+            <h3 class="font-black text-sm text-slate-900">Zokify REST API & OpenAPI Docs</h3>
             <p class="text-[11px] text-slate-400">Endpoints públicos v1 para conectar ERPs, CRM y apps externas</p>
           </div>
         </div>
@@ -6631,7 +6631,7 @@
       <div class="space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
         <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 font-mono text-[11px] space-y-1">
           <div class="text-slate-400 font-bold">BASE URL:</div>
-          <div class="text-blue-600 font-bold">https://api.sokify.app/v1</div>
+          <div class="text-blue-600 font-bold">https://api.zokify.app/v1</div>
           <div class="text-slate-400 font-bold pt-1">HEADER REQUERIDO:</div>
           <div class="text-slate-800">Authorization: Bearer &lt;tu_token_secreto&gt;</div>
         </div>
@@ -6645,7 +6645,7 @@
               <span class="text-[10px] text-slate-400 ml-auto">Obtener comandas y estados</span>
             </div>
             <div class="bg-slate-900 text-slate-100 p-2.5 rounded-lg font-mono text-[10px] overflow-x-auto">
-curl -X GET "https://api.sokify.app/v1/pedidos?estado=pendiente" \
+curl -X GET "https://api.zokify.app/v1/pedidos?estado=pendiente" \
   -H "Authorization: Bearer sok_live_7x9a8f2e..."
             </div>
           </div>
@@ -6657,7 +6657,7 @@ curl -X GET "https://api.sokify.app/v1/pedidos?estado=pendiente" \
               <span class="text-[10px] text-slate-400 ml-auto">Crear comanda externa</span>
             </div>
             <div class="bg-slate-900 text-slate-100 p-2.5 rounded-lg font-mono text-[10px] overflow-x-auto">
-curl -X POST "https://api.sokify.app/v1/pedidos" \
+curl -X POST "https://api.zokify.app/v1/pedidos" \
   -H "Authorization: Bearer sok_live_..." \
   -H "Content-Type: application/json" \
   -d '{"canal":"delivery","cliente":{"nombre":"Alexis S."},"items":[{"nombre":"Pizza Napolitana","precio":8900}]}'
@@ -6696,7 +6696,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
           <span class="w-10 h-10 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-bold">🛵</span>
           <div>
             <h3 id="tutorialPartnerTitulo" class="font-black text-sm text-slate-900">Guía de Conexión Partner</h3>
-            <p class="text-[11px] text-slate-400">Vincula tus tiendas de Rappi, Uber Eats y PedidosYa con Sokify</p>
+            <p class="text-[11px] text-slate-400">Vincula tus tiendas de Rappi, Uber Eats y PedidosYa con Zokify</p>
           </div>
         </div>
         <button type="button" onclick="cerrarModalTutorialPartners()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
@@ -6722,13 +6722,13 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-start gap-3">
           <span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0">3</span>
           <div>
-            <div class="font-bold text-slate-900 text-xs">Ingresa tu Store ID en Sokify</div>
+            <div class="font-bold text-slate-900 text-xs">Ingresa tu Store ID en Zokify</div>
             <div class="text-[11px] text-slate-500 mt-0.5">Haz clic en <strong>"Listar tiendas"</strong>, ingresa tu código de local y activa la sincronización en vivo.</div>
           </div>
         </div>
 
         <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-[11px] space-y-1">
-          <div class="font-bold">⭐ Beneficio exclusivo Sokify:</div>
+          <div class="font-bold">⭐ Beneficio exclusivo Zokify:</div>
           <p>Tus pedidos de Rappi se imprimirán automáticamente con tu código QR de menú directo para que tus clientes puedan pedirte directamente a ti sin pagar comisión la próxima vez.</p>
         </div>
       </div>
@@ -6815,7 +6815,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: NUEVO REGISTRO FINANCIERO (GASTO / INGRESO TIPO SOKIFY) -->
+  <!-- MODAL: NUEVO REGISTRO FINANCIERO (GASTO / INGRESO TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalNuevoRegistroFinanciero" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
@@ -6914,7 +6914,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: NUEVA CUENTA FINANCIERA (TIPO SOKIFY) -->
+  <!-- MODAL: NUEVA CUENTA FINANCIERA (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalNuevaCuenta" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
@@ -6958,7 +6958,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: GESTIONAR MÉTODO DE PAGO (TIPO SOKIFY) -->
+  <!-- MODAL: GESTIONAR MÉTODO DE PAGO (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalGestionarMetodo" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
@@ -7083,7 +7083,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: CREAR / EDITAR PRODUCTO (TIPO SOKIFY) -->
+  <!-- MODAL: CREAR / EDITAR PRODUCTO (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalCrearProducto" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-xl rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4 my-auto">
@@ -7161,7 +7161,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: CONFIGURACIÓN DE COCINAS & IMPRESORAS TÉRMICAS 80MM (TIPO SOKIFY) -->
+  <!-- MODAL: CONFIGURACIÓN DE COCINAS & IMPRESORAS TÉRMICAS 80MM (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalConfigCocinasImpresoras" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-2xl rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-5 my-auto max-h-[92vh] overflow-y-auto">
@@ -7335,7 +7335,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     </div>
   </div>
 
-  <!-- MODAL: REABASTECER STOCK RÁPIDO (TIPO SOKIFY) -->
+  <!-- MODAL: REABASTECER STOCK RÁPIDO (TIPO ZOKIFY) -->
   <div id="modalReabastecerStock" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -7434,7 +7434,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     </div>
   </div>
 
-  <!-- MODAL: NUEVO CLIENTE (TIPO SOKIFY) -->
+  <!-- MODAL: NUEVO CLIENTE (TIPO ZOKIFY) -->
   <div id="modalNuevoCliente" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -7593,8 +7593,8 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     </div>
   </div>
 
-  <!-- MODAL: CREAR DESCUENTO (EXACTO A SOKIFY) -->
-  <div id="modalCrearDescuentoSokify" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <!-- MODAL: CREAR DESCUENTO (EXACTO A ZOKIFY) -->
+  <div id="modalCrearDescuentoZokify" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
         <div class="flex items-center gap-2.5">
@@ -7663,7 +7663,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
 
       <div class="flex items-center gap-2 pt-2">
         <button type="button" onclick="cerrarModalCrearDescuento()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
-        <button type="button" onclick="guardarDescuentoSokify()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer">Crear Descuento</button>
+        <button type="button" onclick="guardarDescuentoZokify()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer">Crear Descuento</button>
       </div>
     </div>
   </div>
@@ -7755,7 +7755,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     </div>
   </div>
 
-  <!-- MODAL: AGREGAR USUARIO AL EQUIPO (EXACTO A SOKIFY) -->
+  <!-- MODAL: AGREGAR USUARIO AL EQUIPO (EXACTO A ZOKIFY) -->
   <div id="modalAgregarUsuarioEquipo" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -7893,7 +7893,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: GENERAR NUEVO API TOKEN (TIPO SOKIFY) -->
+  <!-- MODAL: GENERAR NUEVO API TOKEN (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalGenerarApiToken" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
@@ -8107,7 +8107,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         </div>
 
         <p class="text-[11px] text-slate-400">
-          Una vez guardado, tu cliente de IA podrá consultar menú, órdenes activas, stock y ventas directamente mediante herramientas estandarizadas de Sokify.
+          Una vez guardado, tu cliente de IA podrá consultar menú, órdenes activas, stock y ventas directamente mediante herramientas estandarizadas de Zokify.
         </p>
       </div>
 
@@ -8118,7 +8118,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: PUBLICAR APP EN SOKIFY APP STORE -->
+  <!-- MODAL: PUBLICAR APP EN ZOKIFY APP STORE -->
   <!-- ========================================================================= -->
   <div id="modalPublicarApp" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
@@ -8128,7 +8128,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             🚀
           </div>
           <div>
-            <h3 class="font-black text-slate-900 text-base">Publica tu app en Sokify App Store</h3>
+            <h3 class="font-black text-slate-900 text-base">Publica tu app en Zokify App Store</h3>
             <p class="text-xs text-slate-400">Llega a miles de restaurantes y negocios gastronómicos</p>
           </div>
         </div>
@@ -8137,7 +8137,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
 
       <div class="space-y-4 text-xs">
         <p class="text-slate-600 leading-relaxed">
-          ¿Desarrollaste una integración de facturación electrónica, delivery local, fidelización o hardware POS? Únete al programa de <strong>Sokify Partners</strong> para publicar tu complemento oficial.
+          ¿Desarrollaste una integración de facturación electrónica, delivery local, fidelización o hardware POS? Únete al programa de <strong>Zokify Partners</strong> para publicar tu complemento oficial.
         </p>
 
         <div>
@@ -8164,7 +8164,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: COMPLETAR DATOS BANCARIOS PARA COBRO (TIPO SOKIFY) -->
+  <!-- MODAL: COMPLETAR DATOS BANCARIOS PARA COBRO (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalCompletarCobro" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
@@ -8227,7 +8227,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: DÉJANOS SUS DATOS (FORMULARIO DIRECTO TIPO SOKIFY) -->
+  <!-- MODAL: DÉJANOS SUS DATOS (FORMULARIO DIRECTO TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalDejanosSusDatos" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
@@ -8237,7 +8237,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             📝
           </div>
           <div>
-            <h3 class="font-black text-slate-900 text-base">Indicar un negocio a Sokify</h3>
+            <h3 class="font-black text-slate-900 text-base">Indicar un negocio a Zokify</h3>
             <p class="text-xs text-slate-400">Un asesor contactará al negocio y la comisión te pertenecerá</p>
           </div>
         </div>
@@ -8274,7 +8274,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: HORARIOS DEL MENÚ DIGITAL & PAUSAR SERVICIOS (TIPO SOKIFY) -->
+  <!-- MODAL: HORARIOS DEL MENÚ DIGITAL & PAUSAR SERVICIOS (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalHorariosMenuDigital" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
@@ -8350,7 +8350,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
 
       </div>
 
-      <!-- NOTA INFORMATIVA (TIPO SOKIFY) -->
+      <!-- NOTA INFORMATIVA (TIPO ZOKIFY) -->
       <div class="flex items-start gap-2 text-[11px] text-slate-500 pt-1">
         <span class="text-blue-500 font-bold">ⓘ</span>
         <span>Al pausar un servicio también desactivas los pedidos programados en el menú digital.</span>
@@ -8369,7 +8369,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: VISTA PREVIA MÓVIL EN VIVO (TIPO SOKIFY CAPTURA 1) -->
+  <!-- MODAL: VISTA PREVIA MÓVIL EN VIVO (TIPO ZOKIFY CAPTURA 1) -->
   <!-- ========================================================================= -->
   <div id="modalVistaPrevia" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 hidden">
     <div class="relative flex flex-col items-center max-h-[96vh]">
@@ -8431,7 +8431,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: AYUDA Y SOPORTE (TIPO SOKIFY CAPTURA 2) -->
+  <!-- MODAL: AYUDA Y SOPORTE (TIPO ZOKIFY CAPTURA 2) -->
   <!-- ========================================================================= -->
   <div id="modalAyudaSoporte" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[92vh]">
@@ -8459,7 +8459,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             <p class="text-xs text-amber-900 leading-relaxed font-medium">
               Contrata uno de nuestros planes y consigue Soporte Directo junto con decenas de funcionalidades clave para tu negocio.
             </p>
-            <a href="https://wa.me/56912345678?text=Hola,%20deseo%20renovar%20mi%20plan%20en%20Sokify" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all">
+            <a href="https://wa.me/56912345678?text=Hola,%20deseo%20renovar%20mi%20plan%20en%20Zokify" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all">
               <span>💬</span>
               <span>Renovar mi Plan ↗</span>
             </a>
@@ -8489,7 +8489,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             <span class="text-2xl">🛠️</span>
             <div>
               <h4 class="font-extrabold text-slate-900 text-xs">Notifica un error</h4>
-              <p class="text-[11px] text-slate-500">Informa algún error que tú o tus clientes encontraron usando Sokify.</p>
+              <p class="text-[11px] text-slate-500">Informa algún error que tú o tus clientes encontraron usando Zokify.</p>
             </div>
           </div>
           <div>
@@ -8523,7 +8523,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             <span class="text-2xl">👥</span>
             <div>
               <h4 class="font-extrabold text-slate-900 text-xs">Red de consejos y asesoría</h4>
-              <p class="text-[11px] text-slate-500">Sé parte de la comunidad Sokify en tus redes favoritas.</p>
+              <p class="text-[11px] text-slate-500">Sé parte de la comunidad Zokify en tus redes favoritas.</p>
             </div>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -8551,7 +8551,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
   <!-- MODAL: PLANES Y SUSCRIPCIÓN (ACTUALIZA TU PLAN) -->
   <!-- ========================================================================= -->
     <!-- ========================================================================= -->
-  <!-- MODAL / VISTA COMPLETA: MEJORA DE PLAN (ACTUALIZA TU PLAN SOKIFY) -->
+  <!-- MODAL / VISTA COMPLETA: MEJORA DE PLAN (ACTUALIZA TU PLAN ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalPlanesSuscripcion" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden overflow-y-auto">
     <div class="min-h-screen bg-slate-50 flex flex-col">
@@ -8560,8 +8560,8 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       <header class="sticky top-0 z-40 bg-white border-b border-slate-200 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-sm">
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-2.5">
-            <img src="assets/sokify-avatar.png" alt="Sokify" class="w-8 h-8 rounded-full object-contain shadow-sm ring-1 ring-purple-200">
-            <span class="font-black text-xl tracking-tight text-slate-900">Sokify<span class="text-purple-600 font-extrabold"> OS.</span></span>
+            <img src="assets/zokify-avatar.png" alt="Zokify" class="w-8 h-8 rounded-full object-contain shadow-sm ring-1 ring-purple-200">
+            <span class="font-black text-xl tracking-tight text-slate-900">Zokify<span class="text-purple-600 font-extrabold"> OS.</span></span>
           </div>
 
           <!-- Pasos de compra / Breadcrumb -->
@@ -8811,7 +8811,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
           <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div class="lg:col-span-5 space-y-3">
               <h2 class="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">
-                Súmate a los más de <span class="text-blue-600">40.000 negocios</span> que ya están viendo resultados con Sokify.
+                Súmate a los más de <span class="text-blue-600">40.000 negocios</span> que ya están viendo resultados con Zokify.
               </h2>
               <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
                 Desde heladerías y cafeterías hasta cadenas gastronómicas de múltiples sucursales usan nuestra tecnología diariamente.
@@ -8840,7 +8840,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
                     <div class="text-amber-400 text-xs">★★★★★</div>
                   </div>
                 </div>
-                <p class="text-[11px] text-slate-600 italic">"¡Gracias, Sokify! Su apoyo ha sido fundamental para el crecimiento de nuestro negocio de hamburguesas. ¡Estamos muy agradecidos!"</p>
+                <p class="text-[11px] text-slate-600 italic">"¡Gracias, Zokify! Su apoyo ha sido fundamental para el crecimiento de nuestro negocio de hamburguesas. ¡Estamos muy agradecidos!"</p>
               </div>
 
               <!-- Testimonio 3 -->
@@ -8852,7 +8852,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
                     <div class="text-amber-400 text-xs">★★★★★</div>
                   </div>
                 </div>
-                <p class="text-[11px] text-slate-600 italic">"En el restaurante estamos con el mismo sistema desde el inicio de Sokify. No lo cambiamos por nada."</p>
+                <p class="text-[11px] text-slate-600 italic">"En el restaurante estamos con el mismo sistema desde el inicio de Zokify. No lo cambiamos por nada."</p>
               </div>
 
               <!-- Testimonio 4 -->
@@ -8909,7 +8909,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
                   <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Página web con dominio personalizado</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm bg-blue-50/30 border-x border-blue-100">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td></tr>
                   <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Dominio web .com propio</td><td class="text-center text-[11px] text-amber-700 font-bold">1 año gratis en Plan Anual</td><td class="text-center text-[11px] text-amber-700 font-bold bg-blue-50/30 border-x border-blue-100">1 año gratis en Plan Anual</td><td class="text-center text-[11px] text-amber-700 font-bold">1 año gratis en Plan Anual</td><td class="text-center text-[11px] text-amber-700 font-bold">1 año gratis en Plan Anual</td></tr>
                   <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Menú digital sin publicidad</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm bg-blue-50/30 border-x border-blue-100">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td></tr>
-                  <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Pedidos en Sokify y WhatsApp</td><td class="text-center font-bold text-slate-800">Ilimitados</td><td class="text-center font-bold text-slate-800 bg-blue-50/30 border-x border-blue-100">Ilimitados</td><td class="text-center text-slate-600">400 pedidos / mes</td><td class="text-center text-slate-600">75 pedidos / mes</td></tr>
+                  <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Pedidos en Zokify y WhatsApp</td><td class="text-center font-bold text-slate-800">Ilimitados</td><td class="text-center font-bold text-slate-800 bg-blue-50/30 border-x border-blue-100">Ilimitados</td><td class="text-center text-slate-600">400 pedidos / mes</td><td class="text-center text-slate-600">75 pedidos / mes</td></tr>
                   <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Punto de venta multiplataforma</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm bg-blue-50/30 border-x border-blue-100">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td></tr>
                   <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Impresión Automática y App</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm bg-blue-50/30 border-x border-blue-100">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td><td class="text-center text-emerald-500 font-black text-sm">✔</td></tr>
                   <tr class="hover:bg-slate-50/50"><td class="p-3.5 font-medium">Soporte técnico</td><td class="text-center text-slate-700 font-semibold">WhatsApp Impulso</td><td class="text-center text-slate-700 font-semibold bg-blue-50/30 border-x border-blue-100">WhatsApp Elite</td><td class="text-center text-slate-700 font-semibold">WhatsApp Premium</td><td class="text-center text-slate-700 font-semibold">WhatsApp Advanced</td></tr>
@@ -9171,7 +9171,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       </main>
 
       <!-- Botón Flotante de WhatsApp para Dudas -->
-      <a href="https://wa.me/56900000000?text=Hola,%20tengo%20dudas%20sobre%20los%20planes%20de%20Sokify" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl flex items-center gap-2 font-bold text-xs transition transform hover:scale-105">
+      <a href="https://wa.me/56900000000?text=Hola,%20tengo%20dudas%20sobre%20los%20planes%20de%20Zokify" target="_blank" class="fixed bottom-6 right-6 z-50 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl flex items-center gap-2 font-bold text-xs transition transform hover:scale-105">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z"/></svg>
         <span class="hidden sm:inline">¿Dudas? Habla con un asesor</span>
       </a>
@@ -9224,7 +9224,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Correo Electrónico</label>
-          <input id="miCuentaEmail" type="email" value="admin@sokify.app" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
+          <input id="miCuentaEmail" type="email" value="admin@zokify.app" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-800">
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Rol en el Negocio</label>
@@ -9254,7 +9254,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
               Instalar App de Escritorio
               <span class="text-[10px] bg-blue-100 text-blue-700 font-extrabold px-2 py-0.5 rounded-full font-mono">PWA</span>
             </h3>
-            <p class="text-xs text-slate-500 font-medium">Usa Sokify como un programa nativo en tu PC o Mac</p>
+            <p class="text-xs text-slate-500 font-medium">Usa Zokify como un programa nativo en tu PC o Mac</p>
           </div>
         </div>
         <button type="button" onclick="cerrarModalInstalarPwa()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
@@ -9289,7 +9289,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       <div id="boxBotonInstalarDirecto">
         <button type="button" onclick="ejecutarInstalacionPwa()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white font-black text-sm shadow-xl shadow-blue-600/25 flex items-center justify-center gap-2.5 transition-all cursor-pointer">
           <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-          <span>Instalar Sokify en Este Equipo</span>
+          <span>Instalar Zokify en Este Equipo</span>
         </button>
       </div>
 
@@ -9301,7 +9301,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         </div>
         <ol class="space-y-2 text-slate-600 pl-4 list-decimal font-medium leading-relaxed">
           <li>
-            <strong>En Google Chrome o Brave:</strong> Mira a la derecha en la barra de direcciones superior (donde escribes la URL) y pulsa el icono <strong>"Instalar Sokify"</strong>.
+            <strong>En Google Chrome o Brave:</strong> Mira a la derecha en la barra de direcciones superior (donde escribes la URL) y pulsa el icono <strong>"Instalar Zokify"</strong>.
           </li>
           <li>
             <strong>En Microsoft Edge:</strong> Pulsa el icono <strong>[+]</strong> o <strong>"Aplicación disponible"</strong> en la barra de URL y selecciona <em>Instalar</em>.
@@ -9423,7 +9423,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       { id: 'usr-1', nombre: 'Diego Cacerez dely', email: 'd.cacerez03@gmail.com', local: 'local', rol: 'Rider', activo: false },
       { id: 'usr-2', nombre: 'Jeniffer', email: 'jeniffer.mella.a@gmail.com', local: 'local', rol: 'Rider', activo: false },
       { id: 'usr-3', nombre: 'Alex', email: 'alexis.santana.miranda@gmail.com', local: 'local', rol: 'Rider', activo: false },
-      { id: 'usr-4', nombre: 'Administrador', email: 'admin@sokify.app', local: 'local', rol: 'Admin', activo: true }
+      { id: 'usr-4', nombre: 'Administrador', email: 'admin@zokify.app', local: 'local', rol: 'Admin', activo: true }
     ];
     let ticketConfig = {
       ancho: '80mm',
@@ -9458,7 +9458,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     let knownOrderIds = new Set();
     let currentStoreOpen = true;
 
-    // --- ESTADO MÓDULO FINANCIERO (SOKIFY TIPO) ---
+    // --- ESTADO MÓDULO FINANCIERO (ZOKIFY TIPO) ---
     let finanzasSubtab = 'registros'; // 'registros', 'cuentas'
     let regTipoSeleccionado = 'gasto'; // 'gasto' | 'ingreso'
     let finanzasFiltros = {
@@ -9661,7 +9661,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       configuraciones: { title: 'Configuraciones', sub: 'Ajustes del restaurante, canales, pagos, equipo e impresión' },
       integraciones: { title: 'Integraciones', sub: 'Asistentes de IA / MCP, partners de delivery y API Keys' },
       appstore: { title: 'Apps y complementos', sub: 'Conecta plataformas de delivery, potencia tu marketing y automatiza tu negocio' },
-      referidos: { title: 'Gana sin límites', sub: 'Programa de recompensas y referidos Sokify (hasta US$ 20 por referido)' },
+      referidos: { title: 'Gana sin límites', sub: 'Programa de recompensas y referidos Zokify (hasta US$ 20 por referido)' },
       qrenlaces: { title: 'Mis enlaces y códigos QR', sub: 'Gestión de enlaces web, dominios y descarga de códigos QR para tu local' }
     };
 
@@ -9694,7 +9694,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         p.classList.toggle('hidden', p.id !== targetId);
       });
       
-      const meta = TAB_TITLES[tab] || { title: 'Panel Sokify', sub: '' };
+      const meta = TAB_TITLES[tab] || { title: 'Panel Zokify', sub: '' };
       document.getElementById('topBarTitle').textContent = meta.title;
       document.getElementById('topBarSubtitle').textContent = meta.sub;
 
@@ -9918,7 +9918,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       const validStored = sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name'));
       const validCfg = sanitizeRestaurantName(typeof CFG !== 'undefined' ? CFG.nombre : null);
       const name = validParam || validStored || validCfg || defaultName;
-      const email = ownerEmail || localStorage.getItem('sokify_owner_email') || (firebase.auth().currentUser ? firebase.auth().currentUser.email : '') || 'admin@sokify.app';
+      const email = ownerEmail || localStorage.getItem('sokify_owner_email') || (firebase.auth().currentUser ? firebase.auth().currentUser.email : '') || 'admin@zokify.app';
       const userPlan = (plan || localStorage.getItem('sokify_plan') || 'Free').toString();
       const initials = calcularInicialesRestaurante(name);
       const restSlug = window.RESTAURANT_ID || localStorage.getItem('sokify_restaurant_id') || 'menu';
@@ -9935,7 +9935,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       if (sbName) sbName.textContent = name;
       const loginBrand = document.getElementById('loginBrandLabel');
       if (loginBrand) loginBrand.textContent = name + ' · Gestión Integral Gastronómica';
-      document.title = 'Sokify · ' + name;
+      document.title = 'Zokify · ' + name;
 
       // 2. Pill superior de perfil
       const topInit = document.getElementById('topProfileAvatarInitials');
@@ -10004,15 +10004,15 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
 
       // 9. QR generator preview links
       const bannerSub = document.getElementById('bannerSubdominioLabel');
-      if (bannerSub) bannerSub.textContent = `"${restSlug}.sokify.app"`;
+      if (bannerSub) bannerSub.textContent = `"${restSlug}.zokify.app"`;
       const qrBienv = document.getElementById('qrLinkBienvenida');
       if (qrBienv) {
-        qrBienv.textContent = `https://${restSlug}.sokify.app`;
+        qrBienv.textContent = `https://${restSlug}.zokify.app`;
         qrBienv.href = `bienvenida.html?r=${encodeURIComponent(restSlug)}`;
       }
       const qrProd = document.getElementById('qrLinkProductos');
       if (qrProd) {
-        qrProd.textContent = `https://${restSlug}.sokify.app/products`;
+        qrProd.textContent = `https://${restSlug}.zokify.app/products`;
         qrProd.href = `menu.html?r=${encodeURIComponent(restSlug)}`;
       }
       const qrMockNom = document.getElementById('qrMiniMockupNombre');
@@ -10365,7 +10365,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       });
     }
 
-    // --- CONTROL OPERATIVO: HORARIOS DEL MENÚ DIGITAL Y PAUSAR SERVICIOS (TIPO SOKIFY) ---
+    // --- CONTROL OPERATIVO: HORARIOS DEL MENÚ DIGITAL Y PAUSAR SERVICIOS (TIPO ZOKIFY) ---
     let serviciosCanalesEstado = {
       llevar: true,
       local: true,
@@ -10727,7 +10727,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       });
     }
 
-    // --- BANDEJA CENTRAL PEDIDOS PDV & GESTIÓN DE CAJA (TIPO SOKIFY) ---
+    // --- BANDEJA CENTRAL PEDIDOS PDV & GESTIÓN DE CAJA (TIPO ZOKIFY) ---
     function setPdvChannel(channel) {
       pdvChannel = channel;
       document.querySelectorAll('.channel-tab-btn').forEach(btn => {
@@ -11106,7 +11106,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       document.getElementById('badgeStationBarra').textContent = countBarraStation;
       document.getElementById('badgeStationTodas').textContent = countTotalStation;
 
-      // Placeholders estéticos si están vacías (Estilo Sokify)
+      // Placeholders estéticos si están vacías (Estilo Zokify)
       if (countN === 0) renderEmptyKdsColumn(colNuevos, 'Sin órdenes pendientes');
       if (countC === 0) renderEmptyKdsColumn(colCocina, 'Cocina al día');
       if (countL === 0) renderEmptyKdsColumn(colListos, 'Sin pedidos para entregar');
@@ -11300,7 +11300,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       return 'cocina';
     }
 
-    // ABRIR Y RENDERIZAR CONFIGURACIÓN DE IMPRESORAS (TIPO SOKIFY [⚙ Cocinas])
+    // ABRIR Y RENDERIZAR CONFIGURACIÓN DE IMPRESORAS (TIPO ZOKIFY [⚙ Cocinas])
     function abrirModalConfigCocinas() {
       const sw = document.getElementById('switchAutoImpresion');
       if (sw) sw.checked = autoPrintEnabled;
@@ -11698,7 +11698,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 3: VENTAS, HISTORIAL, CAJAS Y REPORTES (TIPO SOKIFY)
+    // SECCIÓN 3: VENTAS, HISTORIAL, CAJAS Y REPORTES (TIPO ZOKIFY)
     // =========================================================================
     let ventasSubtab = 'historial'; // 'historial', 'cajas', 'reportes'
     let historialFilter = 'todo'; // 'todo', 'web', 'delivery', 'mesas'
@@ -12053,7 +12053,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 3.5: MÓDULO FINANCIERO (REGISTROS, CUENTAS Y COMISIONES TIPO SOKIFY)
+    // SECCIÓN 3.5: MÓDULO FINANCIERO (REGISTROS, CUENTAS Y COMISIONES TIPO ZOKIFY)
     // =========================================================================
     // (toggleFinanzasSubmenu delegado al gestor de acordeón central)
 
@@ -12120,7 +12120,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       }
 
       if (filtrados.length === 0) {
-        // ESTADO VACÍO IDÉNTICO AL SCREENSHOT DE SOKIFY
+        // ESTADO VACÍO IDÉNTICO AL SCREENSHOT DE ZOKIFY
         tableBody.innerHTML = `
           <tr>
             <td colspan="9" class="py-16 text-center text-slate-500">
@@ -12466,7 +12466,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 4: MENÚ > PÁGINA DE PRODUCTOS Y BIENVENIDA (TIPO SOKIFY)
+    // SECCIÓN 4: MENÚ > PÁGINA DE PRODUCTOS Y BIENVENIDA (TIPO ZOKIFY)
     // =========================================================================
     let menuFiltroQuery = '';
     let categoriaActivaScroll = null;
@@ -12614,7 +12614,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
               <div class="flex items-center gap-4 shrink-0">
                 <span class="font-mono font-black text-slate-900 text-sm ${isOculto ? 'opacity-40' : ''}">${fmt(p.price || 0)}</span>
                 
-                <!-- BOTÓN OJO VISIBILIDAD (TIPO SOKIFY) -->
+                <!-- BOTÓN OJO VISIBILIDAD (TIPO ZOKIFY) -->
                 <button onclick="toggleDisponible('${p.docId}', ${isOculto})" class="p-1.5 rounded-lg transition-colors cursor-pointer ${isOculto ? 'text-slate-300 hover:text-slate-600' : 'text-blue-600 hover:text-blue-700 bg-blue-50/50'}" title="${isOculto ? 'Plato pausado/oculto (clic para activar)' : 'Plato visible en el menú'}">
                   ${isOculto ? '🙈' : '👁️'}
                 </button>
@@ -13597,7 +13597,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 4.8: INVENTARIO & CONTROL DE STOCK (TIPO SOKIFY)
+    // SECCIÓN 4.8: INVENTARIO & CONTROL DE STOCK (TIPO ZOKIFY)
     // =========================================================================
     let inventarioFiltro = 'todos'; // 'disponible' | 'agotado' | 'todos'
     let inventarioSearchQuery = '';
@@ -14058,7 +14058,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 4.9: CHATBOT WHATSAPP & IA (TIPO SOKIFY)
+    // SECCIÓN 4.9: CHATBOT WHATSAPP & IA (TIPO ZOKIFY)
     // =========================================================================
     let chatbotConfig = {
       activo: true,
@@ -14082,7 +14082,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     let simChatMensajes = [
       { emisor: 'bot', texto: '¡Hola! 🍔 Bienvenido a Fravioli. ¿En qué te podemos ayudar hoy?', hora: '12:00' },
       { emisor: 'cliente', texto: '¿Tienen carta digital para pedir?', hora: '12:01' },
-      { emisor: 'bot', texto: '¡Claro que sí! Puedes ver nuestra carta con fotos, precios y pedir aquí: https://fravioli.sokify.menu 🚀', hora: '12:01' }
+      { emisor: 'bot', texto: '¡Claro que sí! Puedes ver nuestra carta con fotos, precios y pedir aquí: https://fravioli.zokify.app 🚀', hora: '12:01' }
     ];
 
     function renderChatbot() {
@@ -14313,7 +14313,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     function generarRespuestaBot(msgUsuario) {
       const q = msgUsuario.toLowerCase();
       const rName = CFG.nombre || 'Fravioli';
-      const menuUrl = `https://${rName.toLowerCase().replace(/[^a-z0-9]/g, '')}.sokify.menu`;
+      const menuUrl = `https://${rName.toLowerCase().replace(/[^a-z0-9]/g, '')}.zokify.app`;
       const horarioStr = 'Lunes a Domingo de 12:00 a 23:30 hrs';
 
       // 1. Si el chatbot está desactivado globalmente
@@ -14399,7 +14399,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     // SECCIÓN 6: CLIENTES (CRM)
     // =========================================================================
     // =========================================================================
-    // SECCIÓN 6: CLIENTES CRM & FIDELIZACIÓN (EXACTO A SOKIFY)
+    // SECCIÓN 6: CLIENTES CRM & FIDELIZACIÓN (EXACTO A ZOKIFY)
     // =========================================================================
     let clientesFiltroSegmento = 'todos'; // 'todos' | 'elite' | 'top' | 'frecuente'
     let clientesSearchQuery = '';
@@ -14908,7 +14908,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 7: MARKETING GASTRONÓMICO Y DESCUENTOS (TIPO SOKIFY)
+    // SECCIÓN 7: MARKETING GASTRONÓMICO Y DESCUENTOS (TIPO ZOKIFY)
     // =========================================================================
     let marketingSubtab = 'codigos';
     let fidelidadSubtab = 'programa';
@@ -15160,14 +15160,14 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     function abrirModalCrearDescuento() {
-      document.getElementById('modalCrearDescuentoSokify')?.classList.remove('hidden');
+      document.getElementById('modalCrearDescuentoZokify')?.classList.remove('hidden');
     }
 
     function cerrarModalCrearDescuento() {
-      document.getElementById('modalCrearDescuentoSokify')?.classList.add('hidden');
+      document.getElementById('modalCrearDescuentoZokify')?.classList.add('hidden');
     }
 
-    function guardarDescuentoSokify() {
+    function guardarDescuentoZokify() {
       const nombre = document.getElementById('modalDescNombre').value.trim();
       const codigoRaw = document.getElementById('modalDescCodigo').value.trim().toUpperCase();
       const tipo = document.getElementById('modalDescTipo').value;
@@ -15355,7 +15355,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       actualizarDestinatariosCampana();
       const txt = document.getElementById('textCampanaMensaje');
       if (txt && !txt.value) {
-        txt.value = `¡Hola {nombre}! 🍕 En Fravioli Street Food te extrañamos. Te regalamos un 20% de descuento en tu próximo pedido usando el cupón FAMILIA20. ¡Haz tu pedido aquí: https://fravioli.sokify.menu !`;
+        txt.value = `¡Hola {nombre}! 🍕 En Fravioli Street Food te extrañamos. Te regalamos un 20% de descuento en tu próximo pedido usando el cupón FAMILIA20. ¡Haz tu pedido aquí: https://fravioli.zokify.app !`;
       }
     }
 
@@ -15382,9 +15382,9 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       if (!txt) return;
 
       const plantillas = [
-        `¡Hola {nombre}! 🔥 Sabemos que te encantan nuestras hamburguesas. Hoy tenemos envío GRATIS y 15% OFF en tu pedido con el código PROMO15. Válido solo hoy en https://fravioli.sokify.menu 🍔`,
-        `¡Hola {nombre}! ⚡ ¿Plan para hoy? En Fravioli preparamos tus platos favoritos al momento. Ingresa a https://fravioli.sokify.menu y aprovecha un postre de regalo por compras sobre $15.000 con el cupón DULCE.`,
-        `¡Te extrañamos {nombre}! 🍕 Disfruta una experiencia gourmet en casa. Usa el cupón VUELVE20 para 20% de descuento directo en https://fravioli.sokify.menu . ¡Buen provecho!`
+        `¡Hola {nombre}! 🔥 Sabemos que te encantan nuestras hamburguesas. Hoy tenemos envío GRATIS y 15% OFF en tu pedido con el código PROMO15. Válido solo hoy en https://fravioli.zokify.app 🍔`,
+        `¡Hola {nombre}! ⚡ ¿Plan para hoy? En Fravioli preparamos tus platos favoritos al momento. Ingresa a https://fravioli.zokify.app y aprovecha un postre de regalo por compras sobre $15.000 con el cupón DULCE.`,
+        `¡Te extrañamos {nombre}! 🍕 Disfruta una experiencia gourmet en casa. Usa el cupón VUELVE20 para 20% de descuento directo en https://fravioli.zokify.app . ¡Buen provecho!`
       ];
 
       txt.value = plantillas[Math.floor(Math.random() * plantillas.length)];
@@ -15764,11 +15764,11 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 8: CONFIGURACIONES COMPLETO (TIPO SOKIFY)
+    // SECCIÓN 8: CONFIGURACIONES COMPLETO (TIPO ZOKIFY)
     // =========================================================================
     let configSubtab = 'general';
     let pagosCfgSubtab = 'contraentrega';
-    let modoImpresionSokify = 'web';
+    let modoImpresionZokify = 'web';
 
     // equipoUsuarios y ticketConfig están inicializados arriba en scope global
 
@@ -17004,7 +17004,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
 
     // --- IMPRESORAS Y TICKETS ---
     function setModoImpresion(modo) {
-      modoImpresionSokify = modo;
+      modoImpresionZokify = modo;
       mostrarNotificacion(`Modo de impresión: ${modo === 'web' ? 'Manual por Navegador Web' : modo === 'tablet' ? 'Bluetooth Tablet/Móvil' : 'Automática PC'}`);
     }
 
@@ -17222,7 +17222,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       const testTicketHtml = `
         <div style="font-family: 'Courier New', monospace; width: 80mm; max-width: 280px; margin: 0 auto; padding: 12px; font-size: 12px; line-height: 1.3; color: #000; border-bottom: 2px dashed #000;">
           <div style="text-align: center; font-weight: bold; font-size: 15px; margin-bottom: 6px;">
-            === SOKIFY TICKET DE PRUEBA ===
+            === ZOKIFY TICKET DE PRUEBA ===
           </div>
           <div style="text-align: center; font-size: 11px; margin-bottom: 8px;">
             SISTEMA GASTRONÓMICO PROFESIONAL
@@ -17253,7 +17253,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
             ¡CONEXIÓN TÉRMICA OPERATIVA AL 100%!
           </div>
           <div style="text-align: center; font-size: 9px; color: #555; margin-top: 4px;">
-            powered by Sokify v2.0
+            powered by Zokify v2.0
           </div>
         </div>
       `;
@@ -17285,7 +17285,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       const tipo = document.getElementById('selectQrModalTipo')?.value || 'menu';
       qrSeleccionActual = tipo;
 
-      const baseHost = window.location.origin || 'https://sokify.app';
+      const baseHost = window.location.origin || 'https://zokify.app';
       let url = `${baseHost}/menu.html`;
       let label = 'Menú Digital General';
 
@@ -17316,7 +17316,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       const downloadUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=15&format=png&data=${encodeURIComponent(url)}`;
       const a = document.createElement('a');
       a.href = downloadUrl;
-      a.download = `sokify-qr-${qrSeleccionActual}.png`;
+      a.download = `zokify-qr-${qrSeleccionActual}.png`;
       a.target = '_blank';
       document.body.appendChild(a);
       a.click();
@@ -17370,13 +17370,13 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // PERSONALIZACIÓN DE SUBDOMINIO SOKIFY
+    // PERSONALIZACIÓN DE SUBDOMINIO ZOKIFY
     // =========================================================================
     function abrirModalCambiarSubdominio() {
       const banner = document.getElementById('bannerSubdominioLabel');
       const input = document.getElementById('inputNuevoSubdominioSlug');
       if (banner && input) {
-        const curr = banner.textContent.replace(/"/g, '').replace('.sokify.app', '').trim();
+        const curr = banner.textContent.replace(/"/g, '').replace('.zokify.app', '').trim();
         input.value = curr;
       }
       document.getElementById('modalCambiarSubdominio')?.classList.remove('hidden');
@@ -17394,7 +17394,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         return;
       }
 
-      const nuevoEnlace = `${val}.sokify.app`;
+      const nuevoEnlace = `${val}.zokify.app`;
       const banner = document.getElementById('bannerSubdominioLabel');
       if (banner) banner.textContent = `"${nuevoEnlace}"`;
       localStorage.setItem('sokify_subdominio_slug', val);
@@ -17438,8 +17438,8 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     function copiarOpenApiSpec() {
       const spec = {
         openapi: '3.1.0',
-        info: { title: 'Sokify API', version: '1.0.0', description: 'API REST para gestión de restaurantes y comandas Sokify' },
-        servers: [{ url: 'https://api.sokify.app/v1' }],
+        info: { title: 'Zokify API', version: '1.0.0', description: 'API REST para gestión de restaurantes y comandas Zokify' },
+        servers: [{ url: 'https://api.zokify.app/v1' }],
         paths: {
           '/pedidos': {
             get: { summary: 'Listar pedidos' },
@@ -17490,8 +17490,8 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     function abrirModalComunidadReferidos() {
-      window.open('https://chat.whatsapp.com/GzSokifyPartnersVIP2026', '_blank');
-      mostrarNotificacion('👥 Conectando con la comunidad VIP de Sokify Partners...', 'success');
+      window.open('https://chat.whatsapp.com/GzZokifyPartnersVIP2026', '_blank');
+      mostrarNotificacion('👥 Conectando con la comunidad VIP de Zokify Partners...', 'success');
     }
 
     function activarTrialTresMeses() {
@@ -17640,7 +17640,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // MÓDULO INTEGRACIONES (MCP IA, PARTNERS DELIVERY & API KEYS TIPO SOKIFY)
+    // MÓDULO INTEGRACIONES (MCP IA, PARTNERS DELIVERY & API KEYS TIPO ZOKIFY)
     // =========================================================================
     let currentIntegracionesSubtab = 'mcp';
     let apiTokens = [
@@ -17652,7 +17652,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         creado: '02/11/2026',
         ultimoUso: 'Hace 2 horas',
         estado: 'Activo',
-        token: 'sokify_live_9f83b1a4e8d2c17604eb'
+        token: 'zokify_live_9f83b1a4e8d2c17604eb'
       },
       {
         id: 'tok-2',
@@ -17662,7 +17662,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         creado: '05/11/2026',
         ultimoUso: 'Hace 10 min',
         estado: 'Activo',
-        token: 'sokify_live_a712f5c9e3b8d04192fc'
+        token: 'zokify_live_a712f5c9e3b8d04192fc'
       }
     ];
 
@@ -17723,10 +17723,10 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     function conectarAsistenteIA(asistente) {
       if (asistente === 'chatgpt') {
         window.open('https://chatgpt.com/gpts', '_blank');
-        mostrarNotificacion('🟢 Abriendo conector oficial de Sokify en ChatGPT Store...');
+        mostrarNotificacion('🟢 Abriendo conector oficial de Zokify en ChatGPT Store...');
       } else if (asistente === 'claude') {
         window.open('https://claude.ai', '_blank');
-        mostrarNotificacion('🟠 Abriendo conector oficial de Sokify en Claude...');
+        mostrarNotificacion('🟠 Abriendo conector oficial de Zokify en Claude...');
       }
     }
 
@@ -17741,12 +17741,12 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       'Claude Code': {
         snippet: JSON.stringify({
           mcpServers: {
-            "sokify-restaurante": {
+            "zokify-restaurante": {
               command: "npx",
-              args: ["-y", "@sokify/mcp-server@latest"],
+              args: ["-y", "@zokify/mcp-server@latest"],
               env: {
-                SOKIFY_API_KEY: "sokify_live_tu_clave_aqui",
-                SOKIFY_STORE_ID: "fravioli-street-food"
+                ZOKIFY_API_KEY: "zokify_live_tu_clave_aqui",
+                ZOKIFY_STORE_ID: "fravioli-street-food"
               }
             }
           }
@@ -17755,10 +17755,10 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       'Cursor': {
         snippet: JSON.stringify({
           mcpServers: {
-            "sokify": {
-              url: "https://api.sokify.app/mcp/sse",
+            "zokify": {
+              url: "https://api.zokify.app/mcp/sse",
               headers: {
-                Authorization: "Bearer sokify_live_tu_clave_aqui"
+                Authorization: "Bearer zokify_live_tu_clave_aqui"
               }
             }
           }
@@ -17767,34 +17767,34 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       'VS Code': {
         snippet: JSON.stringify({
           "mcp.servers": {
-            "sokify": {
+            "zokify": {
               "type": "sse",
-              "url": "https://api.sokify.app/mcp/sse"
+              "url": "https://api.zokify.app/mcp/sse"
             }
           }
         }, null, 2)
       },
       'Kiro': {
         snippet: JSON.stringify({
-          agentTools: ["sokify.consultarVentas", "sokify.listarPedidos", "sokify.actualizarMenu"],
-          serverUrl: "https://api.sokify.app/mcp/sse"
+          agentTools: ["zokify.consultarVentas", "zokify.listarPedidos", "zokify.actualizarMenu"],
+          serverUrl: "https://api.zokify.app/mcp/sse"
         }, null, 2)
       },
       'ChatGPT (manual)': {
         snippet: JSON.stringify({
-          name: "Sokify MCP Tool",
+          name: "Zokify MCP Tool",
           schema_version: "v1",
           description_for_model: "Conector MCP para gestionar ventas, inventario y pedidos del restaurante.",
-          api: { type: "openapi", url: "https://api.sokify.app/openapi.json" }
+          api: { type: "openapi", url: "https://api.zokify.app/openapi.json" }
         }, null, 2)
       },
       'Claude (manual)': {
         snippet: JSON.stringify({
           mcpServers: {
-            "sokify": {
+            "zokify": {
               command: "uvx",
-              args: ["sokify-mcp"],
-              env: { SOKIFY_TOKEN: "sokify_live_tu_clave_aqui" }
+              args: ["zokify-mcp"],
+              env: { ZOKIFY_TOKEN: "zokify_live_tu_clave_aqui" }
             }
           }
         }, null, 2)
@@ -17939,7 +17939,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       }
 
       const randomPart = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
-      const nuevoToken = 'sokify_live_' + randomPart;
+      const nuevoToken = 'zokify_live_' + randomPart;
 
       const nuevoObj = {
         id: 'tok-' + Date.now(),
@@ -17979,7 +17979,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // MÓDULO SOKIFY APP STORE / APPS Y COMPLEMENTOS (TIPO SOKIFY)
+    // MÓDULO ZOKIFY APP STORE / APPS Y COMPLEMENTOS (TIPO ZOKIFY)
     // =========================================================================
     let currentAppStoreCategoria = 'delivery';
 
@@ -18088,7 +18088,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // MÓDULO SISTEMA DE COMPARTIR Y GANAR (REFERIDOS TIPO SOKIFY)
+    // MÓDULO SISTEMA DE COMPARTIR Y GANAR (REFERIDOS TIPO ZOKIFY)
     // =========================================================================
     let datosCobroReferidos = null;
     let estadisticasReferidos = {
@@ -18121,8 +18121,8 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     function compartirPorWhatsAppReferido() {
-      const link = document.getElementById('inputLinkReferido')?.value || 'https://panel.sokify.app/join/l72a6Caq';
-      const mensaje = `¡Hola! Te recomiendo Sokify para gestionar tu restaurante con menú digital QR sin comisiones. Regístrate con mi enlace exclusivo y obtén 30% de descuento + 15 días de asesoría gratis: ${link}`;
+      const link = document.getElementById('inputLinkReferido')?.value || 'https://panel.zokify.app/join/l72a6Caq';
+      const mensaje = `¡Hola! Te recomiendo Zokify para gestionar tu restaurante con menú digital QR sin comisiones. Regístrate con mi enlace exclusivo y obtén 30% de descuento + 15 días de asesoría gratis: ${link}`;
       const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
       window.open(url, '_blank');
       estadisticasReferidos.indicaciones++;
@@ -18210,7 +18210,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // MÓDULO VISTA PREVIA Y MIS ENLACES Y CÓDIGOS QR (TIPO SOKIFY)
+    // MÓDULO VISTA PREVIA Y MIS ENLACES Y CÓDIGOS QR (TIPO ZOKIFY)
     // =========================================================================
     let qrActualParaDescarga = '';
 
@@ -18233,7 +18233,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     function compartirEnlaceQr(url, titulo) {
       if (navigator.share) {
         navigator.share({
-          title: titulo || 'Menú Digital Sokify',
+          title: titulo || 'Menú Digital Zokify',
           url: url
         }).catch(() => {});
       } else if (navigator.clipboard) {
@@ -18268,7 +18268,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
       const downloadUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=15&format=png&data=${encodeURIComponent(qrActualParaDescarga)}`;
       const a = document.createElement('a');
       a.href = downloadUrl;
-      a.download = 'codigo-qr-menu-sokify.png';
+      a.download = 'codigo-qr-menu-zokify.png';
       a.target = '_blank';
       document.body.appendChild(a);
       a.click();
@@ -18284,7 +18284,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // MÓDULO TOPBAR: NOTIFICACIONES, SOPORTE Y PERFIL (TIPO SOKIFY)
+    // MÓDULO TOPBAR: NOTIFICACIONES, SOPORTE Y PERFIL (TIPO ZOKIFY)
     // =========================================================================
     function togglePopoverNotificaciones() {
       const pop = document.getElementById('popoverNotificaciones');
@@ -18582,7 +18582,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js').then((registration) => {
-          console.log('✅ Sokify PWA Service Worker activo con alcance:', registration.scope);
+          console.log('✅ Zokify PWA Service Worker activo con alcance:', registration.scope);
         }).catch((err) => {
           console.warn('Nota: PWA Service Worker no pudo registrarse:', err);
         });
@@ -18604,8 +18604,8 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
 
     window.addEventListener('appinstalled', () => {
       deferredPrompt = null;
-      console.log('🎉 Sokify PWA instalada exitosamente en el sistema.');
-      mostrarNotificacion('🎉 ¡Sokify se instaló con éxito en tu escritorio!');
+      console.log('🎉 Zokify PWA instalada exitosamente en el sistema.');
+      mostrarNotificacion('🎉 ¡Zokify se instaló con éxito en tu escritorio!');
       cerrarModalInstalarPwa();
       const btnTop = document.getElementById('btnInstalarAppDesktop');
       if (btnTop) {
@@ -18630,7 +18630,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
           const { outcome } = await deferredPrompt.userChoice;
           console.log('Resultado de elección PWA del usuario:', outcome);
           if (outcome === 'accepted') {
-            mostrarNotificacion('📥 Instalando Sokify en tu equipo...');
+            mostrarNotificacion('📥 Instalando Zokify en tu equipo...');
             deferredPrompt = null;
             cerrarModalInstalarPwa();
             return;
@@ -18654,7 +18654,7 @@ curl -X POST "https://api.sokify.app/v1/pedidos" \
         boxBtn.innerHTML = `
           <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center gap-2.5 text-emerald-800 text-xs font-bold">
             <span class="text-base">✅</span>
-            <span>Sokify ya está corriendo en tu PC como una Aplicación de Escritorio independiente.</span>
+            <span>Zokify ya está corriendo en tu PC como una Aplicación de Escritorio independiente.</span>
           </div>
         `;
       }

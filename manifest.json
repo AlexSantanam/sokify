@@ -1,6 +1,6 @@
 {
-  "name": "Sokify · Sistema Gastronómico Integral & PDV",
-  "short_name": "Sokify",
+  "name": "Zokify · Sistema Gastronómico Integral & PDV",
+  "short_name": "Zokify",
   "description": "Sistema operativo gastronómico: Punto de Venta (POS), Pantalla de Cocina (KDS), Menú QR, Delivery y Control de Caja.",
   "start_url": "/panel.html",
   "scope": "/",
@@ -12,13 +12,13 @@
   "categories": ["business", "food", "productivity"],
   "icons": [
     {
-      "src": "assets/sokify-avatar.png",
+      "src": "assets/zokify-avatar.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/sokify-avatar.png",
+      "src": "assets/zokify-avatar.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -35,21 +35,21 @@
       "short_name": "PDV",
       "description": "Abrir caja y tomar pedidos en mesa y mostrador",
       "url": "/panel.html#pedidos",
-      "icons": [{ "src": "assets/sokify-avatar.png", "sizes": "192x192" }]
+      "icons": [{ "src": "assets/zokify-avatar.png", "sizes": "192x192" }]
     },
     {
       "name": "Pantalla de Cocina (KDS)",
       "short_name": "Cocina",
       "description": "Comandas en tiempo real con alertas de audio",
       "url": "/cocina.html",
-      "icons": [{ "src": "assets/sokify-avatar.png", "sizes": "192x192" }]
+      "icons": [{ "src": "assets/zokify-avatar.png", "sizes": "192x192" }]
     },
     {
       "name": "Menú Digital",
       "short_name": "Menú",
       "description": "Carta digital interactiva para comensales",
       "url": "/menu.html",
-      "icons": [{ "src": "assets/sokify-avatar.png", "sizes": "192x192" }]
+      "icons": [{ "src": "assets/zokify-avatar.png", "sizes": "192x192" }]
     }
   ]
 }

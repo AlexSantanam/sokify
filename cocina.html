@@ -6,8 +6,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Sokify KDS">
-  <link rel="apple-touch-icon" href="assets/sokify-avatar.png">
+  <meta name="apple-mobile-web-app-title" content="Zokify KDS">
+  <link rel="apple-touch-icon" href="assets/zokify-avatar.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pantalla de Cocina & KDS · Fravioli, Street Food</title>
@@ -27,7 +27,7 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            /* Paleta propia de Sokify, modo claro (igual criterio que panel.html) */
+            /* Paleta propia de Zokify, modo claro (igual criterio que panel.html) */
             kdsBg: '#F7F6FB',
             kdsCard: '#FFFFFF',
             kdsBorder: '#ECEAF3',
@@ -179,7 +179,7 @@
     </div>
   </header>
 
-  <!-- BARRA DE FILTRADO POR ESTACIÓN Y ACCIONES RÁPIDAS (TIPO SOKIFY) -->
+  <!-- BARRA DE FILTRADO POR ESTACIÓN Y ACCIONES RÁPIDAS (TIPO ZOKIFY) -->
   <div class="bg-kdsCard border-b border-kdsBorder px-4 py-2.5 shadow-sm">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
       
@@ -364,7 +364,7 @@
     const CFG = window.RESTAURANTE_CONFIG || {};
     const subEl = document.getElementById('kdsSubtitle');
     if (subEl) subEl.textContent = `${CFG.nombre || 'Restaurante'} · Sistema Integral de Comandas y Despacho`;
-    document.title = `Pantalla de Cocina & KDS · ${CFG.nombre || 'Sokify'}`;
+    document.title = `Pantalla de Cocina & KDS · ${CFG.nombre || 'Zokify'}`;
 
     let orders = [];
     let knownOrderIds = new Set();

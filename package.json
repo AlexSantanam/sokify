@@ -1,7 +1,7 @@
 {
   "name": "sokify-os",
   "version": "1.0.0",
-  "description": "Sokify · Sistema Operativo Gastronómico y Punto de Venta Inteligente",
+  "description": "Zokify · Sistema Operativo Gastronómico y Punto de Venta Inteligente",
   "type": "module",
   "main": "index.html",
   "scripts": {

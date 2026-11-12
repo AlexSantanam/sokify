@@ -1,5 +1,5 @@
 /**
- * Sokify Service Worker (PWA)
+ * Zokify Service Worker (PWA)
  * Soporta instalación en PC de escritorio (Windows, Mac, Linux) y móviles.
  */
 const CACHE_NAME = 'sokify-pwa-v1';
@@ -14,8 +14,8 @@ const STATIC_ASSETS = [
   '/firebase-init.js',
   '/manifest.json',
   '/assets/favicon.png',
-  '/assets/sokify-avatar.png',
-  '/assets/sokify-logo.png'
+  '/assets/zokify-avatar.png',
+  '/assets/zokify-logo.png'
 ];
 
 self.addEventListener('install', (event) => {
