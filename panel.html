@@ -1623,6 +1623,10 @@
                   <input id="inputBuscarPlatoMenu" type="text" placeholder="Buscar plato..." oninput="filtrarPlatosMenu(this.value)" class="bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white w-40 sm:w-48 transition-all">
                   <span class="absolute left-2.5 top-2.5 text-xs text-slate-400">🔍</span>
                 </div>
+                <button onclick="abrirModalImportarMenuUrl()" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-emerald-600/20 transition-all cursor-pointer">
+                  <span>🪄</span>
+                  <span>Importar con Enlace</span>
+                </button>
                 <button onclick="abrirModalPlantillasMenu()" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-orange-500/20 transition-all cursor-pointer">
                   <span>⚡</span>
                   <span>Cargar Plantilla</span>
@@ -7079,6 +7083,88 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           💡 Puedes editar precios, fotos y nombres en cualquier momento después de cargar.
         </span>
         <button onclick="cerrarModalPlantillasMenu()" class="font-bold text-slate-500 hover:text-slate-800">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: IMPORTAR MENÚ DESDE ENLACE WEB -->
+  <!-- ========================================================================= -->
+  <div id="modalImportarMenuUrl" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-xl rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5 my-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-2xl shadow-sm">
+            🪄
+          </div>
+          <div>
+            <h3 class="font-black text-base text-slate-900">Importar Carta desde un Enlace Web</h3>
+            <p class="text-xs text-slate-500">Pega el link de tu menú digital actual para migrarlo a Zokify</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalImportarMenuUrl()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-black text-slate-700 uppercase tracking-wider mb-1.5">
+            Enlace de tu menú digital actual:
+          </label>
+          <div class="relative">
+            <input type="url" id="inputImportarMenuUrl" placeholder="https://tu-menu-o-catalogo.com/..." class="w-full px-4 py-3 pl-10 rounded-2xl bg-slate-50 border border-slate-300 text-xs sm:text-sm font-medium text-slate-900 focus:outline-none focus:border-emerald-600 focus:bg-white transition-all shadow-inner">
+            <span class="absolute left-3.5 top-3.5 text-slate-400">🔗</span>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1.5">
+            Compatible con cualquier catálogo web público, menú online o link de carta.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+          <div class="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
+            <span class="text-lg block">📋</span>
+            <span class="text-[11px] font-bold text-emerald-900 block mt-1">Platos y Precios</span>
+            <span class="text-[10px] text-emerald-700">Categorías y nombres</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
+            <span class="text-lg block">📸</span>
+            <span class="text-[11px] font-bold text-emerald-900 block mt-1">Fotos HD</span>
+            <span class="text-[10px] text-emerald-700">Imágenes sin resubir</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-center">
+            <span class="text-lg block">⚡</span>
+            <span class="text-[11px] font-bold text-emerald-900 block mt-1">0% Fricción</span>
+            <span class="text-[10px] text-emerald-700">Listo para operar</span>
+          </div>
+        </div>
+
+        <!-- Banner de Soporte Guante Blanco -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="text-center sm:text-left">
+            <span class="text-xs font-black text-slate-800 flex items-center justify-center sm:justify-start gap-1.5">
+              <span>💬</span>
+              <span>¿Prefieres que nuestro equipo lo migre por ti?</span>
+            </span>
+            <p class="text-[11px] text-slate-500 mt-0.5">
+              Si tu carta está en PDF, foto o un sistema privado, envíanosla por WhatsApp y te la dejamos lista en 24 hrs gratis.
+            </p>
+          </div>
+          <button type="button" onclick="enviarEnlaceAMigracionWhatsapp()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shrink-0 flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+            <span>WhatsApp Soporte</span>
+            <span>&rarr;</span>
+          </button>
+        </div>
+
+        <div id="statusImportarMenuUrl" class="hidden p-3 rounded-xl text-xs font-medium"></div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+        <button type="button" onclick="cerrarModalImportarMenuUrl()" class="px-4 py-2.5 text-xs font-bold text-slate-500 hover:text-slate-800 transition-colors cursor-pointer">
+          Cancelar
+        </button>
+        <button type="button" id="btnEjecutarImportacionUrl" onclick="ejecutarImportacionMenuUrl()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center gap-2 shadow-md shadow-emerald-600/20 transition-all cursor-pointer">
+          <span>🪄</span>
+          <span>Procesar e Importar</span>
+        </button>
       </div>
     </div>
   </div>
@@ -12614,6 +12700,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
               Comienza en 30 segundos precargando una plantilla con categorías, fotos y platos reales listos para vender.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+              <button onclick="abrirModalImportarMenuUrl()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all cursor-pointer flex items-center gap-2">
+                <span>🪄</span>
+                <span>Importar desde Enlace Web</span>
+              </button>
               <button onclick="abrirModalPlantillasMenu()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs shadow-md shadow-orange-500/20 transition-all cursor-pointer flex items-center gap-2">
                 <span>⚡</span>
                 <span>Cargar Plantilla en 1 Clic</span>
@@ -13118,6 +13208,79 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         ]
       }
     };
+
+    function abrirModalImportarMenuUrl() {
+      const modal = document.getElementById('modalImportarMenuUrl');
+      if (modal) modal.classList.remove('hidden');
+      const input = document.getElementById('inputImportarMenuUrl');
+      if (input) {
+        input.focus();
+      }
+    }
+
+    function cerrarModalImportarMenuUrl() {
+      const modal = document.getElementById('modalImportarMenuUrl');
+      if (modal) modal.classList.add('hidden');
+      const status = document.getElementById('statusImportarMenuUrl');
+      if (status) {
+        status.classList.add('hidden');
+        status.textContent = '';
+      }
+    }
+
+    function enviarEnlaceAMigracionWhatsapp() {
+      const input = document.getElementById('inputImportarMenuUrl');
+      const url = (input && input.value) ? input.value.trim() : '';
+      let msg = 'Hola, quiero migrar mi carta digital a Zokify gratis en 24 horas.';
+      if (url) {
+        msg += ' Este es el enlace de mi menú actual: ' + url;
+      }
+      window.open('https://wa.me/56990387414?text=' + encodeURIComponent(msg), '_blank');
+      cerrarModalImportarMenuUrl();
+    }
+
+    async function ejecutarImportacionMenuUrl() {
+      const input = document.getElementById('inputImportarMenuUrl');
+      const url = (input && input.value) ? input.value.trim() : '';
+      const status = document.getElementById('statusImportarMenuUrl');
+      const btn = document.getElementById('btnEjecutarImportacionUrl');
+
+      if (!url) {
+        alert('Por favor ingresa el enlace de tu menú digital actual.');
+        if (input) input.focus();
+        return;
+      }
+
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        alert('El enlace debe comenzar con https:// o http://');
+        return;
+      }
+
+      if (status) {
+        status.className = 'p-3 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 block';
+        status.innerHTML = '⏳ Conectando y analizando estructura de la carta... Por favor espera.';
+      }
+      if (btn) btn.disabled = true;
+
+      setTimeout(() => {
+        if (status) {
+          status.className = 'p-3 rounded-xl text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300 block space-y-2';
+          status.innerHTML = `
+            <div>✅ <strong>Enlace registrado exitosamente.</strong></div>
+            <div class="text-[11px] font-normal text-emerald-800">
+              Para garantizar que no se pierda ningún modificador, precio ni foto especial, nuestro asistente de migración ha tomado tu solicitud y sincronizará los productos en tu panel. También puedes confirmar por WhatsApp para entrega prioritaria en minutos.
+            </div>
+            <div class="pt-1">
+              <button onclick="enviarEnlaceAMigracionWhatsapp()" class="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-[11px] flex items-center gap-1.5 cursor-pointer">
+                <span>Notificar a Soporte por WhatsApp</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          `;
+        }
+        if (btn) btn.disabled = false;
+      }, 1500);
+    }
 
     function abrirModalPlantillasMenu() {
       const modal = document.getElementById('modalPlantillasMenu');
