@@ -19,6 +19,7 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://zokify.app/">
+  <meta name="google-site-verification" content="googlee3c25234bc27b18f" />
 
   <!-- Schema.org Rich Structured Data -->
   <script type="application/ld+json">
@@ -35,29 +36,29 @@
           "@type": "AggregateOffer",
           "priceCurrency": "CLP",
           "lowPrice": "0",
-          "highPrice": "69000",
+          "highPrice": "119900",
           "offerCount": "3",
           "offers": [
             {
               "@type": "Offer",
-              "name": "Prueba Gratuita 90 Días",
-              "price": "0",
+              "name": "Plan Esencial",
+              "price": "5900",
               "priceCurrency": "CLP",
-              "description": "3 meses (90 días) 100% gratis sin tarjeta de crédito"
+              "description": "3 meses (90 días) a costo $0, luego $5.900 CLP/mes o $39.900 CLP/año"
             },
             {
               "@type": "Offer",
-              "name": "Plan Mensual",
+              "name": "Plan Avanzado",
               "price": "15900",
               "priceCurrency": "CLP",
-              "description": "Facturación mensual recurrente después de los 3 meses gratis"
+              "description": "3 meses (90 días) a costo $0, luego $15.900 CLP/mes o $69.900 CLP/año"
             },
             {
               "@type": "Offer",
-              "name": "Plan Anual de Enganche",
-              "price": "69000",
+              "name": "Plan Pro",
+              "price": "24900",
               "priceCurrency": "CLP",
-              "description": "Pago anual anticipado con 64% de ahorro ($5.750 CLP/mes)"
+              "description": "3 meses (90 días) a costo $0, luego $24.900 CLP/mes o $119.900 CLP/año"
             }
           ]
         },
@@ -1079,9 +1080,9 @@
 
           <!-- Zokify Flat Cost -->
           <div class="bg-brand-50 border border-brand-200 rounded-2xl p-5">
-            <span class="text-xs font-mono uppercase tracking-wider text-brand-700 font-bold">Con Zokify (Tarifa de Entrada)</span>
-            <div class="text-3xl font-black font-mono text-emerald-600 mt-2" id="calcZokifyCost">$15.900 <span class="text-xs font-normal text-slate-500">/mes</span></div>
-            <p class="text-xs text-slate-600 mt-2" id="calcZokifyText">¡3 primeros meses $0! O solo <strong>$5.750/mes</strong> en plan anual ($69.000/año). 0% comisión.</p>
+            <span class="text-xs font-mono uppercase tracking-wider text-brand-700 font-bold">Con Zokify (Desde Plan Esencial)</span>
+            <div class="text-3xl font-black font-mono text-emerald-600 mt-2" id="calcZokifyCost">$5.900 <span class="text-xs font-normal text-slate-500">/mes</span></div>
+            <p class="text-xs text-slate-600 mt-2" id="calcZokifyText">¡3 primeros meses $0! Luego desde <strong>$5.900/mes</strong> ($39.900/año en Plan Esencial) o Plan Avanzado $15.900/mes ($69.900/año). 0% comisión.</p>
           </div>
 
         </div>
@@ -1139,116 +1140,187 @@
         </span>
       </div>
 
-      <!-- 3 Main Pillars of Pricing -->
+      <!-- 3 Main Pillars of Pricing: Plan Esencial, Plan Avanzado, Plan Pro -->
       <div class="grid md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
 
-        <!-- PLAN 1: 3 MESES GRATIS -->
+        <!-- PLAN 1: PLAN ESENCIAL -->
         <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border-2 border-emerald-500 bg-gradient-to-b from-emerald-50/40 to-white shadow-soft relative">
           <div class="absolute -top-3.5 left-6">
             <span class="bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-              <span>Oferta de Ingreso</span>
+              <span>3 MESES A COSTO $0</span>
             </span>
           </div>
 
           <div>
-            <h3 class="text-2xl font-black text-slate-900 mt-2">3 Meses Gratis</h3>
-            <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Prueba todo el sistema completo por 90 días sin compromiso.</p>
+            <h3 class="text-2xl font-black text-slate-900 mt-2">Plan Esencial</h3>
+            <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Ideal para iniciar y digitalizar tu carta y pedidos sin comisiones.</p>
 
-            <div class="my-6 pb-6 border-b border-borderLight">
-              <div class="flex items-baseline gap-1">
-                <span class="text-4xl sm:text-5xl font-black font-mono text-emerald-600">$0</span>
-                <span class="text-xs text-slate-500 font-bold">por 90 días</span>
+            <div class="my-6 pb-6 border-b border-borderLight space-y-3">
+              <div class="inline-flex items-center gap-2 bg-emerald-100/80 border border-emerald-300 text-emerald-800 px-3 py-1 rounded-xl text-xs font-black">
+                <span>🎁 Primeros 3 meses: $0</span>
+                <span class="font-normal text-[11px] text-emerald-700">(90 días gratis)</span>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1">Sin tarjeta de crédito requerida</p>
+
+              <div>
+                <span class="text-[11px] uppercase tracking-wider font-bold text-slate-400 block">Luego Mensual:</span>
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900" id="valPriceEsencialMonthly">$5.900</span>
+                  <span class="text-xs text-slate-500 font-bold" id="unitPriceEsencialMonthly">CLP /mes</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-emerald-50/90 border border-emerald-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-black uppercase tracking-wider text-emerald-800">Opción Anual Esencial</span>
+                  <span class="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-full">Ahorra 44%</span>
+                </div>
+                <div class="flex items-baseline gap-1.5 mt-1">
+                  <span class="text-2xl font-black font-mono text-emerald-700" id="valPriceEsencialAnnual">$39.900</span>
+                  <span class="text-xs text-emerald-700 font-bold" id="unitPriceEsencialAnnual">CLP /año</span>
+                </div>
+                <p class="text-[11px] text-emerald-700 font-semibold mt-0.5" id="equivPriceEsencialAnnual">
+                  Equivale a solo <strong>$3.325 CLP al mes</strong>
+                </p>
+              </div>
             </div>
 
-            <button onclick="openTrialModal('3 Meses Gratis')" class="btn-shimmer w-full py-3.5 px-4 rounded-xl font-black text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-soft transition mb-6">
-              Comenzar Mis 3 Meses Gratis
-            </button>
-
-            <ul class="space-y-3 text-xs text-slate-700 font-medium">
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Menú Digital QR Ilimitado</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Cocina KDS en vivo en tiempo real</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Punto de Venta (POS) para mesas y delivery</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Control de Caja y Medios de Pago</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> 0% de comisión por cada pedido</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- PLAN 2: MENSUAL DE ENGANCHE -->
-        <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border border-borderLight shadow-soft">
-          <div>
-            <h3 class="text-2xl font-black text-slate-900 mt-2">Plan Mensual</h3>
-            <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Para locales que prefieren pagar mes a mes sin contratos.</p>
-
-            <div class="my-6 pb-6 border-b border-borderLight">
-              <div class="flex items-baseline gap-1.5">
-                <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900" id="valPriceMonthly">$15.900</span>
-                <span class="text-xs text-slate-500 font-bold" id="unitPriceMonthly">CLP /mes</span>
-              </div>
-              <p class="text-[11px] text-brand-600 font-bold mt-1" id="subPriceMonthly">Aplica después de tus primeros 3 meses gratis</p>
-            </div>
-
-            <button onclick="openTrialModal('Plan Mensual')" class="w-full py-3.5 px-4 rounded-xl font-bold text-xs bg-slate-900 hover:bg-slate-800 text-white transition mb-3">
-              Activar Plan Mensual
+            <button onclick="openTrialModal('Plan Esencial (3 Meses Gratis)')" class="btn-shimmer w-full py-3.5 px-4 rounded-xl font-black text-xs bg-emerald-600 hover:bg-emerald-700 text-white shadow-soft transition mb-2.5">
+              Comenzar 3 Meses Gratis (Esencial)
             </button>
             <div class="text-center mb-6">
-              <a href="https://universo693.com/pago?item=sokify-mensual" id="linkPagarMonthly" target="_blank" class="text-[11px] font-bold text-slate-500 hover:text-slate-900 underline">
-                ¿Prefieres pagar online de inmediato? Pagar aquí &rarr;
-              </a>
+              <button type="button" onclick="openTrialModal('Plan Esencial Anual $39.900')" class="text-[11px] font-bold text-emerald-700 hover:text-emerald-900 underline cursor-pointer">
+                O asegurar Plan Esencial Anual ($39.900/año) &rarr;
+              </button>
             </div>
 
             <ul class="space-y-3 text-xs text-slate-700 font-medium">
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Todo lo de los 3 meses gratis</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Pedidos y comandas 100% ilimitadas</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Sin contratos ni permanencias forzosas</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Soporte vía chat y WhatsApp</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Actualizaciones de software continuas</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> <strong>3 primeros meses a costo $0</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Menú Digital QR Ilimitado</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Recepción de pedidos sin comisión (0%)</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Punto de Venta (POS) esencial</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Sin contratos ni tarjeta para empezar</li>
             </ul>
           </div>
         </div>
 
-        <!-- PLAN 3: ANUAL ADELANTADO (MEJOR GANCHO) -->
+        <!-- PLAN 2: PLAN AVANZADO (MÁS ELEGIDO) -->
         <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border-2 border-brand-600 shadow-elevated relative scale-105 z-10 bg-gradient-to-b from-brand-50/70 via-white to-white">
           <div class="absolute -top-3.5 right-6">
             <span class="bg-brand-600 text-white text-[10px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 text-amber-300" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>MEJOR OFERTA · AHORRA 64%</span>
+              <span>MÁS ELEGIDO · 3 MESES GRATIS</span>
             </span>
           </div>
 
           <div>
-            <h3 class="text-2xl font-black text-slate-900 mt-2">Anual Fundador</h3>
-            <p class="text-xs text-brand-700 font-bold mt-1.5 min-h-[32px]">Paga de una sola vez y ahorra más del 64%.</p>
+            <h3 class="text-2xl font-black text-slate-900 mt-2">Plan Avanzado</h3>
+            <p class="text-xs text-brand-700 font-bold mt-1.5 min-h-[32px]">Control gastronómico completo para salón, cocina KDS y delivery.</p>
 
-            <div class="my-6 pb-6 border-b border-borderLight">
-              <span class="text-xs text-slate-400 line-through font-mono" id="strikePriceAnnual">$190.800 CLP /año</span>
-              <div class="flex items-baseline gap-1.5 mt-0.5">
-                <span class="text-4xl sm:text-5xl font-black font-mono text-brand-600" id="valPriceAnnual">$69.000</span>
-                <span class="text-xs text-slate-500 font-bold" id="unitPriceAnnual">CLP /año</span>
+            <div class="my-6 pb-6 border-b border-borderLight space-y-3">
+              <div class="inline-flex items-center gap-2 bg-brand-100/80 border border-brand-300 text-brand-800 px-3 py-1 rounded-xl text-xs font-black">
+                <span>🎁 Primeros 3 meses: $0</span>
+                <span class="font-normal text-[11px] text-brand-700">(90 días gratis)</span>
               </div>
-              <p class="text-xs font-mono font-bold text-emerald-600 mt-1" id="equivPriceAnnual">
-                Equivale a solo <strong>$5.750 CLP al mes</strong>
-              </p>
+
+              <div>
+                <span class="text-[11px] uppercase tracking-wider font-bold text-slate-400 block">Luego Mensual:</span>
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900" id="valPriceMonthly">$15.900</span>
+                  <span class="text-xs text-slate-500 font-bold" id="unitPriceMonthly">CLP /mes</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-brand-50 border border-brand-200">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-black uppercase tracking-wider text-brand-800">Opción Anual Avanzado</span>
+                  <span class="text-[10px] font-bold bg-brand-600 text-white px-2 py-0.5 rounded-full">Ahorra 63%</span>
+                </div>
+                <div class="flex items-baseline gap-1.5 mt-1">
+                  <span class="text-2xl font-black font-mono text-brand-600" id="valPriceAnnual">$69.900</span>
+                  <span class="text-xs text-brand-700 font-bold" id="unitPriceAnnual">CLP /año</span>
+                </div>
+                <p class="text-[11px] text-emerald-600 font-bold mt-0.5" id="equivPriceAnnual">
+                  Equivale a solo <strong>$5.825 CLP al mes</strong>
+                </p>
+              </div>
             </div>
 
-            <button onclick="openTrialModal('Anual Fundador')" id="btnTextAnnual" class="btn-shimmer w-full py-4 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition mb-3">
-              Asegurar Oferta Anual ($69.000 CLP)
+            <button onclick="openTrialModal('Plan Avanzado (3 Meses Gratis)')" id="btnTextAnnual" class="btn-shimmer w-full py-4 px-4 rounded-xl font-black text-xs bg-brand-600 hover:bg-brand-700 text-white shadow-soft transition mb-2.5">
+              Comenzar 3 Meses Gratis (Avanzado)
             </button>
             <div class="text-center mb-6">
-              <a href="https://universo693.com/pago?item=sokify-anual" id="linkPagarAnnual" target="_blank" class="text-[11px] font-black text-brand-700 hover:text-brand-900 underline">
-                Pagar directo con Mercado Pago o Transferencia &rarr;
-              </a>
+              <button type="button" onclick="openTrialModal('Plan Avanzado Anual $69.900')" id="linkPagarAnnual" class="text-[11px] font-black text-brand-700 hover:text-brand-900 underline cursor-pointer">
+                O asegurar Plan Avanzado Anual ($69.900/año) &rarr;
+              </button>
             </div>
 
             <ul class="space-y-3 text-xs text-slate-800 font-medium">
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> <strong>Año completo asegurado (12 meses)</strong></li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Todo desbloqueado sin límites</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Precio congelado de por vida</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Soporte prioritario dedicado por WhatsApp</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Asesoría inicial para cargar tu carta</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> <strong>3 primeros meses a costo $0</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Todo lo del Plan Esencial + Cocina KDS en vivo</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Punto de Venta (POS) mesas, mostrador y delivery</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Arqueo de Caja, inventario y medios de pago</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Soporte directo por chat y WhatsApp</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- PLAN 3: PLAN PRO -->
+        <div class="bento-card rounded-3xl p-8 flex flex-col justify-between border-2 border-slate-900 bg-gradient-to-b from-slate-50 to-white shadow-soft relative">
+          <div class="absolute -top-3.5 left-6">
+            <span class="bg-slate-900 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5">
+              <span>🚀 3 MESES GRATIS · FULL PRO</span>
+            </span>
+          </div>
+
+          <div>
+            <h3 class="text-2xl font-black text-slate-900 mt-2">Plan Pro</h3>
+            <p class="text-xs text-slate-600 mt-1.5 min-h-[32px]">Para locales de alto flujo que buscan automatización total y soporte VIP.</p>
+
+            <div class="my-6 pb-6 border-b border-borderLight space-y-3">
+              <div class="inline-flex items-center gap-2 bg-emerald-100/80 border border-emerald-300 text-emerald-800 px-3 py-1 rounded-xl text-xs font-black">
+                <span>🎁 Primeros 3 meses: $0</span>
+                <span class="font-normal text-[11px] text-emerald-700">(90 días gratis)</span>
+              </div>
+
+              <div>
+                <span class="text-[11px] uppercase tracking-wider font-bold text-slate-400 block">Luego Mensual:</span>
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-4xl sm:text-5xl font-black font-mono text-slate-900" id="valPriceProMonthly">$24.900</span>
+                  <span class="text-xs text-slate-500 font-bold" id="unitPriceProMonthly">CLP /mes</span>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-2xl bg-slate-100 border border-slate-300">
+                <div class="flex items-center justify-between">
+                  <span class="text-[11px] font-black uppercase tracking-wider text-slate-800">Opción Anual Pro</span>
+                  <span class="text-[10px] font-bold bg-slate-900 text-white px-2 py-0.5 rounded-full">Ahorra 60%</span>
+                </div>
+                <div class="flex items-baseline gap-1.5 mt-1">
+                  <span class="text-2xl font-black font-mono text-slate-900" id="valPriceProAnnual">$119.900</span>
+                  <span class="text-xs text-slate-600 font-bold" id="unitPriceProAnnual">CLP /año</span>
+                </div>
+                <p class="text-[11px] text-emerald-700 font-bold mt-0.5" id="equivPriceProAnnual">
+                  Equivale a solo <strong>$9.990 CLP al mes</strong>
+                </p>
+              </div>
+            </div>
+
+            <button onclick="openTrialModal('Plan Pro (3 Meses Gratis)')" class="w-full py-3.5 px-4 rounded-xl font-black text-xs bg-slate-900 hover:bg-slate-800 text-white shadow-soft transition mb-2.5">
+              Comenzar 3 Meses Gratis (Plan Pro)
+            </button>
+            <div class="text-center mb-6">
+              <button type="button" onclick="openTrialModal('Plan Pro Anual $119.900')" class="text-[11px] font-bold text-slate-700 hover:text-slate-900 underline cursor-pointer">
+                O asegurar Plan Pro Anual ($119.900/año) &rarr;
+              </button>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-700 font-medium">
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> <strong>3 primeros meses a costo $0</strong></li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Todo lo del Plan Avanzado sin límites</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Multi-caja, reportes avanzados y CRM clientes</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> Soporte VIP prioritario 24/7 + carga de carta</li>
+              <li class="flex items-center gap-2"><span class="text-emerald-600 font-bold">✔</span> 0% de comisión por cada pedido siempre</li>
             </ul>
           </div>
         </div>
@@ -1471,7 +1543,7 @@
             <svg class="faq-chevron w-5 h-5 text-brand-600 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </summary>
           <p class="text-sm text-slate-600 mt-3 leading-relaxed">
-            Acceso completo durante 90 días a todos los módulos: Menú QR, Cocina KDS en tiempo real, Punto de Venta (POS) y Arqueo de caja. Sin tarjeta de crédito requerida. Si decides continuar después de los 3 meses, puedes elegir el plan mensual de solo $15.900 o el anual de $69.000.
+            Acceso completo durante 90 días a todos los módulos: Menú QR, Cocina KDS en tiempo real, Punto de Venta (POS) y Arqueo de caja. Sin tarjeta de crédito requerida. Al finalizar tus 3 meses gratis, puedes elegir el <strong>Plan Esencial</strong> ($5.900/mes o $39.900/año), <strong>Plan Avanzado</strong> ($15.900/mes o $69.900/año) o <strong>Plan Pro</strong> ($24.900/mes o $119.900/año).
           </p>
         </details>
 
@@ -1601,11 +1673,14 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Plan inicial</label>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Plan inicial (Todos incluyen 3 meses a costo $0)</label>
           <select id="selectedPlan" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500 font-semibold">
-            <option value="3 Meses Gratis" selected>3 Meses 100% Gratis (90 Días sin tarjeta)</option>
-            <option value="Plan Mensual $15.900">Plan Mensual ($15.900/mes post 3 meses)</option>
-            <option value="Anual Fundador $69.000">Plan Anual ($69.000/año - Solo $5.750/mes)</option>
+            <option value="Plan Esencial (3 Meses Gratis)" selected>Plan Esencial — 3 Meses $0 (luego $5.900/mes o $39.900/año)</option>
+            <option value="Plan Avanzado (3 Meses Gratis)">Plan Avanzado — 3 Meses $0 (luego $15.900/mes o $69.900/año)</option>
+            <option value="Plan Pro (3 Meses Gratis)">Plan Pro — 3 Meses $0 (luego $24.900/mes o $119.900/año)</option>
+            <option value="Plan Esencial Anual $39.900">Plan Esencial Anual ($39.900/año - $3.325/mes)</option>
+            <option value="Plan Avanzado Anual $69.900">Plan Avanzado Anual ($69.900/año - $5.825/mes)</option>
+            <option value="Plan Pro Anual $119.900">Plan Pro Anual ($119.900/año - $9.990/mes)</option>
           </select>
         </div>
 
@@ -2088,13 +2163,13 @@
     const presetAnswers = {
       '3meses': {
         q: '¿Cómo funcionan los 3 meses gratis?',
-        a: '¡Es 100% real y sin trucos! 🎉 Tienes <strong>90 días completos</strong> para usar todo el sistema (Menú QR, Cocina KDS y Punto de Venta) con tu equipo y clientes. No te pediremos tarjeta de crédito para comenzar. Después de los 3 meses, decides libremente si continuar por solo $15.900/mes.',
-        waText: 'Hola Sofi, quiero activar los 3 meses gratis de Zokify para mi restaurante'
+        a: '¡Es 100% real y sin trucos! 🎉 Tienes <strong>90 días completos a costo $0</strong> en cualquiera de nuestros planes (Esencial, Avanzado o Pro) sin ingresar tarjeta de crédito. Después de los 3 meses, puedes continuar desde solo <strong>$5.900/mes</strong> (o $39.900 el año completo).',
+        waText: 'Hola Sofi, quiero activar los 3 meses gratis de Zokify para mi local'
       },
       'precios': {
         q: '¿Cuáles son los precios después de los 3 meses?',
-        a: 'Diseñamos tarifas de enganche muy justas:<br>• <strong>Plan Mensual:</strong> Solo <strong>$15.900 CLP / mes</strong> (sin contratos, cancelas cuando quieras).<br>• <strong>Plan Anual Fundador:</strong> Solo <strong>$69.000 CLP / año</strong> (¡equivale a solo <strong>$5.750 al mes</strong>, ahorras un 64% pagando de una!).<br>• Cero comisión por pedidos siempre.',
-        waText: 'Hola, me interesa el Plan Anual de $69.000 de Zokify'
+        a: 'Todos los planes tienen <strong>3 meses gratis ($0)</strong> y 0% comisión por pedido:<br>• <strong>Plan Esencial:</strong> $5.900/mes o <strong>$39.900/año</strong> ($3.325/mes).<br>• <strong>Plan Avanzado:</strong> $15.900/mes o <strong>$69.900/año</strong> ($5.825/mes).<br>• <strong>Plan Pro:</strong> $24.900/mes o <strong>$119.900/año</strong> ($9.990/mes).',
+        waText: 'Hola, me interesan los planes de Zokify con 3 meses gratis'
       },
       'impresora': {
         q: '¿Es compatible con mi impresora térmica?',
@@ -2176,7 +2251,7 @@
         const qLower = query.toLowerCase();
         let reply = '';
         if (qLower.includes('precio') || qLower.includes('cuanto') || qLower.includes('costo') || qLower.includes('plan')) {
-          reply = 'Tenemos <strong>3 meses 100% gratis</strong>. Después, el plan mensual cuesta solo <strong>$15.900 CLP/mes</strong>, o puedes tomar la oferta anual de <strong>$69.000 CLP/año</strong> (solo $5.750/mes). ¡Cero comisiones!';
+          reply = 'Todos nuestros planes incluyen <strong>3 meses a costo $0</strong>:<br>• <strong>Plan Esencial:</strong> $5.900/mes o $39.900/año.<br>• <strong>Plan Avanzado:</strong> $15.900/mes o $69.900/año.<br>• <strong>Plan Pro:</strong> $24.900/mes o $119.900/año.<br>¡Siempre con 0% comisión!';
         } else if (qLower.includes('gratis') || qLower.includes('prueba') || qLower.includes('meses')) {
           reply = '¡Así es! Te damos <strong>3 meses completos (90 días) gratis</strong> para ti y todo tu equipo, sin ingresar tarjeta de crédito ni contratos forzosos.';
         } else if (qLower.includes('impres') || qLower.includes('boleta') || qLower.includes('comanda')) {
@@ -2407,18 +2482,24 @@
       const btnCLP = document.getElementById('btnCurrencyCLP');
       const btnUSD = document.getElementById('btnCurrencyUSD');
 
-      // Elementos de Planes
+      // Elementos de Planes (Esencial, Avanzado, Pro)
+      const valEsencialMonthly = document.getElementById('valPriceEsencialMonthly');
+      const unitEsencialMonthly = document.getElementById('unitPriceEsencialMonthly');
+      const valEsencialAnnual = document.getElementById('valPriceEsencialAnnual');
+      const unitEsencialAnnual = document.getElementById('unitPriceEsencialAnnual');
+      const equivEsencialAnnual = document.getElementById('equivPriceEsencialAnnual');
+
       const valMonthly = document.getElementById('valPriceMonthly');
       const unitMonthly = document.getElementById('unitPriceMonthly');
-      const subMonthly = document.getElementById('subPriceMonthly');
-      const linkMonthly = document.getElementById('linkPagarMonthly');
-
-      const strikeAnnual = document.getElementById('strikePriceAnnual');
       const valAnnual = document.getElementById('valPriceAnnual');
       const unitAnnual = document.getElementById('unitPriceAnnual');
       const equivAnnual = document.getElementById('equivPriceAnnual');
-      const btnAnnual = document.getElementById('btnTextAnnual');
-      const linkAnnual = document.getElementById('linkPagarAnnual');
+
+      const valProMonthly = document.getElementById('valPriceProMonthly');
+      const unitProMonthly = document.getElementById('unitPriceProMonthly');
+      const valProAnnual = document.getElementById('valPriceProAnnual');
+      const unitProAnnual = document.getElementById('unitPriceProAnnual');
+      const equivProAnnual = document.getElementById('equivPriceProAnnual');
 
       // Add-ons
       const add1 = document.getElementById('addonPrice1');
@@ -2438,33 +2519,32 @@
 
         const isEnglish = currentLanguage === 'en';
 
-        // Plan Mensual
+        // Plan Esencial
+        if (valEsencialMonthly) valEsencialMonthly.textContent = '$6';
+        if (unitEsencialMonthly) unitEsencialMonthly.textContent = isEnglish ? 'USD /mo' : 'USD /mes';
+        if (valEsencialAnnual) valEsencialAnnual.textContent = '$39';
+        if (unitEsencialAnnual) unitEsencialAnnual.textContent = isEnglish ? 'USD /yr' : 'USD /año';
+        if (equivEsencialAnnual) equivEsencialAnnual.innerHTML = isEnglish
+          ? 'Equivalent to only <strong>$3.25 USD per month</strong>'
+          : 'Equivale a solo <strong>$3.25 USD al mes</strong>';
+
+        // Plan Avanzado
         if (valMonthly) valMonthly.textContent = '$16';
         if (unitMonthly) unitMonthly.textContent = isEnglish ? 'USD /mo' : 'USD /mes';
-        if (subMonthly) subMonthly.textContent = isEnglish ? 'Applies after your first 3 months free ($0)' : 'Aplica después de tus primeros 3 meses gratis ($0)';
-        if (linkMonthly) {
-          linkMonthly.href = isEnglish
-            ? 'https://universo693.com/pago?item=sokify-mensual&currency=USD&method=paypal&lang=en'
-            : 'https://universo693.com/pago?item=sokify-mensual&currency=USD&method=paypal';
-          linkMonthly.innerHTML = isEnglish ? 'Pay online with PayPal USD or Card &rarr;' : 'Pagar online con PayPal USD o Tarjeta &rarr;';
-        }
-
-        // Plan Anual
-        if (strikeAnnual) strikeAnnual.textContent = isEnglish ? '$195 USD /yr' : '$195 USD /año';
         if (valAnnual) valAnnual.textContent = '$69';
         if (unitAnnual) unitAnnual.textContent = isEnglish ? 'USD /yr' : 'USD /año';
         if (equivAnnual) equivAnnual.innerHTML = isEnglish
-          ? 'Equivalent to only <strong>$5.75 USD per month</strong> (Save 64%)'
-          : 'Equivale a solo <strong>$5.75 USD al mes</strong> (Ahorras 64%)';
-        if (btnAnnual) btnAnnual.textContent = isEnglish ? 'Claim Founder Annual Offer ($69 USD)' : 'Asegurar Oferta Anual ($69 USD)';
-        if (linkAnnual) {
-          linkAnnual.href = isEnglish
-            ? 'https://universo693.com/pago?item=sokify-anual&currency=USD&method=paypal&lang=en'
-            : 'https://universo693.com/pago?item=sokify-anual&currency=USD&method=paypal';
-          linkAnnual.innerHTML = isEnglish
-            ? 'Pay directly with PayPal USD or International Card &rarr;'
-            : 'Pagar directo con PayPal USD o Tarjeta Internacional &rarr;';
-        }
+          ? 'Equivalent to only <strong>$5.75 USD per month</strong>'
+          : 'Equivale a solo <strong>$5.75 USD al mes</strong>';
+
+        // Plan Pro
+        if (valProMonthly) valProMonthly.textContent = '$25';
+        if (unitProMonthly) unitProMonthly.textContent = isEnglish ? 'USD /mo' : 'USD /mes';
+        if (valProAnnual) valProAnnual.textContent = '$119';
+        if (unitProAnnual) unitProAnnual.textContent = isEnglish ? 'USD /yr' : 'USD /año';
+        if (equivProAnnual) equivProAnnual.innerHTML = isEnglish
+          ? 'Equivalent to only <strong>$9.90 USD per month</strong>'
+          : 'Equivale a solo <strong>$9.90 USD al mes</strong>';
 
         // Add-ons
         if (add1) add1.innerHTML = isEnglish ? '+$20 <span class="text-[10px] text-slate-500 font-normal">USD/mo</span>' : '+$20 <span class="text-[10px] text-slate-500 font-normal">USD/mes</span>';
@@ -2478,35 +2558,36 @@
           : 'Emisión automática de boletas y facturas tributarias según la normativa de tu país.';
 
         // Calculadora
-        if (calcZokifyCost) calcZokifyCost.innerHTML = isEnglish ? '$16 <span class="text-xs font-normal text-slate-500">USD /mo</span>' : '$16 <span class="text-xs font-normal text-slate-500">USD /mes</span>';
+        if (calcZokifyCost) calcZokifyCost.innerHTML = isEnglish ? '$6 <span class="text-xs font-normal text-slate-500">USD /mo</span>' : '$6 <span class="text-xs font-normal text-slate-500">USD /mes</span>';
         if (calcZokifyText) calcZokifyText.innerHTML = isEnglish
-          ? 'First 3 months $0! Or only <strong>$5.75 USD/mo</strong> on annual plan ($69 USD/yr). 0% commission.'
-          : '¡3 primeros meses $0! O solo <strong>$5.75 USD/mes</strong> en plan anual ($69 USD/año). 0% comisión.';
+          ? 'First 3 months $0! Then from <strong>$6 USD/mo</strong> ($39 USD/yr Essential) or $16 USD/mo ($69 USD/yr Advanced). 0% commission.'
+          : '¡3 primeros meses $0! Luego desde <strong>$6 USD/mes</strong> ($39 USD/año Esencial) o $16 USD/mes ($69 USD/año Avanzado). 0% comisión.';
 
       } else {
         // CLP
         if (btnCLP) btnCLP.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 bg-brand-600 text-white shadow-sm cursor-pointer';
         if (btnUSD) btnUSD.className = 'px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 text-slate-600 hover:text-slate-900 cursor-pointer';
 
-        // Plan Mensual
+        // Plan Esencial
+        if (valEsencialMonthly) valEsencialMonthly.textContent = '$5.900';
+        if (unitEsencialMonthly) unitEsencialMonthly.textContent = 'CLP /mes';
+        if (valEsencialAnnual) valEsencialAnnual.textContent = '$39.900';
+        if (unitEsencialAnnual) unitEsencialAnnual.textContent = 'CLP /año';
+        if (equivEsencialAnnual) equivEsencialAnnual.innerHTML = 'Equivale a solo <strong>$3.325 CLP al mes</strong>';
+
+        // Plan Avanzado
         if (valMonthly) valMonthly.textContent = '$15.900';
         if (unitMonthly) unitMonthly.textContent = 'CLP /mes';
-        if (subMonthly) subMonthly.textContent = 'Aplica después de tus primeros 3 meses gratis';
-        if (linkMonthly) {
-          linkMonthly.href = 'https://universo693.com/pago?item=sokify-mensual';
-          linkMonthly.innerHTML = '¿Prefieres pagar online de inmediato? Pagar aquí &rarr;';
-        }
-
-        // Plan Anual
-        if (strikeAnnual) strikeAnnual.textContent = '$190.800 CLP /año';
-        if (valAnnual) valAnnual.textContent = '$69.000';
+        if (valAnnual) valAnnual.textContent = '$69.900';
         if (unitAnnual) unitAnnual.textContent = 'CLP /año';
-        if (equivAnnual) equivAnnual.innerHTML = 'Equivale a solo <strong>$5.750 CLP al mes</strong>';
-        if (btnAnnual) btnAnnual.textContent = 'Asegurar Oferta Anual ($69.000 CLP)';
-        if (linkAnnual) {
-          linkAnnual.href = 'https://universo693.com/pago?item=sokify-anual';
-          linkAnnual.innerHTML = 'Pagar directo con Mercado Pago o Transferencia &rarr;';
-        }
+        if (equivAnnual) equivAnnual.innerHTML = 'Equivale a solo <strong>$5.825 CLP al mes</strong>';
+
+        // Plan Pro
+        if (valProMonthly) valProMonthly.textContent = '$24.900';
+        if (unitProMonthly) unitProMonthly.textContent = 'CLP /mes';
+        if (valProAnnual) valProAnnual.textContent = '$119.900';
+        if (unitProAnnual) unitProAnnual.textContent = 'CLP /año';
+        if (equivProAnnual) equivProAnnual.innerHTML = 'Equivale a solo <strong>$9.990 CLP al mes</strong>';
 
         // Add-ons
         if (add1) add1.innerHTML = '+$19.900 <span class="text-[10px] text-slate-500 font-normal">/mes</span>';
@@ -2518,8 +2599,8 @@
         if (addDesc2) addDesc2.textContent = 'Emisión automática de boletas y facturas electrónicas con validez tributaria.';
 
         // Calculadora
-        if (calcZokifyCost) calcZokifyCost.innerHTML = '$15.900 <span class="text-xs font-normal text-slate-500">/mes</span>';
-        if (calcZokifyText) calcZokifyText.innerHTML = '¡3 primeros meses $0! O solo <strong>$5.750/mes</strong> en plan anual ($69.000/año). 0% comisión.';
+        if (calcZokifyCost) calcZokifyCost.innerHTML = '$5.900 <span class="text-xs font-normal text-slate-500">/mes</span>';
+        if (calcZokifyText) calcZokifyText.innerHTML = '¡3 primeros meses $0! Luego desde <strong>$5.900/mes</strong> ($39.900/año en Plan Esencial) o Plan Avanzado $15.900/mes ($69.900/año). 0% comisión.';
       }
     }
 
