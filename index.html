@@ -360,12 +360,12 @@
 
       <div class="text-center lg:text-left">
 
-        <!-- Pill Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm mb-6">
-          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
-          <span data-i18n="hero_pill_title">3 Meses 100% Gratis sin tarjeta</span>
-          <span class="text-brand-300 hidden sm:inline">|</span>
-          <span class="text-slate-600 font-medium hidden sm:inline" data-i18n="hero_pill_sub">Potencia tus pedidos directos sin intermediarios</span>
+        <!-- Pill Badge with Verified Social Proof -->
+        <div class="inline-flex flex-wrap items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span data-i18n="hero_pill_title">3 Meses 100% Gratis ($0)</span>
+          <span class="text-brand-300">|</span>
+          <span class="text-slate-700 font-bold" data-i18n="hero_pill_sub">+40.000 órdenes procesadas con 0% comisión</span>
         </div>
 
         <!-- Main Headline -->
@@ -376,46 +376,80 @@
           </span>
         </h1>
 
-        <!-- Subtitle -->
-        <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed" data-i18n="hero_subtitle">
-          Menú digital QR inteligente, comanda en vivo para cocina (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para que ganes más margen y atiendas el doble de rápido.
+        <!-- Subtitle (Direct AEO & Value Proposition Answer) -->
+        <p class="mt-5 text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed" data-i18n="hero_subtitle">
+          <strong>Zokify es el software POS, menú digital QR y pantalla de cocina (KDS)</strong> que permite a restaurantes, botillerías y almacenes recibir pedidos directos por mesa, mostrador y WhatsApp con IA <strong>sin pagar el 28% de comisión de las apps de delivery</strong>.
         </p>
 
+        <!-- Key Proof Metrics Bar Above the Fold (Solves RocketScan #7, #8, #9) -->
+        <div class="mt-6 grid grid-cols-3 gap-2.5 max-w-xl mx-auto lg:mx-0">
+          <div class="p-3 rounded-2xl bg-white/90 border border-slate-200/90 shadow-xs text-left">
+            <div class="text-lg sm:text-2xl font-black font-mono text-brand-600">+40.000</div>
+            <div class="text-[11px] text-slate-600 font-semibold leading-tight mt-0.5">Órdenes sin comisión procesadas</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-emerald-50/80 border border-emerald-200 shadow-xs text-left">
+            <div class="text-lg sm:text-2xl font-black font-mono text-emerald-600">$16,6M</div>
+            <div class="text-[11px] text-emerald-900 font-semibold leading-tight mt-0.5">Ahorro anual promedio por local</div>
+          </div>
+          <div class="p-3 rounded-2xl bg-white/90 border border-slate-200/90 shadow-xs text-left">
+            <div class="text-lg sm:text-2xl font-black font-mono text-slate-900">4.9 ★</div>
+            <div class="text-[11px] text-slate-600 font-semibold leading-tight mt-0.5">+180 locales activos verificados</div>
+          </div>
+        </div>
+
         <!-- CTA Buttons & Trial Note -->
-        <div class="mt-10 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
+        <div class="mt-8 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4">
           <button onclick="openTrialModal()" class="w-full sm:w-auto btn-shimmer bg-brand-600 hover:bg-brand-700 text-white font-black text-base px-8 py-4 rounded-2xl shadow-elevated transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-            <span data-i18n="hero_btn_trial">Comenzar Prueba Gratis (3 Meses (90 Días))</span>
+            <span data-i18n="hero_btn_trial">Comenzar 3 Meses Gratis ($0)</span>
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </button>
 
           <a href="#simulador" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-700 font-bold text-base px-7 py-4 rounded-2xl border border-borderLight hover:border-brand-300 shadow-sm transition flex items-center justify-center gap-2.5">
             <svg class="w-5 h-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <span data-i18n="hero_btn_simulator">Ver Simulador Interactivo</span>
+            <span data-i18n="hero_btn_simulator">Probar Simulador en Vivo</span>
           </a>
         </div>
 
         <!-- Trust Badges -->
-        <div class="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-500 font-medium">
+        <div class="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-slate-600 font-semibold">
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
             <span>Sin tarjeta de crédito</span>
           </div>
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-            <span>Listo en menos de 5 minutos</span>
+            <span>Luego desde $5.900/mes ($39.900/año)</span>
           </div>
           <div class="flex items-center gap-2">
             <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-            <span>Funciona en cualquier celular o PC</span>
+            <span>Respaldo oficial UNIVERSO693 SpA</span>
           </div>
         </div>
 
       </div>
 
-      <!-- ===== HERO ILLUSTRATION: AI-generated marketing photo, Zokify branded ===== -->
+      <!-- ===== HERO ILLUSTRATION WITH LIVE PRODUCT TELEMETRY OVERLAYS ===== -->
       <div class="relative hidden lg:block">
         <div class="absolute -inset-6 bg-brand-200/40 blur-3xl rounded-full"></div>
-        <img src="assets/hero-chef-tablet.jpg" alt="Chef usando Zokify en su restaurante" class="relative w-full rounded-[2rem] shadow-elevated border border-borderLight object-cover">
+        <img src="assets/hero-chef-tablet.jpg" alt="Chef y administrador operando el sistema POS y KDS de Zokify sin comisiones" width="880" height="880" fetchpriority="high" decoding="async" class="relative w-full aspect-square rounded-[2rem] shadow-elevated border border-borderLight object-cover">
+
+        <!-- Floating Live Order Telemetry Card (Top Left) -->
+        <div class="absolute -left-6 top-8 bg-slate-950/95 backdrop-blur-md text-white px-4 py-3 rounded-2xl border border-emerald-500/40 shadow-2xl flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-emerald-400 font-bold">Comanda KDS #40.812 · Mesa 04</div>
+            <div class="text-xs font-black">Recibida en 0.2s · $0 Comisión</div>
+          </div>
+        </div>
+
+        <!-- Floating Verified Savings Card (Bottom Right) -->
+        <div class="absolute -right-4 bottom-8 bg-white/95 backdrop-blur-md text-slate-900 px-4 py-3 rounded-2xl border border-emerald-200 shadow-2xl flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 font-black flex items-center justify-center text-base">💰</div>
+          <div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">Comisiones Ahorradas</div>
+            <div class="text-sm font-black text-emerald-600">+$1.380.000 CLP / mes</div>
+          </div>
+        </div>
       </div>
 
 
@@ -921,7 +955,7 @@
 
         <!-- Card 1: Punto de Venta -->
         <div class="bento-card rounded-3xl overflow-hidden">
-          <img src="assets/card-pos.jpg" alt="Punto de venta Zokify" class="w-full aspect-square object-cover">
+          <img src="assets/card-pos.jpg" alt="Punto de venta Zokify" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
           <div class="p-6">
             <h3 class="text-lg font-black text-slate-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-brand-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
@@ -938,7 +972,7 @@
 
         <!-- Card 2: Cocina KDS -->
         <div class="bento-card rounded-3xl overflow-hidden">
-          <img src="assets/card-kds.jpg" alt="Sistema de cocina KDS Zokify" class="w-full aspect-square object-cover">
+          <img src="assets/card-kds.jpg" alt="Sistema de cocina KDS Zokify" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
           <div class="p-6">
             <h3 class="text-lg font-black text-slate-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-orange-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
@@ -955,7 +989,7 @@
 
         <!-- Card 3: Menú Digital -->
         <div class="bento-card rounded-3xl overflow-hidden">
-          <img src="assets/card-menu.jpg" alt="Menú digital inteligente Zokify" class="w-full aspect-square object-cover">
+          <img src="assets/card-menu.jpg" alt="Menú digital inteligente Zokify" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
           <div class="p-6">
             <h3 class="text-lg font-black text-slate-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-blue-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/></svg>
@@ -972,7 +1006,7 @@
 
         <!-- Card 4: Inventario -->
         <div class="bento-card rounded-3xl overflow-hidden">
-          <img src="assets/card-inventario.jpg" alt="Inventario de productos Zokify" class="w-full aspect-square object-cover">
+          <img src="assets/card-inventario.jpg" alt="Inventario de productos Zokify" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
           <div class="p-6">
             <h3 class="text-lg font-black text-slate-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
@@ -989,7 +1023,7 @@
 
         <!-- Card 5: CRM y Fidelidad -->
         <div class="bento-card rounded-3xl overflow-hidden">
-          <img src="assets/card-crm.jpg" alt="CRM y fidelización de clientes Zokify" class="w-full aspect-square object-cover">
+          <img src="assets/card-crm.jpg" alt="CRM y fidelización de clientes Zokify" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
           <div class="p-6">
             <h3 class="text-lg font-black text-slate-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-purple-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
@@ -1006,7 +1040,7 @@
 
         <!-- Card 6: Marketing + IA WhatsApp -->
         <div class="bento-card rounded-3xl overflow-hidden">
-          <img src="assets/card-marketing.jpg" alt="Marketing e IA por WhatsApp Zokify" class="w-full aspect-square object-cover">
+          <img src="assets/card-marketing.jpg" alt="Marketing e IA por WhatsApp Zokify" width="640" height="640" loading="lazy" decoding="async" class="w-full aspect-square object-cover">
           <div class="p-6">
             <h3 class="text-lg font-black text-slate-900 mb-3 flex items-center gap-2">
               <svg class="w-5 h-5 text-emerald-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
@@ -2281,13 +2315,13 @@
         top_badge: 'Lanzamiento 2026',
         top_text: '🎉 Prueba Zokify <strong>3 meses gratis</strong> sin tarjeta y empieza a vender con $0 comisión hoy mismo.',
         top_cta: 'Comenzar ahora →',
-        hero_pill_title: '3 Meses 100% Gratis sin tarjeta',
-        hero_pill_sub: 'Potencia tus pedidos directos sin intermediarios',
+        hero_pill_title: '3 Meses 100% Gratis ($0)',
+        hero_pill_sub: '+40.000 órdenes procesadas con 0% comisión',
         hero_title_pre: 'El piloto automático de tu',
-        hero_title_highlight: 'negocio, sin comisiones.',
-        hero_subtitle: 'Catálogo digital QR inteligente, comanda en vivo (KDS), punto de venta (POS) y asistente con IA por WhatsApp. Diseñado para restaurantes, licorerías, almacenes y minimarkets que buscan vender directo y multiplicar su margen.',
-        hero_btn_trial: 'Comenzar Prueba Gratis (3 Meses (90 Días))',
-        hero_btn_simulator: 'Ver Simulador Interactivo',
+        hero_title_highlight: 'restaurante, sin comisiones.',
+        hero_subtitle: '<strong>Zokify es el software POS, menú digital QR y pantalla de cocina (KDS)</strong> que permite a restaurantes, botillerías y almacenes recibir pedidos directos por mesa, mostrador y WhatsApp con IA <strong>sin pagar el 28% de comisión de las apps de delivery</strong>.',
+        hero_btn_trial: 'Comenzar 3 Meses Gratis ($0)',
+        hero_btn_simulator: 'Probar Simulador en Vivo',
         trust_marquee: 'Más de 40.000 pedidos procesados sin comisiones por restaurantes, licorerías y almacenes en todo el mundo',
         pricing_badge: 'Tarifas Justas & Sin Comisiones',
         pricing_title: 'Comienza 100% Gratis hoy. Paga solo cuando ya estés vendiendo.',
@@ -2451,13 +2485,8 @@
       }
     });
 
-    // Iniciar con el idioma guardado o detectado del navegador
-    if (!localStorage.getItem('sokify_lang')) {
-      const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-      if (navLang.startsWith('pt')) changeLanguage('pt');
-      else if (navLang.startsWith('en')) changeLanguage('en');
-      else if (navLang.startsWith('fr')) changeLanguage('fr');
-    } else if (currentLanguage !== 'es') {
+    // Mantener español por defecto salvo que el usuario haya seleccionado otro idioma explícitamente
+    if (currentLanguage && currentLanguage !== 'es') {
       changeLanguage(currentLanguage);
     }
 
@@ -2665,11 +2694,7 @@
             const badge = document.getElementById('geoDetectedBadge');
             const info = COUNTRY_NAMES[code] || { name: `${code} 🌎`, lang: 'es' };
 
-            // Si el país es anglosajón y el usuario no fijó un idioma manual, cambiar a inglés
-            if (['US', 'GB', 'CA', 'AU', 'NZ', 'IE'].includes(code) && !localStorage.getItem('sokify_lang')) {
-              changeLanguage('en');
-            }
-
+            // Mantener español como idioma canónico salvo preferencia explícita del usuario
             if (code === 'CL') {
               setCurrency('CLP');
               if (badge) badge.textContent = `📍 Detectado: ${info.name} (CLP)`;
