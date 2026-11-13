@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- SEO Primary Meta Tags -->
+  <title>Servicios y Módulos · Zokify | POS, Menú QR, Cocina KDS e Inventario</title>
+  <meta name="title" content="Servicios y Módulos · Zokify | POS, Menú QR, Cocina KDS e Inventario">
+  <meta name="description" content="Descubre todos los módulos de Zokify para restaurantes, licorerías, botillerías y minimarkets: Menú digital QR, punto de venta (POS), cocina KDS, impresión térmica directa, modo offline y pedidos por WhatsApp con 0% comisión.">
+  <meta name="keywords" content="servicios zokify, software pos restaurantes, menú digital qr interactivo, cocina kds pantalla, impresion termica comandas, software botillerias chile, punto de venta minimarket">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zokify.app/servicios.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Zokify">
+  <meta property="og:url" content="https://zokify.app/servicios.html">
+  <meta property="og:title" content="Servicios y Módulos de Zokify | Sistema Operativo para tu Negocio">
+  <meta property="og:description" content="Todo lo que tu restaurante, licorería o minimarket necesita para vender más y ahorrar comisiones: POS, Menú QR, KDS y Stock.">
+  <meta property="og:image" content="https://zokify.app/assets/og-whatsapp.jpg?v=2">
+
+  <!-- Schema.org Service Catalog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Software de Punto de Venta (POS) y Menú Digital QR",
+    "provider": {
+      "@type": "Organization",
+      "name": "Zokify",
+      "url": "https://zokify.app"
+    },
+    "areaServed": "Global, Chile, Latinoamérica",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Módulos de Software Zokify",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Menú Digital QR Interactivo",
+            "description": "Carta interactiva con fotos en alta definición, selección de modificadores e ingredientes, y pedidos enviados directo a la cocina o al WhatsApp del local sin comisiones."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Punto de Venta (POS) & Control de Caja",
+            "description": "Sistema de cobro rápido para mostrador y salón, arqueos ciegos de caja, división de cuentas por cliente y control de turnos blindado."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Pantalla de Cocina (KDS)",
+            "description": "Monitoreo en tiempo real de tiempos de preparación, alertas sonoras de nuevas comandas y sincronización entre mozos, cocina y barra."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Control de Inventario y Stock con Alertas",
+            "description": "Descuento automático de existencias por venta, alertas de stock mínimo para reposición y trazabilidad completa de insumos."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Fonts & Tailwind -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd',
+              500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6'
+            },
+            canvas: '#F8FAFC',
+            borderLight: '#E2E8F0',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased overflow-x-hidden">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-borderLight">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 h-20 flex items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-2.5 group shrink-0">
+        <img src="assets/zokify-avatar.png" alt="Zokify Logo" width="56" height="56" class="w-14 h-14 object-contain">
+        <div class="flex flex-col">
+          <span class="text-2xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">Zokify</span>
+          <span class="text-[9px] font-mono tracking-widest text-slate-400 uppercase -mt-1 font-bold">Business OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-600">
+        <a href="/" class="hover:text-brand-600 transition-colors">Inicio</a>
+        <a href="/servicios.html" class="text-brand-600 font-bold">Servicios & Módulos</a>
+        <a href="/comparativa-olaclick.html" class="hover:text-brand-600 transition-colors">Zokify vs OlaClick</a>
+        <a href="/planes.html" class="hover:text-brand-600 transition-colors">Planes</a>
+        <a href="/demo-menu.html" target="_blank" class="hover:text-brand-600 transition-colors">Ver Demo</a>
+      </nav>
+
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="/panel.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-xl border border-borderLight transition">
+          Iniciar Sesión
+        </a>
+        <a href="/panel.html" class="bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-extrabold px-4 sm:px-5 py-2.5 rounded-xl shadow-md transition">
+          Probar 3 Meses Gratis
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SERVICIOS -->
+  <section class="py-16 sm:py-24 bg-gradient-to-b from-brand-50/50 via-white to-canvas border-b border-borderLight text-center">
+    <div class="max-w-4xl mx-auto px-5">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-bold uppercase tracking-wider mb-4">
+        Arquitectura Modular Multi-Rubro
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">
+        Cada herramienta que necesitas para operar.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">En una sola plataforma unificada.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 mt-4 max-w-2xl mx-auto">
+        Diseñado tanto para la intensidad de una cocina gastronómica como para la velocidad de caja en licorerías y minimarkets.
+      </p>
+    </div>
+  </section>
+
+  <!-- RUBROS SOPORTADOS -->
+  <section class="py-16 bg-white border-b border-borderLight">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-900">Adaptado al ADN de tu negocio</h2>
+        <p class="text-slate-600 text-sm mt-2">Configura Zokify en menos de 5 minutos según tu rubro comercial:</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 rounded-2xl bg-canvas border border-borderLight hover:border-brand-300 transition">
+          <div class="w-12 h-12 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xl mb-4">🍽️</div>
+          <h3 class="text-lg font-black text-slate-900">Restaurantes, Pizzerías & Cafés</h3>
+          <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+            Menú QR en mesas, modificadores de platos (términos de carne, aderezos), pantalla KDS en cocina e impresión de tickets para mozos y barra.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-canvas border border-borderLight hover:border-brand-300 transition">
+          <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xl mb-4">🍾</div>
+          <h3 class="text-lg font-black text-slate-900">Licorerías & Botillerías</h3>
+          <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+            Catálogo digital de tragos, packs y promos para despacho por WhatsApp o retiro en tienda, con control de inventario de botellas y cobro rápido en mostrador.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-canvas border border-borderLight hover:border-brand-300 transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xl mb-4">🏪</div>
+          <h3 class="text-lg font-black text-slate-900">Minimarkets, Almacenes & Dark Stores</h3>
+          <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+            Punto de venta POS con lector de código de barras, control de existencias, cálculo rápido de vuelto y pedidos a domicilio sin intermediarios.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS DETALLADOS -->
+  <section class="py-20 bg-canvas">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 space-y-16">
+
+      <!-- MODULO 1: MENÚ QR -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 sm:p-12 rounded-3xl border border-borderLight shadow-sm">
+        <div>
+          <span class="text-xs font-mono font-bold text-brand-600 uppercase tracking-widest bg-brand-50 px-3 py-1 rounded-full border border-brand-200">Módulo 01</span>
+          <h3 class="text-3xl font-black text-slate-900 mt-3">Menú Digital QR Interactivo</h3>
+          <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+            Tus clientes escanean un código QR desde la mesa o abren tu enlace en redes sociales. Navegan una carta ultrarrápida con fotos en alta definición, filtros de alérgenos y selección personalizada de ingredientes.
+          </p>
+          <ul class="mt-6 space-y-2.5 text-xs text-slate-700">
+            <li class="flex items-center gap-2">✓ Modificadores avanzados (ej: tamaño, punto de cocción, extras).</li>
+            <li class="flex items-center gap-2">✓ Actualización instantánea de precios sin reimprimir cartas físicas.</li>
+            <li class="flex items-center gap-2">✓ Despacho directo a la cocina o envío formateado a WhatsApp.</li>
+          </ul>
+        </div>
+        <div class="bg-gradient-to-tr from-brand-600 to-indigo-600 p-8 rounded-2xl text-white flex flex-col justify-center items-center text-center">
+          <span class="text-5xl font-black mb-2">0.2s</span>
+          <span class="text-xs font-semibold text-brand-100 uppercase tracking-wider">Tiempo de carga del menú</span>
+          <p class="text-xs text-brand-200 mt-4 max-w-xs">Optimizado con tecnología PWA para abrir al instante incluso con mala señal 4G.</p>
+        </div>
+      </div>
+
+      <!-- MODULO 2: POS Y CAJA -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 sm:p-12 rounded-3xl border border-borderLight shadow-sm">
+        <div class="order-2 lg:order-1 bg-slate-950 p-8 rounded-2xl text-white">
+          <div class="font-mono text-xs text-emerald-400 mb-2">// SISTEMA DE CAJA BLINDADO</div>
+          <div class="text-xl font-bold mb-4">Arqueos Ciegos y Control por Turno</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Evita diferencias de dinero al cierre. Los cajeros declaran el efectivo real sin ver el saldo teórico del sistema hasta que el administrador autoriza el arqueo.
+          </p>
+        </div>
+        <div class="order-1 lg:order-2">
+          <span class="text-xs font-mono font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Módulo 02</span>
+          <h3 class="text-3xl font-black text-slate-900 mt-3">Punto de Venta (POS) & Control de Caja</h3>
+          <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+            Diseñado para velocidad extrema en mostrador y atención de mesas. Soporta múltiples métodos de pago (efectivo, tarjeta, transferencia), propinas por garzón y división equitativa de cuentas.
+          </p>
+          <ul class="mt-6 space-y-2.5 text-xs text-slate-700">
+            <li class="flex items-center gap-2">✓ Compatible con cualquier tablet, iPad, PC o smartphone.</li>
+            <li class="flex items-center gap-2">✓ Apertura y cierre de turnos con reporte detallado.</li>
+            <li class="flex items-center gap-2">✓ Sin costo de arriendo por equipo: usa lo que ya tienes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MODULO 3: COCINA KDS -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 sm:p-12 rounded-3xl border border-borderLight shadow-sm">
+        <div>
+          <span class="text-xs font-mono font-bold text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">Módulo 03</span>
+          <h3 class="text-3xl font-black text-slate-900 mt-3">Pantalla de Cocina (KDS) en Tiempo Real</h3>
+          <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+            Elimina el papel y los gritos en cocina. Los pedidos ingresados por los mozos o desde el código QR aparecen al instante con cronómetro de preparación y alertas por demoras.
+          </p>
+          <ul class="mt-6 space-y-2.5 text-xs text-slate-700">
+            <li class="flex items-center gap-2">✓ Alertas auditivas ante nuevas comandas recibidas.</li>
+            <li class="flex items-center gap-2">✓ Código de colores por tiempo transcurrido (Verde / Amarillo / Rojo).</li>
+            <li class="flex items-center gap-2">✓ Separación de comandas para Cocina Caliente, Fría y Barra.</li>
+          </ul>
+        </div>
+        <div class="bg-indigo-900 p-8 rounded-2xl text-white flex flex-col justify-center items-center text-center">
+          <span class="text-5xl font-black mb-2 text-indigo-300">-35%</span>
+          <span class="text-xs font-semibold text-indigo-100 uppercase tracking-wider">Reducción en tiempo de espera</span>
+          <p class="text-xs text-indigo-200 mt-4 max-w-xs">Tus clientes reciben sus pedidos más rápido y tu equipo cocina sin errores de comanda.</p>
+        </div>
+      </div>
+
+      <!-- MODULO 4: INVENTARIO Y STOCK -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-white p-8 sm:p-12 rounded-3xl border border-borderLight shadow-sm">
+        <div class="order-2 lg:order-1 bg-emerald-950 p-8 rounded-2xl text-white">
+          <div class="font-mono text-xs text-emerald-400 mb-2">// CONTROL AUTOMATIZADO</div>
+          <div class="text-xl font-bold mb-4">Stock en Vivo & Bloqueo de Agotados</div>
+          <p class="text-xs text-emerald-200 leading-relaxed">
+            Cuando un ingrediente o producto se agota en caja, el Menú QR lo deshabilita inmediatamente. Nunca más tendrás que disculparte con un cliente por vender un plato sin stock.
+          </p>
+        </div>
+        <div class="order-1 lg:order-2">
+          <span class="text-xs font-mono font-bold text-emerald-600 uppercase tracking-widest bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Módulo 04</span>
+          <h3 class="text-3xl font-black text-slate-900 mt-3">Control de Inventario & Alertas de Stock</h3>
+          <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+            Monitorea botellas, insumos y productos terminados en tiempo real. Configura umbrales de stock mínimo para recibir avisos antes de que te quedes sin mercancía en pleno fin de semana.
+          </p>
+          <ul class="mt-6 space-y-2.5 text-xs text-slate-700">
+            <li class="flex items-center gap-2">✓ Descuento automático por cada venta concretada.</li>
+            <li class="flex items-center gap-2">✓ Alertas directas para reposición de compras.</li>
+            <li class="flex items-center gap-2">✓ Historial de mermas y ajustes de inventario.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-20 bg-slate-900 text-white text-center">
+    <div class="max-w-4xl mx-auto px-5">
+      <h2 class="text-3xl sm:text-5xl font-black tracking-tight">Comienza con Zokify hoy mismo</h2>
+      <p class="text-slate-400 text-sm sm:text-base mt-4 max-w-xl mx-auto">
+        Prueba todos los módulos gratis durante 90 días. Sin tarjeta de crédito requerida ni contratos de permanencia.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/panel.html" class="px-8 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm shadow-lg transition">
+          Crear Cuenta Gratis (3 Meses)
+        </a>
+        <a href="/planes.html" class="px-8 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm border border-slate-700 transition">
+          Ver Planes y Precios
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 bg-slate-950 text-white text-xs border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-black text-sm">Zokify</span>
+        <span class="text-slate-500">· Business OS by Universo693 SpA</span>
+      </div>
+      <div class="flex gap-6 text-slate-400">
+        <a href="/" class="hover:text-white transition">Inicio</a>
+        <a href="/servicios.html" class="hover:text-white transition">Servicios</a>
+        <a href="/comparativa-olaclick.html" class="hover:text-white transition">Comparativa</a>
+        <a href="/planes.html" class="hover:text-white transition">Planes</a>
+      </div>
+      <div class="text-slate-500">&copy; 2026 Zokify. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+</body>
+</html>

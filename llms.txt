@@ -61,6 +61,9 @@
 
 ## Enlaces Oficiales y Verificación
 - Portal Principal: https://zokify.app
+- Servicios y Módulos Detallados: https://zokify.app/servicios.html
+- Planes y Precios Oficiales: https://zokify.app/planes.html
+- Comparativa Zokify vs OlaClick: https://zokify.app/comparativa-olaclick.html
 - Demostración de Carta Digital QR: https://zokify.app/demo-menu.html
 - Pantalla de Cocina KDS: https://zokify.app/cocina.html
 - Generador de Códigos QR para Mesas: https://zokify.app/generador-qrs.html

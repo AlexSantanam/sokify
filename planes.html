@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- SEO Primary Meta Tags -->
+  <title>Planes y Precios · Zokify | 3 Meses Gratis y 0% Comisión</title>
+  <meta name="title" content="Planes y Precios · Zokify | 3 Meses Gratis y 0% Comisión">
+  <meta name="description" content="Conoce los planes y tarifas de Zokify. Prueba 3 meses (90 días) 100% gratis sin tarjeta. Planes desde $5.900 CLP/mes con punto de venta POS, menú QR, cocina KDS y pedidos por WhatsApp.">
+  <meta name="keywords" content="planes zokify, precios pos restaurante, software punto de venta precios, menú qr sin comisión, software gastronomico precios chile">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://zokify.app/planes.html">
+
+  <!-- Open Graph / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Zokify">
+  <meta property="og:url" content="https://zokify.app/planes.html">
+  <meta property="og:title" content="Planes y Precios · Zokify | 3 Meses Gratis y 0% Comisión">
+  <meta property="og:description" content="Planes justos sin comisiones por pedido. Prueba 90 días gratis sin tarjeta. Menú digital QR, POS, cocina KDS y control de stock.">
+  <meta property="og:image" content="https://zokify.app/assets/og-whatsapp.jpg?v=2">
+
+  <!-- Schema.org Pricing Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Zokify Business OS",
+    "image": "https://zokify.app/assets/og-whatsapp.jpg",
+    "description": "Software punto de venta POS, menú digital QR y cocina KDS con 0% comisiones para restaurantes, licorerías y comercios.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Zokify"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "CLP",
+      "lowPrice": "0",
+      "highPrice": "119900",
+      "offerCount": "3",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Plan Esencial",
+          "price": "5900",
+          "priceCurrency": "CLP",
+          "description": "3 meses gratis, luego $5.900 CLP/mes o $39.900 CLP/año"
+        },
+        {
+          "@type": "Offer",
+          "name": "Plan Avanzado",
+          "price": "15900",
+          "priceCurrency": "CLP",
+          "description": "3 meses gratis, luego $15.900 CLP/mes o $69.900 CLP/año"
+        },
+        {
+          "@type": "Offer",
+          "name": "Plan Pro",
+          "price": "24900",
+          "priceCurrency": "CLP",
+          "description": "3 meses gratis, luego $24.900 CLP/mes o $119.900 CLP/año"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Fonts & Tailwind -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd',
+              500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6'
+            },
+            canvas: '#F8FAFC',
+            borderLight: '#E2E8F0',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased overflow-x-hidden">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-borderLight">
+    <div class="w-full px-4 sm:px-8 lg:px-12 xl:px-16 h-20 flex items-center justify-between gap-6">
+      <a href="/" class="flex items-center gap-2.5 group shrink-0">
+        <img src="assets/zokify-avatar.png" alt="Zokify Logo" width="56" height="56" class="w-14 h-14 object-contain">
+        <div class="flex flex-col">
+          <span class="text-2xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">Zokify</span>
+          <span class="text-[9px] font-mono tracking-widest text-slate-400 uppercase -mt-1 font-bold">Business OS</span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-600">
+        <a href="/" class="hover:text-brand-600 transition-colors">Inicio</a>
+        <a href="/servicios.html" class="hover:text-brand-600 transition-colors">Servicios & Módulos</a>
+        <a href="/comparativa-olaclick.html" class="hover:text-brand-600 transition-colors">Zokify vs OlaClick</a>
+        <a href="/planes.html" class="text-brand-600 font-bold">Planes</a>
+        <a href="/demo-menu.html" target="_blank" class="hover:text-brand-600 transition-colors">Ver Demo</a>
+      </nav>
+
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="/panel.html" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 px-4 py-2.5 rounded-xl border border-borderLight transition">
+          Iniciar Sesión
+        </a>
+        <a href="/panel.html" class="bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-extrabold px-4 sm:px-5 py-2.5 rounded-xl shadow-md transition">
+          Probar 3 Meses Gratis
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO PLANES -->
+  <section class="py-16 sm:py-24 bg-gradient-to-b from-brand-50/50 via-white to-canvas border-b border-borderLight text-center">
+    <div class="max-w-4xl mx-auto px-5">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Garantía 0% Comisiones · 90 Días a Costo $0
+      </div>
+      <h1 class="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight">
+        Tarifas Transparentes.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">Paga solo cuando ya estés vendiendo.</span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-600 mt-4 max-w-2xl mx-auto">
+        Sin comisiones porcentuales abusivas ni cobros sorpresa. Te regalamos <strong>3 meses (90 días) completos</strong> con todas las funciones activadas para que tu local crezca sin riesgo.
+      </p>
+
+      <!-- Toggle Mes / Año -->
+      <div class="mt-10 inline-flex items-center gap-3 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+        <button id="btnMensual" onclick="setBilling('mensual')" class="px-5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-900 shadow-sm">
+          Cobro Mensual
+        </button>
+        <button id="btnAnual" onclick="setBilling('anual')" class="px-5 py-2 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+          Cobro Anual
+          <span class="bg-emerald-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full uppercase">Ahorra 40%</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID DE PLANES -->
+  <section class="py-16 bg-canvas">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+        <!-- PLAN ESENCIAL -->
+        <div class="bg-white rounded-3xl p-8 border border-borderLight shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">Plan Esencial</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">3 Meses $0</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900">Emprendedores</h2>
+            <p class="text-xs text-slate-500 mt-1">Para carritos, cafeterías, minimarkets pequeños y dark kitchens.</p>
+
+            <div class="my-6">
+              <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-black text-slate-900 price-val" data-monthly="$5.900" data-annual="$39.900">$5.900</span>
+                <span class="text-xs font-bold text-slate-500 price-cycle">CLP / mes</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">Luego de tus 90 días gratis de prueba.</p>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-700 border-t border-slate-100 pt-6">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span><strong>0% Comisión</strong> en todas tus ventas</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Menú digital QR interactivo</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Punto de Venta (POS) en mostrador</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Pedidos directos al WhatsApp del local</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Hasta 100 productos en catálogo</span></li>
+            </ul>
+          </div>
+
+          <a href="/panel.html" class="mt-8 w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center transition">
+            Comenzar Gratis (3 Meses)
+          </a>
+        </div>
+
+        <!-- PLAN AVANZADO (DESTACADO) -->
+        <div class="bg-white rounded-3xl p-8 border-2 border-brand-500 shadow-xl relative flex flex-col justify-between scale-105 z-10">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-brand-600 to-indigo-600 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-md">
+            MÁS POPULAR · RECOMENDADO
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-brand-600 font-mono">Plan Avanzado</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">3 Meses $0</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900">Locales & Salón</h2>
+            <p class="text-xs text-slate-500 mt-1">Para restaurantes, pizzerías, sushi, botillerías y minimarkets consolidados.</p>
+
+            <div class="my-6">
+              <div class="flex items-baseline gap-1">
+                <span class="text-5xl font-black text-slate-900 price-val" data-monthly="$15.900" data-annual="$69.900">$15.900</span>
+                <span class="text-xs font-bold text-slate-500 price-cycle">CLP / mes</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">Luego de tus 90 días gratis de prueba.</p>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-700 border-t border-slate-100 pt-6">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span><strong>Todo lo del Plan Esencial</strong></span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span><strong>Pantalla de Cocina (KDS) en tiempo real</strong></span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Impresión directa de comandas (USB/Red/Bluetooth)</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Control de stock e inventario con alertas</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Gestión de mesas y comandas de garzones</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Productos y pedidos <strong>ILIMITADOS</strong></span></li>
+            </ul>
+          </div>
+
+          <a href="/panel.html" class="mt-8 w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-extrabold text-sm text-center shadow-lg transition transform hover:-translate-y-0.5">
+            Comenzar 3 Meses Gratis ($0)
+          </a>
+        </div>
+
+        <!-- PLAN PRO -->
+        <div class="bg-white rounded-3xl p-8 border border-borderLight shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">Plan Pro</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">3 Meses $0</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900">Multi-Sucursal & Cadenas</h2>
+            <p class="text-xs text-slate-500 mt-1">Para cadenas, franquicias y negocios con múltiples puntos de venta.</p>
+
+            <div class="my-6">
+              <div class="flex items-baseline gap-1">
+                <span class="text-4xl font-black text-slate-900 price-val" data-monthly="$24.900" data-annual="$119.900">$24.900</span>
+                <span class="text-xs font-bold text-slate-500 price-cycle">CLP / mes</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">Luego de tus 90 días gratis de prueba.</p>
+            </div>
+
+            <ul class="space-y-3 text-xs text-slate-700 border-t border-slate-100 pt-6">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span><strong>Todo lo del Plan Avanzado</strong></span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Gestión multi-sucursal centralizada</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Copiloto de IA para cartas y recomendaciones</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Soporte prioritario 24/7 con agente humano dedicado</span></li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>Migración asistida de menú desde tu software actual</span></li>
+            </ul>
+          </div>
+
+          <a href="/panel.html" class="mt-8 w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs text-center transition">
+            Comenzar Gratis (3 Meses)
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS FRECUENTES SOBRE PLANES -->
+  <section class="py-16 bg-white border-t border-borderLight">
+    <div class="max-w-4xl mx-auto px-5">
+      <h2 class="text-3xl font-black text-slate-900 text-center mb-8">Preguntas frecuentes sobre precios</h2>
+      <div class="space-y-4 text-sm">
+        <div class="p-5 rounded-2xl bg-canvas border border-borderLight">
+          <h3 class="font-bold text-slate-900 text-base mb-1">¿Realmente son 3 meses gratis sin tarjeta de crédito?</h3>
+          <p class="text-slate-600">Sí. Al registrarte obtienes 90 días completos de acceso con todas las funcionalidades de Zokify desbloqueadas. No te pediremos tarjeta de crédito para iniciar y no hay renovación automática forzada.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-canvas border border-borderLight">
+          <h3 class="font-bold text-slate-900 text-base mb-1">¿Cobran comisión por pedido o venta?</h3>
+          <p class="text-slate-600">Cero por ciento (0%). Nunca cobramos comisión por ticket ni por volumen. El dinero de cada orden pagada va íntegro a tu caja o a tu cuenta bancaria.</p>
+        </div>
+        <div class="p-5 rounded-2xl bg-canvas border border-borderLight">
+          <h3 class="font-bold text-slate-900 text-base mb-1">¿Qué medios de pago aceptan para continuar después de la prueba?</h3>
+          <p class="text-slate-600">Aceptamos tarjetas de débito y crédito locales (Webpay, Transbank en Chile), tarjetas internacionales (Visa, Mastercard, AMEX) y PayPal en dólares (USD) para clientes en el extranjero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-10 bg-slate-900 text-white text-xs border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-black text-sm">Zokify</span>
+        <span class="text-slate-500">· Business OS by Universo693 SpA</span>
+      </div>
+      <div class="flex gap-6 text-slate-400">
+        <a href="/" class="hover:text-white transition">Inicio</a>
+        <a href="/servicios.html" class="hover:text-white transition">Servicios</a>
+        <a href="/comparativa-olaclick.html" class="hover:text-white transition">Comparativa</a>
+        <a href="/planes.html" class="hover:text-white transition">Planes</a>
+      </div>
+      <div class="text-slate-500">&copy; 2026 Zokify. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script>
+    function setBilling(mode) {
+      const btnM = document.getElementById('btnMensual');
+      const btnA = document.getElementById('btnAnual');
+      const prices = document.querySelectorAll('.price-val');
+      const cycles = document.querySelectorAll('.price-cycle');
+
+      if (mode === 'anual') {
+        btnA.className = 'px-5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-900 shadow-sm flex items-center gap-1.5';
+        btnM.className = 'px-5 py-2 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900';
+        prices.forEach(el => el.textContent = el.getAttribute('data-annual'));
+        cycles.forEach(el => el.textContent = 'CLP / año');
+      } else {
+        btnM.className = 'px-5 py-2 rounded-xl text-xs font-bold transition bg-white text-slate-900 shadow-sm';
+        btnA.className = 'px-5 py-2 rounded-xl text-xs font-bold transition text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
+        prices.forEach(el => el.textContent = el.getAttribute('data-monthly'));
+        cycles.forEach(el => el.textContent = 'CLP / mes');
+      }
+    }
+  </script>
+</body>
+</html>
