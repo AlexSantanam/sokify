@@ -8561,7 +8561,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       <!-- BOTÓN VER EN TAMAÑO DE COMPUTADORA (TIPO CAPTURA 1) -->
       <div class="pt-3">
-        <a href="index.html" target="_blank" class="px-5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-900 text-white font-bold text-xs backdrop-blur-md shadow-xl border border-white/20 flex items-center gap-2 transition-all cursor-pointer">
+        <a id="btnLinkVistaPreviaDesktop" href="menu.html" target="_blank" class="px-5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-900 text-white font-bold text-xs backdrop-blur-md shadow-xl border border-white/20 flex items-center gap-2 transition-all cursor-pointer">
           <span>Ver en tamaño de computadora</span>
           <span>↗</span>
         </a>
@@ -18770,8 +18770,16 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     function abrirModalVistaPrevia() {
       const modal = document.getElementById('modalVistaPrevia');
       const iframe = document.getElementById('iframeVistaPrevia');
+      const btnDesk = document.getElementById('btnLinkVistaPreviaDesktop');
+      
+      const restSlug = window.RESTAURANT_ID || localStorage.getItem('sokify_restaurant_id') || 'demo';
+      const targetUrl = `menu.html?r=${encodeURIComponent(restSlug)}&t=${Date.now()}`;
+      
       if (iframe) {
-        iframe.src = 'index.html?preview=mobile&t=' + Date.now();
+        iframe.src = targetUrl;
+      }
+      if (btnDesk) {
+        btnDesk.href = targetUrl;
       }
       modal?.classList.remove('hidden');
     }
