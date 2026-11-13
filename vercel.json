@@ -1,5 +1,8 @@
 {
   "rewrites": [
+    { "source": "/", "has": [{ "type": "host", "value": "(?<sub>(?!www\\.)[a-z0-9-]+)\\.zokify\\.app" }], "destination": "/bienvenida.html" },
+    { "source": "/products", "has": [{ "type": "host", "value": "(?<sub>(?!www\\.)[a-z0-9-]+)\\.zokify\\.app" }], "destination": "/menu.html" },
+    { "source": "/menu", "has": [{ "type": "host", "value": "(?<sub>(?!www\\.)[a-z0-9-]+)\\.zokify\\.app" }], "destination": "/menu.html" },
     { "source": "/panel", "destination": "/panel.html" },
     { "source": "/cocina", "destination": "/cocina.html" },
     { "source": "/kds", "destination": "/cocina.html" },

@@ -18151,18 +18151,57 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       window.restRef().set({ pausaManual: pausado }, { merge: true });
     }
 
+    const HORARIO_INPUT_CLS = 'bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-900 text-xs w-full disabled:opacity-50';
+
+    function htmlTurnoHorario(t, cerrado, esPrimero) {
+      return `
+        <div class="horario-turno flex items-center gap-2">
+          <input type="time" class="horario-abre ${HORARIO_INPUT_CLS}" value="${t.abre || '12:30'}" ${cerrado ? 'disabled' : ''}>
+          <span class="text-slate-400">–</span>
+          <input type="time" class="horario-cierra ${HORARIO_INPUT_CLS}" value="${t.cierra || '23:00'}" ${cerrado ? 'disabled' : ''}>
+          ${esPrimero
+            ? '<span class="w-6 shrink-0"></span>'
+            : '<button type="button" title="Quitar turno" onclick="this.closest(\'.horario-turno\').remove()" class="w-6 h-6 shrink-0 rounded-md text-red-500 hover:bg-red-50 font-bold cursor-pointer">✕</button>'}
+        </div>`;
+    }
+
+    function agregarTurnoHorario(btn) {
+      const row = btn.closest('[data-dia]');
+      const lista = row.querySelector('.horario-turnos');
+      const cerrado = row.querySelector('.horario-cerrado').checked;
+      if (cerrado) return;
+      if (lista.querySelectorAll('.horario-turno').length >= 4) {
+        mostrarNotificacion('Máximo 4 turnos por día');
+        return;
+      }
+      lista.insertAdjacentHTML('beforeend', htmlTurnoHorario({ abre: '19:00', cierra: '23:00' }, false, false));
+    }
+
+    function toggleCerradoHorario(chk) {
+      const row = chk.closest('[data-dia]');
+      row.querySelectorAll('input[type=time]').forEach(i => i.disabled = chk.checked);
+      const btn = row.querySelector('.horario-agregar');
+      if (btn) btn.classList.toggle('hidden', chk.checked);
+    }
+
     function renderHorarioForm(horarioGuardado) {
       const box = document.getElementById('horarioForm');
       if (!box) return;
       box.innerHTML = window.DIAS_SEMANA.map(dia => {
         const cfg = horarioGuardado[dia] || { abre: '12:30', cierra: '23:00', cerrado: dia === 'lun' };
+        let turnos = window.obtenerTurnosDia ? window.obtenerTurnosDia(cfg) : [{ abre: cfg.abre, cierra: cfg.cierra }];
+        if (!turnos.length) turnos = [{ abre: '12:30', cierra: '23:00' }];
         return `
-          <div class="grid grid-cols-[70px_1fr_1fr_auto] gap-2 items-center text-xs" data-dia="${dia}">
-            <span class="font-bold text-slate-700">${window.DIAS_SEMANA_LABEL[dia]}</span>
-            <input type="time" class="horario-abre bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-900 text-xs" value="${cfg.abre || '12:30'}" ${cfg.cerrado ? 'disabled' : ''}>
-            <input type="time" class="horario-cierra bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-slate-900 text-xs" value="${cfg.cierra || '23:00'}" ${cfg.cerrado ? 'disabled' : ''}>
-            <label class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium cursor-pointer">
-              <input type="checkbox" class="horario-cerrado accent-brand-600" ${cfg.cerrado ? 'checked' : ''} onchange="this.closest('[data-dia]').querySelectorAll('input[type=time]').forEach(i => i.disabled = this.checked)">
+          <div class="grid grid-cols-[70px_1fr_auto] gap-2 items-start text-xs py-1 border-b border-slate-100 last:border-0" data-dia="${dia}">
+            <span class="font-bold text-slate-700 pt-2">${window.DIAS_SEMANA_LABEL[dia]}</span>
+            <div class="space-y-1.5">
+              <div class="horario-turnos space-y-1.5">
+                ${turnos.map((t, i) => htmlTurnoHorario(t, cfg.cerrado, i === 0)).join('')}
+              </div>
+              <button type="button" onclick="agregarTurnoHorario(this)" class="horario-agregar ${cfg.cerrado ? 'hidden' : ''} text-[11px] font-bold text-brand-600 hover:text-brand-700 cursor-pointer">+ Agregar horas</button>
+            </div>
+            <label class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium cursor-pointer pt-2">
+              <input type="checkbox" class="horario-cerrado accent-brand-600" ${cfg.cerrado ? 'checked' : ''} onchange="toggleCerradoHorario(this)">
               Cerrado
             </label>
           </div>
@@ -18174,9 +18213,14 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const horario = {};
       document.querySelectorAll('#horarioForm [data-dia]').forEach(row => {
         const dia = row.dataset.dia;
+        const turnos = [...row.querySelectorAll('.horario-turno')].map(t => ({
+          abre: t.querySelector('.horario-abre').value,
+          cierra: t.querySelector('.horario-cierra').value
+        })).filter(t => t.abre && t.cierra);
         horario[dia] = {
-          abre: row.querySelector('.horario-abre').value,
-          cierra: row.querySelector('.horario-cierra').value,
+          abre: turnos[0]?.abre || '',
+          cierra: turnos[0]?.cierra || '',
+          turnos,
           cerrado: row.querySelector('.horario-cerrado').checked
         };
       });

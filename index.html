@@ -2,6 +2,15 @@
 <html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    // Subdominio de negocio (<slug>.zokify.app) → página del negocio, no la landing de Zokify
+    (function () {
+      var m = location.hostname.toLowerCase().match(/^([a-z0-9-]+)\.zokify\.app$/);
+      if (m && ['www','app','api','panel','admin','mail','demo','cocina','kds'].indexOf(m[1]) === -1) {
+        location.replace('/bienvenida.html' + location.search);
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <!-- Favicon Standards for Google, Bing and Browsers -->

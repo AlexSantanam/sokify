@@ -14,7 +14,14 @@
   const urlParamRest = new URLSearchParams(window.location.search).get('r');
   const storedRest = localStorage.getItem('sokify_restaurant_id');
 
+  // Subdominio automático: <slug>.zokify.app → restaurante <slug>
+  const RESERVED_SUBS = ['www', 'app', 'api', 'panel', 'admin', 'mail', 'demo', 'cocina', 'kds'];
+  const hostMatch = window.location.hostname.toLowerCase().match(/^([a-z0-9-]+)\.zokify\.app$/);
+  const subdomainRest = hostMatch && !RESERVED_SUBS.includes(hostMatch[1]) ? hostMatch[1] : null;
+  window.SUBDOMAIN_RESTAURANT = subdomainRest;
+
   window.RESTAURANT_ID =
+    subdomainRest ||
     urlParamRest ||
     storedRest ||
     CFG.restaurantId ||
@@ -25,6 +32,7 @@
       .replace(/(^-|-$)/g, '');
 
   // Si se ingresó por URL o registro nuevo, actualizar el nombre del restaurante dinámicamente
+  window.MENU_URL = subdomainRest ? '/products' : 'menu.html?r=' + encodeURIComponent(window.RESTAURANT_ID);
   const storedName = localStorage.getItem('sokify_restaurant_name');
   if (storedName && (urlParamRest || storedRest)) {
     CFG.nombre = storedName;
@@ -63,14 +71,39 @@
     const now = new Date();
     const diaKey = window.DIAS_SEMANA[now.getDay()];
     const cfgDia = horario[diaKey];
-    if (!cfgDia || cfgDia.cerrado || !cfgDia.abre || !cfgDia.cierra) return false;
-
-    const [hA, mA] = cfgDia.abre.split(':').map(Number);
-    const [hC, mC] = cfgDia.cierra.split(':').map(Number);
     const minutosAhora = now.getHours() * 60 + now.getMinutes();
-    const minutosApertura = hA * 60 + mA;
-    const minutosCierre = hC * 60 + mC;
-    return minutosAhora >= minutosApertura && minutosAhora < minutosCierre;
+    const toMin = (t) => { const [h, m] = String(t).split(':').map(Number); return h * 60 + (m || 0); };
+    const enRango = (abre, cierra, min) => {
+      const a = toMin(abre), c = toMin(cierra);
+      if (a === c) return true;          // 24 horas
+      if (c > a) return min >= a && min < c;
+      return min >= a || min < c;        // cruza medianoche (ej. 20:00 - 02:00)
+    };
+
+    // Turno de hoy
+    if (cfgDia && !cfgDia.cerrado) {
+      const turnos = window.obtenerTurnosDia(cfgDia);
+      if (turnos.some(t => enRango(t.abre, t.cierra, minutosAhora))) return true;
+    }
+
+    // Turnos de ayer que cruzan medianoche y siguen vigentes
+    const ayerKey = window.DIAS_SEMANA[(now.getDay() + 6) % 7];
+    const cfgAyer = horario[ayerKey];
+    if (cfgAyer && !cfgAyer.cerrado) {
+      const turnosAyer = window.obtenerTurnosDia(cfgAyer);
+      if (turnosAyer.some(t => toMin(t.cierra) < toMin(t.abre) && minutosAhora < toMin(t.cierra))) return true;
+    }
+    return false;
+  };
+
+  // Normaliza un día del horario a una lista de turnos [{abre, cierra}].
+  // Compatible con el formato antiguo { abre, cierra, cerrado }.
+  window.obtenerTurnosDia = function obtenerTurnosDia(cfgDia) {
+    if (!cfgDia) return [];
+    let turnos = Array.isArray(cfgDia.turnos) && cfgDia.turnos.length
+      ? cfgDia.turnos
+      : [{ abre: cfgDia.abre, cierra: cfgDia.cierra }];
+    return turnos.filter(t => t && t.abre && t.cierra);
   };
 
   /**
