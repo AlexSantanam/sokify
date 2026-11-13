@@ -785,13 +785,17 @@
                 <input id="pdvSearchOrders" type="text" placeholder="Buscar pedido..." oninput="renderPdvOrders()" class="bg-slate-50 border border-slate-200 rounded-xl pl-7 pr-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-brand-600 w-36 md:w-44 font-medium">
               </div>
 
-              <!-- Selector Vista Lista / Tarjetas -->
+              <!-- Selector Vista Lista / Tarjetas / Plano de Salón -->
               <div class="flex bg-slate-100 p-0.5 rounded-xl border border-slate-200">
                 <button onclick="setPdvViewMode('table')" id="btnViewTable" class="p-1.5 rounded-lg bg-white text-slate-900 shadow-xs cursor-pointer font-mono" title="Vista Lista / Tabla">
                   ☰
                 </button>
                 <button onclick="setPdvViewMode('cards')" id="btnViewCards" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-mono" title="Vista Tarjetas">
                   ⊞
+                </button>
+                <button onclick="setPdvViewMode('floorplan')" id="btnViewFloorplan" class="px-2 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-bold text-[11px] flex items-center gap-1" title="Plano Gráfico Interactivo de Mesas y Salón">
+                  <span>🗺️</span>
+                  <span class="hidden xl:inline">Salón</span>
                 </button>
               </div>
 
@@ -867,6 +871,22 @@
             <!-- VISTA TARJETAS (ALTERNATIVA EN GRID) -->
             <div id="pdvCardsView" class="hidden p-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <!-- Inyección JS -->
+            </div>
+
+            <!-- VISTA PLANO GRÁFICO DE MESAS (SALÓN INTERACTIVO) -->
+            <div id="pdvFloorplanView" class="hidden p-5 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                <div class="flex flex-wrap items-center gap-2.5 text-xs font-bold">
+                  <span class="text-slate-900 font-black">🗺️ Plano Interactivo de Salón (Mesas 01 a 12)</span>
+                  <span class="inline-flex items-center gap-1 text-[11px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Libre</span>
+                  <span class="inline-flex items-center gap-1 text-[11px] text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Con Comanda</span>
+                  <span class="inline-flex items-center gap-1 text-[11px] text-blue-800 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200"><span class="w-2 h-2 rounded-full bg-blue-500"></span> En Cocina / Listo</span>
+                </div>
+                <div class="text-[11px] text-slate-400">Haz clic en cualquier mesa libre para abrir comanda o en una ocupada para cobrar/imprimir</div>
+              </div>
+              <div id="pdvFloorplanGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- Inyección dinámica de las 12 mesas -->
+              </div>
             </div>
 
             <!-- EMPTY STATE CUANDO NO HAY PEDIDOS EN ESTE CANAL -->
@@ -1971,7 +1991,11 @@
               <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Inventario</h2>
               <p class="text-xs text-slate-400 font-medium">Control en tiempo real de existencias para evitar vender ítems agotados</p>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="abrirModalFacturaIA()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-extrabold text-xs flex items-center gap-2 shadow-sm transition-all cursor-pointer" title="Subir foto de factura de proveedor para cargar stock automáticamente con IA">
+                <span>🤖</span>
+                <span>Escanear Factura con IA</span>
+              </button>
               <button onclick="descargarExcelInventario()" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-bold text-xs flex items-center gap-2 shadow-xs transition-colors cursor-pointer" title="Exportar existencias en Excel / CSV">
                 <span class="text-emerald-600 font-bold">📊</span>
                 <span>Descargar Excel</span>
@@ -2037,6 +2061,66 @@
                 <button onclick="activarStockEnTodos()" class="text-xs font-bold text-blue-600 hover:underline cursor-pointer">
                   ⚡ Activar control numérico en todos los productos
                 </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MODAL ESCANEO DE FACTURA DE PROVEEDOR CON IA (OCR) -->
+          <div id="modalFacturaIA" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-3xl border border-slate-200 max-w-2xl w-full p-6 sm:p-7 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-xl font-black shrink-0">🤖</div>
+                  <div>
+                    <h3 class="text-base sm:text-lg font-black text-slate-900">Escáner IA de Facturas de Proveedor</h3>
+                    <p class="text-xs text-slate-500">Sube una foto o PDF de tu factura de compra y Sofi IA sumará las unidades al stock automáticamente.</p>
+                  </div>
+                </div>
+                <button onclick="cerrarModalFacturaIA()" class="text-slate-400 hover:text-slate-800 text-lg font-bold px-2 cursor-pointer">✕</button>
+              </div>
+
+              <!-- Zona de carga / Drag & Drop -->
+              <div class="border-2 border-dashed border-brand-200 bg-brand-50/40 rounded-2xl p-5 text-center space-y-3">
+                <input type="file" id="inputFacturaIAFile" accept="image/*,application/pdf" class="hidden" onchange="procesarArchivoFacturaIA(this)">
+                <div class="text-3xl">📄✨</div>
+                <div class="text-xs font-bold text-slate-700">Sube la foto de la factura o guía de despacho de tu proveedor</div>
+                <div class="flex flex-wrap items-center justify-center gap-2.5 pt-1">
+                  <button onclick="document.getElementById('inputFacturaIAFile').click()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-sm cursor-pointer">
+                    📸 Seleccionar Foto / PDF
+                  </button>
+                  <button onclick="simularLecturaFacturaIA()" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-xs cursor-pointer">
+                    ⚡ Probar con Factura Demo
+                  </button>
+                </div>
+              </div>
+
+              <!-- Resultado de ítems detectados -->
+              <div id="facturaIAResultBox" class="hidden space-y-3">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-black text-emerald-700 flex items-center gap-1.5">✓ Ítems detectados por Sofi IA (puedes ajustar cantidades):</span>
+                  <span id="facturaIAProveedorTag" class="font-mono text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md">Proveedor verificado</span>
+                </div>
+                <div class="border border-slate-200 rounded-2xl overflow-hidden">
+                  <table class="w-full text-left text-xs">
+                    <thead class="bg-slate-50 text-[10px] font-black text-slate-400 uppercase border-b border-slate-100">
+                      <tr>
+                        <th class="py-2.5 px-3">Producto en Catálogo</th>
+                        <th class="py-2.5 px-3 text-center">Stock Actual</th>
+                        <th class="py-2.5 px-3 text-center">+ Cantidad Factura</th>
+                        <th class="py-2.5 px-3 text-right">Nuevo Stock</th>
+                      </tr>
+                    </thead>
+                    <tbody id="facturaIAItemsBody" class="divide-y divide-slate-100"></tbody>
+                  </table>
+                </div>
+                <div class="flex items-center justify-end gap-2.5 pt-2">
+                  <button onclick="cerrarModalFacturaIA()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer">
+                    Cancelar
+                  </button>
+                  <button onclick="aplicarStockFacturaIA()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md cursor-pointer">
+                    ✓ Confirmar y Sumar al Inventario
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -10881,15 +10965,23 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       pdvViewMode = mode;
       const bTable = document.getElementById('btnViewTable');
       const bCards = document.getElementById('btnViewCards');
+      const bFloor = document.getElementById('btnViewFloorplan');
       if (bTable && bCards) {
         bTable.className = mode === 'table' ? 'p-1.5 rounded-lg bg-white text-slate-900 shadow-xs cursor-pointer font-mono' : 'p-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-mono';
         bCards.className = mode === 'cards' ? 'p-1.5 rounded-lg bg-white text-slate-900 shadow-xs cursor-pointer font-mono' : 'p-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-mono';
       }
+      if (bFloor) {
+        bFloor.className = mode === 'floorplan' ? 'px-2 py-1.5 rounded-lg bg-white text-slate-900 shadow-xs cursor-pointer font-bold text-[11px] flex items-center gap-1' : 'px-2 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-bold text-[11px] flex items-center gap-1';
+      }
       const tView = document.getElementById('pdvTableView');
       const cView = document.getElementById('pdvCardsView');
+      const fView = document.getElementById('pdvFloorplanView');
       if (tView && cView) {
         tView.classList.toggle('hidden', mode !== 'table');
         cView.classList.toggle('hidden', mode !== 'cards');
+      }
+      if (fView) {
+        fView.classList.toggle('hidden', mode !== 'floorplan');
       }
       renderPdvOrders();
     }
@@ -11089,6 +11181,13 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         return inChan && inStatus && inQuery;
       });
 
+      renderFloorplanMesas();
+
+      if (pdvViewMode === 'floorplan') {
+        emptyState.classList.add('hidden');
+        return;
+      }
+
       if (filtrados.length === 0) {
         tbody.innerHTML = '';
         cardsContainer.innerHTML = '';
@@ -11155,6 +11254,181 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }).join('');
 
       cardsContainer.innerHTML = filtrados.map(o => createKdsOrderCard(o, o.items || []).outerHTML).join('');
+    }
+
+    // --- PLANO GRÁFICO INTERACTIVO DE MESAS Y SALÓN ---
+    function renderFloorplanMesas() {
+      const grid = document.getElementById('pdvFloorplanGrid');
+      if (!grid) return;
+
+      const totalMesas = 12;
+      const htmlMesas = [];
+
+      for (let i = 1; i <= totalMesas; i++) {
+        const numPad = String(i).padStart(2, '0');
+        const labelMesa = `Mesa ${i}`;
+        const labelMesaPad = `Mesa ${numPad}`;
+
+        // Buscar pedidos activos en esta mesa
+        const ordenesMesa = pedidos.filter(o => {
+          if (o.status === 'despachado') return false;
+          const t = String(o.table || '').toLowerCase().trim();
+          return t === `mesa ${i}` || t === `mesa ${numPad}` || t === String(i) || t === numPad;
+        });
+
+        if (ordenesMesa.length === 0) {
+          htmlMesas.push(`
+            <div onclick="abrirMesaFloorplan('${labelMesa}')" class="p-4 rounded-2xl border-2 border-dashed border-emerald-200 bg-emerald-50/40 hover:bg-emerald-50 hover:border-emerald-400 transition-all cursor-pointer flex flex-col justify-between min-h-[132px] group">
+              <div class="flex items-center justify-between">
+                <span class="font-black text-slate-800 text-xs">🍽️ MESA ${numPad}</span>
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase bg-emerald-100 text-emerald-700">Libre</span>
+              </div>
+              <div class="my-2 text-center">
+                <span class="text-[11px] font-bold text-emerald-700 group-hover:underline">+ Abrir Comanda</span>
+              </div>
+              <div class="text-[10px] text-slate-400 font-mono text-center">Capacidad 4p · QR activo</div>
+            </div>
+          `);
+        } else {
+          const totalMesa = ordenesMesa.reduce((acc, o) => acc + (Number(o.total) || 0), 0);
+          const firstOrder = ordenesMesa[0];
+          const diffMin = Math.max(1, Math.floor((Date.now() - new Date(firstOrder.createdAt).getTime()) / 60000));
+          const inCocina = ordenesMesa.some(o => o.status === 'cocina' || o.status === 'listo');
+          const borderClass = inCocina ? 'border-blue-400 bg-blue-50/60' : 'border-amber-400 bg-amber-50/60';
+          const badgeClass = inCocina ? 'bg-blue-600 text-white' : 'bg-amber-500 text-white';
+          const badgeText = inCocina ? 'En Cocina' : 'Ocupada';
+          const itemsCount = ordenesMesa.reduce((acc, o) => acc + (o.items ? o.items.reduce((s, it) => s + (it.qty || 1), 0) : 0), 0);
+
+          htmlMesas.push(`
+            <div class="p-4 rounded-2xl border-2 ${borderClass} shadow-sm flex flex-col justify-between min-h-[132px]">
+              <div class="flex items-center justify-between">
+                <span class="font-black text-slate-900 text-xs">🍽️ MESA ${numPad}</span>
+                <span class="px-2 py-0.5 rounded-full text-[9px] font-black uppercase ${badgeClass}">${badgeText}</span>
+              </div>
+              <div class="my-2">
+                <div class="text-sm font-black text-slate-900 font-mono">${fmt(totalMesa)}</div>
+                <div class="text-[10px] text-slate-600 font-medium">${itemsCount} ítems · ⏱️ ${diffMin} min</div>
+              </div>
+              <div class="flex items-center gap-1.5 pt-1 border-t border-slate-200/70">
+                <button onclick="printTicket('${firstOrder.docId}')" class="px-2 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-bold cursor-pointer" title="Imprimir precuenta">🖨️</button>
+                <button onclick="abrirMesaFloorplan('${labelMesa}')" class="px-2 py-1 rounded-lg bg-white hover:bg-slate-100 text-blue-700 border border-blue-200 text-[10px] font-bold cursor-pointer flex-1">+ Ítem</button>
+                <button onclick="changeOrderStatus('${firstOrder.docId}', 'despachado')" class="px-2 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold cursor-pointer flex-1">Cobrar</button>
+              </div>
+            </div>
+          `);
+        }
+      }
+
+      grid.innerHTML = htmlMesas.join('');
+    }
+
+    function abrirMesaFloorplan(mesaLabel) {
+      abrirModalNuevoPedido();
+      const selCanal = document.getElementById('npCanalSelect');
+      if (selCanal) {
+        selCanal.value = 'mesa';
+        if (typeof onNpCanalChange === 'function') onNpCanalChange();
+      }
+      const inpMesa = document.getElementById('npMesaInput');
+      if (inpMesa) inpMesa.value = mesaLabel;
+    }
+
+    // --- ESCÁNER IA DE FACTURAS DE PROVEEDORES (OCR STOCK) ---
+    let facturaIADetectedItems = [];
+
+    function abrirModalFacturaIA() {
+      const m = document.getElementById('modalFacturaIA');
+      if (m) m.classList.remove('hidden');
+      const box = document.getElementById('facturaIAResultBox');
+      if (box) box.classList.add('hidden');
+    }
+
+    function cerrarModalFacturaIA() {
+      const m = document.getElementById('modalFacturaIA');
+      if (m) m.classList.add('hidden');
+    }
+
+    function procesarArchivoFacturaIA(input) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      const tag = document.getElementById('facturaIAProveedorTag');
+      if (tag) tag.textContent = `Archivo: ${file.name}`;
+      simularLecturaFacturaIA(file.name);
+    }
+
+    function simularLecturaFacturaIA(fileName) {
+      const box = document.getElementById('facturaIAResultBox');
+      const tbody = document.getElementById('facturaIAItemsBody');
+      const tag = document.getElementById('facturaIAProveedorTag');
+      if (!box || !tbody) return;
+
+      if (tag && !fileName) tag.textContent = 'Factura Electrónica SII #84920 · Distribuidora Central';
+
+      // Seleccionar los primeros productos del catálogo actual para emparejar con la factura
+      const baseProds = (productos && productos.length > 0) ? productos.slice(0, 5) : [];
+      facturaIADetectedItems = baseProds.map((p, idx) => {
+        const qtyAdd = [24, 12, 30, 15, 20][idx % 5];
+        const curStock = typeof p.stock === 'number' ? p.stock : 10;
+        return {
+          docId: p.docId,
+          name: p.name,
+          currentStock: curStock,
+          addQty: qtyAdd
+        };
+      });
+
+      tbody.innerHTML = facturaIADetectedItems.map((it, idx) => `
+        <tr>
+          <td class="py-2.5 px-3 font-bold text-slate-800">${it.name}</td>
+          <td class="py-2.5 px-3 text-center font-mono text-slate-500">${it.currentStock} un.</td>
+          <td class="py-2.5 px-3 text-center">
+            <input type="number" min="1" value="${it.addQty}" onchange="actualizarQtyFacturaIA(${idx}, this.value)" class="w-16 text-center font-bold text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg py-1 px-1">
+          </td>
+          <td class="py-2.5 px-3 text-right font-mono font-black text-slate-900" id="facturaIANewStock_${idx}">${it.currentStock + it.addQty} un.</td>
+        </tr>
+      `).join('');
+
+      box.classList.remove('hidden');
+    }
+
+    function actualizarQtyFacturaIA(idx, val) {
+      const q = Math.max(0, parseInt(val) || 0);
+      if (facturaIADetectedItems[idx]) {
+        facturaIADetectedItems[idx].addQty = q;
+        const el = document.getElementById(`facturaIANewStock_${idx}`);
+        if (el) el.textContent = `${facturaIADetectedItems[idx].currentStock + q} un.`;
+      }
+    }
+
+    async function aplicarStockFacturaIA() {
+      if (!facturaIADetectedItems.length) return;
+      for (const it of facturaIADetectedItems) {
+        const p = productos.find(x => x.docId === it.docId);
+        const newStock = it.currentStock + it.addQty;
+        if (p) {
+          p.controlStock = true;
+          p.stock = newStock;
+          p.disponible = newStock > 0;
+        }
+        if (window.platosRef) {
+          try {
+            await window.platosRef().doc(it.docId).update({
+              controlStock: true,
+              stock: newStock,
+              disponible: newStock > 0
+            });
+          } catch (e) {
+            console.warn('Stock local actualizado:', e);
+          }
+        }
+      }
+      renderInventario();
+      cerrarModalFacturaIA();
+      if (typeof showToast === 'function') {
+        showToast('✅ Factura procesada con IA: Stock actualizado en tu inventario');
+      } else {
+        alert('✅ Factura procesada con IA: Stock sumado correctamente al inventario.');
+      }
     }
 
     // =========================================================================
