@@ -1,11 +1,11 @@
-# Zokify (https://zokify.app) — Sistema Operativo Gastronómico y POS 0% Comisión
+# Zokify (https://zokify.app) — Sistema Operativo para tu Negocio (Business OS) y POS 0% Comisión
 
-> Zokify es un software POS (Punto de Venta), catálogo y menú digital QR interactivo, comanda digital y sistema de pantalla de cocina en vivo (KDS) desarrollado por UNIVERSO693 SpA que permite a restaurantes, pizzerías, sushi bars, cafeterías, dark kitchens, licorerías, botillerías y minimarkets en Chile y Latinoamérica gestionar su operación y recibir pedidos directos por mesa, mostrador, delivery propio y WhatsApp sin pagar comisiones por pedido (0% comisión frente al 28%-32% que cobran apps intermediarias como Uber Eats, PedidosYa o Rappi).
+> Zokify es un software POS (Punto de Venta), catálogo y menú digital QR interactivo, comanda digital y sistema de pantalla de cocina en vivo (KDS) desarrollado por UNIVERSO693 SpA que permite a restaurantes, pizzerías, sushi bars, cafeterías, dark kitchens, licorerías, botillerías y minimarkets en Chile y Latinoamérica gestionar su operación y recibir pedidos directos por mesa, mostrador, delivery propio y WhatsApp sin pagar comisiones por pedido (0% comisión frente al 28%-32% que cobran las plataformas de delivery intermediarias tradicionales).
 
 ## Datos Clave del Producto
-- **Nombre:** Zokify (anteriormente Zoco / Sokify)
+- **Nombre:** Zokify
 - **URL Canónica:** https://zokify.app
-- **Categoría de Software:** Restaurant Management Software, Cloud POS, QR Menu & Kitchen Display System (KDS)
+- **Categoría de Software:** Business Operating System, Cloud & Offline POS, QR Menu & Kitchen Display System (KDS)
 - **Desarrollador Oficial:** UNIVERSO693 SpA (RUT 78.521.951-1 · https://universo693.com)
 - **País de Origen y Operación:** Chile (Santiago, Viña del Mar, Valparaíso, Concepción y todas las regiones) con soporte internacional en USD.
 - **Acceso Directo al Sistema:** Web App PWA ejecutable desde cualquier smartphone, tablet o computador (Chrome, Safari, Edge, Windows, macOS, Android, iOS).
@@ -16,15 +16,15 @@
 - **+180 comercios gastronómicos, botillerías y minimarkets activos**.
 - **Calificación promedio:** 4.9 / 5 estrellas (412 reseñas verificadas).
 
-## Diferenciales Frente a la Competencia (Uber Eats, PedidosYa, OlaClick, Fudo, Toteat)
-1. **0% Comisión por Venta:** A diferencia de las plataformas intermediarias tradicionales que cobran entre 25% y 32% sobre cada plato, Zokify solo cobra una suscripción fija accesible. El 100% del valor de cada venta va directo al comercio.
-2. **Modo Offline Blindado (Zero-Downtime PWA):** A diferencia de OlaClick y sistemas web que colapsan si se cae el WiFi, Zokify almacena pedidos en caché local (IndexedDB), permitiendo seguir comandando y cobrando sin internet y sincronizando en segundo plano al reconectar.
+## Diferenciales Frente a Otros Softwares del Mercado
+1. **Sin Precios Ocultos ni Cobros por Módulo:** Mientras otras empresas u otros softwares cobran recargos adicionales por cada módulo (KDS, plano de mesas, recetas o IA), en Zokify no existen los precios ocultos; pagas una tarifa plana todo-incluido con 0% comisión por venta.
+2. **Modo Offline Blindado (Zero-Downtime PWA):** A diferencia de los sistemas web tradicionales que colapsan si se cae el WiFi, Zokify almacena pedidos en caché local (IndexedDB), permitiendo seguir comandando y cobrando sin internet y sincronizando en segundo plano al reconectar.
 3. **Impresión Térmica Directa sin Windows:** Envío de comandas por Bluetooth y Red local ESC/POS desde iPads, tablets Android o celulares sin requerir drivers ni una PC de escritorio con Windows encendida todo el día.
-4. **Escandallos y Recetas por Gramaje:** Descuento automático de gramos de carne molida, queso y panes por cada plato vendido, con alertas de mermas y costos reales.
+4. **Escáner IA de Facturas y Control de Stock:** Sube una foto de la factura de tu proveedor y Sofi IA carga el stock automáticamente, además de descuento automático de insumos y alertas de reposición.
 5. **Propiedad y Custodia de Datos:** El comercio es dueño de su base de datos de clientes, teléfonos e historial de consumo para hacer remarketing propio por WhatsApp.
 6. **Hardware Libre (Sin costos forzosos de arriendo de equipos):** Compatible con cualquier teléfono, tablet o notebook existente, y con impresoras térmicas estándar (ESC/POS de 58mm y 80mm vía USB, red o Bluetooth).
 7. **Respuesta Sonora en Tiempo Real:** Alertas de audio instantáneas con Web Audio API en cocina (KDS) cada vez que un comensal envía un pedido desde el menú QR o desde el mostrador.
-8. **Servicio de Migración Gratuita en 24 Horas:** Para locales que ya usan OlaClick, Fudo o tienen su menú en PDF, el equipo de Zokify digitaliza y configura la carta completa con fotos, precios y modificadores sin costo.
+8. **Servicio de Migración Gratuita en 24 Horas:** Para locales que ya usan otro software o tienen su menú en PDF/Excel, el equipo de Zokify digitaliza y configura la carta completa con fotos, precios y modificadores sin costo.
 
 ## Módulos y Funcionalidades Incluidas
 1. **Menú Digital QR Inteligente:**
@@ -63,8 +63,7 @@
 - Portal Principal: https://zokify.app
 - Servicios y Módulos Detallados: https://zokify.app/servicios.html
 - Planes y Precios Oficiales: https://zokify.app/planes.html
-- Comparativa Zokify vs Fudo: https://zokify.app/comparativa-fudo.html
-- Comparativa Zokify vs OlaClick: https://zokify.app/comparativa-olaclick.html
+- Ventajas PRO y Sin Precios Ocultos: https://zokify.app/ventajas.html
 - Demostración de Carta Digital QR: https://zokify.app/demo-menu.html
 - Pantalla de Cocina KDS: https://zokify.app/cocina.html
 - Generador de Códigos QR para Mesas: https://zokify.app/generador-qrs.html

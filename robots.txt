@@ -4,8 +4,7 @@ Allow: /
 Allow: /index.html
 Allow: /planes.html
 Allow: /servicios.html
-Allow: /comparativa-fudo.html
-Allow: /comparativa-olaclick.html
+Allow: /ventajas.html
 Allow: /generador-qrs.html
 Allow: /demo-menu.html
 Allow: /menu.html
