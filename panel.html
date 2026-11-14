@@ -37,7 +37,7 @@
               700: '#6D28D9',
               900: '#4C1D95',
             },
-            sidebar: '#0F172A',
+            sidebar: '#FFFFFF',
             surface: '#FFFFFF',
             canvas: '#F8FAFC',
             borderLight: '#E2E8F0',
@@ -105,29 +105,33 @@
 <body class="bg-canvas text-slate-800 antialiased min-h-screen font-sans selection:bg-brand-600 selection:text-white flex flex-col md:flex-row overflow-x-hidden">
 
   <!-- ========================================================================= -->
-  <!-- CANDADO DE ACCESO / LOGIN -->
+  <!-- CANDADO DE ACCESO / LOGIN (LUMINOSO Y ALINEADO CON LANDING INDEX.HTML) -->
   <!-- ========================================================================= -->
-  <div id="loginGate" class="fixed inset-0 z-[999] bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="w-full max-w-sm bg-white rounded-3xl p-8 space-y-4 shadow-elevated border border-slate-100">
+  <div id="loginGate" class="fixed inset-0 z-[999] bg-gradient-to-br from-violet-50/95 via-slate-50 to-purple-50/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <!-- Ambient glow decorativo Zokify -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative w-full max-w-sm bg-white rounded-3xl p-8 space-y-4 shadow-xl border border-slate-200/80">
       <div class="text-center space-y-1.5 mb-2">
         <div class="w-16 h-16 mx-auto rounded-2xl bg-white border border-slate-100 shadow-sm p-2 flex items-center justify-center">
           <img src="assets/zokify-avatar.png" alt="Zokify Logo" class="w-full h-full object-contain">
         </div>
-        <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">Zokify</h2>
+        <h2 class="text-2xl font-black text-slate-950 tracking-tight">Zokify</h2>
         <p class="text-xs text-slate-500 font-medium" id="loginBrandLabel">Gestión Integral para Restaurantes & Comercios</p>
       </div>
       <form id="loginForm" class="space-y-3.5">
         <div>
-          <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Correo Administrador</label>
-          <input id="loginEmail" type="email" required placeholder="admin@tulocal.cl" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all" />
+          <label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider block mb-1">Correo Administrador</label>
+          <input id="loginEmail" type="email" required placeholder="admin@tulocal.cl" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white focus:ring-4 focus:ring-brand-500/10 transition-all" />
         </div>
         <div>
           <div class="flex items-center justify-between mb-1">
-            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Contraseña</label>
+            <label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Contraseña</label>
             <button type="button" onclick="recuperarContrasenaLogin()" class="text-[10px] text-brand-600 hover:underline font-bold cursor-pointer">¿Olvidaste tu contraseña?</button>
           </div>
           <div class="relative">
-            <input id="loginPass" type="password" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-3.5 pr-10 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all" />
+            <input id="loginPass" type="password" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-3.5 pr-10 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-brand-600 focus:bg-white focus:ring-4 focus:ring-brand-500/10 transition-all" />
             <button type="button" onclick="toggleMostrarPasswordLogin()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 transition-colors cursor-pointer" title="Mostrar u ocultar contraseña">
               <span id="eyeIconLogin" class="flex items-center">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -136,12 +140,12 @@
           </div>
         </div>
         <p id="loginError" class="hidden text-xs text-red-600 font-bold bg-red-50 p-2.5 rounded-xl border border-red-200 leading-relaxed"></p>
-        <button id="btnLoginSubmit" type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs tracking-wide shadow-lg shadow-brand-600/30 transition-all cursor-pointer">
+        <button id="btnLoginSubmit" type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs tracking-wide shadow-md shadow-brand-500/25 transition-all cursor-pointer">
           Ingresar al Panel
         </button>
       </form>
       <div class="pt-2 text-center text-xs space-y-2">
-        <a href="/#probar" class="text-brand-600 font-bold hover:underline block">
+        <a href="/#probar" class="text-brand-600 font-extrabold hover:text-brand-700 hover:underline block">
           ¿No tienes cuenta? Regístrate y obtén 3 Meses Gratis &rarr;
         </a>
         <p class="text-[11px] text-slate-400">Software de Gestión y Ventas Zokify · Acceso Seguro</p>
@@ -160,53 +164,53 @@
     <!-- --------------------------------------------------------------------- -->
     <!-- 1. SIDEBAR LATERAL PROFESIONAL (ESTRUCTURA TIPO SAAS / ZOKIFY) -->
     <!-- --------------------------------------------------------------------- -->
-    <aside id="mainSidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-sidebar text-slate-300 z-50 flex flex-col transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0 md:sticky md:top-0 md:h-screen shrink-0 border-r border-slate-800 overflow-hidden">
+    <aside id="mainSidebar" class="fixed top-0 bottom-0 left-0 w-64 bg-white text-slate-700 z-50 flex flex-col transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0 md:sticky md:top-0 md:h-screen shrink-0 border-r border-slate-200/80 overflow-hidden shadow-xs">
       
       <!-- HEADER DEL SIDEBAR: BRAND Y NOMBRE DEL LOCAL -->
       <div class="flex-1 min-h-0 flex flex-col">
-        <div class="p-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between shrink-0">
           <div class="flex items-center gap-3">
-            <img src="assets/zokify-avatar.png" alt="Zokify" class="w-10 h-10 rounded-full object-contain shadow-md shadow-purple-950/40 ring-2 ring-white/20">
+            <img src="assets/zokify-avatar.png" alt="Zokify" class="w-10 h-10 rounded-full object-contain shadow-sm ring-1 ring-slate-200">
             <div class="overflow-hidden">
-              <h1 class="text-sm font-black text-white tracking-wide truncate">Zokify</h1>
-              <p id="restNameSidebar" class="text-[11px] text-slate-400 truncate font-semibold">La Brasa & Leña</p>
+              <h1 class="text-sm font-black text-slate-950 tracking-wide truncate">Zokify</h1>
+              <p id="restNameSidebar" class="text-[11px] text-slate-500 truncate font-semibold">La Brasa & Leña</p>
             </div>
           </div>
-          <button onclick="toggleSidebar(false)" class="md:hidden text-slate-400 hover:text-white p-1">
+          <button onclick="toggleSidebar(false)" class="md:hidden text-slate-400 hover:text-slate-700 p-1">
             ✕
           </button>
         </div>
 
-                        <!-- LISTA DE NAVEGACIÓN PRINCIPAL -->
+        <!-- LISTA DE NAVEGACIÓN PRINCIPAL -->
         <nav class="p-3 space-y-1 flex-1 min-h-0 overflow-y-auto overscroll-contain">
 
           <!-- GUÍA DE CONFIGURACIÓN (PROGRESO) -->
-          <button id="btnGuiaSidebar" data-tab="guia" onclick="switchTab('guia')" class="nav-btn w-full text-left p-3 mb-2 rounded-2xl border border-dashed border-brand-500/60 bg-brand-600/15 hover:bg-brand-600/25 transition-all cursor-pointer">
-            <div class="flex items-center justify-between text-xs font-black text-white">
-              <span>🦉 Plan de despegue</span>
-              <span id="guiaSidebarCount" class="text-[11px] text-brand-100">0/0</span>
+          <button id="btnGuiaSidebar" data-tab="guia" onclick="switchTab('guia')" class="nav-btn w-full text-left p-3 mb-2 rounded-2xl border border-brand-200 bg-brand-50/70 hover:bg-brand-100/70 transition-all cursor-pointer shadow-xs">
+            <div class="flex items-center justify-between text-xs font-black text-slate-900">
+              <span class="flex items-center gap-1.5"><span>🦉</span> <span>Plan de despegue</span></span>
+              <span id="guiaSidebarCount" class="text-[11px] text-brand-700 font-extrabold">0/0</span>
             </div>
-            <div class="mt-2 h-1.5 rounded-full bg-slate-700 overflow-hidden">
-              <div id="guiaSidebarBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-brand-500 transition-all duration-500" style="width:0%"></div>
+            <div class="mt-2 h-1.5 rounded-full bg-slate-200 overflow-hidden">
+              <div id="guiaSidebarBar" class="h-full rounded-full bg-gradient-to-r from-emerald-500 to-brand-600 transition-all duration-500" style="width:0%"></div>
             </div>
           </button>
           
           <!-- SECCIÓN: OPERACIONES -->
-          <div class="px-3 pt-1 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Operaciones en Vivo</div>
+          <div class="px-3 pt-1 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Operaciones en Vivo</div>
 
           <!-- PEDIDOS PDV -->
-          <button onclick="switchTab('pedidos')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="pedidos">
+          <button onclick="switchTab('pedidos')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="pedidos">
             <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/><path d="M11 16h-3"/></svg>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-8"/><path d="M16 12h-8"/><path d="M11 16h-3"/></svg>
               <span>Pedidos PDV</span>
             </div>
-            <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-mono font-bold">Caja</span>
+            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono font-bold">Caja</span>
           </button>
 
           <!-- COCINA KDS -->
-          <button onclick="switchTab('cocina')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="cocina">
+          <button onclick="switchTab('cocina')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="cocina">
             <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" x2="18" y1="17" y2="17"/></svg>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" x2="18" y1="17" y2="17"/></svg>
               <span>Cocina (KDS)</span>
             </div>
             <span id="badgeKdsCount" class="text-[10px] bg-amber-500 text-slate-950 px-2 py-0.5 rounded-full font-mono font-black animate-pulse">0</span>
@@ -214,63 +218,63 @@
 
           <!-- VENTAS -->
           <div class="space-y-0.5">
-            <button onclick="toggleVentasSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="ventas">
+            <button onclick="toggleVentasSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="ventas">
               <div class="flex items-center gap-3">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
                 <span>Ventas</span>
               </div>
-              <span id="ventasArrow" class="text-slate-400 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              <span id="ventasArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div id="ventasSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-800 ml-4">
-              <button onclick="switchTab('ventas', 'historial')" class="ventas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="historial">
+            <div id="ventasSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
+              <button onclick="switchTab('ventas', 'historial')" class="ventas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="historial">
                 Historial de pedidos
               </button>
-              <button onclick="switchTab('ventas', 'cajas')" class="ventas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="cajas">
+              <button onclick="switchTab('ventas', 'cajas')" class="ventas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="cajas">
                 Cajas
               </button>
-              <button onclick="switchTab('ventas', 'reportes')" class="ventas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="reportes">
+              <button onclick="switchTab('ventas', 'reportes')" class="ventas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="reportes">
                 Reportes
               </button>
             </div>
           </div>
 
           <!-- SECCIÓN: CATÁLOGO & GESTIÓN -->
-          <div class="px-3 pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Catálogo & Gestión</div>
+          <div class="px-3 pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Catálogo & Gestión</div>
 
           <!-- MENÚ -->
           <div class="space-y-0.5">
-            <button onclick="toggleMenuSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="productos">
+            <button onclick="toggleMenuSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="productos">
               <div class="flex items-center gap-3">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                 <span>Menú</span>
               </div>
               <div class="flex items-center gap-2">
-                <span id="badgePlatosCount" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-mono">0</span>
-                <span id="menuArrow" class="text-slate-400 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+                <span id="badgePlatosCount" class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono">0</span>
+                <span id="menuArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
               </div>
             </button>
-            <div id="menuSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-800 ml-4">
-              <button onclick="switchTab('productos')" class="menu-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="productos">
+            <div id="menuSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
+              <button onclick="switchTab('productos')" class="menu-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="productos">
                 Página de productos
               </button>
-              <button onclick="switchTab('bienvenida')" class="menu-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="bienvenida">
+              <button onclick="switchTab('bienvenida')" class="menu-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="bienvenida">
                 Página de bienvenida
               </button>
             </div>
           </div>
 
           <!-- CATEGORÍAS -->
-          <button onclick="switchTab('categorias')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="categorias">
+          <button onclick="switchTab('categorias')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="categorias">
             <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
               <span>Categorías</span>
             </div>
           </button>
 
           <!-- INVENTARIO -->
-          <button onclick="switchTab('inventario')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="inventario">
+          <button onclick="switchTab('inventario')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="inventario">
             <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
               <span>Inventario</span>
             </div>
             <span id="badgeInventarioAlerta" class="hidden text-[10px] bg-red-500 text-white px-2 py-0.5 rounded-full font-mono font-bold animate-pulse">0</span>
@@ -278,101 +282,101 @@
 
           <!-- MÓDULO FINANCIERO -->
           <div class="space-y-0.5">
-            <button onclick="toggleFinanzasSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="finanzas">
+            <button onclick="toggleFinanzasSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="finanzas">
               <div class="flex items-center gap-3">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
                 <span>Módulo Financiero</span>
               </div>
-              <span id="finanzasArrow" class="text-slate-400 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              <span id="finanzasArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div id="finanzasSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-800 ml-4">
-              <button onclick="switchTab('finanzas', 'registros')" class="finanzas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="registros">
+            <div id="finanzasSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
+              <button onclick="switchTab('finanzas', 'registros')" class="finanzas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="registros">
                 Registros financieros
               </button>
-              <button onclick="switchTab('finanzas', 'cuentas')" class="finanzas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="cuentas">
+              <button onclick="switchTab('finanzas', 'cuentas')" class="finanzas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="cuentas">
                 Cuentas
               </button>
             </div>
           </div>
 
           <!-- SECCIÓN: CRECIMIENTO & MARKETING -->
-          <div class="px-3 pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Crecimiento & Clientes</div>
+          <div class="px-3 pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Crecimiento & Clientes</div>
 
           <!-- CHATBOT WHATSAPP -->
-          <button onclick="switchTab('chatbot')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="chatbot">
+          <button onclick="switchTab('chatbot')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="chatbot">
             <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
               <span>Chatbot IA</span>
             </div>
-            <span id="badgeChatbotStatus" class="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">Auto</span>
+            <span id="badgeChatbotStatus" class="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">Auto</span>
           </button>
 
           <!-- CLIENTES CRM -->
-          <button onclick="switchTab('clientes')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="clientes">
+          <button onclick="switchTab('clientes')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="clientes">
             <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               <span>Clientes (CRM)</span>
             </div>
           </button>
 
           <!-- MARKETING -->
           <div class="space-y-0.5">
-            <button onclick="toggleMarketingSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="marketing">
+            <button onclick="toggleMarketingSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="marketing">
               <div class="flex items-center gap-3">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
                 <span>Marketing</span>
               </div>
-              <span id="marketingArrow" class="text-slate-400 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              <span id="marketingArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div id="marketingSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-800 ml-4">
-              <button onclick="switchTab('marketing', 'codigos')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="codigos">
+            <div id="marketingSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
+              <button onclick="switchTab('marketing', 'codigos')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="codigos">
                 Códigos de descuento
               </button>
-              <button onclick="switchTab('marketing', 'fidelidad')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="fidelidad">
+              <button onclick="switchTab('marketing', 'fidelidad')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="fidelidad">
                 Programa de fidelidad
               </button>
-              <button onclick="switchTab('marketing', 'envio-masivo')" class="marketing-sub-btn w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="envio-masivo">
+              <button onclick="switchTab('marketing', 'envio-masivo')" class="marketing-sub-btn w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="envio-masivo">
                 <span>Envío masivo</span>
-                <span class="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.2 rounded font-bold inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>IA</span>
+                <span class="text-[9px] bg-brand-50 text-brand-700 border border-brand-200 px-1.5 py-0.2 rounded font-bold inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>IA</span>
               </button>
-              <button onclick="switchTab('marketing', 'google')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="google">
+              <button onclick="switchTab('marketing', 'google')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="google">
                 Google for Restaurants
               </button>
-              <button onclick="switchTab('marketing', 'resenas')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="resenas">
+              <button onclick="switchTab('marketing', 'resenas')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="resenas">
                 Reseñas
               </button>
-              <button onclick="switchTab('marketing', 'rastreo')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="rastreo">
+              <button onclick="switchTab('marketing', 'rastreo')" class="marketing-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="rastreo">
                 Herramientas de rastreo
               </button>
             </div>
           </div>
 
           <!-- SECCIÓN: SISTEMA & AJUSTES -->
-          <div class="px-3 pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Sistema & Ajustes</div>
+          <div class="px-3 pt-3 pb-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Sistema & Ajustes</div>
 
           <!-- CONFIGURACIONES -->
           <div class="space-y-0.5">
-            <button onclick="toggleConfiguracionesSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="configuraciones">
+            <button onclick="toggleConfiguracionesSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="configuraciones">
               <div class="flex items-center gap-3">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                 <span>Configuraciones</span>
               </div>
-              <span id="configuracionesArrow" class="text-slate-400 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              <span id="configuracionesArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div id="configuracionesSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-800 ml-4">
-              <button onclick="switchTab('configuraciones', 'general')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="general">
+            <div id="configuracionesSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
+              <button onclick="switchTab('configuraciones', 'general')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="general">
                 Configuración general
               </button>
-              <button onclick="switchTab('configuraciones', 'pagos')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="pagos">
+              <button onclick="switchTab('configuraciones', 'pagos')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="pagos">
                 Métodos de pago
               </button>
-              <button onclick="switchTab('configuraciones', 'negocio')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="negocio">
+              <button onclick="switchTab('configuraciones', 'negocio')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="negocio">
                 Información del negocio
               </button>
-              <button onclick="switchTab('configuraciones', 'equipo')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="equipo">
+              <button onclick="switchTab('configuraciones', 'equipo')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="equipo">
                 Equipo y roles
               </button>
-              <button onclick="switchTab('configuraciones', 'impresoras')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="impresoras">
+              <button onclick="switchTab('configuraciones', 'impresoras')" class="config-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="impresoras">
                 Impresoras y tickets
               </button>
             </div>
@@ -380,29 +384,29 @@
 
           <!-- INTEGRACIONES -->
           <div class="space-y-0.5">
-            <button onclick="toggleIntegracionesSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white" data-tab="integraciones">
+            <button onclick="toggleIntegracionesSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="integraciones">
               <div class="flex items-center gap-3">
-                <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>
                 <span>Integraciones</span>
               </div>
-              <span id="integracionesArrow" class="text-slate-400 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+              <span id="integracionesArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
-            <div id="integracionesSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-800 ml-4">
-              <button onclick="switchTab('integraciones', 'mcp')" class="integ-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="mcp">
+            <div id="integracionesSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
+              <button onclick="switchTab('integraciones', 'mcp')" class="integ-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="mcp">
                 Asistentes de IA / MCP
               </button>
-              <button onclick="switchTab('integraciones', 'partners')" class="integ-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="partners">
+              <button onclick="switchTab('integraciones', 'partners')" class="integ-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="partners">
                 Partners
               </button>
-              <button onclick="switchTab('integraciones', 'api')" class="integ-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-colors cursor-pointer" data-subtab="api">
+              <button onclick="switchTab('integraciones', 'api')" class="integ-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="api">
                 API Keys
               </button>
             </div>
           </div>
 
           <!-- ZOKIFY APP STORE -->
-          <button onclick="switchTab('appstore')" class="nav-btn group w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-300 hover:bg-slate-800/80 hover:text-white cursor-pointer" data-tab="appstore">
-            <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2"/></svg>
+          <button onclick="switchTab('appstore')" class="nav-btn group w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950 cursor-pointer" data-tab="appstore">
+            <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2"/></svg>
             <span>Zokify App Store</span>
           </button>
 
@@ -410,25 +414,25 @@
       </div>
 
       <!-- FOOTER DEL SIDEBAR: ESTADO DEL MENÚ EN VIVO + ACCESOS RÁPIDOS -->
-      <div class="p-3 border-t border-slate-800 space-y-2 bg-slate-950/40 shrink-0">
+      <div class="p-3 border-t border-slate-100 space-y-2 bg-slate-50/70 shrink-0">
         
         <!-- BANNER REFERIDOS / COMPARTIR Y GANAR (TIPO ZOKIFY US$ 20) -->
-        <button onclick="switchTab('referidos')" class="nav-btn w-full text-left p-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black shadow-lg shadow-orange-500/20 transition-all cursor-pointer group" data-tab="referidos">
+        <button onclick="switchTab('referidos')" class="nav-btn w-full text-left p-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black shadow-md shadow-orange-500/15 transition-all cursor-pointer group" data-tab="referidos">
           <div class="flex items-center gap-1.5 text-xs">
             <svg class="w-3.5 h-3.5 text-amber-200 fill-amber-200" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             <span class="tracking-wide">US$ 20</span>
           </div>
-          <div class="text-[10px] font-medium text-white/90 group-hover:text-white leading-tight mt-0.5">
+          <div class="text-[10px] font-medium text-white/95 group-hover:text-white leading-tight mt-0.5">
             Indicando a Zokify en segundos
           </div>
         </button>
 
         <!-- PILL OPERATIVO DEL MENÚ DIGITAL -->
-        <button id="storePillBtn" onclick="abrirModalHorariosMenuDigital()" class="w-full bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-2xl px-3.5 py-2.5 flex items-center justify-between transition-all cursor-pointer text-left shadow-sm">
+        <button id="storePillBtn" onclick="abrirModalHorariosMenuDigital()" class="w-full bg-white hover:bg-slate-50 border border-slate-200/90 rounded-2xl px-3.5 py-2.5 flex items-center justify-between transition-all cursor-pointer text-left shadow-xs">
           <div class="flex items-center gap-2 overflow-hidden">
             <span id="storeStatusDot" class="w-2 h-2 rounded-full bg-red-500 shrink-0"></span>
-            <span class="text-xs font-bold text-white truncate">
-              Menú Digital: <span id="storeStatusText" class="text-slate-300">Cerrado</span>
+            <span class="text-xs font-bold text-slate-800 truncate">
+              Menú Digital: <span id="storeStatusText" class="text-slate-500">Cerrado</span>
             </span>
           </div>
           <svg class="w-3.5 h-3.5 text-slate-400 ml-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
@@ -436,28 +440,28 @@
 
         <!-- ENLACES RÁPIDOS (VISTA PREVIA Y QR Y ENLACES) -->
         <div class="grid grid-cols-2 gap-2 pt-0.5">
-          <button type="button" onclick="abrirModalVistaPrevia()" class="group flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-all text-center cursor-pointer">
-            <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          <button type="button" onclick="abrirModalVistaPrevia()" class="group flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 hover:text-slate-950 transition-all text-center cursor-pointer shadow-xs">
+            <svg class="w-4 h-4 text-slate-400 group-hover:text-brand-600 transition-colors mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
             <span class="text-[10px] font-bold mt-0.5">Vista previa</span>
           </button>
-          <button type="button" onclick="switchTab('qrenlaces')" class="nav-btn group flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition-all text-center cursor-pointer" data-tab="qrenlaces">
-            <svg class="w-4 h-4 text-slate-400 group-hover:text-white transition-colors mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+          <button type="button" onclick="switchTab('qrenlaces')" class="nav-btn group flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200/90 text-slate-700 hover:text-slate-950 transition-all text-center cursor-pointer shadow-xs" data-tab="qrenlaces">
+            <svg class="w-4 h-4 text-slate-400 group-hover:text-brand-600 transition-colors mb-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
             <span class="text-[10px] font-bold mt-0.5">QR y enlaces</span>
           </button>
         </div>
 
         <!-- BOTÓN INSTALAR PWA ESCRITORIO -->
-        <button type="button" onclick="descargarAppEscritorio()" class="w-full flex items-center justify-between py-2 px-3 rounded-xl bg-gradient-to-r from-blue-900/60 to-indigo-950/60 hover:from-blue-800/80 hover:to-indigo-900/80 border border-blue-500/30 text-blue-200 hover:text-white transition-all text-xs font-bold cursor-pointer group shadow-sm">
+        <button type="button" onclick="descargarAppEscritorio()" class="w-full flex items-center justify-between py-2 px-3 rounded-xl bg-brand-50 hover:bg-brand-100 border border-brand-200/80 text-brand-700 transition-all text-xs font-bold cursor-pointer group shadow-xs">
           <div class="flex items-center gap-2">
-            <svg class="w-4 h-4 text-blue-300 group-hover:text-white group-hover:scale-110 transition-all shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+            <svg class="w-4 h-4 text-brand-600 group-hover:scale-110 transition-all shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
             <span>Instalar App PC</span>
           </div>
-          <span class="text-[9px] bg-blue-500/30 text-blue-300 px-1.5 py-0.5 rounded font-mono font-bold">PWA</span>
+          <span class="text-[9px] bg-brand-200/60 text-brand-800 px-1.5 py-0.5 rounded font-mono font-bold">PWA</span>
         </button>
 
         <!-- LOGOUT -->
-        <button onclick="cerrarSesionUsuario()" class="group w-full flex items-center justify-center gap-2 py-1.5 text-[11px] font-bold text-slate-500 hover:text-red-400 transition-colors cursor-pointer">
-          <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-red-400 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+        <button onclick="cerrarSesionUsuario()" class="group w-full flex items-center justify-center gap-2 py-1.5 text-[11px] font-bold text-slate-400 hover:text-red-500 transition-colors cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-red-500 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
           <span>Cerrar Sesión</span>
         </button>
       </div>
@@ -752,24 +756,24 @@
         <section id="tab-pedidos" class="panel-pane space-y-4">
           
           <!-- 1. AVISO SUPERIOR: CONTROL DE CAJA REGISTRADORA -->
-          <div id="cajaBanner" class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-lg border border-slate-700/50 transition-all">
+          <div id="cajaBanner" class="bg-amber-50/90 border border-amber-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs transition-all">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 text-amber-700 flex items-center justify-center shrink-0">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
               </div>
               <div>
-                <h4 id="cajaBannerTitle" class="text-xs font-black text-white">Tu caja está cerrada para este turno</h4>
-                <p id="cajaBannerSub" class="text-[11px] text-slate-300 mt-0.5">
+                <h4 id="cajaBannerTitle" class="text-xs font-black text-amber-950">Tu caja está cerrada para este turno</h4>
+                <p id="cajaBannerSub" class="text-[11px] text-amber-900 mt-0.5">
                   Abre tu caja con un monto inicial para registrar cobros y cuadrar tus ventas al final del día.
-                  <a href="javascript:void(0)" onclick="abrirModalCaja()" class="underline font-bold text-amber-400 hover:text-amber-300 ml-1">Abrir o cuadrar caja</a>
+                  <a href="javascript:void(0)" onclick="abrirModalCaja()" class="underline font-bold text-amber-950 hover:text-black ml-1">Abrir o cuadrar caja</a>
                 </p>
               </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <button onclick="abrirModalCaja()" id="btnCajaBannerAction" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black shadow-md cursor-pointer transition-all">
+              <button onclick="abrirModalCaja()" id="btnCajaBannerAction" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold shadow-sm shadow-brand-500/25 cursor-pointer transition-all">
                 Abrir caja
               </button>
-              <button onclick="document.getElementById('cajaBanner').classList.add('hidden')" class="text-slate-400 hover:text-white p-1 text-sm cursor-pointer" title="Cerrar aviso">
+              <button onclick="document.getElementById('cajaBanner').classList.add('hidden')" class="text-amber-700 hover:text-amber-950 p-1 text-sm cursor-pointer" title="Cerrar aviso">
                 ✕
               </button>
             </div>
@@ -9666,10 +9670,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       color: #1E293B;
     }
     .pdv-filter-chip.active {
-      background: #0F172A;
+      background: #7C3AED;
       color: #FFFFFF;
-      border-color: #0F172A;
-      box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.2);
+      border-color: #7C3AED;
+      box-shadow: 0 4px 12px -3px rgba(124, 58, 237, 0.35);
     }
     .nav-btn.active svg {
       color: #FFFFFF !important;
@@ -11585,13 +11589,13 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (sub === 'cocinas') {
         if (vCocinas) vCocinas.classList.remove('hidden');
         if (vImpresoras) vImpresoras.classList.add('hidden');
-        if (btnCocinas) btnCocinas.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-slate-900 text-white cursor-pointer shadow-xs';
+        if (btnCocinas) btnCocinas.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-brand-600 text-white cursor-pointer shadow-sm shadow-brand-500/25';
         if (btnImpresoras) btnImpresoras.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all text-slate-500 hover:text-slate-900 cursor-pointer';
         renderCocinasConfigList();
       } else {
         if (vCocinas) vCocinas.classList.add('hidden');
         if (vImpresoras) vImpresoras.classList.remove('hidden');
-        if (btnImpresoras) btnImpresoras.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-slate-900 text-white cursor-pointer shadow-xs';
+        if (btnImpresoras) btnImpresoras.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-brand-600 text-white cursor-pointer shadow-sm shadow-brand-500/25';
         if (btnCocinas) btnCocinas.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all text-slate-500 hover:text-slate-900 cursor-pointer';
         renderImpresorasConfig();
         renderMapeoCategoriasImpresoras();
@@ -18677,7 +18681,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
                     <div class="text-xs ${listo ? 'text-slate-400' : 'text-slate-500'} mt-0.5">${p.desc}</div>
                     ${!listo && p.btn ? `
                       <div class="mt-2 flex items-center gap-3">
-                        <button type="button" onclick="ejecutarPasoGuia('${p.key}')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold cursor-pointer transition-colors">${p.btn}</button>
+                        <button type="button" onclick="ejecutarPasoGuia('${p.key}')" class="px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-black cursor-pointer shadow-xs shadow-brand-500/20 transition-all">${p.btn}</button>
                         <button type="button" onclick="omitirPasoGuia('${p.key}', true)" class="text-[11px] font-semibold text-slate-400 hover:text-slate-600 cursor-pointer">Ahora no</button>
                       </div>` : ''}
                     ${p.omitido ? `<button type="button" onclick="omitirPasoGuia('${p.key}', false)" class="mt-1 text-[11px] font-bold text-brand-600 hover:text-brand-700 cursor-pointer">Retomar este paso</button>` : ''}
@@ -18836,18 +18840,18 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       [pillMcp, pillPartners, pillApi].forEach(p => {
         if (!p) return;
-        p.classList.remove('bg-slate-900', 'text-white', 'shadow-sm');
+        p.classList.remove('bg-brand-600', 'bg-slate-900', 'text-white', 'shadow-sm');
         p.classList.add('text-slate-600');
       });
 
       if (currentIntegracionesSubtab === 'mcp' && pillMcp) {
-        pillMcp.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+        pillMcp.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
         pillMcp.classList.remove('text-slate-600');
       } else if (currentIntegracionesSubtab === 'partners' && pillPartners) {
-        pillPartners.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+        pillPartners.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
         pillPartners.classList.remove('text-slate-600');
       } else if (currentIntegracionesSubtab === 'api' && pillApi) {
-        pillApi.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+        pillApi.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
         pillApi.classList.remove('text-slate-600');
       }
 
