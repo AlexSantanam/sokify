@@ -204,7 +204,7 @@
     <!-- Enlace al sistema de cocina (KDS): es una herramienta de staff, no de cliente, así que va discreto y aparte -->
     <div class="hidden sm:block border-t border-white/5">
       <div class="max-w-5xl mx-auto px-4 py-1 flex justify-end">
-        <a href="cocina.html" target="_blank" class="text-[10px] font-semibold text-stone-500 hover:text-amber-300 flex items-center gap-1 transition-colors cursor-pointer">
+        <a id="topStaffKdsLink" href="cocina.html" target="_blank" class="text-[10px] font-semibold text-stone-500 hover:text-amber-300 flex items-center gap-1 transition-colors cursor-pointer">
           <span>👨‍🍳</span> Pantalla de cocina (staff) ↗
         </a>
       </div>
@@ -240,9 +240,12 @@
         <span class="inline-block bg-ember text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider">
           Carta Digital & Delivery Oficial
         </span>
-        <h2 id="brandSlogan" class="font-serif text-2xl sm:text-3xl font-bold leading-tight text-white">
-          Cortes nobles a la leña, burgers y coctelería porteña.
+        <h2 id="heroBrandTitle" class="font-serif text-2xl sm:text-4xl font-extrabold leading-tight text-white tracking-tight">
+          La Brasa & Leña
         </h2>
+        <p id="brandSlogan" class="text-sm font-semibold text-amber-200/90 leading-snug">
+          Cortes nobles a la leña, burgers y coctelería porteña.
+        </p>
         <p class="text-xs text-stone-300 leading-relaxed">
           Ordena desde tu mesa con tu celular sin esperar la carta física, o pide a domicilio directo por WhatsApp sin comisiones abusivas de apps intermediarias.
         </p>
@@ -614,8 +617,16 @@
 
       // 2. Cargar datos de la marca
       document.getElementById('brandName').textContent = CFG.nombre;
+      const heroBrand = document.getElementById('heroBrandTitle');
+      if (heroBrand) heroBrand.textContent = CFG.nombre;
       document.getElementById('brandSlogan').textContent = CFG.slogan;
       document.getElementById('tableLabel').textContent = currentTable.toUpperCase();
+
+      // Enlace dinámico KDS Staff
+      const topKds = document.getElementById('topStaffKdsLink');
+      if (topKds) {
+        topKds.href = `cocina.html?r=${encodeURIComponent(window.RESTAURANT_ID)}`;
+      }
 
       // 3. Renderizar Métodos de Pago
       renderPaymentMethods();
@@ -682,6 +693,8 @@
         if (realName) {
           CFG.nombre = realName;
           document.getElementById('brandName').textContent = realName;
+          const heroBrandEl = document.getElementById('heroBrandTitle');
+          if (heroBrandEl) heroBrandEl.textContent = realName;
           document.title = `${realName} · Menú Digital`;
         }
 
@@ -689,6 +702,10 @@
         if (realSlogan) {
           CFG.slogan = realSlogan;
           document.getElementById('brandSlogan').textContent = realSlogan;
+        } else if (realName && realName.toLowerCase() !== 'la brasa & leña') {
+          const s = data.rubro || 'Especialidades de la casa y pedidos directos sin comisión';
+          CFG.slogan = s;
+          document.getElementById('brandSlogan').textContent = s;
         }
 
         if (data.direccion) {

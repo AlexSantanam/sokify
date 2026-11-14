@@ -718,7 +718,7 @@
             <button onclick="toggleFullscreen()" class="p-1.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 cursor-pointer transition-colors" title="Pantalla Completa">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
             </button>
-            <a href="cocina.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 font-extrabold flex items-center gap-1.5 transition-all shadow-xs" title="Abrir KDS de cocina">
+            <a id="topKdsLink" href="cocina.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 font-extrabold flex items-center gap-1.5 transition-all shadow-xs" title="Abrir KDS de cocina">
               <svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" x2="18" y1="17" y2="17"/></svg>
               <span class="hidden md:inline text-[11px]">KDS Cocina ↗</span>
             </a>
@@ -10337,6 +10337,12 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
       const qrMockNom = document.getElementById('qrMiniMockupNombre');
       if (qrMockNom) qrMockNom.textContent = name;
+
+      // 10. Link KDS Cocina Topbar
+      const topKds = document.getElementById('topKdsLink');
+      if (topKds) {
+        topKds.href = `cocina.html?r=${encodeURIComponent(restSlug)}`;
+      }
     }
 
     function cerrarSesionUsuario() {
@@ -10696,6 +10702,18 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         guiaState.pedidosPdv = snap.docs.some(d => d.data().origen === 'pdv' || d.data().customer === 'Salón / Garzón' || d.data().customer === 'Cliente Telefónico');
         guiaState.pedidosMenu = snap.docs.some(d => { const x = d.data(); return x.origen !== 'pdv' && x.customer !== 'Cliente Demo' && x.customer !== 'Salón / Garzón' && x.customer !== 'Cliente Telefónico'; });
         actualizarGuia();
+      }, err => {
+        console.warn('Fallback onSnapshot sin orderBy para pedidos:', err);
+        window.pedidosRef().limit(250).onSnapshot(fallbackSnap => {
+          pedidos = fallbackSnap.docs.map(d => ({
+            docId: d.id,
+            ...d.data(),
+            createdAt: d.data().createdAt && d.data().createdAt.toDate ? d.data().createdAt.toDate() : new Date()
+          })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          renderVentas();
+          renderKdsBoard();
+          renderPdvOrders();
+        });
       });
     }
 
@@ -11024,6 +11042,19 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         notes: notas,
         origen: 'pdv'
       };
+
+      // Inserción optimista inmediata para reflejo instantáneo en PDV y KDS
+      const localDocId = 'local-' + Date.now();
+      const localOrder = {
+        docId: localDocId,
+        ...orderPayload,
+        createdAt: new Date()
+      };
+      pedidos.unshift(localOrder);
+      knownOrderIds.add(localDocId);
+      renderPdvOrders();
+      renderKdsBoard();
+      renderVentas();
 
       window.pedidosRef().add({
         ...orderPayload,
@@ -12026,11 +12057,17 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       return 'cocina';
     }
 
-    // ABRIR Y RENDERIZAR CONFIGURACIÓN DE IMPRESORAS (TIPO ZOKIFY [⚙ Cocinas])
+    // ABRIR Y RENDERIZAR CONFIGURACIÓN DE COCINAS E IMPRESORAS
     function abrirModalConfigCocinas() {
       const sw = document.getElementById('switchAutoImpresion');
       if (sw) sw.checked = autoPrintEnabled;
 
+      if (typeof cambiarSubtabCocinas === 'function') {
+        cambiarSubtabCocinas('cocinas');
+      }
+      if (typeof renderCocinasConfigList === 'function') {
+        renderCocinasConfigList();
+      }
       renderImpresorasConfig();
       renderMapeoCategoriasImpresoras();
       document.getElementById('modalConfigCocinasImpresoras').classList.remove('hidden');

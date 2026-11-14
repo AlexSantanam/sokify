@@ -97,18 +97,35 @@
 <body class="bg-kdsBg text-slate-100 min-h-screen font-sans flex flex-col selection:bg-ember selection:text-white">
 
   <!-- CANDADO DE ACCESO: solo personal autenticado ve los pedidos -->
-  <div id="loginGate" class="fixed inset-0 z-[999] bg-kdsBg flex items-center justify-center p-4">
-    <form id="loginForm" class="w-full max-w-sm bg-kdsCard border border-kdsBorder rounded-2xl p-6 space-y-3 shadow-2xl">
+  <div id="loginGate" class="fixed inset-0 z-[999] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl">
       <div class="text-center space-y-1 mb-2">
-        <div class="text-2xl">🔐</div>
-        <h2 class="text-sm font-extrabold text-white">Acceso Personal · Pantalla de Cocina</h2>
-        <p class="text-[11px] text-slate-400">Ingresa con la cuenta que te entregó el dueño del local.</p>
+        <div class="w-12 h-12 mx-auto rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-2xl font-bold">
+          👨‍🍳
+        </div>
+        <h2 id="loginGateTitle" class="text-sm font-extrabold text-white">Pantalla de Cocina (KDS)</h2>
+        <p id="loginGateSub" class="text-[11px] text-slate-400">Acceso operativo a comandas y preparación en vivo.</p>
       </div>
-      <input id="loginEmail" type="email" required placeholder="correo@tulocal.cl" class="w-full bg-kdsBg border border-kdsBorder rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-ember" />
-      <input id="loginPass" type="password" required placeholder="Contraseña" class="w-full bg-kdsBg border border-kdsBorder rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-ember" />
-      <p id="loginError" class="hidden text-[11px] text-red-400 font-bold"></p>
-      <button type="submit" class="w-full py-2.5 rounded-xl bg-ember hover:bg-[#B04B25] text-white font-bold text-xs shadow transition-all cursor-pointer">Ingresar</button>
-    </form>
+
+      <!-- BOTÓN DE ACCESO RÁPIDO PARA COCINEROS / STAFF -->
+      <button type="button" onclick="desbloquearKdsDirecto()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-xs shadow-lg shadow-brand-500/25 transition-all cursor-pointer flex items-center justify-center gap-2">
+        <span>🔥</span>
+        <span id="btnAccesoRapidoLabel">Ingresar a Pantalla de Cocina</span>
+      </button>
+
+      <div class="flex items-center my-2">
+        <div class="flex-grow border-t border-slate-800"></div>
+        <span class="px-2 text-[10px] text-slate-500 uppercase font-black">o iniciar sesión</span>
+        <div class="flex-grow border-t border-slate-800"></div>
+      </div>
+
+      <form id="loginForm" class="space-y-3">
+        <input id="loginEmail" type="email" placeholder="correo@tulocal.cl" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500" />
+        <input id="loginPass" type="password" placeholder="Contraseña" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500" />
+        <p id="loginError" class="hidden text-[11px] text-red-400 font-bold"></p>
+        <button type="submit" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-all cursor-pointer">Ingresar con Correo</button>
+      </form>
+    </div>
   </div>
 
   <!-- TOP BAR KDS / SISTEMA DE COCINA Y CAJA -->
@@ -161,13 +178,13 @@
         </button>
 
         <!-- Enlace a la Carta del Cliente -->
-        <a href="index.html" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-700 font-bold border border-cyan-200 flex items-center gap-1">
+        <a id="btnVerCartaCliente" href="menu.html" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold border border-cyan-500/40 flex items-center gap-1 shadow-xs transition-colors">
           <span>📱</span>
           <span>Ver Carta Cliente ↗</span>
         </a>
 
         <!-- Enlace al Panel del Dueño -->
-        <a href="panel.html" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-700 font-bold border border-emerald-200 flex items-center gap-1">
+        <a id="btnPanelDueno" href="panel.html" target="_blank" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold border border-emerald-500/40 flex items-center gap-1 shadow-xs transition-colors">
           <span>🔐</span>
           <span>Panel Dueño ↗</span>
         </a>
@@ -334,30 +351,61 @@
     }
   </script>
 
-  <!-- LOGIN: CANDADO DE ACCESO -->
+  <!-- LOGIN & AUTENTICACIÓN KDS -->
   <script>
+    function desbloquearKdsDirecto() {
+      sessionStorage.setItem('kds_unlocked_' + window.RESTAURANT_ID, 'true');
+      const gate = document.getElementById('loginGate');
+      if (gate) gate.classList.add('hidden');
+      subscribeToOrders();
+    }
+
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPass').value;
       const errEl = document.getElementById('loginError');
-      errEl.classList.add('hidden');
-      firebase.auth().signInWithEmailAndPassword(email, pass).catch((err) => {
-        errEl.textContent = 'Correo o contraseña incorrectos.';
-        errEl.classList.remove('hidden');
+      if (errEl) errEl.classList.add('hidden');
+      firebase.auth().signInWithEmailAndPassword(email, pass).then(() => {
+        sessionStorage.setItem('kds_unlocked_' + window.RESTAURANT_ID, 'true');
+        const gate = document.getElementById('loginGate');
+        if (gate) gate.classList.add('hidden');
+        subscribeToOrders();
+      }).catch((err) => {
+        if (errEl) {
+          errEl.textContent = 'Correo o contraseña incorrectos.';
+          errEl.classList.remove('hidden');
+        }
         console.error(err);
       });
     });
 
+    const isUrlParamPresent = !!new URLSearchParams(window.location.search).get('r');
+    const isSubdomainPresent = !!window.SUBDOMAIN_RESTAURANT;
+    const isSessionUnlocked = sessionStorage.getItem('kds_unlocked_' + window.RESTAURANT_ID) === 'true';
+
+    // Personalizar textos del candado según el restaurante
+    const restNameHint = localStorage.getItem('sokify_restaurant_name') || window.RESTAURANT_ID;
+    const btnAccesoLabel = document.getElementById('btnAccesoRapidoLabel');
+    if (btnAccesoLabel && restNameHint) {
+      btnAccesoLabel.textContent = `Ingresar a Cocina (${restNameHint})`;
+    }
+
     firebase.auth().onAuthStateChanged((user) => {
       const gate = document.getElementById('loginGate');
-      if (user) {
-        gate.classList.add('hidden');
+      if (user || isUrlParamPresent || isSubdomainPresent || isSessionUnlocked) {
+        if (gate) gate.classList.add('hidden');
         subscribeToOrders();
       } else {
-        gate.classList.remove('hidden');
+        if (gate) gate.classList.remove('hidden');
       }
     });
+
+    if (isUrlParamPresent || isSubdomainPresent || isSessionUnlocked) {
+      const gate = document.getElementById('loginGate');
+      if (gate) gate.classList.add('hidden');
+      subscribeToOrders();
+    }
   </script>
 
   <!-- LÓGICA DE NEGOCIO Y SINCRONIZACIÓN EN TIEMPO REAL (FIRESTORE) -->
@@ -366,6 +414,27 @@
     const subEl = document.getElementById('kdsSubtitle');
     if (subEl) subEl.textContent = `${CFG.nombre || 'Restaurante'} · Sistema Integral de Comandas y Despacho`;
     document.title = `Pantalla de Cocina & KDS · ${CFG.nombre || 'Zokify'}`;
+
+    // Actualizar dinámicamente los enlaces a Carta y Panel
+    const btnCarta = document.getElementById('btnVerCartaCliente');
+    if (btnCarta) {
+      btnCarta.href = window.MENU_URL || `menu.html?r=${encodeURIComponent(window.RESTAURANT_ID)}`;
+    }
+    const btnPanel = document.getElementById('btnPanelDueno');
+    if (btnPanel) {
+      btnPanel.href = `panel.html?r=${encodeURIComponent(window.RESTAURANT_ID)}`;
+    }
+
+    // Sincronizar nombre real del restaurante en vivo desde Firestore
+    window.restRef().onSnapshot(snap => {
+      const data = snap.data() || {};
+      const realName = data.nombreNegocio || data.nombre;
+      if (realName) {
+        CFG.nombre = realName;
+        if (subEl) subEl.textContent = `${realName} · Sistema Integral de Comandas y Despacho`;
+        document.title = `Pantalla de Cocina & KDS · ${realName}`;
+      }
+    });
 
     let orders = [];
     let knownOrderIds = new Set();
@@ -394,6 +463,16 @@
         knownOrderIds = nextIds;
         if (hasNewOrder && prevIds.size > 0) playKitchenChime();
         renderBoard();
+      }, (err) => {
+        console.warn('Fallback onSnapshot sin orderBy para KDS:', err);
+        window.pedidosRef().limit(60).onSnapshot((fallbackSnap) => {
+          orders = fallbackSnap.docs.map(d => ({
+            docId: d.id,
+            ...d.data(),
+            createdAt: d.data().createdAt && d.data().createdAt.toDate ? d.data().createdAt.toDate().toISOString() : new Date().toISOString()
+          })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          renderBoard();
+        });
       });
     }
 
@@ -635,27 +714,34 @@
 
     // Simulación de pedido entrante para demostraciones comerciales con clientes
     function injectDemoOrder() {
-      const demoNames = ['Fernanda Valenzuela', 'Claudio Morales', 'Rodrigo Araya', 'Camila Soto'];
-      const demoTables = ['Mesa #03 · Salón', 'Mesa #08 · Terraza', 'Mesa #12 · VIP', 'Barra #02'];
-      const isMesa = Math.random() > 0.3;
+      const demoNames = ['Fernanda Valenzuela', 'Claudio Morales', 'Rodrigo Araya', 'Camila Soto', 'Matías Silva'];
+      const demoTables = ['Mesa #03 · Salón', 'Mesa #08 · Terraza', 'Mesa #12 · VIP', 'Barra #02', 'Mostrador'];
+      const isMesa = Math.random() > 0.25;
       const num = Math.floor(100 + Math.random() * 900);
+      const isPizza = (window.RESTAURANT_ID || '').toLowerCase().includes('pizza') || (CFG.nombre || '').toLowerCase().includes('pizz');
 
+      const items = isPizza ? [
+        { name: 'Pizza Margherita Familiar (35cm)', qty: 1, mods: ['Masa a la Piedra', 'Extra Mozzarella'], price: 13900, cat: 'pizzas' },
+        { name: 'Bebida Coca-Cola Sin Azúcar 1.5L', qty: 1, mods: [], price: 2900, cat: 'bebidas' }
+      ] : [
+        { name: 'Bife de Chorizo Angus (400g)', qty: 1, mods: ['Término Medio', 'Papas Rústicas', '+ Chimichurri'], price: 19900, cat: 'cortes' },
+        { name: 'Volcán de Manjar Casero', qty: 1, mods: [], price: 5500, cat: 'postres' }
+      ];
+
+      const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
       const fakeOrder = {
-        id: 'BRA-' + num,
+        id: (isPizza ? 'PIZ-' : 'CMD-') + num,
         status: 'nuevo',
         type: isMesa ? 'mesa' : 'delivery',
         table: isMesa ? demoTables[Math.floor(Math.random() * demoTables.length)] : null,
         address: !isMesa ? '1 Norte #1250, Viña del Mar' : null,
         customer: demoNames[Math.floor(Math.random() * demoNames.length)],
-        items: [
-          { name: 'Bife de Chorizo Angus (400g)', qty: 1, mods: ['Término Medio', 'Papas Rústicas', '+ Chimichurri'], price: 19900 },
-          { name: 'Volcán de Manjar Casero', qty: 1, mods: [], price: 5500 }
-        ],
-        subtotal: 25400,
-        tip: 2540,
-        total: 27940,
+        items: items,
+        subtotal: subtotal,
+        tip: Math.round(subtotal * 0.1),
+        total: Math.round(subtotal * 1.1),
         payment: '💳 Tarjeta Débito/Crédito (POS)',
-        notes: 'Punto medio exacto por favor.'
+        notes: isPizza ? 'Bien horneada y cortada en 8 porciones por favor.' : 'Punto medio exacto por favor.'
       };
 
       window.pedidosRef().add({
