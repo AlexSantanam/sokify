@@ -183,7 +183,7 @@
           <!-- GUÍA DE CONFIGURACIÓN (PROGRESO) -->
           <button id="btnGuiaSidebar" data-tab="guia" onclick="switchTab('guia')" class="nav-btn w-full text-left p-3 mb-2 rounded-2xl border border-dashed border-brand-500/60 bg-brand-600/15 hover:bg-brand-600/25 transition-all cursor-pointer">
             <div class="flex items-center justify-between text-xs font-black text-white">
-              <span>🚀 Completa tu negocio</span>
+              <span>🦉 Plan de despegue</span>
               <span id="guiaSidebarCount" class="text-[11px] text-brand-100">0/0</span>
             </div>
             <div class="mt-2 h-1.5 rounded-full bg-slate-700 overflow-hidden">
@@ -728,16 +728,22 @@
         <!-- =================================================================== -->
         <section id="tab-guia" class="panel-pane space-y-5 hidden">
           <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 shadow-sm">
-            <h2 class="text-xl sm:text-2xl font-black text-slate-900">Bienvenido, <span id="guiaNombre">tu negocio</span> 👋</h2>
-            <p class="text-sm text-slate-500 mt-1">Esta guía te muestra lo que falta para dejar tu negocio listo para vender. Los pasos se marcan solos a medida que los completas.</p>
-            <div class="mt-4 flex items-center gap-3">
-              <div class="relative flex-1 h-3 rounded-full bg-slate-100 overflow-hidden">
-                <div id="guiaBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-brand-600 transition-all duration-700" style="width:0%"></div>
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h2 class="text-xl sm:text-2xl font-black text-slate-900">Hola, <span id="guiaNombre">tu negocio</span> 👋</h2>
+                <p class="text-sm text-slate-500 mt-1">Tu plan de despegue en Zokify. Cada paso se marca solo cuando lo completas.</p>
               </div>
-              <span class="text-lg" id="guiaEmoji">🚀</span>
-              <span class="text-xs font-bold text-slate-600 whitespace-nowrap">Pasos completados: <span id="guiaCount" class="text-slate-900">0 de 0</span></span>
+              <span id="guiaNivel" class="px-3 py-1.5 rounded-full bg-brand-50 text-brand-700 text-xs font-black whitespace-nowrap">🌱 Recién abierto</span>
+            </div>
+            <div class="mt-5 flex items-end justify-between text-xs font-bold text-slate-500">
+              <span><span id="guiaPct" class="text-2xl font-black text-slate-900">0%</span> completado · <span id="guiaCount">0 de 0</span> pasos</span>
+              <span id="guiaTiempo" class="text-slate-400">—</span>
+            </div>
+            <div class="mt-2 h-3 rounded-full bg-slate-100 overflow-hidden">
+              <div id="guiaBar" class="h-full rounded-full bg-gradient-to-r from-emerald-400 via-brand-500 to-brand-700 transition-all duration-700" style="width:0%"></div>
             </div>
           </div>
+          <div id="guiaSiguiente"></div>
           <div id="guiaEtapas" class="space-y-4"></div>
         </section>
 
@@ -9882,7 +9888,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
     // --- TABS & NAVEGACIÓN ---
     const TAB_TITLES = {
-      guia: { title: 'Guía de configuración', sub: 'Lo que te falta para dejar tu negocio listo para vender' },
+      guia: { title: 'Plan de despegue', sub: 'Lo que te falta para dejar tu negocio listo para vender' },
       pedidos: { title: 'Punto de Venta (PDV)', sub: 'Toma de pedidos en mesa y mostrador' },
       cocina: { title: 'Pantalla de Cocina (KDS)', sub: 'Comandas en preparación, timers y barra' },
       ventas: { title: 'Ventas & Caja Diaria', sub: 'Métricas de facturación, pedidos y ticket promedio' },
@@ -10606,6 +10612,9 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         renderKdsBoard();
         renderPdvOrders();
         guiaState.pedidos = snap.size;
+        guiaState.kds = snap.docs.some(d => ['listo', 'entregado', 'completado', 'despachado'].includes(d.data().status));
+        guiaState.pedidosPdv = snap.docs.some(d => d.data().origen === 'pdv' || d.data().customer === 'Salón / Garzón' || d.data().customer === 'Cliente Telefónico');
+        guiaState.pedidosMenu = snap.docs.some(d => { const x = d.data(); return x.origen !== 'pdv' && x.customer !== 'Cliente Demo' && x.customer !== 'Salón / Garzón' && x.customer !== 'Cliente Telefónico'; });
         actualizarGuia();
       });
     }
@@ -10932,7 +10941,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         discountAmount: 0,
         total: subtotal,
         payment: payObj ? payObj.nombre : 'Por definir',
-        notes: notas
+        notes: notas,
+        origen: 'pdv'
       };
 
       window.pedidosRef().add({
@@ -13784,6 +13794,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         });
       }
 
+      if (window.restRef) window.restRef().set({ onboarding: { producto: true } }, { merge: true }).catch(() => {});
       cerrarModalCrearProducto();
       renderProductosList();
     }
@@ -18188,44 +18199,91 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     // =========================================================================
     // GUÍA DE CONFIGURACIÓN CON BARRA DE AVANCE (ONBOARDING)
     // =========================================================================
+    function urlTiendaPublica() {
+      return `https://${window.RESTAURANT_ID}.zokify.app`;
+    }
+
+    function compartirTiendaGuia() {
+      const url = urlTiendaPublica();
+      const texto = `¡Ya puedes pedir online en ${CFG.nombre || 'nuestro local'}! 👉 ${url}`;
+      if (navigator.share) {
+        navigator.share({ title: CFG.nombre || 'Mi tienda', text: texto, url }).catch(() => {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => mostrarNotificacion('🔗 Link copiado: ' + url));
+      }
+    }
+
     function obtenerPasosGuia() {
       const d = (guiaState && guiaState.rest) || {};
       const ob = d.onboarding || {};
       const prods = (typeof productos !== 'undefined' && Array.isArray(productos)) ? productos : [];
-      const tieneProductoPropio = prods.some(p => !/^plato-\d{1,6}$/.test(p.docId || ''));
+      const tieneProductoPropio = !!ob.producto || prods.some(p => !/^plato-\d{1,6}$/.test(p.docId || ''));
+      const canales = d.serviciosCanales || null;
+
       return [
-        { etapa: 'Etapa 1: Lo esencial', pasos: [
-          { key: 'cuenta', icon: '👤', titulo: 'Crea tu cuenta', desc: 'Ya completaste el registro y accediste al panel.', hecho: true },
-          { key: 'datos', icon: '🏪', titulo: 'Completa los datos de tu negocio', desc: 'Nombre, rubro y WhatsApp donde recibirás los pedidos.', hecho: !!(d.nombreNegocio && d.whatsappPedidos), btn: 'Completar datos', accion: "switchTab('configuraciones','negocio')" },
-          { key: 'logo', icon: '🖼️', titulo: 'Sube tu logo', desc: 'Tu marca aparecerá en el menú digital, la bienvenida y los tickets.', hecho: !!d.logoUrl, btn: 'Subir logo', accion: "switchTab('productos')" },
-          { key: 'portada', icon: '📸', titulo: 'Agrega una foto de portada', desc: 'Una buena imagen de portada aumenta las ventas de tu tienda online.', hecho: !!d.portadaUrl, btn: 'Subir portada', accion: "switchTab('productos')" },
-          { key: 'producto', icon: '🍔', titulo: 'Crea tu primer producto', desc: 'Agrega un producto con foto, precio y descripción.', hecho: tieneProductoPropio, btn: 'Crear producto', accion: "switchTab('productos')" },
-          { key: 'horario', icon: '🕒', titulo: 'Configura tus horarios de atención', desc: 'Tu tienda se abrirá y cerrará automáticamente.', hecho: !!d.horario, btn: 'Configurar horarios', accion: "switchTab('configuraciones','negocio')" }
+        { id: 'abre', nombre: 'Abre tu tienda', lema: 'Lo mínimo para empezar a recibir pedidos', icon: '🏁', pasos: [
+          { key: 'cuenta', icon: '🦉', min: 0, titulo: 'Tu cuenta Zokify está activa', desc: 'Registro listo. Ya tienes acceso a todo el sistema.', hecho: true },
+          { key: 'datos', icon: '🏪', min: 2, titulo: 'Ponle nombre y WhatsApp a tu negocio', desc: 'Es el número donde te llegarán los pedidos y avisos de tus clientes.', hecho: !!(d.nombreNegocio && d.whatsappPedidos), btn: 'Completar datos', accion: "switchTab('configuraciones','negocio')" },
+          { key: 'logo', icon: '🖼️', min: 1, titulo: 'Sube el logo de tu marca', desc: 'Aparecerá en tu tienda online, tu página de bienvenida y tus tickets.', hecho: !!d.logoUrl, btn: 'Subir logo', accion: "switchTab('productos')" },
+          { key: 'producto', icon: '🛍️', min: 3, titulo: 'Carga tu primer producto', desc: 'Crea uno nuevo o edita un ejemplo: foto, precio y una buena descripción.', hecho: tieneProductoPropio, btn: 'Ir a mi carta', accion: "switchTab('productos')" },
+          { key: 'horario', icon: '🕒', min: 2, titulo: 'Define cuándo atiendes', desc: 'Tu tienda abrirá y cerrará sola, con uno o varios turnos por día.', hecho: !!d.horario, btn: 'Configurar horarios', accion: "switchTab('configuraciones','negocio')" }
         ]},
-        { etapa: 'Etapa 2: Empieza a vender', pasos: [
-          { key: 'direccion', icon: '📍', titulo: 'Fija la dirección de tu local', desc: 'Para retiros, delivery y para que tus clientes te encuentren.', hecho: !!d.direccion, btn: 'Agregar dirección', accion: "switchTab('configuraciones','negocio')" },
-          { key: 'pagos', icon: '💳', titulo: 'Configura tus métodos de pago', desc: 'Efectivo, transferencia, tarjeta o link de pago.', hecho: !!ob.pagos, btn: 'Ver métodos de pago', accion: "switchTab('configuraciones','pagos')", manual: true },
-          { key: 'probar', icon: '📱', titulo: 'Visita tu tienda online', desc: 'Revisa cómo ven tus clientes tu menú digital.', hecho: !!ob.probar, btn: 'Probar mi tienda', accion: 'abrirModalVistaPrevia()', manual: true },
-          { key: 'pedido', icon: '🧾', titulo: 'Haz un pedido de prueba', desc: 'Asegúrate de que todo funcione antes de comenzar a vender.', hecho: (guiaState.pedidos || 0) > 0, btn: 'Ir al PDV', accion: "switchTab('pedidos')" },
-          { key: 'qr', icon: '🔗', titulo: 'Descarga tus QR y comparte tu link', desc: 'Imprime los QR para tus mesas y comparte tu link en redes.', hecho: !!ob.qr, btn: 'Ver QR y enlaces', accion: "switchTab('qrenlaces')", manual: true }
+        { id: 'punto', nombre: 'Deja todo a punto', lema: 'Ajusta cómo vendes, cobras y entregas', icon: '🛠️', pasos: [
+          { key: 'servicios', icon: '🛵', min: 1, titulo: 'Elige cómo vendes', desc: 'Activa consumo en el local, retiro o delivery según tu negocio.', hecho: !!canales || !!ob.servicios, btn: 'Elegir canales', accion: 'abrirModalHorariosMenuDigital()', manual: true },
+          { key: 'pagos', icon: '💳', min: 2, titulo: 'Activa tus formas de cobro', desc: 'Efectivo, transferencia, tarjeta o link de pago. Tú decides.', hecho: !!ob.pagos, btn: 'Configurar cobros', accion: "switchTab('configuraciones','pagos')", manual: true },
+          { key: 'direccion', icon: '📍', min: 1, titulo: 'Ubica tu local en el mapa', desc: 'Calcula zonas de delivery y ayuda a tus clientes a encontrarte.', hecho: !!d.direccion, btn: 'Agregar dirección', accion: "switchTab('configuraciones','negocio')" },
+          { key: 'portada', icon: '📸', min: 1, titulo: 'Elige una foto de portada', desc: 'La primera impresión vende: muestra tu mejor plato o tu local.', hecho: !!d.portadaUrl, btn: 'Subir portada', accion: "switchTab('productos')" },
+          { key: 'pruebaMenu', icon: '📱', min: 2, titulo: 'Pide como si fueras tu cliente', desc: 'Haz un pedido desde tu tienda online y mira cómo llega al panel.', hecho: !!guiaState.pedidosMenu, btn: 'Abrir mi tienda', accion: "window.open(urlTiendaPublica() + '/products', '_blank')" },
+          { key: 'pruebaPdv', icon: '🧾', min: 2, titulo: 'Registra una venta en el punto de venta', desc: 'Así cargarás los pedidos de mostrador, mesa o teléfono.', hecho: !!guiaState.pedidosPdv, btn: 'Ir al PDV', accion: "switchTab('pedidos')" }
         ]},
-        { etapa: 'Etapa 3: Haz crecer tu negocio', pasos: [
-          { key: 'bienvenida', icon: '✨', titulo: 'Personaliza tu página de bienvenida', desc: 'Botones de WhatsApp, Instagram, WiFi y más.', hecho: !!d.bienvenida, btn: 'Personalizar', accion: "switchTab('bienvenida')" },
-          { key: 'paleta', icon: '🎨', titulo: 'Elige los colores de tu marca', desc: 'Dale a tu tienda la identidad de tu negocio.', hecho: !!d.paleta, btn: 'Elegir colores', accion: "switchTab('configuraciones','negocio')" },
-          { key: 'chatbot', icon: '🤖', titulo: 'Activa tu chatbot de WhatsApp', desc: 'Responde dudas y toma pedidos automáticamente 24/7.', hecho: !!d.chatbot, btn: 'Configurar chatbot', accion: "switchTab('chatbot')" },
-          { key: 'resenas', icon: '⭐', titulo: 'Conecta tus reseñas de Google', desc: 'Invita a tus clientes a dejarte 5 estrellas.', hecho: !!d.googleMapsUrl, btn: 'Conectar Google', accion: "switchTab('marketing','resenas')" },
-          { key: 'cupon', icon: '🎟️', titulo: 'Crea tu primer cupón de descuento', desc: 'Atrae nuevos clientes y premia a los frecuentes.', hecho: !!guiaState.cuponesReales, btn: 'Crear cupón', accion: "switchTab('marketing','codigos')" }
+        { id: 'clientes', nombre: 'Atrae clientes', lema: 'Haz que te encuentren y vuelvan', icon: '📣', pasos: [
+          { key: 'compartir', icon: '🔗', min: 1, titulo: 'Comparte tu tienda', desc: 'Tu link propio ya está activo. Publícalo en Instagram, WhatsApp y Facebook.', hecho: !!ob.compartir, btn: 'Compartir mi link', accion: 'compartirTiendaGuia()', manual: true },
+          { key: 'qr', icon: '🔳', min: 3, titulo: 'Imprime los QR de tus mesas', desc: 'Tus clientes escanean, piden y pagan sin esperar al garzón.', hecho: !!ob.qr, btn: 'Descargar QR', accion: "switchTab('qrenlaces')", manual: true },
+          { key: 'google', icon: '🗺️', min: 3, titulo: 'Aparece en Google', desc: 'Conecta tu ficha de Google Maps y suma reseñas de 5 estrellas.', hecho: !!d.googleMapsUrl, btn: 'Conectar Google', accion: "switchTab('marketing','google')" },
+          { key: 'cupon', icon: '🎟️', min: 2, titulo: 'Lanza tu primer cupón', desc: 'Un descuento de bienvenida convierte visitas en primeros pedidos.', hecho: !!guiaState.cuponesReales, btn: 'Crear cupón', accion: "switchTab('marketing','codigos')" },
+          { key: 'fidelidad', icon: '💜', min: 2, titulo: 'Premia a tus clientes frecuentes', desc: 'Puntos automáticos por cada compra para que siempre vuelvan.', hecho: !!ob.fidelidad, btn: 'Activar puntos', accion: "switchTab('marketing','fidelidad')", manual: true },
+          { key: 'chatbot', icon: '🤖', min: 3, titulo: 'Deja que Zoki responda tu WhatsApp', desc: 'Atiende consultas y envía tu carta 24/7, incluso cuando estás cerrado.', hecho: !!d.chatbot, btn: 'Configurar chatbot', accion: "switchTab('chatbot')" }
+        ]},
+        { id: 'pro', nombre: 'Opera como pro', lema: 'Herramientas para crecer con orden', icon: '🚀', pasos: [
+          { key: 'kds', icon: '👨‍🍳', min: 1, titulo: 'Despacha un pedido desde cocina', desc: 'Marca un pedido como listo en la pantalla de cocina (KDS).', hecho: !!guiaState.kds, btn: 'Abrir cocina', accion: "switchTab('cocina')" },
+          { key: 'caja', icon: '💰', min: 2, titulo: 'Abre tu primera caja', desc: 'Controla efectivo, ventas y cierres de turno sin planillas.', hecho: !!ob.caja, btn: 'Ir a cajas', accion: "switchTab('ventas','cajas')", manual: true },
+          { key: 'stock', icon: '📦', min: 3, titulo: 'Activa el control de stock', desc: 'Evita vender lo que no tienes: se descuenta solo con cada venta.', hecho: prods.some(p => p.controlStock), btn: 'Ir a inventario', accion: "switchTab('inventario')" },
+          { key: 'equipo', icon: '👥', min: 2, titulo: 'Suma a tu equipo', desc: 'Crea accesos para garzones, cajeros o cocina con sus propios permisos.', hecho: !!ob.equipo, btn: 'Invitar equipo', accion: "switchTab('configuraciones','equipo')", manual: true }
         ]}
-      ];
+      ].map(et => ({
+        ...et,
+        pasos: et.pasos.map(p => ({ ...p, omitido: !p.hecho && ob[p.key] === 'omitido' }))
+      }));
     }
 
-    function ejecutarPasoGuia(etapaIdx, pasoIdx) {
-      const paso = obtenerPasosGuia()[etapaIdx].pasos[pasoIdx];
+    function nivelGuia(pct) {
+      if (pct >= 100) return { nombre: 'Negocio Pro', emoji: '🏆' };
+      if (pct >= 70) return { nombre: 'Despegando', emoji: '🚀' };
+      if (pct >= 35) return { nombre: 'En marcha', emoji: '🔥' };
+      return { nombre: 'Recién abierto', emoji: '🌱' };
+    }
+
+    function buscarPasoGuia(key) {
+      for (const et of obtenerPasosGuia()) {
+        const p = et.pasos.find(x => x.key === key);
+        if (p) return p;
+      }
+      return null;
+    }
+
+    function ejecutarPasoGuia(key) {
+      const paso = buscarPasoGuia(key);
       if (!paso) return;
       if (paso.manual && !paso.hecho && window.restRef) {
         window.restRef().set({ onboarding: { [paso.key]: true } }, { merge: true }).catch(() => {});
       }
       try { (new Function(paso.accion))(); } catch (e) { console.warn('Guía:', e); }
+    }
+
+    function omitirPasoGuia(key, omitir) {
+      if (!window.restRef) return;
+      const valor = omitir ? 'omitido' : firebase.firestore.FieldValue.delete();
+      window.restRef().set({ onboarding: { [key]: valor } }, { merge: true }).catch(() => {});
     }
 
     function toggleEtapaGuia(idx) {
@@ -18240,68 +18298,127 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const etapas = obtenerPasosGuia();
       const todos = etapas.flatMap(e => e.pasos);
       const total = todos.length;
-      const hechos = todos.filter(p => p.hecho).length;
-      const pct = Math.round((hechos / total) * 100);
+      const resueltos = todos.filter(p => p.hecho || p.omitido).length;
+      const pct = Math.round((resueltos / total) * 100);
+      const pendientes = todos.filter(p => !p.hecho && !p.omitido);
+      const minutos = pendientes.reduce((s, p) => s + (p.min || 0), 0);
+      const nivel = nivelGuia(pct);
+      const siguiente = pendientes[0];
 
       const sbCount = document.getElementById('guiaSidebarCount');
       const sbBar = document.getElementById('guiaSidebarBar');
-      if (sbCount) sbCount.textContent = `${hechos}/${total}`;
+      const sbBtn = document.getElementById('btnGuiaSidebar');
+      if (sbCount) sbCount.textContent = `${pct}%`;
       if (sbBar) sbBar.style.width = pct + '%';
+      if (sbBtn) sbBtn.classList.toggle('hidden', pct >= 100 && localStorage.getItem('zokify_guia_ocultar') === '1');
 
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
       const bar = document.getElementById('guiaBar');
-      const count = document.getElementById('guiaCount');
-      const emoji = document.getElementById('guiaEmoji');
-      const nombre = document.getElementById('guiaNombre');
       if (bar) bar.style.width = Math.max(pct, 3) + '%';
-      if (count) count.textContent = `${hechos} de ${total}`;
-      if (emoji) emoji.textContent = pct >= 100 ? '🏆' : pct >= 60 ? '😎' : '🚀';
-      if (nombre && typeof CFG !== 'undefined' && CFG.nombre) nombre.textContent = CFG.nombre;
+      set('guiaCount', `${resueltos} de ${total}`);
+      set('guiaPct', pct + '%');
+      set('guiaNivel', `${nivel.emoji} ${nivel.nombre}`);
+      set('guiaTiempo', minutos > 0 ? `Te faltan aprox. ${minutos} min` : '¡Todo listo!');
+      if (typeof CFG !== 'undefined' && CFG.nombre) set('guiaNombre', CFG.nombre);
+
+      // Tarjeta "Tu siguiente paso"
+      const sig = document.getElementById('guiaSiguiente');
+      if (sig) {
+        sig.innerHTML = siguiente ? `
+          <div class="rounded-2xl p-5 bg-gradient-to-r from-brand-600 to-brand-900 text-white shadow-lg flex items-center gap-4">
+            <div class="shrink-0 w-16 h-16 rounded-2xl bg-white/15 flex items-center justify-center text-4xl">${siguiente.icon}</div>
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] font-black uppercase tracking-widest text-brand-100">Tu siguiente paso · ⏱ ${siguiente.min || 1} min</div>
+              <div class="text-base font-black mt-0.5">${siguiente.titulo}</div>
+              <div class="text-xs text-brand-100 mt-0.5">${siguiente.desc}</div>
+            </div>
+            ${siguiente.btn ? `<button type="button" onclick="ejecutarPasoGuia('${siguiente.key}')" class="shrink-0 px-4 py-2.5 rounded-xl bg-white text-brand-700 hover:bg-brand-50 text-xs font-black cursor-pointer shadow">${siguiente.btn} →</button>` : ''}
+          </div>` : `
+          <div class="rounded-2xl p-6 bg-gradient-to-r from-emerald-500 to-emerald-700 text-white text-center shadow-lg">
+            <div class="text-4xl">🏆</div>
+            <h3 class="font-black text-lg mt-1">¡Tu negocio está listo para vender!</h3>
+            <p class="text-xs text-emerald-50 mt-1">Comparte tu link y recibe pedidos sin pagar comisiones.</p>
+            <div class="mt-3 flex justify-center gap-2">
+              <button type="button" onclick="compartirTiendaGuia()" class="px-4 py-2 rounded-xl bg-white text-emerald-700 text-xs font-black cursor-pointer">Compartir mi tienda</button>
+              <button type="button" onclick="localStorage.setItem('zokify_guia_ocultar','1'); actualizarGuia(); switchTab('pedidos')" class="px-4 py-2 rounded-xl bg-white/15 text-white text-xs font-bold cursor-pointer">Ocultar guía</button>
+            </div>
+          </div>`;
+      }
 
       const cont = document.getElementById('guiaEtapas');
       if (cont) {
-        // Recordar etapas abiertas/cerradas entre renders
         const abiertas = etapas.map((_, i) => {
           const b = document.getElementById('guiaEtapaBody' + i);
           return b ? !b.classList.contains('hidden') : null;
         });
-        const primeraPendiente = etapas.findIndex(e => e.pasos.some(p => !p.hecho));
+        const primeraPendiente = etapas.findIndex(e => e.pasos.some(p => !p.hecho && !p.omitido));
 
-        cont.innerHTML = (pct >= 100 ? `
-          <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 text-center">
-            <div class="text-3xl">🏆</div>
-            <h3 class="font-black text-emerald-800 mt-1">¡Tu negocio está 100% listo para vender!</h3>
-            <p class="text-xs text-emerald-700 mt-1">Comparte tu link y empieza a recibir pedidos sin comisiones.</p>
-          </div>` : '') + etapas.map((et, ei) => {
-          const hechosEt = et.pasos.filter(p => p.hecho).length;
+        cont.innerHTML = etapas.map((et, ei) => {
+          const res = et.pasos.filter(p => p.hecho || p.omitido).length;
+          const completa = res === et.pasos.length;
           const abierta = abiertas[ei] !== null ? abiertas[ei] : (ei === primeraPendiente);
+          const pctEt = Math.round((res / et.pasos.length) * 100);
           return `
-          <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-            <button type="button" onclick="toggleEtapaGuia(${ei})" class="w-full flex items-center justify-between px-5 py-4 cursor-pointer hover:bg-slate-50">
-              <span class="font-black text-sm text-slate-900">${et.etapa} ${hechosEt === et.pasos.length ? '✅' : ''}</span>
-              <span class="flex items-center gap-3 text-xs font-bold text-slate-500">${hechosEt}/${et.pasos.length}
-                <span id="guiaEtapaChev${ei}" class="transition-transform ${abierta ? 'rotate-180' : ''}">▾</span>
-              </span>
+          <div class="bg-white border ${completa ? 'border-emerald-200' : 'border-slate-200'} rounded-2xl shadow-sm overflow-hidden">
+            <button type="button" onclick="toggleEtapaGuia(${ei})" class="w-full flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-slate-50 text-left">
+              <div class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-xl ${completa ? 'bg-emerald-100' : 'bg-brand-50'}">${completa ? '✅' : et.icon}</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">Nivel ${ei + 1}</div>
+                <div class="font-black text-sm text-slate-900">${et.nombre}</div>
+                <div class="text-[11px] text-slate-500">${et.lema}</div>
+              </div>
+              <div class="shrink-0 w-24 hidden sm:block">
+                <div class="h-1.5 rounded-full bg-slate-100 overflow-hidden"><div class="h-full rounded-full ${completa ? 'bg-emerald-500' : 'bg-brand-600'}" style="width:${pctEt}%"></div></div>
+              </div>
+              <span class="shrink-0 text-xs font-bold text-slate-500">${res}/${et.pasos.length}</span>
+              <span id="guiaEtapaChev${ei}" class="shrink-0 text-slate-400 transition-transform ${abierta ? 'rotate-180' : ''}">▾</span>
             </button>
             <div id="guiaEtapaBody${ei}" class="${abierta ? '' : 'hidden'} divide-y divide-slate-100 border-t border-slate-100">
-              ${et.pasos.map((p, pi) => `
-                <div class="flex items-center gap-4 px-5 py-4 ${p.hecho ? 'bg-slate-50/70' : ''}">
-                  <div class="shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black ${p.hecho ? 'bg-brand-600 text-white' : 'border-2 border-dashed border-slate-300'}">${p.hecho ? '✓' : ''}</div>
+              ${et.pasos.map(p => {
+                const listo = p.hecho || p.omitido;
+                const esSiguiente = siguiente && p.key === siguiente.key;
+                return `
+                <div class="flex items-center gap-4 px-5 py-4 ${listo ? 'bg-slate-50/70' : esSiguiente ? 'bg-brand-50/60' : ''}">
+                  <div class="shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${p.hecho ? 'bg-emerald-500 text-white' : p.omitido ? 'bg-slate-200 text-slate-500' : 'border-2 border-slate-300 text-slate-300'}">${p.hecho ? '✓' : p.omitido ? '–' : ''}</div>
                   <div class="flex-1 min-w-0">
-                    <div class="text-sm font-bold ${p.hecho ? 'line-through text-slate-400 italic' : 'text-slate-900'}">${p.titulo}</div>
-                    <div class="text-xs ${p.hecho ? 'line-through text-slate-400 italic' : 'text-slate-500'} mt-0.5">${p.desc}</div>
-                    ${!p.hecho && p.btn ? `<button type="button" onclick="ejecutarPasoGuia(${ei},${pi})" class="mt-2 px-3 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold cursor-pointer">${p.btn}</button>` : ''}
+                    <div class="flex flex-wrap items-center gap-2">
+                      <span class="text-sm font-bold ${listo ? 'text-slate-400' : 'text-slate-900'}">${p.titulo}</span>
+                      ${!listo && p.min ? `<span class="text-[10px] font-bold text-slate-400">⏱ ${p.min} min</span>` : ''}
+                      ${p.omitido ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-500">Omitido</span>' : ''}
+                      ${esSiguiente ? '<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-brand-600 text-white">Recomendado</span>' : ''}
+                    </div>
+                    <div class="text-xs ${listo ? 'text-slate-400' : 'text-slate-500'} mt-0.5">${p.desc}</div>
+                    ${!listo && p.btn ? `
+                      <div class="mt-2 flex items-center gap-3">
+                        <button type="button" onclick="ejecutarPasoGuia('${p.key}')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold cursor-pointer transition-colors">${p.btn}</button>
+                        <button type="button" onclick="omitirPasoGuia('${p.key}', true)" class="text-[11px] font-semibold text-slate-400 hover:text-slate-600 cursor-pointer">Ahora no</button>
+                      </div>` : ''}
+                    ${p.omitido ? `<button type="button" onclick="omitirPasoGuia('${p.key}', false)" class="mt-1 text-[11px] font-bold text-brand-600 hover:text-brand-700 cursor-pointer">Retomar este paso</button>` : ''}
                   </div>
-                  <div class="shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-100 flex items-center justify-center text-3xl ${p.hecho ? 'opacity-40 grayscale' : ''}">${p.icon}</div>
-                </div>`).join('')}
+                  <div class="shrink-0 w-14 h-14 rounded-2xl ${listo ? 'bg-slate-100 opacity-50 grayscale' : 'bg-gradient-to-br from-brand-50 to-white border border-brand-100'} flex items-center justify-center text-3xl">${p.icon}</div>
+                </div>`;
+              }).join('')}
             </div>
           </div>`;
         }).join('');
       }
 
+      // Celebración al completar un nivel (tras la carga inicial de datos)
+      if (guiaState.rest && !guiaState.celebrarDesde) guiaState.celebrarDesde = Date.now() + 5000;
+      if (guiaState.nivelesPrevios && guiaState.celebrarDesde && Date.now() > guiaState.celebrarDesde) {
+        etapas.forEach((et, ei) => {
+          const completa = et.pasos.every(p => p.hecho || p.omitido);
+          if (completa && guiaState.nivelesPrevios[ei] === false) {
+            mostrarNotificacion(`🎉 ¡Nivel ${ei + 1} completado: ${et.nombre}!`);
+          }
+        });
+      }
+      if (guiaState.rest) guiaState.nivelesPrevios = etapas.map(et => et.pasos.every(p => p.hecho || p.omitido));
+
       // Cuentas nuevas: abrir la guía automáticamente una vez por sesión
       if (!guiaState.autoAbierta && guiaState.rest) {
         guiaState.autoAbierta = true;
-        if (hechos <= 3 && !sessionStorage.getItem('zokify_guia_vista')) {
+        if (pct < 30 && !sessionStorage.getItem('zokify_guia_vista')) {
           sessionStorage.setItem('zokify_guia_vista', '1');
           try { switchTab('guia'); } catch (e) {}
         }
