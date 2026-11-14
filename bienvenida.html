@@ -95,8 +95,8 @@
   </button>
 
   <div class="w-full max-w-sm text-center space-y-5">
-    <div class="w-24 h-24 mx-auto rounded-3xl bg-ember/20 border border-ember/40 flex items-center justify-center text-4xl shadow">
-      🔥
+    <div id="bienvenidaLogoContainer" class="w-24 h-24 mx-auto rounded-3xl bg-ember/20 border border-ember/40 flex items-center justify-center text-4xl shadow overflow-hidden">
+      <span id="bienvenidaLogoEmoji">🔥</span>
     </div>
 
     <div>
@@ -207,6 +207,34 @@
     window.restRef().onSnapshot(snap => {
       const data = snap.data() || {};
       document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
+
+      const realName = data.nombreNegocio || data.nombre;
+      if (realName) {
+        CFG.nombre = realName;
+        document.getElementById('brandName').textContent = realName;
+        document.title = `${realName} · Bienvenido`;
+      }
+
+      const realSlogan = data.slogan || (data.bienvenida && data.bienvenida.descripcion);
+      if (realSlogan) {
+        CFG.slogan = realSlogan;
+        document.getElementById('brandSlogan').textContent = realSlogan;
+      }
+
+      if (data.direccion) CFG.direccion = data.direccion;
+      if (data.whatsappPedidos || data.telefono) {
+        CFG.whatsapp = (data.whatsappPedidos || data.telefono).replace(/[^0-9]/g, '');
+        const btnWa = document.getElementById('btnWhatsapp');
+        if (btnWa) btnWa.href = `https://wa.me/${CFG.whatsapp}`;
+      }
+
+      if (data.logoUrl) {
+        const logoBox = document.getElementById('bienvenidaLogoContainer');
+        if (logoBox) {
+          logoBox.innerHTML = `<img src="${data.logoUrl}" class="w-full h-full object-cover">`;
+        }
+      }
+
       if (data.bienvenida) aplicarConfigBienvenida(data.bienvenida);
     });
   </script>
