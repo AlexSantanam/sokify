@@ -614,7 +614,7 @@
               
               <div class="p-4 border-b border-slate-100 flex items-center justify-between">
                 <h4 class="font-black text-slate-900 text-sm">Notificaciones Zokify</h4>
-                <button type="button" onclick="marcarTodasNotificacionesLeidas()" class="text-xs font-bold text-blue-600 hover:underline cursor-pointer">
+                <button id="btnMarcarLeidas" type="button" onclick="marcarTodasNotificacionesLeidas()" class="text-xs font-bold text-brand-600 hover:text-brand-700 hover:underline cursor-pointer transition-colors">
                   Marcar todas leídas
                 </button>
               </div>
@@ -624,21 +624,21 @@
                 
                 <!-- AVISO 1 -->
                 <div class="p-4 hover:bg-slate-50 transition-colors flex gap-3 items-start notif-item">
-                  <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shrink-0">
-                    <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                  <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-base shrink-0 border border-brand-100">
+                    <svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
                   </div>
                   <div class="space-y-1 flex-1">
                     <div class="flex items-center justify-between">
                       <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Zokify por $1.499</span>
                       <span class="text-[10px] text-amber-500 font-bold flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        <span class="notif-unread-dot w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         <span>alrededor de 5 horas</span>
                       </span>
                     </div>
                     <p class="text-[11px] text-slate-600 leading-relaxed">
                       Válido en tus 3 primeros días. Usa el cupón <strong class="text-slate-800 font-mono">1MESADVCL</strong> en el plan Advanced o <strong class="text-slate-800 font-mono">1MESPRECL</strong> en el Premium.
                     </p>
-                    <button type="button" onclick="abrirModalPlanes()" class="text-[11px] font-bold text-blue-600 hover:underline inline-block pt-0.5 cursor-pointer">
+                    <button type="button" onclick="abrirModalPlanes()" class="text-[11px] font-bold text-brand-600 hover:underline inline-block pt-0.5 cursor-pointer">
                       Elegir mi plan
                     </button>
                   </div>
@@ -646,21 +646,21 @@
 
                 <!-- AVISO 2 -->
                 <div class="p-4 hover:bg-slate-50 transition-colors flex gap-3 items-start notif-item">
-                  <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shrink-0">
-                    <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                  <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-base shrink-0 border border-brand-100">
+                    <svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
                   </div>
                   <div class="space-y-1 flex-1">
                     <div class="flex items-center justify-between">
                       <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Zokify por $1.499</span>
                       <span class="text-[10px] text-amber-500 font-bold flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        <span class="notif-unread-dot w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         <span>1 día</span>
                       </span>
                     </div>
                     <p class="text-[11px] text-slate-600 leading-relaxed">
                       Válido en tus 3 primeros días. Usa el cupón <strong class="text-slate-800 font-mono">1MESADVCL</strong> en el plan Advanced o <strong class="text-slate-800 font-mono">1MESPRECL</strong> en el Premium.
                     </p>
-                    <button type="button" onclick="abrirModalPlanes()" class="text-[11px] font-bold text-blue-600 hover:underline inline-block pt-0.5 cursor-pointer">
+                    <button type="button" onclick="abrirModalPlanes()" class="text-[11px] font-bold text-brand-600 hover:underline inline-block pt-0.5 cursor-pointer">
                       Elegir mi plan
                     </button>
                   </div>
@@ -668,21 +668,21 @@
 
                 <!-- AVISO 3 -->
                 <div class="p-4 hover:bg-slate-50 transition-colors flex gap-3 items-start notif-item">
-                  <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base shrink-0">
-                    <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                  <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-base shrink-0 border border-brand-100">
+                    <svg class="w-4 h-4 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
                   </div>
                   <div class="space-y-1 flex-1">
                     <div class="flex items-center justify-between">
                       <span class="font-extrabold text-slate-900 text-xs">Tu primer mes en Zokify por $1.499</span>
                       <span class="text-[10px] text-amber-500 font-bold flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                        <span class="notif-unread-dot w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                         <span>2 días</span>
                       </span>
                     </div>
                     <p class="text-[11px] text-slate-600 leading-relaxed">
                       Válido en tus 3 primeros días. Usa el cupón <strong class="text-slate-800 font-mono">1MESADVCL</strong> en el plan Advanced o <strong class="text-slate-800 font-mono">1MESPRECL</strong> en el Premium.
                     </p>
-                    <button type="button" onclick="abrirModalPlanes()" class="text-[11px] font-bold text-blue-600 hover:underline inline-block pt-0.5 cursor-pointer">
+                    <button type="button" onclick="abrirModalPlanes()" class="text-[11px] font-bold text-brand-600 hover:underline inline-block pt-0.5 cursor-pointer">
                       Elegir mi plan
                     </button>
                   </div>
@@ -19486,13 +19486,47 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
     });
 
-    function marcarTodasNotificacionesLeidas() {
-      document.querySelectorAll('.notif-item .w-1.5.h-1.5.bg-amber-500').forEach(d => d.remove());
-      const badge = document.getElementById('badgeMensajesCount');
-      if (badge) badge.textContent = '0';
-      const dot = document.getElementById('badgeCampanaDot');
-      if (dot) dot.classList.add('hidden');
-      mostrarNotificacion('✅ Todas las notificaciones marcadas como leídas');
+    function marcarTodasNotificacionesLeidas(showToast = true) {
+      try {
+        // Remover puntos naranjas de no leídas
+        document.querySelectorAll('.notif-unread-dot').forEach(d => d.remove());
+        // Compatibilidad por si queda algún selector residual
+        document.querySelectorAll('.notif-item [class*="bg-amber-500"]').forEach(d => {
+          if (d.classList.contains('rounded-full')) d.remove();
+        });
+
+        // Ocultar badges de notificaciones y mensajes
+        const badge = document.getElementById('badgeMensajesCount');
+        if (badge) {
+          badge.textContent = '0';
+          badge.classList.add('hidden');
+        }
+        const dot = document.getElementById('badgeCampanaDot');
+        if (dot) dot.classList.add('hidden');
+
+        // Actualizar botón
+        const btn = document.getElementById('btnMarcarLeidas');
+        if (btn) {
+          btn.textContent = '✓ Todas leídas';
+          btn.classList.remove('text-brand-600', 'hover:underline', 'cursor-pointer');
+          btn.classList.add('text-slate-400', 'cursor-default');
+          btn.disabled = true;
+        }
+
+        // Persistir en localStorage
+        localStorage.setItem('zokify_notif_read_all', 'true');
+
+        if (showToast) {
+          mostrarNotificacion('✅ Todas las notificaciones marcadas como leídas');
+        }
+      } catch (err) {
+        console.error('Error al marcar notificaciones como leídas:', err);
+      }
+    }
+
+    // Auto-aplicar si ya fueron leídas previamente
+    if (localStorage.getItem('zokify_notif_read_all') === 'true') {
+      setTimeout(() => marcarTodasNotificacionesLeidas(false), 150);
     }
 
     function abrirModalSoporte() {
