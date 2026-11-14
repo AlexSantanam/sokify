@@ -19790,7 +19790,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }, 400);
     }
 
+    let tipoSugerenciaActual = 'sugerencia';
+
     function abrirModalSugerirIdea(tipo) {
+      tipoSugerenciaActual = tipo || 'sugerencia';
       toggleDropdownPerfil(false);
       cerrarModalSoporte();
       const tit = document.getElementById('tituloModalSugerencia');
@@ -19809,8 +19812,49 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         alert('Por favor completa el título y detalle de tu comentario.');
         return;
       }
+
+      const restName = localStorage.getItem('sokify_restaurant_name') || (typeof CFG !== 'undefined' ? CFG.nombre : null) || window.RESTAURANT_ID || 'Local';
+      const userEmail = (firebase.auth().currentUser && firebase.auth().currentUser.email) || localStorage.getItem('sokify_owner_email') || 'admin';
+      const tipo = tipoSugerenciaActual || 'sugerencia';
+
+      const payload = {
+        tipo: tipo,
+        titulo: titulo,
+        detalle: detalle,
+        restauranteId: window.RESTAURANT_ID || 'general',
+        restauranteNombre: restName,
+        usuarioEmail: userEmail,
+        fecha: new Date().toISOString(),
+        leido: false
+      };
+
+      // 1. Guardar en Firestore en la subcolección del restaurante
+      try {
+        if (typeof window.restRef === 'function') {
+          window.restRef().collection('sugerencias').add({
+            ...payload,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }).catch(e => console.warn('Error guardando en Firestore:', e));
+        }
+      } catch (e) {
+        console.warn('Firestore omitido:', e);
+      }
+
+      // 2. Guardar en el historial local del navegador
+      try {
+        const hist = JSON.parse(localStorage.getItem('sokify_sugerencias_historial') || '[]');
+        hist.unshift(payload);
+        localStorage.setItem('sokify_sugerencias_historial', JSON.stringify(hist.slice(0, 50)));
+      } catch (e) {}
+
+      // Limpiar campos y cerrar modal
+      const inTit = document.getElementById('inputIdeaTitulo');
+      if (inTit) inTit.value = '';
+      const inDet = document.getElementById('inputIdeaDetalle');
+      if (inDet) inDet.value = '';
+
       cerrarModalSugerirIdea();
-      mostrarNotificacion('🚀 ¡Gracias por tu aporte! Tu comentario fue enviado directamente a nuestro equipo de producto.');
+      mostrarNotificacion('🚀 ¡Gracias por tu aporte! Tu comentario fue guardado y enviado al equipo de producto.', 'success');
     }
 
     function abrirModalMiCuenta() {
