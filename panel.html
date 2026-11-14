@@ -952,47 +952,33 @@
         <!-- =================================================================== -->
         <section id="tab-cocina" class="panel-pane space-y-4 hidden">
           
-          <!-- TOP BAR DE ESTACIONES Y ACCIONES DE COCINA (IDÉNTICO A ZOKIFY) -->
+          <!-- TOP BAR DE ESTACIONES Y ACCIONES DE COCINA -->
           <div class="bg-white rounded-2xl border border-borderLight p-4 flex flex-wrap items-center justify-between gap-3 shadow-soft">
             
-            <!-- SELECTOR DE ESTACIÓN: COCINA PRINCIPAL / BARRA / TODAS -->
-            <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl">
-              <button onclick="setKdsStationFilter('cocina')" id="btnStationCocina" class="station-tab-btn px-4 py-2 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm flex items-center gap-1.5">
-                <span>🍳</span>
-                <span>Cocina Principal</span>
-                <span id="badgeStationCocina" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
-              </button>
-              <button onclick="setKdsStationFilter('barra')" id="btnStationBarra" class="station-tab-btn px-4 py-2 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-900 flex items-center gap-1.5">
-                <span>🍸</span>
-                <span>Barra / Bebidas</span>
-                <span id="badgeStationBarra" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
-              </button>
-              <button onclick="setKdsStationFilter('todas')" id="btnStationTodas" class="station-tab-btn px-4 py-2 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-900 flex items-center gap-1.5">
-                <span>⚡</span>
-                <span>Todas</span>
-                <span id="badgeStationTodas" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
-              </button>
+            <!-- SELECTOR DINÁMICO DE ESTACIONES / COCINAS -->
+            <div id="kdsStationTabsContainer" class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl overflow-x-auto no-scrollbar">
+              <!-- Inyección JS dinámica con renderKdsStationTabs() -->
             </div>
 
-            <!-- BOTONES DE ACCIÓN MASIVA (MARCAR TODAS, REFRESH, FULLSCREEN, COCINAS & IMPRESORAS) -->
+            <!-- BOTONES DE ACCIÓN MASIVA (MARCAR TODAS, SIMULAR, FULLSCREEN, GESTIONAR COCINAS) -->
             <div class="flex items-center gap-2">
-              <button onclick="marcarTodasListas()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
-                <span>✓</span>
+              <button onclick="marcarTodasListas()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 <span>Marcar todas</span>
               </button>
               <button onclick="injectDemoOrder()" class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs flex items-center gap-1 shadow-sm transition-all cursor-pointer" title="Simular comanda para pruebas">
-                <span>+</span>
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
                 <span>Simular</span>
               </button>
               <button onclick="subscribeAll(true)" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 cursor-pointer" title="Refrescar">
-                ↺
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
               </button>
               <button onclick="toggleFullscreen()" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 cursor-pointer" title="Pantalla Completa">
-                ⛶
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
               </button>
-              <button onclick="abrirModalConfigCocinas()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center gap-1.5 border border-slate-200 transition-colors cursor-pointer shadow-xs" title="Configuración de impresoras térmicas (80mm) y estaciones">
-                <span>⚙</span>
-                <span>Cocinas & Impresoras</span>
+              <button onclick="abrirModalConfigCocinas()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm" title="Configurar cocinas, estaciones de preparación e impresoras">
+                <svg class="w-4 h-4 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Configurar Cocinas</span>
               </button>
             </div>
 
@@ -7390,7 +7376,79 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         <button onclick="cerrarModalConfigCocinas()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors">✕</button>
       </div>
 
-      <!-- BANNER DE AUTO-IMPRESIÓN AL RECIBIR COMANDAS -->
+      <!-- PESTAÑAS DEL MODAL: COCINAS / IMPRESORAS -->
+      <div class="flex items-center gap-2 border-b border-slate-100 pb-2">
+        <button type="button" onclick="cambiarSubtabCocinas('cocinas')" id="subtabBtnCocinas" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-slate-900 text-white cursor-pointer shadow-xs">
+          🍳 Cocinas & Estaciones
+        </button>
+        <button type="button" onclick="cambiarSubtabCocinas('impresoras')" id="subtabBtnImpresoras" class="px-3.5 py-1.5 rounded-xl text-xs font-black transition-all text-slate-500 hover:text-slate-900 cursor-pointer">
+          🖨️ Impresoras Térmicas
+        </button>
+      </div>
+
+      <!-- VISTA 1: GESTIÓN DE COCINAS Y ESTACIONES (KDS) -->
+      <div id="viewConfigCocinasKds" class="space-y-4">
+        
+        <!-- HEADER CON BOTÓN AGREGAR COCINA -->
+        <div class="flex items-center justify-between">
+          <div>
+            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-500">Estaciones de Preparación KDS</h4>
+            <p class="text-[11px] text-slate-400">Cada cocina se presentará como una pestaña independiente en el KDS.</p>
+          </div>
+          <button onclick="abrirFormNuevaCocina()" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs flex items-center gap-1 transition-colors cursor-pointer border border-brand-200">
+            <span>＋</span>
+            <span>Nueva Cocina</span>
+          </button>
+        </div>
+
+        <!-- FORMULARIO PARA CREAR / EDITAR COCINA -->
+        <div id="formNuevaCocina" class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3 hidden">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+            <h5 id="formCocinaTitle" class="font-black text-xs text-slate-800">Nueva Cocina / Estación</h5>
+            <button type="button" onclick="cerrarFormNuevaCocina()" class="text-slate-400 hover:text-slate-600 text-sm">✕</button>
+          </div>
+          <input type="hidden" id="editCocinaId">
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre de Cocina *</label>
+              <input id="inputCocinaNombre" type="text" placeholder="Ej: Cocina Fría, Parrilla, Postres, Barra" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+            </div>
+            <div>
+              <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Icono / Emoji *</label>
+              <input id="inputCocinaIcono" type="text" placeholder="🍳, 🥩, 🍸, 🍰, 🍕" value="🍳" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+            </div>
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Categorías de la Carta que recibe esta cocina *</label>
+            <div id="selectorCategoriasCocina" class="flex flex-wrap gap-1.5 p-2 bg-white rounded-xl border border-slate-200 max-h-32 overflow-y-auto">
+              <!-- Inyección JS con checkboxes de categorías -->
+            </div>
+            <p class="text-[10px] text-slate-400 mt-1">Si no seleccionas ninguna, recibirá todos los productos por defecto.</p>
+          </div>
+          <div class="flex items-center justify-end gap-2 pt-1 border-t border-slate-200">
+            <button type="button" onclick="cerrarFormNuevaCocina()" class="px-3 py-1.5 rounded-xl text-slate-500 font-bold text-xs hover:bg-slate-200">Cancelar</button>
+            <button type="button" onclick="guardarCocinaConfig()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-black text-xs shadow-sm cursor-pointer">✓ Guardar Cocina</button>
+          </div>
+        </div>
+
+        <!-- LISTA DE COCINAS CONFIGURADAS -->
+        <div id="listaCocinasConfiguradas" class="space-y-2.5">
+          <!-- Inyección JS -->
+        </div>
+
+        <!-- TARJETA EXPLICATIVA -->
+        <div class="p-3.5 rounded-2xl bg-brand-50/50 border border-brand-100 flex items-start gap-3 text-xs text-brand-950">
+          <span class="text-base text-brand-600 shrink-0">💡</span>
+          <div class="space-y-0.5 text-[11px] leading-relaxed text-slate-600">
+            <strong class="text-slate-800">¿Para qué crear múltiples cocinas?</strong>
+            <p>Permite dividir el flujo de trabajo: los platos calientes van a <em>Parrilla</em>, los sushis a <em>Cocina Fría</em> y los cócteles a <em>Barra</em>. Cada pantalla KDS o estación de trabajo verá únicamente lo que le corresponde preparar.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- VISTA 2: GESTIÓN DE IMPRESORAS TÉRMICAS (ANTERIOR) -->
+      <div id="viewConfigImpresorasKds" class="space-y-4 hidden">
       <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between gap-3 text-xs">
         <div class="space-y-0.5">
           <span class="font-bold text-amber-950 block">⚡ Auto-impresión automática al recibir pedidos</span>
@@ -7473,6 +7531,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         <div id="tablaMapeoCategoriasImpresoras" class="divide-y divide-slate-100 bg-slate-50 rounded-2xl border border-slate-200 p-2 text-xs">
           <!-- Inyección dinámica -->
         </div>
+      </div>
+
       </div>
 
     </div>
@@ -9994,7 +10054,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       toggleSidebar(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
 
-      if (tab === 'cocina') renderKdsBoard();
+      if (tab === 'cocina') {
+        renderKdsStationTabs();
+        renderKdsBoard();
+      }
       if (tab === 'pedidos') renderPdvOrders();
       if (tab === 'ventas') {
         if (subtab) setVentasSubtab(subtab);
@@ -10540,6 +10603,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           renderHorarioForm(data.horario || {});
         }
         renderPaletaSelector(data.paleta || 'brasa');
+        if (data.cocinasConfig && Array.isArray(data.cocinasConfig) && data.cocinasConfig.length) {
+          cocinasConfig = data.cocinasConfig;
+          renderKdsStationTabs();
+        }
         guiaState.rest = data;
         actualizarGuia();
 
@@ -11489,29 +11556,226 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     // =========================================================================
-    // SECCIÓN 2: PANTALLA DE COCINA KDS (INTEGRADA + MULTI-ESTACIÓN)
+    // SECCIÓN 2: PANTALLA DE COCINA KDS (INTEGRADA + MULTI-COCINA ZOKIFY)
     // =========================================================================
+    let cocinasConfig = [
+      { id: 'cocina-principal', nombre: 'Cocina Principal', icono: '🍳', categorias: [] },
+      { id: 'barra-bebidas', nombre: 'Barra / Bebidas', icono: '🍸', categorias: ['bebidas', 'tragos', 'cafeteria'] }
+    ];
+
+    try {
+      const savedCocinas = localStorage.getItem('sokify_cocinas_config');
+      if (savedCocinas) cocinasConfig = JSON.parse(savedCocinas);
+    } catch(e) {}
+
+    function guardarCocinasEnStorage() {
+      try {
+        localStorage.setItem('sokify_cocinas_config', JSON.stringify(cocinasConfig));
+      } catch(e) {}
+      if (window.restRef) {
+        window.restRef().set({ cocinasConfig }, { merge: true }).catch(() => {});
+      }
+    }
+
+    function cambiarSubtabCocinas(sub) {
+      const vCocinas = document.getElementById('viewConfigCocinasKds');
+      const vImpresoras = document.getElementById('viewConfigImpresorasKds');
+      const btnCocinas = document.getElementById('subtabBtnCocinas');
+      const btnImpresoras = document.getElementById('subtabBtnImpresoras');
+      if (sub === 'cocinas') {
+        if (vCocinas) vCocinas.classList.remove('hidden');
+        if (vImpresoras) vImpresoras.classList.add('hidden');
+        if (btnCocinas) btnCocinas.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-slate-900 text-white cursor-pointer shadow-xs';
+        if (btnImpresoras) btnImpresoras.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all text-slate-500 hover:text-slate-900 cursor-pointer';
+        renderCocinasConfigList();
+      } else {
+        if (vCocinas) vCocinas.classList.add('hidden');
+        if (vImpresoras) vImpresoras.classList.remove('hidden');
+        if (btnImpresoras) btnImpresoras.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all bg-slate-900 text-white cursor-pointer shadow-xs';
+        if (btnCocinas) btnCocinas.className = 'px-3.5 py-1.5 rounded-xl text-xs font-black transition-all text-slate-500 hover:text-slate-900 cursor-pointer';
+        renderImpresorasConfig();
+        renderMapeoCategoriasImpresoras();
+      }
+    }
+
+    function abrirFormNuevaCocina(cocinaId) {
+      const form = document.getElementById('formNuevaCocina');
+      if (!form) return;
+      form.classList.remove('hidden');
+
+      const selBox = document.getElementById('selectorCategoriasCocina');
+      const cats = Array.isArray(categorias) ? categorias : [];
+      let cData = cocinaId ? cocinasConfig.find(c => c.id === cocinaId) : null;
+
+      document.getElementById('editCocinaId').value = cocinaId || '';
+      document.getElementById('inputCocinaNombre').value = cData ? cData.nombre : '';
+      document.getElementById('inputCocinaIcono').value = cData ? cData.icono : '🍳';
+      document.getElementById('formCocinaTitle').textContent = cocinaId ? 'Editar Cocina / Estación' : 'Nueva Cocina / Estación';
+
+      if (selBox) {
+        selBox.innerHTML = cats.map(cat => {
+          const checked = cData && Array.isArray(cData.categorias) && cData.categorias.includes(cat.id);
+          return `
+            <label class="flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 hover:bg-slate-100 rounded-lg text-xs font-bold text-slate-700 cursor-pointer border border-slate-200">
+              <input type="checkbox" value="${cat.id}" class="accent-brand-600 rounded check-cat-cocina" ${checked ? 'checked' : ''}>
+              <span>${cat.nombre}</span>
+            </label>
+          `;
+        }).join('') || '<span class="text-xs text-slate-400 p-1">No hay categorías creadas aún.</span>';
+      }
+    }
+
+    function cerrarFormNuevaCocina() {
+      const form = document.getElementById('formNuevaCocina');
+      if (form) form.classList.add('hidden');
+    }
+
+    function guardarCocinaConfig() {
+      const id = document.getElementById('editCocinaId').value.trim();
+      const nombre = document.getElementById('inputCocinaNombre').value.trim();
+      const icono = document.getElementById('inputCocinaIcono').value.trim() || '🍳';
+      if (!nombre) {
+        alert('Por favor ingresa un nombre para la cocina.');
+        return;
+      }
+
+      const checks = document.querySelectorAll('.check-cat-cocina:checked');
+      const catsSel = Array.from(checks).map(c => c.value);
+
+      if (id) {
+        const idx = cocinasConfig.findIndex(c => c.id === id);
+        if (idx !== -1) {
+          cocinasConfig[idx] = { ...cocinasConfig[idx], nombre, icono, categorias: catsSel };
+        }
+      } else {
+        const newId = 'cocina-' + Date.now();
+        cocinasConfig.push({ id: newId, nombre, icono, categorias: catsSel });
+      }
+
+      guardarCocinasEnStorage();
+      cerrarFormNuevaCocina();
+      renderCocinasConfigList();
+      renderKdsStationTabs();
+      renderKdsBoard();
+      mostrarNotificacion('✅ Cocina guardada con éxito.');
+    }
+
+    function eliminarCocinaConfig(id) {
+      if (cocinasConfig.length <= 1) {
+        alert('Debes mantener al menos una cocina principal.');
+        return;
+      }
+      if (!confirm('¿Deseas eliminar esta cocina?')) return;
+      cocinasConfig = cocinasConfig.filter(c => c.id !== id);
+      if (kdsStationFilter === id) kdsStationFilter = cocinasConfig[0].id;
+      guardarCocinasEnStorage();
+      renderCocinasConfigList();
+      renderKdsStationTabs();
+      renderKdsBoard();
+      mostrarNotificacion('🗑️ Cocina eliminada.');
+    }
+
+    function renderCocinasConfigList() {
+      const cont = document.getElementById('listaCocinasConfiguradas');
+      if (!cont) return;
+
+      const cats = Array.isArray(categorias) ? categorias : [];
+      cont.innerHTML = cocinasConfig.map(c => {
+        let catsText = 'Todos los productos';
+        if (Array.isArray(c.categorias) && c.categorias.length > 0) {
+          const names = c.categorias.map(cid => {
+            const found = cats.find(x => x.id === cid);
+            return found ? found.nombre : cid;
+          });
+          catsText = names.join(', ');
+        }
+
+        return `
+          <div class="p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 transition-all flex items-center justify-between gap-3 shadow-xs">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-xl shrink-0">${c.icono || '🍳'}</span>
+              <div>
+                <h4 class="font-bold text-xs text-slate-900 flex items-center gap-2">
+                  <span>${c.nombre}</span>
+                </h4>
+                <p class="text-[11px] text-slate-500 mt-0.5">Recibe: <strong class="text-slate-700">${catsText}</strong></p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button type="button" onclick="abrirFormNuevaCocina('${c.id}')" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-600 cursor-pointer" title="Editar cocina">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              </button>
+              <button type="button" onclick="eliminarCocinaConfig('${c.id}')" class="p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 cursor-pointer" title="Eliminar cocina">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderKdsStationTabs() {
+      const container = document.getElementById('kdsStationTabsContainer');
+      if (!container) return;
+
+      const tabs = [
+        ...cocinasConfig.map(c => ({ id: c.id, nombre: c.nombre, icono: c.icono || '🍳' })),
+        { id: 'todas', nombre: 'Todas', icono: '⚡' }
+      ];
+
+      container.innerHTML = tabs.map(t => {
+        const active = (kdsStationFilter === t.id) || (!kdsStationFilter && t.id === cocinasConfig[0]?.id);
+        return `
+          <button onclick="setKdsStationFilter('${t.id}')" class="station-tab-btn px-4 py-2 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+            active ? 'active bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+          }" data-station="${t.id}">
+            <span>${t.icono}</span>
+            <span>${t.nombre}</span>
+            <span id="badgeStation_${t.id}" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
+          </button>
+        `;
+      }).join('');
+    }
+
     function setKdsStationFilter(station) {
       kdsStationFilter = station;
-      document.querySelectorAll('.station-tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (station === 'cocina') document.getElementById('btnStationCocina').classList.add('active');
-      if (station === 'barra') document.getElementById('btnStationBarra').classList.add('active');
-      if (station === 'todas') document.getElementById('btnStationTodas').classList.add('active');
+      document.querySelectorAll('#kdsStationTabsContainer .station-tab-btn').forEach(btn => {
+        const isMatch = btn.dataset.station === station;
+        btn.classList.toggle('active', isMatch);
+        btn.classList.toggle('bg-white', isMatch);
+        btn.classList.toggle('text-slate-900', isMatch);
+        btn.classList.toggle('shadow-sm', isMatch);
+        btn.classList.toggle('text-slate-500', !isMatch);
+      });
       renderKdsBoard();
     }
 
-    function isBeverageItem(item) {
-      const name = (item.name || '').toLowerCase();
-      const cat = (item.cat || '').toLowerCase();
-      const keywords = ['bebida', 'trago', 'cerveza', 'coca', 'fanta', 'sprite', 'jugo', 'agua', 'pisco', 'mojito', 'vino', 'cocktail', 'cafe', 'café', 'té', 'infusion'];
-      return cat === 'bebidas' || cat === 'tragos' || keywords.some(k => name.includes(k));
-    }
+    function filterOrderItemsByStation(order, stationId) {
+      const items = order.items || [];
+      if (stationId === 'todas') return items;
 
-    function filterOrderItemsByStation(order, station) {
-      if (station === 'todas') return order.items || [];
-      if (station === 'barra') return (order.items || []).filter(isBeverageItem);
-      // 'cocina': todo lo que no sea barra
-      return (order.items || []).filter(i => !isBeverageItem(i));
+      const targetCocina = cocinasConfig.find(c => c.id === stationId);
+      if (!targetCocina) return items;
+
+      // Si no tiene categorías asignadas, recibe todo lo que no esté explícitamente en otra cocina
+      if (!targetCocina.categorias || targetCocina.categorias.length === 0) {
+        const otherCats = cocinasConfig.filter(c => c.id !== stationId).flatMap(c => c.categorias || []);
+        return items.filter(it => {
+          const itCat = (it.cat || '').toLowerCase();
+          return !otherCats.some(oc => itCat.includes(oc.toLowerCase()));
+        });
+      }
+
+      // Si tiene categorías asignadas, filtra los ítems cuya categoría coincida
+      return items.filter(it => {
+        const itCat = (it.cat || '').toLowerCase();
+        const itName = (it.name || '').toLowerCase();
+        return targetCocina.categorias.some(cId => {
+          const matchCat = itCat.includes(cId.toLowerCase());
+          const matchBebida = (cId === 'bebidas' || cId === 'tragos') && isBeverageItem(it);
+          return matchCat || matchBebida;
+        });
+      });
     }
 
     function renderKdsBoard() {
@@ -11525,46 +11789,46 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       colListos.innerHTML = '';
 
       let countN = 0, countC = 0, countL = 0;
-      let countCocinaStation = 0, countBarraStation = 0, countTotalStation = 0;
+      const stationCounts = {};
+      cocinasConfig.forEach(c => stationCounts[c.id] = 0);
+      let countTodas = 0;
 
-      // Filtrado por estación y renderizado
+      // Calcular contadores por estación
       pedidos.forEach(o => {
-        const stationItems = filterOrderItemsByStation(o, kdsStationFilter);
-        const hasBarra = (o.items || []).some(isBeverageItem);
-        const hasCocina = (o.items || []).some(i => !isBeverageItem(i));
-
         if (o.status === 'nuevo' || o.status === 'cocina') {
-          if (hasCocina) countCocinaStation++;
-          if (hasBarra) countBarraStation++;
-          countTotalStation++;
+          countTodas++;
+          cocinasConfig.forEach(c => {
+            const cItems = filterOrderItemsByStation(o, c.id);
+            if (cItems.length > 0) stationCounts[c.id]++;
+          });
         }
 
-        // Si la estación actual no tiene ítems en este pedido, se omite
-        if (stationItems.length === 0) return;
+        const currentItems = filterOrderItemsByStation(o, kdsStationFilter || cocinasConfig[0]?.id || 'todas');
+        if (currentItems.length === 0) return;
 
         if (o.status === 'nuevo') countN++;
         if (o.status === 'cocina') countC++;
         if (o.status === 'listo') countL++;
 
-        // Tarjeta de comanda
-        const card = createKdsOrderCard(o, stationItems);
-
+        const card = createKdsOrderCard(o, currentItems);
         if (o.status === 'nuevo') colNuevos.appendChild(card);
         else if (o.status === 'cocina') colCocina.appendChild(card);
         else if (o.status === 'listo') colListos.appendChild(card);
       });
 
-      // Contadores
+      // Actualizar contadores en pestañas
+      cocinasConfig.forEach(c => {
+        const el = document.getElementById(`badgeStation_${c.id}`);
+        if (el) el.textContent = stationCounts[c.id] || 0;
+      });
+      const elTodas = document.getElementById('badgeStation_todas');
+      if (elTodas) elTodas.textContent = countTodas;
+
       document.getElementById('kdsCountNuevos').textContent = countN;
       document.getElementById('kdsCountCocina').textContent = countC;
       document.getElementById('kdsCountListos').textContent = countL;
       document.getElementById('badgeKdsCount').textContent = countN + countC;
 
-      document.getElementById('badgeStationCocina').textContent = countCocinaStation;
-      document.getElementById('badgeStationBarra').textContent = countBarraStation;
-      document.getElementById('badgeStationTodas').textContent = countTotalStation;
-
-      // Placeholders estéticos si están vacías (Estilo Zokify)
       if (countN === 0) renderEmptyKdsColumn(colNuevos, 'Sin órdenes pendientes');
       if (countC === 0) renderEmptyKdsColumn(colCocina, 'Cocina al día');
       if (countL === 0) renderEmptyKdsColumn(colListos, 'Sin pedidos para entregar');
