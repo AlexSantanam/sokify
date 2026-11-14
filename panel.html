@@ -469,53 +469,53 @@
     <!-- --------------------------------------------------------------------- -->
     <div class="flex-1 flex flex-col min-h-screen overflow-y-auto">
 
-      <!-- TOPBAR SUPERIOR AZUL OFICIAL (TIPO ZOKIFY CAPTURAS 1, 2 Y 3) -->
-      <header class="bg-blue-600 text-white px-4 sm:px-6 py-2.5 sticky top-0 z-40 shadow-md">
+      <!-- TOPBAR SUPERIOR ZOKIFY BRAND DARK (DISEÑO EXCLUSIVO ZOKIFY) -->
+      <header class="bg-slate-900 border-b border-slate-800 text-white px-4 sm:px-6 py-2.5 sticky top-0 z-40 shadow-sm">
         <div class="flex items-center justify-between gap-3">
           
           <!-- IZQUIERDA: LOGO ZOKIFY + BOTÓN ACTUALIZA TU PLAN -->
           <div class="flex items-center gap-2 sm:gap-3">
-            <button onclick="toggleSidebar(true)" class="md:hidden p-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white flex items-center justify-center">
+            <button onclick="toggleSidebar(true)" class="md:hidden p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
             </button>
             <div class="flex items-center gap-2 pr-2">
-              <img src="assets/zokify-avatar.png" alt="Zokify" class="w-7 h-7 rounded-full object-contain shadow-sm ring-1 ring-white/30">
+              <img src="assets/zokify-avatar.png" alt="Zokify" class="w-7 h-7 rounded-full object-contain shadow-sm ring-1 ring-white/10">
               <span class="font-black text-sm sm:text-base tracking-tight text-white">Zokify</span>
             </div>
-            <button onclick="abrirModalPlanes()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-white text-slate-900 hover:bg-slate-50 font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-white/20">
-              <svg class="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <button onclick="abrirModalPlanes()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-brand-500/30">
+              <svg class="w-3.5 h-3.5 text-amber-300 fill-amber-300 shrink-0" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               <span>Actualiza tu Plan</span>
             </button>
-            <button id="btnInstalarAppDesktop" onclick="descargarAppEscritorio()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-emerald-300/40">
-              <svg class="w-3.5 h-3.5 text-white shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+            <button id="btnInstalarAppDesktop" onclick="descargarAppEscritorio()" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-black text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer border border-slate-700">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
               <span class="hidden md:inline">Instalar App PC</span>
             </button>
           </div>
 
-          <!-- DERECHA: CAMPANA + MENSAJES CON BADGE (5) + SOPORTE + PERFIL -->
+          <!-- DERECHA: CAMPANA + MENSAJES CON BADGE + SOPORTE + PERFIL -->
           <div class="flex items-center gap-1 sm:gap-2 text-xs font-bold relative">
             
             <!-- CAMPANA DE NOTIFICACIONES -->
-            <button onclick="togglePopoverNotificaciones()" class="relative p-2 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer text-white" title="Notificaciones">
-              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+            <button onclick="togglePopoverNotificaciones()" class="relative p-2 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer text-slate-300 hover:text-white" title="Notificaciones">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
               <span id="badgeCampanaDot" class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-amber-400"></span>
             </button>
 
-            <!-- MENSAJES CON BADGE NARANJA (5) -->
-            <button onclick="togglePopoverNotificaciones()" class="relative p-2 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer text-white flex items-center gap-1" title="Mensajes del sistema">
-              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-              <span id="badgeMensajesCount" class="bg-amber-500 text-white font-extrabold text-[10px] px-1.5 py-0.2 rounded-full shadow-sm">5</span>
+            <!-- MENSAJES CON BADGE -->
+            <button onclick="togglePopoverNotificaciones()" class="relative p-2 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer text-slate-300 hover:text-white flex items-center gap-1" title="Mensajes del sistema">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              <span id="badgeMensajesCount" class="bg-brand-600 text-white font-extrabold text-[10px] px-1.5 py-0.2 rounded-full shadow-sm">5</span>
             </button>
 
             <!-- BOTÓN SOPORTE -->
-            <button onclick="abrirModalSoporte()" class="px-3 py-1.5 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer text-white flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a3 3 0 0 1-3 3h-5"/></svg>
+            <button onclick="abrirModalSoporte()" class="px-3 py-1.5 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer text-slate-300 hover:text-white flex items-center gap-1.5">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a3 3 0 0 1-3 3h-5"/></svg>
               <span class="hidden sm:inline">Soporte</span>
             </button>
 
             <!-- PILL PERFIL DE RESTAURANTE (DINÁMICO CON ZOKIFY) -->
             <div class="relative">
-              <button onclick="toggleDropdownPerfil()" class="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-xl hover:bg-blue-700 transition-colors cursor-pointer text-left">
+              <button onclick="toggleDropdownPerfil()" class="flex items-center gap-2 pl-2 pr-2.5 py-1 rounded-xl hover:bg-slate-800 transition-colors cursor-pointer text-left">
                 <span id="topProfileAvatarInitials" class="w-7 h-7 rounded-full bg-slate-900 border border-white/20 flex items-center justify-center text-xs font-black shrink-0 text-white">
                   SK
                 </span>
@@ -697,24 +697,26 @@
         </div>
 
         <!-- SEGUNDA FILA: TÍTULO DEL TAB ACTUAL Y BOTONES DE OPERACIÓN -->
-        <div class="flex items-center justify-between gap-4 pt-2.5 mt-2 border-t border-blue-500/30 text-white">
+        <div class="flex items-center justify-between gap-4 pt-2 mt-1 border-t border-slate-800 text-white">
           <div>
             <h2 id="topBarTitle" class="text-sm sm:text-base font-black tracking-tight text-white">Punto de Venta (PDV)</h2>
-            <p id="topBarSubtitle" class="text-[11px] text-blue-100 hidden sm:block">Toma de pedidos en mostrador y mesas</p>
+            <p id="topBarSubtitle" class="text-[11px] text-slate-400 hidden sm:block">Toma de pedidos en mostrador y mesas</p>
           </div>
 
           <!-- ACCIONES RÁPIDAS (AUDIO, FULLSCREEN, KDS) -->
           <div class="flex items-center gap-2 text-xs font-bold">
-            <button id="btnSoundToggle" onclick="toggleAudio()" class="px-2.5 py-1.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white flex items-center gap-1.5 transition-colors cursor-pointer" title="Activar/Silenciar sonido">
-              <span id="soundIcon">🔔</span>
+            <button id="btnSoundToggle" onclick="toggleAudio()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors cursor-pointer" title="Activar/Silenciar sonido">
+              <span id="soundIcon">
+                <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              </span>
               <span id="soundLabel" class="hidden sm:inline text-[11px]">Sonido ON</span>
             </button>
-            <button onclick="toggleFullscreen()" class="p-1.5 px-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white cursor-pointer" title="Pantalla Completa">
-              ⛶
+            <button onclick="toggleFullscreen()" class="p-1.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 cursor-pointer" title="Pantalla Completa">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
             </button>
-            <a href="cocina.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-white text-blue-700 hover:bg-blue-50 font-black flex items-center gap-1 transition-all shadow-xs" title="Abrir KDS de cocina">
-              <span>👨‍🍳</span>
-              <span class="hidden md:inline text-[11px]">KDS Pantalla Completa ↗</span>
+            <a href="cocina.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-brand-600 text-white hover:bg-brand-500 font-black flex items-center gap-1.5 transition-all shadow-sm" title="Abrir KDS de cocina">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" x2="18" y1="17" y2="17"/></svg>
+              <span class="hidden md:inline text-[11px]">KDS Cocina ↗</span>
             </a>
           </div>
         </div>
@@ -750,24 +752,24 @@
         <section id="tab-pedidos" class="panel-pane space-y-4">
           
           <!-- 1. AVISO SUPERIOR: CONTROL DE CAJA REGISTRADORA -->
-          <div id="cajaBanner" class="bg-amber-50/90 border border-amber-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs transition-all">
+          <div id="cajaBanner" class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-lg border border-slate-700/50 transition-all">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-xl shrink-0">
-                📠
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
               </div>
               <div>
-                <h4 id="cajaBannerTitle" class="text-xs font-black text-amber-950">Tu caja está cerrada y ya empezaste tu turno</h4>
-                <p id="cajaBannerSub" class="text-[11px] text-amber-800 mt-0.5">
-                  Para empezar a registrar pedidos y llevar un control exacto de tus ventas de hoy, necesitas abrir tu caja.
-                  <a href="javascript:void(0)" onclick="abrirModalCaja()" class="underline font-bold hover:text-amber-950 ml-1">Abrir o cuadrar caja</a>
+                <h4 id="cajaBannerTitle" class="text-xs font-black text-white">Tu caja está cerrada para este turno</h4>
+                <p id="cajaBannerSub" class="text-[11px] text-slate-300 mt-0.5">
+                  Abre tu caja con un monto inicial para registrar cobros y cuadrar tus ventas al final del día.
+                  <a href="javascript:void(0)" onclick="abrirModalCaja()" class="underline font-bold text-amber-400 hover:text-amber-300 ml-1">Abrir o cuadrar caja</a>
                 </p>
               </div>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <button onclick="abrirModalCaja()" id="btnCajaBannerAction" class="px-4 py-2 rounded-xl bg-white hover:bg-amber-100 border border-amber-300 text-amber-950 text-xs font-black shadow-xs cursor-pointer transition-all">
+              <button onclick="abrirModalCaja()" id="btnCajaBannerAction" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-black shadow-md cursor-pointer transition-all">
                 Abrir caja
               </button>
-              <button onclick="document.getElementById('cajaBanner').classList.add('hidden')" class="text-amber-500 hover:text-amber-800 p-1 text-sm cursor-pointer" title="Cerrar aviso">
+              <button onclick="document.getElementById('cajaBanner').classList.add('hidden')" class="text-slate-400 hover:text-white p-1 text-sm cursor-pointer" title="Cerrar aviso">
                 ✕
               </button>
             </div>
@@ -779,19 +781,19 @@
             <!-- Canales principales: Mostrador / A domicilio / Mesas -->
             <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl">
               <button onclick="setPdvChannel('mostrador')" id="btnChannelMostrador" class="channel-tab-btn active px-4 py-2 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm flex items-center gap-2 cursor-pointer">
-                <span>💵/🛍️</span>
+                <svg class="w-4 h-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 <span>Mostrador</span>
                 <span id="badgeChannelMostrador" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
               </button>
 
               <button onclick="setPdvChannel('delivery')" id="btnChannelDelivery" class="channel-tab-btn px-4 py-2 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-900 flex items-center gap-2 cursor-pointer">
-                <span>🛵</span>
+                <svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="13" x="1" y="3" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
                 <span>A domicilio</span>
                 <span id="badgeChannelDelivery" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
               </button>
 
               <button onclick="setPdvChannel('mesas')" id="btnChannelMesas" class="channel-tab-btn px-4 py-2 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-900 flex items-center gap-2 cursor-pointer">
-                <span>🍽️</span>
+                <svg class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5v14"/><path d="M21 5v14"/><path d="M3 12h18"/><path d="M7 12V5"/><path d="M17 12V5"/></svg>
                 <span>Mesas</span>
                 <span id="badgeChannelMesas" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
               </button>
@@ -802,58 +804,62 @@
               
               <!-- Estado de Caja Icono -->
               <button onclick="abrirModalCaja()" class="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 flex items-center gap-1.5 cursor-pointer" title="Apertura / Cierre de Caja">
-                <span>📠</span>
+                <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
                 <span id="cajaQuickDot" class="w-2 h-2 rounded-full bg-red-500"></span>
               </button>
 
               <!-- Refrescar -->
               <button onclick="subscribeAll(true)" class="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 cursor-pointer" title="Refrescar lista">
-                ↺
+                <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
               </button>
 
               <!-- Buscador Rápido -->
               <div class="relative hidden sm:block">
-                <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs">🔍</span>
-                <input id="pdvSearchOrders" type="text" placeholder="Buscar pedido..." oninput="renderPdvOrders()" class="bg-slate-50 border border-slate-200 rounded-xl pl-7 pr-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-brand-600 w-36 md:w-44 font-medium">
+                <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+                </span>
+                <input id="pdvSearchOrders" type="text" placeholder="Buscar pedido..." oninput="renderPdvOrders()" class="bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-brand-600 w-36 md:w-44 font-medium">
               </div>
 
               <!-- Selector Vista Lista / Tarjetas / Plano de Salón -->
               <div class="flex bg-slate-100 p-0.5 rounded-xl border border-slate-200">
-                <button onclick="setPdvViewMode('table')" id="btnViewTable" class="p-1.5 rounded-lg bg-white text-slate-900 shadow-xs cursor-pointer font-mono" title="Vista Lista / Tabla">
-                  ☰
+                <button onclick="setPdvViewMode('table')" id="btnViewTable" class="p-1.5 rounded-lg bg-white text-slate-900 shadow-xs cursor-pointer" title="Vista Lista / Tabla">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
                 </button>
-                <button onclick="setPdvViewMode('cards')" id="btnViewCards" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-mono" title="Vista Tarjetas">
-                  ⊞
+                <button onclick="setPdvViewMode('cards')" id="btnViewCards" class="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer" title="Vista Tarjetas">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
                 </button>
                 <button onclick="setPdvViewMode('floorplan')" id="btnViewFloorplan" class="px-2 py-1.5 rounded-lg text-slate-500 hover:text-slate-900 cursor-pointer font-bold text-[11px] flex items-center gap-1" title="Plano Gráfico Interactivo de Mesas y Salón">
-                  <span>🗺️</span>
+                  <svg class="w-3.5 h-3.5 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
                   <span class="hidden xl:inline">Salón</span>
                 </button>
               </div>
 
               <!-- Botón Configuración de Impresoras Térmicas 80mm -->
               <button onclick="abrirModalConfigCocinas()" class="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 flex items-center gap-1.5 cursor-pointer" title="Configurar Impresoras Térmicas (80mm) y Destinos">
-                <span>🖨️</span>
+                <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
                 <span class="hidden md:inline text-[11px] font-bold">Impresoras</span>
               </button>
 
-              <!-- BOTÓN AZUL DESTACADO: + NUEVO PEDIDO -->
-              <button onclick="abrirModalNuevoPedido()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-blue-600/25 transition-all cursor-pointer">
-                <span class="text-sm font-black">+</span>
+              <!-- BOTÓN PRINCIPAL DE MARCA ZOKIFY: + NUEVO PEDIDO -->
+              <button onclick="abrirModalNuevoPedido()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-black text-xs flex items-center gap-1.5 shadow-md shadow-brand-600/30 transition-all cursor-pointer">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
                 <span>Nuevo pedido</span>
-                <span class="text-[10px] opacity-80">▼</span>
+                <svg class="w-2.5 h-2.5 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
               </button>
 
             </div>
 
           </div>
 
-          <!-- 3. BARRA DE SUBFILTROS Y TOTAL DEL TURNO (CON BOTÓN OJO 👁️) -->
+          <!-- 3. BARRA DE SUBFILTROS Y TOTAL DEL TURNO (CON BOTÓN OJO) -->
           <div class="bg-white rounded-2xl border border-borderLight px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-soft">
             
             <!-- Chips de estado: Todo, Pendiente, En curso, PDV/WEB, Aplicaciones, Agendado -->
             <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-              <span class="text-slate-400 text-xs mr-1">⚙️</span>
+              <span class="text-slate-400 mr-1 flex items-center">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              </span>
               <button onclick="setPdvStatusFilter('todo')" class="pdv-filter-chip active" data-filter="todo">✓ Todo</button>
               <button onclick="setPdvStatusFilter('pendiente')" class="pdv-filter-chip" data-filter="pendiente">
                 <span>Pendiente</span>
@@ -864,7 +870,10 @@
                 <span id="badgeFilterEnCurso" class="bg-blue-100 text-blue-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono ml-1 font-bold">0</span>
               </button>
               <button onclick="setPdvStatusFilter('web')" class="pdv-filter-chip" data-filter="web">PDV / WEB</button>
-              <button onclick="setPdvStatusFilter('agendado')" class="pdv-filter-chip" data-filter="agendado">🗓️ Agendado</button>
+              <button onclick="setPdvStatusFilter('agendado')" class="pdv-filter-chip flex items-center gap-1" data-filter="agendado">
+                <svg class="w-3 h-3 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                <span>Agendado</span>
+              </button>
             </div>
 
             <!-- Total Turno + Ocultar Cifras -->
@@ -872,7 +881,7 @@
               <span class="text-slate-500 font-sans font-bold">Total:</span>
               <span id="pdvTotalTurno" class="font-black text-slate-900 text-sm">$0</span>
               <button onclick="toggleMaskTotal()" id="btnMaskTotal" class="text-slate-400 hover:text-slate-700 p-1 cursor-pointer" title="Ocultar o mostrar total a la vista del cliente">
-                👁️
+                <svg id="iconMaskEye" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
               </button>
             </div>
 
@@ -11033,7 +11042,11 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     function toggleMaskTotal() {
       isTotalMasked = !isTotalMasked;
       const btn = document.getElementById('btnMaskTotal');
-      if (btn) btn.textContent = isTotalMasked ? '🙈' : '👁️';
+      if (btn) {
+        btn.innerHTML = isTotalMasked
+          ? '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>'
+          : '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
+      }
       renderPdvOrders();
     }
 
