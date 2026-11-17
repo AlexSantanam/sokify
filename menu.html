@@ -153,6 +153,19 @@
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="firebase-config.js"></script>
   <script src="firebase-init.js"></script>
+  <script>
+    // Asegurar que si el cliente abrió menu.html sin ?r=, sincronice con el restaurante local
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let rParam = urlParams.get('r');
+      const stored = localStorage.getItem('sokify_restaurant_id');
+      if (!rParam && stored) {
+        urlParams.set('r', stored);
+        window.history.replaceState({}, '', window.location.pathname + '?' + urlParams.toString());
+        window.RESTAURANT_ID = stored;
+      }
+    })();
+  </script>
 </head>
 <body class="bg-darkwood text-[#F4EFEA] antialiased selection:bg-ember selection:text-white pb-32">
 

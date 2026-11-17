@@ -796,6 +796,10 @@
             
             <!-- Canales principales: Mostrador / A domicilio / Mesas -->
             <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl">
+              <button onclick="setPdvChannel('todos')" id="btnChannelTodos" class="channel-tab-btn active px-3.5 py-2 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm flex items-center gap-1.5 cursor-pointer">
+                <span>⚡ Todos</span>
+                <span id="badgeChannelTodos" class="bg-brand-100 text-brand-800 text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold">0</span>
+              </button>
               <button onclick="setPdvChannel('mostrador')" id="btnChannelMostrador" class="channel-tab-btn active px-4 py-2 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm flex items-center gap-2 cursor-pointer">
                 <svg class="w-4 h-4 text-slate-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
                 <span>Mostrador</span>
@@ -903,8 +907,11 @@
 
           </div>
 
-          <!-- 4. BANDEJA DE PEDIDOS EN VIVO (TABLA / FEED DE COMANDAS) -->
-          <div class="bg-white rounded-2xl border border-borderLight overflow-hidden shadow-soft">
+          <!-- 4. BANDEJA DE PEDIDOS EN VIVO CON SPLIT-DRAWER ESTILO OLACLICK MEJORADO -->
+          <div class="flex flex-col lg:flex-row gap-4 items-start w-full">
+            
+            <!-- COLUMNA IZQUIERDA: LISTA / TABLA PRINCIPAL DE PEDIDOS -->
+            <div id="pdvOrdersListCol" class="w-full transition-all duration-300 bg-white rounded-2xl border border-borderLight overflow-hidden shadow-soft">
             
             <!-- VISTA TABLA -->
             <div id="pdvTableView" class="overflow-x-auto">
@@ -960,6 +967,13 @@
             </div>
 
           </div>
+
+          <!-- COLUMNA DERECHA: DRAWER / DETALLE DEL PEDIDO SELECCIONADO (ESTILO OLACLICK MEJORADO) -->
+          <div id="pdvOrderDetailDrawer" class="hidden w-full lg:w-[440px] xl:w-[480px] shrink-0 bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden sticky top-20 flex flex-col max-h-[calc(100vh-100px)] transition-all">
+            <!-- Renderizado dinámico con renderPdvOrderDrawer() -->
+          </div>
+
+        </div>
 
         </section>
 
@@ -5166,7 +5180,7 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-slate-100 text-slate-700">
-                    <tr class="hover:bg-slate-50/80 transition-colors">
+                    <tr onclick="seleccionarPedidoPdv('${o.docId}')" data-doc-id="${o.docId}" class="cursor-pointer hover:bg-brand-50/40 transition-colors ${selectedOrderDocId === o.docId ? 'bg-brand-50/80 border-l-4 border-l-brand-600 font-bold' : ''}">
                       <td class="py-3 px-5 font-mono text-blue-600 font-bold text-xs">menu:read</td>
                       <td class="py-3 px-5 text-slate-600">Read menu categories and products</td>
                     </tr>
@@ -7733,7 +7747,31 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
   <!-- ========================================================================= -->
   <!-- MODAL: COMPARTIR PANTALLA DE COCINA & KDS (MULTI-PANTALLA TABLET / TV)    -->
   <!-- ========================================================================= -->
-  <div id="modalCompartirKds" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+  <!-- MODAL AGREGAR PRODUCTO A PEDIDO EXISTENTE (TIPO OLACLICK) -->
+  <div id="modalAgregarProductoAPedido" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-5 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-sm font-bold">🍔</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Agregar Producto al Pedido</h3>
+            <p id="subModalAddProdTicket" class="text-[11px] text-slate-400">Selecciona los platos para sumar a esta comanda</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalAgregarProductoAPedido()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition cursor-pointer">✕</button>
+      </div>
+
+      <div class="relative">
+        <input id="inputBuscarPlatoParaPedido" type="text" placeholder="Buscar en el catálogo..." oninput="filtrarPlatosParaPedido(this.value)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brand-600 font-medium" />
+      </div>
+
+      <div id="listaPlatosParaPedido" class="divide-y divide-slate-100 overflow-y-auto flex-1 max-h-[350px] pr-1">
+        <!-- Inyección JS -->
+      </div>
+    </div>
+  </div>
+
+<div id="modalCompartirKds" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-5 my-auto max-h-[92vh] overflow-y-auto">
       
       <!-- CABECERA MODAL -->
@@ -10483,7 +10521,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     let imagenNuevaDataUrl = null;
     let currentCatFilter = 'todas';
     let kdsStationFilter = 'cocina'; // 'cocina', 'barra', 'todas'
-    let pdvChannel = 'mostrador'; // 'mostrador', 'delivery', 'mesas'
+    let pdvChannel = 'todos'; // 'todos', 'mostrador', 'delivery', 'mesas'
     let pdvStatusFilter = 'todo'; // 'todo', 'pendiente', 'en_curso', 'web', 'agendado'
     let pdvViewMode = 'table'; // 'table', 'cards'
     let isTotalMasked = false;
@@ -12106,7 +12144,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         btn.classList.remove('active', 'bg-white', 'text-slate-900', 'shadow-sm');
         btn.classList.add('text-slate-500');
       });
-      const activeBtn = channel === 'mostrador' ? document.getElementById('btnChannelMostrador')
+      const activeBtn = channel === 'todos' ? document.getElementById('btnChannelTodos')
+                      : channel === 'mostrador' ? document.getElementById('btnChannelMostrador')
                       : channel === 'delivery' ? document.getElementById('btnChannelDelivery')
                       : document.getElementById('btnChannelMesas');
       if (activeBtn) {
@@ -12902,6 +12941,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     function isOrderInChannel(o, channel) {
+      if (channel === 'todos') return true;
       const isDelivery = o.type === 'delivery';
       const table = (o.table || '').toLowerCase();
       const isMostrador = !isDelivery && (table === 'mostrador' || table === 'barra' || table.includes('mostrador') || table.includes('barra') || table.includes('llevar') || table.includes('retiro') || !table);
@@ -12921,6 +12961,587 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (filter === 'agendado') return false;
       return true;
     }
+
+
+    /* =========================================================================
+       DRAWER / SPLIT-VIEW DE DETALLE DE PEDIDO (TIPO OLACLICK MEJORADO ZOKIFY)
+       ========================================================================= */
+    let selectedOrderDocId = null;
+    let pdvDrawerTimerInterval = null;
+
+    function getSelectedOrder() {
+      if (!selectedOrderDocId) return null;
+      return pedidos.find(p => p.docId === selectedOrderDocId) || null;
+    }
+
+    function seleccionarPedidoPdv(docId) {
+      selectedOrderDocId = docId;
+      const drawer = document.getElementById('pdvOrderDetailDrawer');
+      const listCol = document.getElementById('pdvOrdersListCol');
+      
+      if (drawer) {
+        drawer.classList.remove('hidden');
+      }
+      if (listCol) {
+        listCol.classList.remove('w-full');
+        listCol.classList.add('lg:flex-1');
+      }
+
+      renderPdvOrderDrawer();
+      actualizarFilasSeleccionadasPdv();
+
+      // Iniciar temporizador en vivo para el cronómetro del pedido (como OlaClick ⏱️ 03:15 min)
+      if (pdvDrawerTimerInterval) clearInterval(pdvDrawerTimerInterval);
+      pdvDrawerTimerInterval = setInterval(() => {
+        const o = getSelectedOrder();
+        if (o) {
+          const timerEl = document.getElementById('drawerOrderStopwatch');
+          if (timerEl) {
+            const date = new Date(o.createdAt);
+            const diffSec = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+            const m = String(Math.floor(diffSec / 60)).padStart(2, '0');
+            const s = String(diffSec % 60).padStart(2, '0');
+            timerEl.textContent = `⏱️ ${m}:${s} min`;
+          }
+        }
+      }, 1000);
+    }
+
+    function cerrarDetallePedidoPdv() {
+      selectedOrderDocId = null;
+      if (pdvDrawerTimerInterval) clearInterval(pdvDrawerTimerInterval);
+      const drawer = document.getElementById('pdvOrderDetailDrawer');
+      const listCol = document.getElementById('pdvOrdersListCol');
+      
+      if (drawer) drawer.classList.add('hidden');
+      if (listCol) {
+        listCol.classList.add('w-full');
+        listCol.classList.remove('lg:flex-1');
+      }
+      actualizarFilasSeleccionadasPdv();
+    }
+
+    function actualizarFilasSeleccionadasPdv() {
+      document.querySelectorAll('#pdvOrdersTableBody tr').forEach(tr => {
+        const isMatch = tr.dataset.docId === selectedOrderDocId;
+        tr.classList.toggle('bg-brand-50/70', isMatch);
+        tr.classList.toggle('border-l-4', isMatch);
+        tr.classList.toggle('border-l-brand-600', isMatch);
+      });
+    }
+
+    function renderPdvOrderDrawer() {
+      const drawer = document.getElementById('pdvOrderDetailDrawer');
+      if (!drawer) return;
+      const o = getSelectedOrder();
+      if (!o) {
+        cerrarDetallePedidoPdv();
+        return;
+      }
+
+      const date = new Date(o.createdAt);
+      const timeStr = date.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+      const dateStr = date.toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit', year: '2-digit' });
+      const diffSec = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+      const m = String(Math.floor(diffSec / 60)).padStart(2, '0');
+      const s = String(diffSec % 60).padStart(2, '0');
+
+      const isNew = o.status === 'nuevo';
+      const isCocina = o.status === 'cocina';
+      const isListo = o.status === 'listo';
+      const isDespachado = o.status === 'despachado';
+
+      // Esquema de color idéntico y mejorado respecto a OlaClick:
+      // Pendiente = Naranja vibrante | En preparación = Verde esmeralda fresco | Listo = Azul | Despachado = Slate
+      const headerBg = isNew ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white'
+                     : isCocina ? 'bg-gradient-to-r from-emerald-600 to-emerald-700 text-white'
+                     : isListo ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white'
+                     : 'bg-gradient-to-r from-slate-700 to-slate-800 text-white';
+
+      const statusLabel = isNew ? 'Pendiente' : isCocina ? 'En preparación' : isListo ? 'Listo para servir' : 'Completado';
+      const channelLabel = o.type === 'delivery' ? 'A domicilio' : o.table ? `Mesa: ${o.table}` : 'En el local';
+
+      const items = Array.isArray(o.items) ? o.items : [];
+      const subtotal = o.subtotal || items.reduce((acc, it) => acc + ((it.price || 0) * (it.qty || 1)), 0);
+      const tip = o.tip || 0;
+      const delivFee = o.deliveryFee || 0;
+      const discount = o.discountAmount || 0;
+      const total = o.total || (subtotal + tip + delivFee - discount);
+      const isPaid = !!(o.paid || o.pagado || (o.payment && o.payment !== 'No pagado' && !o.payment.toLowerCase().includes('pendiente')));
+      const payMethod = o.payment || (isPaid ? 'Tarjeta' : 'Pendiente de pago');
+
+      drawer.innerHTML = `
+        <!-- 1. CABECERA DINÁMICA DEL PEDIDO (BANNER DE COLOR TIPO OLACLICK) -->
+        <div class="${headerBg} p-3.5 transition-colors shadow-sm">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base font-black tracking-wide font-mono">#${o.id || o.docId.slice(-4)}</span>
+              <span class="px-2 py-0.5 rounded-md bg-white/20 text-white text-[10px] font-black uppercase tracking-wider backdrop-blur-xs">
+                ${channelLabel}
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-white text-slate-900 text-[10px] font-black uppercase tracking-wider shadow-xs">
+                ${statusLabel}
+              </span>
+            </div>
+            <div class="flex items-center gap-1">
+              <button onclick="toggleEditarTituloDrawer('${o.docId}')" class="p-1 hover:bg-white/20 rounded-lg transition text-white" title="Editar nota o título">✏️</button>
+              <button onclick="cerrarDetallePedidoPdv()" class="p-1 hover:bg-white/20 rounded-lg transition text-white text-sm font-bold" title="Cerrar panel">✕</button>
+            </div>
+          </div>
+
+          <!-- Metadatos: Origen WEB/PDV, Fecha, Reloj Stopwatch y Código de Ticket -->
+          <div class="flex items-center justify-between text-[11px] font-mono mt-2 pt-2 border-t border-white/20 text-white/90">
+            <div class="flex items-center gap-2">
+              <span class="px-1.5 py-0.2 rounded bg-black/20 text-[10px] font-bold">${o.origen === 'pdv' ? 'PDV' : 'WEB'}</span>
+              <span>📅 ${dateStr} ${timeStr}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="drawerOrderStopwatch" class="font-bold text-amber-200">⏱️ ${m}:${s} min</span>
+              <span class="text-[10px] text-white/80 select-all">${o.id || o.docId.slice(-6)}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. CAMPO CLIENTE Y DIRECCIÓN -->
+        <div class="p-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-1">
+            <span class="text-slate-400 text-sm">👤</span>
+            <input type="text" value="${o.customer || ''}" placeholder="Agregar un nombre de cliente" 
+              onchange="actualizarClienteDrawer('${o.docId}', this.value)"
+              class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-brand-600 focus:bg-white px-2 py-1 text-xs font-bold text-slate-800 focus:outline-none rounded w-full transition" />
+          </div>
+          ${o.address ? `<span class="text-[10px] font-mono bg-white px-2 py-1 rounded-lg border border-slate-200 text-slate-600 truncate max-w-[140px]" title="${o.address}">📍 ${o.address}</span>` : ''}
+        </div>
+
+        <!-- 3. BARRA DE ACCIÓN INTERMEDIA: + PRODUCTOS (ALT +) Y BOTÓN IMPRESIÓN COCINA -->
+        <div class="px-3.5 py-2.5 bg-white border-b border-slate-100 flex items-center justify-between gap-2">
+          <button onclick="abrirModalAgregarProductoAPedido('${o.docId}')" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer">
+            <span>+ Productos</span>
+            <span class="text-[10px] bg-blue-700/60 px-1 py-0.2 rounded text-blue-100">Alt +</span>
+          </button>
+          
+          <button onclick="printTicket('${o.docId}', 'cocina')" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs flex items-center gap-1.5 border border-slate-200 transition active:scale-95 cursor-pointer" title="Reimprimir comanda para cocina">
+            <span>🖨️ Cocina</span>
+          </button>
+        </div>
+
+        <!-- 4. LISTA DETALLADA DE PRODUCTOS CON MODIFICADORES Y BOTÓN ELIMINAR ITEM (✕) -->
+        <div class="p-3.5 overflow-y-auto flex-1 space-y-2.5 max-h-[300px]">
+          ${items.length === 0 ? `
+            <div class="py-8 text-center text-slate-400 text-xs">
+              <span>Este pedido no contiene productos registrados aún.</span>
+            </div>
+          ` : items.map((it, idx) => `
+            <div class="p-2.5 rounded-xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-200/70 transition space-y-1">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="font-black text-slate-900 text-xs font-mono w-5">${it.qty || 1}x</span>
+                  <span class="font-bold text-slate-800 text-xs">${it.name}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="font-mono font-black text-slate-900 text-xs">${fmt((it.price || 0) * (it.qty || 1))}</span>
+                  <button onclick="eliminarItemDePedido('${o.docId}', ${idx})" class="text-slate-400 hover:text-red-600 text-xs font-bold p-0.5 rounded transition" title="Quitar este producto">✕</button>
+                </div>
+              </div>
+              ${Array.isArray(it.mods) && it.mods.length > 0 ? `
+                <div class="pl-7 space-y-0.5">
+                  ${it.mods.map(m => `<div class="text-[11px] text-slate-500 font-mono flex items-center gap-1">• <span>${m}</span></div>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+          `).join('')}
+
+          ${o.notes ? `
+            <div class="p-2.5 bg-amber-50/70 border border-amber-200/80 rounded-xl text-[11px] text-amber-900">
+              <strong>📝 Observaciones:</strong> ${o.notes}
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- 5. SUBtotales, BOTONES DE RECARGO/DESCUENTO Y TOTALES (TIPO OLACLICK) -->
+        <div class="p-3.5 bg-slate-50 border-t border-slate-200 space-y-2 text-xs">
+          <div class="flex items-center justify-between text-slate-500">
+            <span>Subtotal Productos (${items.length}):</span>
+            <span class="font-mono font-bold text-slate-800">${fmt(subtotal)}</span>
+          </div>
+
+          <!-- BOTONES DE MODIFICACIÓN RÁPIDA: DESCUENTO, SERVICIO, EMBALAJE -->
+          <div class="flex items-center gap-1.5 py-1">
+            <button onclick="aplicarDescuentoDrawer('${o.docId}')" class="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 font-black text-[11px] border border-blue-200 transition cursor-pointer">
+              % Descuento ${discount > 0 ? `(-${fmt(discount)})` : ''}
+            </button>
+            <button onclick="toggleServicioPropinaDrawer('${o.docId}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] border border-slate-200 transition cursor-pointer">
+              + Servicio ${tip > 0 ? `(+${fmt(tip)})` : ''}
+            </button>
+            <button onclick="agregarEmbalajeDrawer('${o.docId}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] border border-slate-200 transition cursor-pointer">
+              + Embalaje ${delivFee > 0 ? `(+${fmt(delivFee)})` : ''}
+            </button>
+          </div>
+
+          <!-- FILA DE ESTADO DE PAGO Y TOTAL -->
+          <div class="flex items-center justify-between pt-2 border-t border-slate-200">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                isPaid ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800 border border-amber-200'
+              }">
+                ${isPaid ? '✓ Pagado' : '🟡 No pagado'}
+              </span>
+              <span class="text-[11px] font-mono text-slate-600 border border-dashed border-slate-300 px-2 py-0.5 rounded-md">
+                ${payMethod}
+              </span>
+              <button onclick="printTicket('${o.docId}', 'cuenta')" class="p-1 rounded text-slate-500 hover:text-slate-900" title="Imprimir cuenta comensal">🖨️</button>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 uppercase font-black block">Total</span>
+              <span class="text-lg font-black text-slate-950 font-mono">${fmt(total)}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. BARRA INFERIOR DE ACCIÓN (STICKY TOOLBAR TIPO OLACLICK) -->
+        <div class="p-3 bg-white border-t border-slate-200 flex items-center justify-between gap-2 shadow-lg">
+          
+          <!-- Botón Estado (Alt + S) -->
+          <button onclick="ciclarEstadoPedidoDrawer('${o.docId}')" class="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex flex-col items-center justify-center transition active:scale-95 cursor-pointer border border-slate-200" title="Cambiar estado del pedido">
+            <span class="flex items-center gap-1 font-black">⏱️ Estado</span>
+            <span class="text-[9px] text-slate-400 font-mono">Alt + S</span>
+          </button>
+
+          <!-- Botón Pago (Alt + P) -->
+          <button onclick="registrarPagoDrawer('${o.docId}')" class="px-3 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex flex-col items-center justify-center transition active:scale-95 cursor-pointer shadow-sm shadow-blue-600/30" title="Cobrar y registrar forma de pago">
+            <span class="flex items-center gap-1 font-black">$ Pago</span>
+            <span class="text-[9px] text-blue-100 font-mono">Alt + P</span>
+          </button>
+
+          <!-- Botón Principal: Aceptar (si es nuevo) o Finalizar/Listo (si está en preparación) -->
+          ${isNew ? `
+            <button onclick="changeOrderStatus('${o.docId}', 'cocina'); playKitchenChime();" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-black text-xs flex flex-col items-center justify-center shadow-md shadow-emerald-600/30 transition active:scale-95 cursor-pointer">
+              <span class="flex items-center gap-1.5 text-sm">✓ Aceptar</span>
+              <span class="text-[9px] text-emerald-100 font-mono">Alt + Enter</span>
+            </button>
+          ` : isCocina ? `
+            <button onclick="changeOrderStatus('${o.docId}', 'listo'); playKitchenChime();" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-black text-xs flex flex-col items-center justify-center shadow-md shadow-blue-600/30 transition active:scale-95 cursor-pointer">
+              <span class="flex items-center gap-1.5 text-sm">✓ Marcar Listo</span>
+              <span class="text-[9px] text-blue-100 font-mono">Alt + Enter</span>
+            </button>
+          ` : isListo ? `
+            <button onclick="changeOrderStatus('${o.docId}', 'despachado');" class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-800 to-slate-900 hover:bg-slate-700 text-white font-black text-xs flex flex-col items-center justify-center shadow-md transition active:scale-95 cursor-pointer">
+              <span class="flex items-center gap-1.5 text-sm">✓ Finalizar</span>
+              <span class="text-[9px] text-slate-300 font-mono">Alt + Enter</span>
+            </button>
+          ` : `
+            <div class="flex-1 text-center py-2 text-xs font-bold text-slate-400 bg-slate-100 rounded-xl">
+              ✓ Pedido Despachado
+            </div>
+          `}
+
+          <!-- Menú Más Opciones (⋮) -->
+          <div class="relative inline-block text-left">
+            <button onclick="toggleMenuMasOpcionesDrawer(event)" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition cursor-pointer" title="Más opciones">
+              ⋮
+            </button>
+            <div id="menuMasOpcionesDrawer" class="hidden absolute right-0 bottom-full mb-2 w-44 rounded-2xl bg-white shadow-2xl border border-slate-200 p-1.5 z-50 text-xs">
+              <button onclick="cancelarPedidoPdv('${o.docId}')" class="w-full text-left px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer font-medium">
+                <span>⨂</span>
+                <span>Cancelar pedido</span>
+              </button>
+              <button onclick="eliminarPedidoPdv('${o.docId}')" class="w-full text-left px-3 py-2 rounded-xl text-red-600 hover:bg-red-50 flex items-center gap-2 cursor-pointer font-bold border-t border-slate-100 mt-1">
+                <span>🗑️</span>
+                <span>Eliminar</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    function toggleMenuMasOpcionesDrawer(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('menuMasOpcionesDrawer');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', () => {
+      const menu = document.getElementById('menuMasOpcionesDrawer');
+      if (menu && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    function actualizarClienteDrawer(docId, nuevoNombre) {
+      if (!docId) return;
+      window.pedidosRef().doc(docId).update({ customer: nuevoNombre.trim() }).catch(e => console.error(e));
+    }
+
+    function toggleEditarTituloDrawer(docId) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o) return;
+      const nuevo = prompt('Editar observación o nota del pedido:', o.notes || '');
+      if (nuevo === null) return;
+      window.pedidosRef().doc(docId).update({ notes: nuevo.trim() }).catch(e => console.error(e));
+    }
+
+    function ciclarEstadoPedidoDrawer(docId) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o) return;
+      const orden = ['nuevo', 'cocina', 'listo', 'despachado'];
+      const currentIdx = orden.indexOf(o.status || 'nuevo');
+      const next = orden[(currentIdx + 1) % orden.length];
+      changeOrderStatus(docId, next);
+      if (typeof playKitchenChime === 'function') playKitchenChime();
+    }
+
+    function registrarPagoDrawer(docId) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o) return;
+      const metodos = ['Tarjeta', 'Efectivo', 'Transferencia'];
+      const metodo = prompt(`Registrar pago de ${fmt(o.total || 0)}.\nEscribe el método: Tarjeta, Efectivo o Transferencia:`, 'Tarjeta');
+      if (metodo === null) return;
+      const clean = metodo.trim();
+      if (!clean) return;
+
+      window.pedidosRef().doc(docId).update({
+        paid: true,
+        pagado: true,
+        payment: clean
+      }).then(() => {
+        mostrarNotificacion(`💳 Pago de ${fmt(o.total || 0)} registrado como ${clean}`);
+        if (clean.toLowerCase() === 'efectivo') {
+          // Sumar al efectivo de caja si corresponde
+          try {
+            cajaVentasEfectivoTurno += (o.total || 0);
+            guardarEstadoCajaEnStorage();
+            actualizarModalCajaInfo();
+          } catch (e) {}
+        }
+      }).catch(err => {
+        alert('No se pudo registrar el pago: ' + err.message);
+      });
+    }
+
+    function eliminarItemDePedido(docId, itemIndex) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o || !Array.isArray(o.items)) return;
+      if (!confirm(`¿Eliminar "${o.items[itemIndex]?.name || 'producto'}" de esta orden?`)) return;
+
+      const newItems = [...o.items];
+      newItems.splice(itemIndex, 1);
+      const newSubtotal = newItems.reduce((acc, it) => acc + ((it.price || 0) * (it.qty || 1)), 0);
+      const newTotal = Math.max(0, newSubtotal + (o.tip || 0) + (o.deliveryFee || 0) - (o.discountAmount || 0));
+
+      window.pedidosRef().doc(docId).update({
+        items: newItems,
+        subtotal: newSubtotal,
+        total: newTotal
+      }).then(() => {
+        mostrarNotificacion('🗑️ Producto eliminado de la orden');
+      }).catch(e => alert(e.message));
+    }
+
+    function aplicarDescuentoDrawer(docId) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o) return;
+      const input = prompt('Ingresa el monto del descuento en $ (ej: 2000):', o.discountAmount || 0);
+      if (input === null) return;
+      const num = parseInt(input, 10);
+      if (isNaN(num) || num < 0) return alert('Monto inválido.');
+
+      const newSubtotal = o.subtotal || 0;
+      const newTotal = Math.max(0, newSubtotal + (o.tip || 0) + (o.deliveryFee || 0) - num);
+
+      window.pedidosRef().doc(docId).update({
+        discountAmount: num,
+        total: newTotal
+      }).catch(e => alert(e.message));
+    }
+
+    function toggleServicioPropinaDrawer(docId) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o) return;
+      const subtotal = o.subtotal || 0;
+      const propinaActual = o.tip || 0;
+      const nuevaPropina = propinaActual > 0 ? 0 : Math.round(subtotal * 0.10);
+      const newTotal = Math.max(0, subtotal + nuevaPropina + (o.deliveryFee || 0) - (o.discountAmount || 0));
+
+      window.pedidosRef().doc(docId).update({
+        tip: nuevaPropina,
+        total: newTotal
+      }).then(() => {
+        mostrarNotificacion(nuevaPropina > 0 ? '✓ Propina (10%) agregada' : 'Propina removida');
+      }).catch(e => alert(e.message));
+    }
+
+    function agregarEmbalajeDrawer(docId) {
+      const o = pedidos.find(p => p.docId === docId);
+      if (!o) return;
+      const feeActual = o.deliveryFee || 0;
+      const input = prompt('Costo de embalaje o empaque para llevar ($):', feeActual || 500);
+      if (input === null) return;
+      const num = parseInt(input, 10);
+      if (isNaN(num) || num < 0) return alert('Monto inválido.');
+
+      const subtotal = o.subtotal || 0;
+      const newTotal = Math.max(0, subtotal + (o.tip || 0) + num - (o.discountAmount || 0));
+
+      window.pedidosRef().doc(docId).update({
+        deliveryFee: num,
+        total: newTotal
+      }).catch(e => alert(e.message));
+    }
+
+    function cancelarPedidoPdv(docId) {
+      if (!confirm('¿Deseas cancelar esta orden? Quedará registrada como cancelada.')) return;
+      changeOrderStatus(docId, 'cancelado');
+      mostrarNotificacion('⨂ Pedido cancelado');
+    }
+
+    function eliminarPedidoPdv(docId) {
+      if (!confirm('⚠️ ¿Estás seguro de ELIMINAR permanentemente esta orden del sistema? Esta acción no se puede deshacer.')) return;
+      window.pedidosRef().doc(docId).delete().then(() => {
+        cerrarDetallePedidoPdv();
+        mostrarNotificacion('🗑️ Pedido eliminado permanentemente');
+      }).catch(err => alert(err.message));
+    }
+
+    // Modal para Agregar Productos a la orden
+    let agregarAOrderDocId = null;
+
+    function abrirModalAgregarProductoAPedido(docId) {
+      agregarAOrderDocId = docId;
+      const o = pedidos.find(p => p.docId === docId);
+      const sub = document.getElementById('subModalAddProdTicket');
+      if (sub && o) sub.textContent = `Sumar platos a la orden #${o.id || o.docId.slice(-4)} (${o.customer || 'Comensal'})`;
+
+      filtrarPlatosParaPedido('');
+      const modal = document.getElementById('modalAgregarProductoAPedido');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function cerrarModalAgregarProductoAPedido() {
+      agregarAOrderDocId = null;
+      const modal = document.getElementById('modalAgregarProductoAPedido');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function filtrarPlatosParaPedido(query) {
+      const cont = document.getElementById('listaPlatosParaPedido');
+      if (!cont) return;
+      const q = (query || '').toLowerCase().trim();
+      const todos = Array.isArray(platos) ? platos : [];
+      const match = todos.filter(p => !q || (p.nombre || p.name || '').toLowerCase().includes(q));
+
+      if (match.length === 0) {
+        cont.innerHTML = '<div class="py-6 text-center text-slate-400 text-xs">No hay productos que coincidan.</div>';
+        return;
+      }
+
+      cont.innerHTML = match.map(p => {
+        const nom = p.nombre || p.name;
+        const prec = p.precio || p.price || 0;
+        return `
+          <div class="py-2.5 px-1 flex items-center justify-between gap-3 hover:bg-slate-50 transition rounded-xl">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🍔</span>
+              <div>
+                <span class="text-xs font-black text-slate-900 block">${nom}</span>
+                <span class="text-[11px] font-mono font-bold text-slate-500">${fmt(prec)}</span>
+              </div>
+            </div>
+            <button onclick="sumarPlatoAOrdenActiva('${p.id}')" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs transition cursor-pointer shadow-xs">
+              + Agregar
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function sumarPlatoAOrdenActiva(platoId) {
+      if (!agregarAOrderDocId) return;
+      const o = pedidos.find(p => p.docId === agregarAOrderDocId);
+      const p = (Array.isArray(platos) ? platos : []).find(x => x.id === platoId);
+      if (!o || !p) return;
+
+      const nom = p.nombre || p.name;
+      const prec = p.precio || p.price || 0;
+
+      const newItems = [...(o.items || [])];
+      // Si ya existe el producto en la orden, incrementar qty
+      const existIdx = newItems.findIndex(i => (i.name || '').toLowerCase() === nom.toLowerCase());
+      if (existIdx !== -1) {
+        newItems[existIdx].qty = (newItems[existIdx].qty || 1) + 1;
+      } else {
+        newItems.push({
+          name: nom,
+          qty: 1,
+          price: prec,
+          mods: []
+        });
+      }
+
+      const newSubtotal = newItems.reduce((acc, it) => acc + ((it.price || 0) * (it.qty || 1)), 0);
+      const newTotal = Math.max(0, newSubtotal + (o.tip || 0) + (o.deliveryFee || 0) - (o.discountAmount || 0));
+
+      window.pedidosRef().doc(agregarAOrderDocId).update({
+        items: newItems,
+        subtotal: newSubtotal,
+        total: newTotal
+      }).then(() => {
+        mostrarNotificacion(`+ ${nom} agregado a la orden`);
+        cerrarModalAgregarProductoAPedido();
+      }).catch(err => alert(err.message));
+    }
+
+    // Atajos de teclado para velocidad tipo OlaClick
+    window.addEventListener('keydown', (e) => {
+      const drawer = document.getElementById('pdvOrderDetailDrawer');
+      if (!drawer || drawer.classList.contains('hidden')) return;
+      if (e.target && ['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+
+      // Escape -> Cerrar drawer
+      if (e.key === 'Escape') {
+        cerrarDetallePedidoPdv();
+        return;
+      }
+
+      // Alt + Enter -> Aceptar / Finalizar pedido
+      if (e.altKey && e.key === 'Enter') {
+        e.preventDefault();
+        const o = getSelectedOrder();
+        if (!o) return;
+        if (o.status === 'nuevo') {
+          changeOrderStatus(o.docId, 'cocina');
+          if (typeof playKitchenChime === 'function') playKitchenChime();
+        } else if (o.status === 'cocina') {
+          changeOrderStatus(o.docId, 'listo');
+          if (typeof playKitchenChime === 'function') playKitchenChime();
+        } else if (o.status === 'listo') {
+          changeOrderStatus(o.docId, 'despachado');
+        }
+        return;
+      }
+
+      // Alt + P -> Pago
+      if (e.altKey && (e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        if (selectedOrderDocId) registrarPagoDrawer(selectedOrderDocId);
+        return;
+      }
+
+      // Alt + S -> Cambiar Estado
+      if (e.altKey && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        if (selectedOrderDocId) ciclarEstadoPedidoDrawer(selectedOrderDocId);
+        return;
+      }
+
+      // Alt + + -> Agregar Producto
+      if (e.altKey && (e.key === '+' || e.key === 'a' || e.key === 'A')) {
+        e.preventDefault();
+        if (selectedOrderDocId) abrirModalAgregarProductoAPedido(selectedOrderDocId);
+        return;
+      }
+    });
 
     function renderPdvOrders() {
       const tbody = document.getElementById('pdvOrdersTableBody');
@@ -12950,6 +13571,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (p.status === 'cocina') countEnCurso++;
       });
 
+      const bTodos = document.getElementById('badgeChannelTodos');
       const bMost = document.getElementById('badgeChannelMostrador');
       const bDel = document.getElementById('badgeChannelDelivery');
       const bMes = document.getElementById('badgeChannelMesas');
@@ -12957,6 +13579,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const bCur = document.getElementById('badgeFilterEnCurso');
       const tTurno = document.getElementById('pdvTotalTurno');
 
+      if (bTodos) bTodos.textContent = countMostrador + countDelivery + countMesas;
       if (bMost) bMost.textContent = countMostrador;
       if (bDel) bDel.textContent = countDelivery;
       if (bMes) bMes.textContent = countMesas;
@@ -13044,6 +13667,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }).join('');
 
       cardsContainer.innerHTML = filtrados.map(o => createKdsOrderCard(o, o.items || []).outerHTML).join('');
+
+      if (selectedOrderDocId) {
+        renderPdvOrderDrawer();
+      }
     }
 
     // --- PLANO GRÁFICO INTERACTIVO DE MESAS Y SALÓN ---
@@ -20374,19 +21001,20 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const tipo = document.getElementById('selectQrModalTipo')?.value || 'menu';
       qrSeleccionActual = tipo;
 
-      const baseHost = window.location.origin || 'https://zokify.app';
-      let url = `${baseHost}/menu.html`;
+      const restSlug = getRestaurantSlugActivo();
+      const baseHost = window.location.origin || 'https://sokify.app';
+      let url = `${baseHost}/menu.html?r=${encodeURIComponent(restSlug)}`;
       let label = 'Menú Digital General';
 
       if (tipo.startsWith('mesa-')) {
         const numMesa = tipo.replace('mesa-', '');
-        url = `${baseHost}/menu.html?mesa=${numMesa}`;
+        url = `${baseHost}/menu.html?r=${encodeURIComponent(restSlug)}&mesa=${numMesa}`;
         label = `Mesa N° ${numMesa} (Salón)`;
       } else if (tipo === 'barra') {
-        url = `${baseHost}/menu.html?zona=barra`;
+        url = `${baseHost}/menu.html?r=${encodeURIComponent(restSlug)}&zona=barra`;
         label = 'Barra & Terraza';
       } else if (tipo === 'delivery') {
-        url = `${baseHost}/menu.html?tipo=delivery`;
+        url = `${baseHost}/menu.html?r=${encodeURIComponent(restSlug)}&tipo=delivery`;
         label = 'Menú Delivery / Pedidos Web';
       }
 
@@ -20860,7 +21488,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     function abrirPreviewMenuDigital() {
-      window.open('menu.html', '_blank');
+      window.open('menu.html?r=' + encodeURIComponent(getRestaurantSlugActivo()), '_blank');
     }
 
     // =========================================================================
