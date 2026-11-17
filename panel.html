@@ -531,7 +531,10 @@
                 <span id="topProfileAvatarInitials" class="w-7 h-7 rounded-full bg-brand-50 border border-brand-200 text-brand-700 flex items-center justify-center text-xs font-black shrink-0">
                   SK
                 </span>
-                <span id="topProfileRestName" class="font-bold text-xs text-slate-900 hidden md:inline truncate max-w-[130px]">Mi Restaurante</span>
+                <div class="hidden md:flex flex-col text-left leading-tight">
+                  <span id="topProfileRestName" class="font-bold text-xs text-slate-900 truncate max-w-[130px]">Mi Restaurante</span>
+                  <span id="topProfileRestSlug" class="text-[9px] text-slate-400 font-mono truncate max-w-[130px]">@negocio</span>
+                </div>
                 <span id="perfilArrow" class="text-[10px] text-slate-400 transition-transform">▼</span>
               </button>
 
@@ -548,9 +551,9 @@
                     </div>
                     <span id="dropdownProfileAvatarInitials" class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">SK</span>
                   </div>
-                  <div class="pt-1.5 border-t border-slate-200/60 text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>Conectado 10 Mbps(4g) / 0ms</span>
+                  <div class="pt-1.5 border-t border-slate-200/60 text-[10px] text-slate-500 font-mono flex items-center justify-between gap-1">
+                    <span id="dropdownProfileRestSlug" class="truncate">panel.html?r=...</span>
+                    <button type="button" onclick="navigator.clipboard.writeText(window.location.href); mostrarNotificacion('📋 Link de tu panel copiado');" class="text-brand-600 hover:text-brand-800 font-bold font-sans cursor-pointer text-[10px] shrink-0">Copiar</button>
                   </div>
                 </div>
 
@@ -11152,6 +11155,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (topInit) topInit.textContent = initials;
       const topName = document.getElementById('topProfileRestName');
       if (topName) topName.textContent = name;
+      const topSlug = document.getElementById('topProfileRestSlug');
+      if (topSlug) topSlug.textContent = '@' + restSlug;
 
       // 3. Dropdown de usuario y Mi Cuenta
       const dropName = document.getElementById('dropdownProfileRestName');
@@ -11165,6 +11170,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
       const dropInit = document.getElementById('dropdownProfileAvatarInitials');
       if (dropInit) dropInit.textContent = initials;
+      const dropSlug = document.getElementById('dropdownProfileRestSlug');
+      if (dropSlug) dropSlug.textContent = `panel.html?r=${restSlug}`;
 
       const mcNeg = document.getElementById('miCuentaNegocio');
       if (mcNeg) mcNeg.value = name;
@@ -11372,7 +11379,9 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         gate.classList.add('hidden');
         app.classList.remove('hidden');
 
-        let storedRestId = localStorage.getItem('sokify_restaurant_id');
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlParamSlug = urlParams.get('r') || urlParams.get('restaurante');
+        let storedRestId = urlParamSlug || localStorage.getItem('sokify_restaurant_id') || window.RESTAURANT_ID;
         let currentRestName = sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name')) || getDefaultRestaurantName();
         let currentEmail = user.email || localStorage.getItem('sokify_owner_email') || '';
         let currentPlan = localStorage.getItem('sokify_plan') || 'Free';
@@ -11408,7 +11417,19 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           console.warn('Error resolviendo restaurante del usuario:', authLookupErr);
         }
 
+        if (storedRestId) {
+          window.RESTAURANT_ID = storedRestId;
+          localStorage.setItem('sokify_restaurant_id', storedRestId);
+        }
+
         syncUserProfileAndRestaurantUI(currentRestName, currentEmail, currentPlan);
+
+        // Actualizar URL del navegador de forma transparente para que refleje el identificador único del restaurante
+        const activeSlug = window.RESTAURANT_ID || storedRestId;
+        if (activeSlug && history.replaceState && (!window.location.search || !window.location.search.includes('r='))) {
+          const cleanUrl = `${window.location.pathname}?r=${encodeURIComponent(activeSlug)}${window.location.hash || ''}`;
+          window.history.replaceState({ restId: activeSlug }, '', cleanUrl);
+        }
 
         if (!subscribed) {
           subscribed = true;
