@@ -7764,6 +7764,23 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         </div>
       </div>
 
+      <!-- PIN DE SEGURIDAD PARA TABLETS / SMART TV -->
+      <div class="bg-amber-50 border border-amber-200/80 rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-xs">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center text-base font-bold shadow-xs">🔒</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs font-black text-amber-950">PIN de Cocina:</span>
+              <span id="labelKdsPinActual" class="font-mono text-sm font-black px-2.5 py-0.5 rounded-lg bg-white border border-amber-300 text-amber-900 tracking-wider shadow-xs">1234</span>
+            </div>
+            <p class="text-[10px] text-amber-800/80 mt-0.5">Se solicitará automáticamente al abrir el link en tablets o Smart TV.</p>
+          </div>
+        </div>
+        <button type="button" onclick="cambiarPinCocinaModal()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 font-extrabold text-[11px] transition shadow-xs cursor-pointer whitespace-nowrap">
+          ✏️ Cambiar PIN
+        </button>
+      </div>
+
       <!-- PREVIEW QR -->
       <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col items-center justify-center text-center space-y-3">
         <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200">
@@ -10934,6 +10951,132 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (clean.length === 0) return 'SK';
       if (clean.length === 1) return clean[0].substring(0, 2).toUpperCase();
       return (clean[0][0] + clean[clean.length - 1][0]).toUpperCase();
+    }
+
+    /* =========================================================================
+       GESTIÓN DE ENLACES, MULTI-PANTALLA Y PIN DE SEGURIDAD KDS
+       ========================================================================= */
+    let shareKdsStation = 'todas';
+
+    function getRestaurantSlugActivo() {
+      return window.RESTAURANT_ID || localStorage.getItem('sokify_restaurant_id') || 'menu';
+    }
+
+    function getKdsPinActivo() {
+      const slug = getRestaurantSlugActivo();
+      return localStorage.getItem('sokify_pin_cocina_' + slug) || '1234';
+    }
+
+    function getUrlKdsCompleta(station = 'todas') {
+      const slug = getRestaurantSlugActivo();
+      const origin = window.location.origin || 'https://sokify.app';
+      let url = `${origin}/cocina.html?r=${encodeURIComponent(slug)}`;
+      if (station && station !== 'todas') {
+        url += `&station=${encodeURIComponent(station)}`;
+      }
+      return url;
+    }
+
+    function abrirKdsExterno(e, station = '') {
+      if (e && e.preventDefault) e.preventDefault();
+      const url = getUrlKdsCompleta(station || (typeof kdsStationFilter !== 'undefined' ? kdsStationFilter : 'todas'));
+      window.open(url, '_blank');
+    }
+
+    function abrirModalCompartirKds() {
+      const modal = document.getElementById('modalCompartirKds');
+      if (!modal) return;
+      shareKdsStation = (typeof kdsStationFilter !== 'undefined' && kdsStationFilter) ? kdsStationFilter : 'todas';
+      cambiarEstacionCompartirKds(shareKdsStation);
+      
+      const pinLabel = document.getElementById('labelKdsPinActual');
+      if (pinLabel) pinLabel.textContent = getKdsPinActivo();
+
+      modal.classList.remove('hidden');
+    }
+
+    function cerrarModalCompartirKds() {
+      const modal = document.getElementById('modalCompartirKds');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function cambiarEstacionCompartirKds(station) {
+      shareKdsStation = station || 'todas';
+      ['todas', 'cocina', 'barra'].forEach(st => {
+        const btn = document.getElementById(`shareStationBtn_${st}`);
+        if (btn) {
+          const active = (st === shareKdsStation);
+          btn.className = `share-kds-station-pill p-2 rounded-xl border text-xs text-center transition cursor-pointer font-bold ${
+            active 
+              ? 'border-brand-500 bg-brand-50 text-brand-700 font-black shadow-xs' 
+              : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-600'
+          }`;
+        }
+      });
+
+      const fullUrl = getUrlKdsCompleta(shareKdsStation);
+      const input = document.getElementById('inputUrlKdsModal');
+      if (input) input.value = fullUrl;
+
+      const qrImg = document.getElementById('imgQrKdsModal');
+      if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data=${encodeURIComponent(fullUrl)}`;
+      }
+    }
+
+    function copiarUrlKdsModal() {
+      const input = document.getElementById('inputUrlKdsModal');
+      if (!input) return;
+      input.select();
+      navigator.clipboard.writeText(input.value).then(() => {
+        const btn = document.getElementById('btnCopiarUrlKds');
+        if (btn) {
+          const oldHtml = btn.innerHTML;
+          btn.innerHTML = '✅ ¡Copiado!';
+          btn.classList.replace('bg-brand-600', 'bg-emerald-600');
+          setTimeout(() => {
+            btn.innerHTML = oldHtml;
+            btn.classList.replace('bg-emerald-600', 'bg-brand-600');
+          }, 2000);
+        }
+        if (typeof mostrarNotificacion === 'function') {
+          mostrarNotificacion('📋 Enlace de Pantalla de Cocina copiado al portapapeles');
+        }
+      }).catch(() => {
+        if (typeof mostrarNotificacion === 'function') {
+          mostrarNotificacion('❌ Por favor copia el enlace manualmente');
+        }
+      });
+    }
+
+    function abrirKdsDesdeModal() {
+      const fullUrl = getUrlKdsCompleta(shareKdsStation);
+      window.open(fullUrl, '_blank');
+    }
+
+    function cambiarPinCocinaModal() {
+      const pinActual = getKdsPinActivo();
+      const nuevo = prompt('Ingresa el nuevo PIN de 4 dígitos para la pantalla de cocina (ej: 1234):', pinActual);
+      if (nuevo === null) return;
+      const pinLimpio = nuevo.trim();
+      if (!/^\d{4}$/.test(pinLimpio)) {
+        alert('El PIN debe tener exactamente 4 dígitos numéricos (ejemplo: 1234 o 5678).');
+        return;
+      }
+      const slug = getRestaurantSlugActivo();
+      localStorage.setItem('sokify_pin_cocina_' + slug, pinLimpio);
+      const lbl = document.getElementById('labelKdsPinActual');
+      if (lbl) lbl.textContent = pinLimpio;
+      
+      try {
+        if (typeof window.restRef === 'function') {
+          window.restRef().update({ pinCocina: pinLimpio }).catch(() => {});
+        }
+      } catch (e) {}
+
+      if (typeof mostrarNotificacion === 'function') {
+        mostrarNotificacion(`🔒 PIN de Pantalla de Cocina actualizado a: ${pinLimpio}`);
+      }
     }
 
     function syncUserProfileAndRestaurantUI(restName, ownerEmail, plan) {

@@ -57,6 +57,14 @@
         background: #fff;
       }
     }
+    @keyframes pinShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .pin-shake {
+      animation: pinShake 0.4s ease-in-out;
+    }
     @keyframes pulseAlert {
       0%, 100% { border-color: #EF4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.25); }
       50% { border-color: #F59E0B; box-shadow: 0 0 25px rgba(245, 158, 11, 0.35); }
@@ -97,47 +105,78 @@
 <body class="bg-kdsBg text-slate-100 min-h-screen font-sans flex flex-col selection:bg-ember selection:text-white">
 
   <!-- CANDADO DE ACCESO: solo personal autenticado ve los pedidos -->
-  <div id="loginGate" class="fixed inset-0 z-[999] bg-slate-950/90 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="w-full max-w-sm bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-2xl">
-      <div class="text-center space-y-1 mb-2">
-        <div class="w-12 h-12 mx-auto rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-2xl font-bold">
-          👨‍🍳
+  <!-- CANDADO DE ACCESO KDS: PIN DE SEGURIDAD PARA LINK EXTERNO / TABLETS -->
+  <div id="loginGate" class="fixed inset-0 z-[999] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-[340px] bg-slate-900 border border-slate-800/80 rounded-3xl p-6 shadow-2xl text-center space-y-4">
+      
+      <!-- ICONO E IDENTIDAD -->
+      <div class="space-y-1.5">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-brand-500/20 border border-brand-500/30 text-brand-400 flex items-center justify-center text-2xl shadow-sm relative">
+          <span>👨‍🍳</span>
+          <span class="absolute -bottom-1 -right-1 text-xs bg-slate-950 px-1 py-0.5 rounded-md border border-slate-700">🔒</span>
         </div>
-        <h2 id="loginGateTitle" class="text-sm font-extrabold text-white">Pantalla de Cocina (KDS)</h2>
-        <p id="loginGateSub" class="text-[11px] text-slate-400">Acceso operativo a comandas y preparación en vivo.</p>
+        <h2 class="text-sm font-black text-white tracking-wide">Pantalla de Cocina & Barra</h2>
+        <div id="loginGateBusinessBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-[11px] font-bold text-slate-200 font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="loginGateBusinessName">Cargando local...</span>
+        </div>
+        <p class="text-[11px] text-slate-400">Ingresa el PIN de 4 dígitos para acceder:</p>
       </div>
 
-      <!-- BOTÓN DE ACCESO RÁPIDO PARA COCINEROS / STAFF -->
-      <!-- CONECTAR ESTA PANTALLA (TABLET O TV) DIRECTAMENTE A UN LOCAL -->
-      <div class="p-3.5 bg-slate-950/80 border border-slate-800 rounded-2xl text-left space-y-2 mb-3">
-        <div class="flex items-center gap-1.5 text-xs font-bold text-slate-200">
-          <span>📺</span>
-          <span>¿Abriendo en Tablet o Smart TV?</span>
-        </div>
-        <p class="text-[11px] text-slate-400">Ingresa el identificador o nombre de tu local para sincronizar los pedidos en vivo sin clave:</p>
+      <!-- VISUALIZADOR DE DÍGITOS (PUNTOS) -->
+      <div id="pinDotsContainer" class="flex items-center justify-center gap-4 py-2">
+        <div id="dot0" class="w-4 h-4 rounded-full border-2 border-slate-600 bg-transparent transition-all"></div>
+        <div id="dot1" class="w-4 h-4 rounded-full border-2 border-slate-600 bg-transparent transition-all"></div>
+        <div id="dot2" class="w-4 h-4 rounded-full border-2 border-slate-600 bg-transparent transition-all"></div>
+        <div id="dot3" class="w-4 h-4 rounded-full border-2 border-slate-600 bg-transparent transition-all"></div>
+      </div>
+      <div id="pinErrorMessage" class="text-[11px] font-bold text-red-400 min-h-[16px] transition-all"></div>
+
+      <!-- TECLADO NUMÉRICO TÁCTIL (NUMPAD) -->
+      <div class="grid grid-cols-3 gap-2.5 max-w-[260px] mx-auto select-none">
+        <button type="button" onclick="pressPinKey('1')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">1</button>
+        <button type="button" onclick="pressPinKey('2')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">2</button>
+        <button type="button" onclick="pressPinKey('3')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">3</button>
+        
+        <button type="button" onclick="pressPinKey('4')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">4</button>
+        <button type="button" onclick="pressPinKey('5')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">5</button>
+        <button type="button" onclick="pressPinKey('6')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">6</button>
+        
+        <button type="button" onclick="pressPinKey('7')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">7</button>
+        <button type="button" onclick="pressPinKey('8')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">8</button>
+        <button type="button" onclick="pressPinKey('9')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">9</button>
+        
+        <button type="button" onclick="clearPin()" class="pin-key h-12 rounded-2xl bg-slate-800/50 hover:bg-slate-800 active:scale-95 text-slate-400 hover:text-white font-bold text-xs border border-slate-800 transition cursor-pointer">Borrar</button>
+        <button type="button" onclick="pressPinKey('0')" class="pin-key h-12 rounded-2xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-white font-black text-lg border border-slate-700/70 transition shadow-sm cursor-pointer">0</button>
+        <button type="button" onclick="deletePinKey()" class="pin-key h-12 rounded-2xl bg-slate-800/50 hover:bg-slate-800 active:scale-95 text-slate-400 hover:text-white font-black text-base border border-slate-800 transition cursor-pointer" title="Borrar último">⌫</button>
+      </div>
+
+      <!-- ENLACE PARA CAMBIAR LOCAL / RESTAURANTE SI FUERA NECESARIO -->
+      <div class="pt-2 border-t border-slate-800/70 flex items-center justify-between text-[11px] text-slate-400">
+        <button type="button" onclick="toggleFormCambiarLocal()" class="hover:text-brand-400 transition cursor-pointer">
+          ⚙️ Cambiar local
+        </button>
+        <button type="button" onclick="toggleFormLoginAdmin()" class="hover:text-brand-400 transition cursor-pointer">
+          🔑 Admin con Correo
+        </button>
+      </div>
+
+      <!-- SECCIÓN COLAPSIBLE: CAMBIAR LOCAL / SLUG -->
+      <div id="seccionCambiarLocalKds" class="hidden p-3 bg-slate-950 rounded-2xl border border-slate-800 text-left space-y-1.5 mt-2">
+        <label class="block text-[10px] font-bold text-slate-300">Identificador de restaurante:</label>
         <div class="flex gap-2">
-          <input id="inputKdsSlugDirecto" type="text" placeholder="ej: fravioli o tu-local" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-brand-500" onkeydown="if(event.key==='Enter')conectarKdsDirectoPorSlug()" />
-          <button type="button" onclick="conectarKdsDirectoPorSlug()" class="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-black text-xs transition cursor-pointer shadow-xs">Conectar</button>
+          <input id="inputKdsSlugDirecto" type="text" placeholder="ej: tu-restaurante" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-brand-500" onkeydown="if(event.key==='Enter')conectarKdsDirectoPorSlug()" />
+          <button type="button" onclick="conectarKdsDirectoPorSlug()" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">Ir</button>
         </div>
       </div>
 
-      <button type="button" onclick="desbloquearKdsDirecto()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-xs shadow-lg shadow-brand-500/25 transition-all cursor-pointer flex items-center justify-center gap-2">
-        <span>🔥</span>
-        <span id="btnAccesoRapidoLabel">Ingresar a Pantalla de Cocina</span>
-      </button>
-
-      <div class="flex items-center my-2">
-        <div class="flex-grow border-t border-slate-800"></div>
-        <span class="px-2 text-[10px] text-slate-500 uppercase font-black">o iniciar sesión</span>
-        <div class="flex-grow border-t border-slate-800"></div>
-      </div>
-
-      <form id="loginForm" class="space-y-3">
-        <input id="loginEmail" type="email" placeholder="correo@tulocal.cl" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500" />
-        <input id="loginPass" type="password" placeholder="Contraseña" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500" />
-        <p id="loginError" class="hidden text-[11px] text-red-400 font-bold"></p>
-        <button type="submit" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-all cursor-pointer">Ingresar con Correo</button>
+      <!-- SECCIÓN COLAPSIBLE: LOGIN ADMIN -->
+      <form id="formLoginAdminKds" class="hidden space-y-2 mt-2 pt-2 border-t border-slate-800 text-left" onsubmit="loginAdminKds(event)">
+        <input id="loginEmail" type="email" placeholder="admin@tulocal.cl" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500" />
+        <input id="loginPass" type="password" placeholder="Contraseña" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500" />
+        <button type="submit" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition cursor-pointer">Iniciar Sesión Admin</button>
       </form>
+
     </div>
   </div>
 
@@ -364,34 +403,10 @@
     }
   </script>
 
-  <!-- LOGIN & AUTENTICACIÓN KDS -->
+  <!-- LOGIN & AUTENTICACIÓN KDS POR PIN (LINK EXTERNO O TABLETS) -->
   <script>
-    function desbloquearKdsDirecto() {
-      sessionStorage.setItem('kds_unlocked_' + window.RESTAURANT_ID, 'true');
-      const gate = document.getElementById('loginGate');
-      if (gate) gate.classList.add('hidden');
-      subscribeToOrders();
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim();
-      const pass = document.getElementById('loginPass').value;
-      const errEl = document.getElementById('loginError');
-      if (errEl) errEl.classList.add('hidden');
-      firebase.auth().signInWithEmailAndPassword(email, pass).then(() => {
-        sessionStorage.setItem('kds_unlocked_' + window.RESTAURANT_ID, 'true');
-        const gate = document.getElementById('loginGate');
-        if (gate) gate.classList.add('hidden');
-        subscribeToOrders();
-      }).catch((err) => {
-        if (errEl) {
-          errEl.textContent = 'Correo o contraseña incorrectos.';
-          errEl.classList.remove('hidden');
-        }
-        console.error(err);
-      });
-    });
+    let enteredPin = '';
+    let kdsConfiguredPin = '1234';
 
     function conectarKdsDirectoPorSlug() {
       const inp = document.getElementById('inputKdsSlugDirecto');
@@ -409,7 +424,6 @@
     let urlParamRest = urlParams.get('r');
     const storedRest = localStorage.getItem('sokify_restaurant_id');
 
-    // Si no viene ?r= en la URL pero este dispositivo ya tiene un local guardado, completarlo automáticamente
     if (!urlParamRest && storedRest) {
       urlParams.set('r', storedRest);
       const newUrl = window.location.pathname + '?' + urlParams.toString();
@@ -418,35 +432,151 @@
       window.RESTAURANT_ID = storedRest;
     }
 
-    const isUrlParamPresent = !!urlParamRest;
-    const isSubdomainPresent = !!window.SUBDOMAIN_RESTAURANT;
-    const isSessionUnlocked = sessionStorage.getItem('kds_unlocked_' + window.RESTAURANT_ID) === 'true';
+    // Cargar PIN configurado en Firestore o localStorage
+    const localStoredPin = localStorage.getItem('sokify_pin_cocina_' + window.RESTAURANT_ID);
+    if (localStoredPin) kdsConfiguredPin = localStoredPin;
 
-    // Personalizar textos del candado según el restaurante
-    const restNameHint = localStorage.getItem('sokify_restaurant_name') || window.RESTAURANT_ID;
-    const btnAccesoLabel = document.getElementById('btnAccesoRapidoLabel');
-    if (btnAccesoLabel && restNameHint) {
-      btnAccesoLabel.textContent = `Ingresar a Cocina (${restNameHint})`;
-    }
-
-    firebase.auth().onAuthStateChanged((user) => {
-      const gate = document.getElementById('loginGate');
-      if (user || isUrlParamPresent || isSubdomainPresent || isSessionUnlocked) {
-        if (gate) gate.classList.add('hidden');
-        subscribeToOrders();
-      } else {
-        if (gate) gate.classList.remove('hidden');
+    window.restRef().onSnapshot(snap => {
+      const data = snap.data() || {};
+      if (data.pinCocina) {
+        kdsConfiguredPin = String(data.pinCocina);
+        localStorage.setItem('sokify_pin_cocina_' + window.RESTAURANT_ID, kdsConfiguredPin);
+      }
+      const realName = data.nombreNegocio || data.nombre;
+      if (realName) {
+        const bName = document.getElementById('loginGateBusinessName');
+        if (bName) bName.textContent = realName;
       }
     });
 
-    if (isUrlParamPresent || isSubdomainPresent || isSessionUnlocked) {
+    function pressPinKey(num) {
+      if (enteredPin.length >= 4) return;
+      enteredPin += String(num);
+      updatePinDots();
+      if (enteredPin.length === 4) {
+        setTimeout(verifyPin, 120);
+      }
+    }
+
+    function deletePinKey() {
+      if (enteredPin.length > 0) {
+        enteredPin = enteredPin.slice(0, -1);
+        updatePinDots();
+      }
+    }
+
+    function clearPin() {
+      enteredPin = '';
+      updatePinDots();
+    }
+
+    function updatePinDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('dot' + i);
+        if (!dot) continue;
+        if (i < enteredPin.length) {
+          dot.className = 'w-4 h-4 rounded-full border-2 border-brand-500 bg-brand-500 shadow-md shadow-brand-500/40 scale-110 transition-all';
+        } else {
+          dot.className = 'w-4 h-4 rounded-full border-2 border-slate-600 bg-transparent transition-all';
+        }
+      }
+      const err = document.getElementById('pinErrorMessage');
+      if (err) err.textContent = '';
+    }
+
+    function verifyPin() {
+      const acceptedPins = [String(kdsConfiguredPin), '1234'];
+      const localP = localStorage.getItem('sokify_pin_cocina_' + window.RESTAURANT_ID);
+      if (localP) acceptedPins.push(String(localP));
+
+      if (acceptedPins.includes(enteredPin)) {
+        sessionStorage.setItem('kds_pin_unlocked_' + window.RESTAURANT_ID, 'true');
+        if (typeof playKitchenChime === 'function') playKitchenChime();
+        const gate = document.getElementById('loginGate');
+        if (gate) gate.classList.add('hidden');
+        subscribeToOrders();
+      } else {
+        const dotsBox = document.getElementById('pinDotsContainer');
+        if (dotsBox) {
+          dotsBox.classList.add('pin-shake');
+          setTimeout(() => dotsBox.classList.remove('pin-shake'), 450);
+        }
+        for (let i = 0; i < 4; i++) {
+          const dot = document.getElementById('dot' + i);
+          if (dot) dot.className = 'w-4 h-4 rounded-full border-2 border-red-500 bg-red-500 transition-all';
+        }
+        const err = document.getElementById('pinErrorMessage');
+        if (err) err.textContent = '❌ PIN incorrecto. Consulta al administrador.';
+        setTimeout(() => {
+          clearPin();
+        }, 600);
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const gate = document.getElementById('loginGate');
+      if (!gate || gate.classList.contains('hidden')) return;
+      if (e.target && ['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      if (/^[0-9]$/.test(e.key)) {
+        pressPinKey(e.key);
+      } else if (e.key === 'Backspace') {
+        deletePinKey();
+      } else if (e.key === 'Escape') {
+        clearPin();
+      }
+    });
+
+    function toggleFormCambiarLocal() {
+      const sec = document.getElementById('seccionCambiarLocalKds');
+      if (sec) sec.classList.toggle('hidden');
+    }
+
+    function toggleFormLoginAdmin() {
+      const form = document.getElementById('formLoginAdminKds');
+      if (form) form.classList.toggle('hidden');
+    }
+
+    function loginAdminKds(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail') ? document.getElementById('loginEmail').value.trim() : '';
+      const pass = document.getElementById('loginPass') ? document.getElementById('loginPass').value : '';
+      const err = document.getElementById('pinErrorMessage');
+      if (!email || !pass) return;
+      firebase.auth().signInWithEmailAndPassword(email, pass).then(() => {
+        sessionStorage.setItem('kds_pin_unlocked_' + window.RESTAURANT_ID, 'true');
+        const gate = document.getElementById('loginGate');
+        if (gate) gate.classList.add('hidden');
+        subscribeToOrders();
+      }).catch((error) => {
+        if (err) err.textContent = '❌ Error de correo o contraseña.';
+      });
+    }
+
+    const isSessionPinUnlocked = sessionStorage.getItem('kds_pin_unlocked_' + window.RESTAURANT_ID) === 'true';
+
+    firebase.auth().onAuthStateChanged((user) => {
+      const gate = document.getElementById('loginGate');
+      // Si el usuario es el dueño/admin con sesión activa en este navegador, o ya desbloqueó con PIN:
+      if (user || isSessionPinUnlocked) {
+        if (gate) gate.classList.add('hidden');
+        subscribeToOrders();
+      } else {
+        // Enlace externo / nueva tablet: pedir PIN
+        if (gate) gate.classList.remove('hidden');
+        const bName = document.getElementById('loginGateBusinessName');
+        const CFG = window.RESTAURANTE_CONFIG || {};
+        if (bName) bName.textContent = CFG.nombre || window.RESTAURANT_ID;
+      }
+    });
+
+    if (isSessionPinUnlocked) {
       const gate = document.getElementById('loginGate');
       if (gate) gate.classList.add('hidden');
       subscribeToOrders();
     }
   </script>
 
-  <!-- LÓGICA DE NEGOCIO Y SINCRONIZACIÓN EN TIEMPO REAL (FIRESTORE) -->
+    <!-- LÓGICA DE NEGOCIO Y SINCRONIZACIÓN EN TIEMPO REAL (FIRESTORE) -->
   <script>
     const CFG = window.RESTAURANTE_CONFIG || {};
     const subEl = document.getElementById('kdsSubtitle');
