@@ -153,4 +153,77 @@
       console.error('Error sembrando datos iniciales en Firestore:', err);
     }
   };
+
+  /**
+   * Sincronización dinámica de Favicon y Apple Touch Icon con el logo del restaurante
+   * Permite que la pestaña del navegador muestre el logo real del local en vez del de Zokify.
+   */
+  window.actualizarFaviconRestaurante = function (logoUrl, nombreRestaurante) {
+    try {
+      let faviconUrl = logoUrl;
+
+      if (!faviconUrl) {
+        // Generar un favicon SVG con la inicial del restaurante y degradado moderno
+        const name = nombreRestaurante || (CFG && CFG.nombre) || window.RESTAURANT_ID || 'Z';
+        const inicial = (name.trim().charAt(0) || 'Z').toUpperCase();
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <defs>
+            <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#7C3AED"/>
+              <stop offset="100%" stop-color="#4F46E5"/>
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="18" fill="url(#g)"/>
+          <text x="50%" y="54%" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#ffffff" text-anchor="middle" dominant-baseline="central">${inicial}</text>
+        </svg>`;
+        faviconUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+      }
+
+      // 1. Reemplazar o insertar favicon
+      let linkIcon = document.querySelector("link[rel*='icon']");
+      if (!linkIcon) {
+        linkIcon = document.createElement('link');
+        linkIcon.rel = 'icon';
+        document.head.appendChild(linkIcon);
+      }
+      linkIcon.type = faviconUrl.startsWith('data:image/svg') ? 'image/svg+xml' : 'image/png';
+      linkIcon.href = faviconUrl;
+
+      // 2. Reemplazar o insertar apple-touch-icon
+      let linkApple = document.querySelector("link[rel='apple-touch-icon']");
+      if (!linkApple) {
+        linkApple = document.createElement('link');
+        linkApple.rel = 'apple-touch-icon';
+        document.head.appendChild(linkApple);
+      }
+      linkApple.href = faviconUrl;
+    } catch (e) {
+      console.warn('Error actualizando favicon dinámico:', e);
+    }
+  };
+
+  // Inicialización inmediata al cargar el archivo (desde caché local o inicial)
+  try {
+    const cachedLogo = localStorage.getItem('sokify_logo_' + window.RESTAURANT_ID);
+    window.actualizarFaviconRestaurante(cachedLogo, (CFG && CFG.nombre) || window.RESTAURANT_ID);
+  } catch (e) {}
+
+  // Sincronización en tiempo real desde Firestore si está disponible
+  try {
+    if (typeof restRef === 'function') {
+      restRef().onSnapshot(snap => {
+        if (!snap || !snap.exists) return;
+        const data = snap.data() || {};
+        const logo = data.logoUrl || data.logo || null;
+        const nombre = data.nombreNegocio || data.nombre || (CFG && CFG.nombre);
+        if (logo) {
+          try {
+            localStorage.setItem('sokify_logo_' + window.RESTAURANT_ID, logo);
+          } catch (e) {}
+        }
+        window.actualizarFaviconRestaurante(logo, nombre);
+      }, () => {});
+    }
+  } catch (err) {}
 })();
+

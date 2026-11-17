@@ -15763,6 +15763,9 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (mini) mini.innerHTML = html;
         if (sim) sim.innerHTML = html;
         if (window.restRef) window.restRef().update({ logoUrl: dataUrl });
+        if (typeof window.actualizarFaviconRestaurante === 'function') {
+          window.actualizarFaviconRestaurante(dataUrl, CFG.nombre);
+        }
       });
     }
 
