@@ -1149,20 +1149,21 @@
           </div>
 
           <!-- ================================================================= -->
-          <!-- SUB-VIEW 2: CAJAS Y TURNOS (IMAGEN 2) -->
+          <!-- SUB-VIEW 2: CAJAS Y TURNOS (ZOKIFY POS ARQUEO Y CORTE Z) -->
           <!-- ================================================================= -->
           <div id="viewVentasCajas" class="space-y-4 hidden">
             
-            <div class="bg-white rounded-2xl border border-borderLight p-4 flex items-center justify-between shadow-soft">
-              <div class="flex items-center gap-2">
+            <!-- HEADER DE VISTA DE CAJAS -->
+            <div class="bg-white rounded-2xl border border-borderLight p-4 flex flex-wrap items-center justify-between gap-3 shadow-soft">
+              <div class="flex items-center gap-2.5">
                 <span class="w-3 h-3 rounded-full bg-slate-300" id="kdsCajasViewDot"></span>
-                <h3 class="font-black text-sm text-slate-900">Caja principal</h3>
-                <span id="kdsCajasViewStatePill" class="px-2 py-0.5 rounded-full font-mono text-[10px] font-black bg-red-100 text-red-700">Cerrada</span>
+                <h3 class="font-black text-sm text-slate-900" id="viewCajasTitle">Caja principal</h3>
+                <span id="kdsCajasViewStatePill" class="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-black bg-red-100 text-red-700">Cerrada</span>
               </div>
               <div class="flex items-center gap-2">
-                <button onclick="abrirModalCaja()" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer flex items-center gap-1.5">
-                  <span>🕒</span>
-                  <span>Arqueo de turno</span>
+                <button onclick="abrirModalHistorialCajas()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer flex items-center gap-1.5 transition-all shadow-xs">
+                  <span>📜</span>
+                  <span>Historial de cajas</span>
                 </button>
                 <button onclick="refrescarSistema(this)" class="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 cursor-pointer transition-all active:scale-95 shadow-xs" title="Refrescar Caja">
                   <svg class="w-4 h-4 text-slate-600 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
@@ -1170,70 +1171,88 @@
               </div>
             </div>
 
-            <!-- CAJA CERRADA: EMPTY STATE (IDÉNTICO A ZOKIFY IMAGEN 2) -->
-            <div id="cajaClosedView" class="bg-white rounded-3xl border border-borderLight p-8 md:p-12 text-center max-w-xl mx-auto space-y-6 shadow-soft my-6">
-              <div class="w-28 h-28 mx-auto rounded-3xl bg-amber-50 border border-amber-200 flex items-center justify-center text-6xl shadow-inner">
+            <!-- CAJA CERRADA: EMPTY STATE CON IDENTIDAD ZOKIFY -->
+            <div id="cajaClosedView" class="bg-gradient-to-b from-white to-purple-50/30 rounded-3xl border border-purple-100/80 p-8 md:p-12 text-center max-w-xl mx-auto space-y-6 shadow-soft my-6">
+              <div class="w-24 h-24 mx-auto rounded-3xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center text-5xl shadow-inner">
                 📠
               </div>
               <div class="space-y-2">
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight">¡Todo listo para empezar el día!</h2>
-                <div class="space-y-1.5 text-xs text-slate-600 font-medium max-w-md mx-auto text-left pt-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-emerald-500 font-black">✓</span>
-                    <span>Suma tus ventas automáticamente en tiempo real.</span>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100/70 text-purple-700 font-mono text-[10px] font-black uppercase tracking-wider">
+                  Control Operativo Diario
+                </div>
+                <h2 class="text-2xl font-black text-slate-900 tracking-tight">¡Todo listo para empezar el turno!</h2>
+                <div class="space-y-2 text-xs text-slate-600 font-medium max-w-md mx-auto text-left pt-2">
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xs shrink-0">✓</span>
+                    <span>Suma tus ventas y cobros automáticamente en tiempo real.</span>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-emerald-500 font-black">✓</span>
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xs shrink-0">✓</span>
                     <span>Mantén el control total de tu efectivo al cerrar el turno.</span>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-emerald-500 font-black">✓</span>
-                    <span>Simplifica la pantalla de tu mozo y cajero sin cálculos del sistema.</span>
+                  <div class="flex items-center gap-2.5">
+                    <span class="w-5 h-5 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xs shrink-0">✓</span>
+                    <span>Arqueo ciego con cálculo automático de diferencias e impresión de Corte Z.</span>
                   </div>
                 </div>
               </div>
-              <button onclick="abrirModalCaja()" class="px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30 cursor-pointer transition-all active:scale-[0.98]">
-                Abrir caja
-              </button>
+              <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button onclick="abrirModalAperturaCaja()" class="px-8 py-3.5 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-brand-500/25 cursor-pointer transition-all active:scale-[0.98]">
+                  + Abrir turno de caja
+                </button>
+                <button onclick="abrirModalHistorialCajas()" class="px-5 py-3.5 rounded-2xl border border-slate-200 hover:bg-white bg-slate-50 text-slate-700 font-bold text-xs cursor-pointer transition-all">
+                  Ver cierres anteriores
+                </button>
+              </div>
             </div>
 
             <!-- CAJA ABIERTA: DASHBOARD DE TURNO ACTIVO -->
             <div id="cajaOpenView" class="hidden space-y-4">
-              <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+              <div class="bg-emerald-50/90 border border-emerald-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs">
                 <div class="flex items-center gap-3">
-                  <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+                  <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-ping"></span>
                   <div>
-                    <h4 class="font-bold text-xs text-emerald-950">Turno de Caja Activo</h4>
-                    <p class="text-[11px] text-emerald-800" id="cajaTurnoOpenDetail">Abierto hoy · Registrando cobros</p>
+                    <h4 class="font-bold text-xs text-emerald-950 flex items-center gap-2">
+                      <span>Turno de Caja Activo</span>
+                      <span class="px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-emerald-200 text-emerald-800">EN OPERACIÓN</span>
+                    </h4>
+                    <p class="text-[11px] text-emerald-800 mt-0.5" id="cajaTurnoOpenDetail">Abierto hoy · Registrando cobros</p>
                   </div>
                 </div>
-                <button onclick="abrirModalCaja()" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs cursor-pointer shadow-sm">
-                  🔒 Cuadrar y Cerrar Caja
-                </button>
+                <div class="flex items-center gap-2">
+                  <button onclick="imprimirCorteParcialX()" class="px-3.5 py-2 rounded-xl bg-white border border-emerald-300 hover:bg-emerald-100 text-emerald-900 font-bold text-xs cursor-pointer shadow-xs flex items-center gap-1.5 transition-all">
+                    <span>🖨️</span>
+                    <span>Corte Parcial (X)</span>
+                  </button>
+                  <button onclick="abrirModalCierreCaja()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs cursor-pointer shadow-md shadow-brand-600/20 flex items-center gap-1.5 transition-all">
+                    <span>🔒</span>
+                    <span>Arqueo y Cierre (Z)</span>
+                  </button>
+                </div>
               </div>
 
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <!-- TARJETAS KPI DE TURNO -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
                 <div class="bg-white rounded-2xl border border-borderLight p-4 shadow-soft">
                   <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fondo Inicial</div>
                   <div class="text-xl font-black text-slate-900 mt-1 font-mono" id="cajaKpiFondo">$0</div>
                 </div>
                 <div class="bg-white rounded-2xl border border-borderLight p-4 shadow-soft">
-                  <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Efectivo Recaudado</div>
+                  <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ventas Efectivo</div>
                   <div class="text-xl font-black text-slate-900 mt-1 font-mono" id="cajaKpiEfectivo">$0</div>
                 </div>
                 <div class="bg-white rounded-2xl border border-borderLight p-4 shadow-soft">
-                  <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tarjetas / POS</div>
+                  <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tarjetas & Transfer</div>
                   <div class="text-xl font-black text-slate-900 mt-1 font-mono" id="cajaKpiTarjetas">$0</div>
                 </div>
-                <div class="bg-white rounded-2xl border border-borderLight p-4 shadow-soft">
-                  <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total en Gaveta</div>
-                  <div class="text-xl font-black text-emerald-600 mt-1 font-mono" id="cajaKpiTotalGaveta">$0</div>
+                <div class="bg-white rounded-2xl border border-borderLight p-4 shadow-soft bg-purple-50/30 border-purple-100">
+                  <div class="text-[10px] font-bold text-purple-700 uppercase tracking-wider">Efectivo en Gaveta</div>
+                  <div class="text-xl font-black text-brand-600 mt-1 font-mono" id="cajaKpiTotalGaveta">$0</div>
                 </div>
               </div>
             </div>
 
           </div>
-
           <!-- ================================================================= -->
           <!-- SUB-VIEW 3: REPORTES & ANALYTICS (IMAGEN 1) -->
           <!-- ================================================================= -->
@@ -6863,77 +6882,347 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
 
   <!-- ========================================================================= -->
-  <!-- MODAL 2: APERTURA / CIERRE Y ARQUEO DE CAJA REGISTRADORA -->
+  <!-- MODAL 1: APERTURA DE CAJA REGISTRADORA Y FONDO INICIAL (ZOKIFY POS) -->
   <!-- ========================================================================= -->
-  <div id="modalCaja" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
-      <div class="flex items-center justify-between border-b border-borderLight pb-3">
-        <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center text-xl font-bold">
+  <div id="modalAperturaCaja" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-5 animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- HEADER CON IDENTIDAD ZOKIFY -->
+      <div class="flex items-center justify-between border-b border-borderLight pb-3.5">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-purple-50 border border-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold shadow-xs">
             📠
           </div>
           <div>
-            <h3 class="font-black text-sm text-slate-900">Control de Caja & Turno</h3>
-            <p id="modalCajaStatusSub" class="text-[11px] text-slate-400">Arqueo diario y apertura de operaciones</p>
+            <div class="flex items-center gap-2">
+              <h3 class="font-black text-sm text-slate-900">Apertura de Caja & Inicio de Turno</h3>
+              <span class="px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-purple-100 text-purple-700">ZOKIFY POS</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-0.5">Ingresa el fondo inicial de cambio para comenzar a operar</p>
           </div>
         </div>
-        <button onclick="cerrarModalCaja()" class="text-slate-400 hover:text-slate-700 p-1 text-base">✕</button>
+        <button onclick="cerrarModalAperturaCaja()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 text-base transition-colors cursor-pointer">✕</button>
       </div>
 
-      <div class="space-y-3">
-        <div id="modalCajaStateBox" class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-600">Estado de la Caja:</span>
-            <span id="modalCajaStatePill" class="px-2 py-0.5 rounded-full font-mono text-[10px] font-black bg-red-100 text-red-700">CERRADA</span>
-          </div>
-          <div id="modalCajaAperturaDetalle" class="text-[11px] text-slate-400 hidden">
-            Abierta por: <strong class="text-slate-700 font-bold">Administrador</strong> · Monto inicial: <strong id="modalCajaMontoInicialLabel" class="text-slate-900 font-mono font-bold">$0</strong>
-          </div>
-        </div>
-
-        <!-- FORMULARIO DE APERTURA (SI ESTÁ CERRADA) -->
-        <div id="formAbrirCaja" class="space-y-3">
+      <!-- CUERPO DEL FORMULARIO -->
+      <div class="space-y-4">
+        <!-- DATOS DEL TURNO: CAJA Y RESPONSABLE -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Monto Inicial en Efectivo (Fondo de Cambio)</label>
-            <input id="inputMontoInicialCaja" type="number" step="1000" placeholder="Ej: 50000" value="50000" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-mono font-bold focus:outline-none focus:border-brand-600">
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre de la Caja</label>
+            <input id="inputAperturaCajaNombre" type="text" value="Caja Principal" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-semibold focus:outline-none focus:border-brand-600 focus:bg-white transition-all">
           </div>
-          <button onclick="ejecutarAperturaCaja()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs uppercase tracking-wider shadow-md shadow-emerald-600/20 cursor-pointer transition-all">
-            ✓ Abrir Turno de Caja
-          </button>
+          <div>
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Cajero / Responsable</label>
+            <input id="inputAperturaCajero" type="text" value="Administrador" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-semibold focus:outline-none focus:border-brand-600 focus:bg-white transition-all">
+          </div>
         </div>
 
-        <!-- RESUMEN DE VENTAS Y BOTÓN DE CIERRE (SI ESTÁ ABIERTA) -->
-        <div id="formCerrarCaja" class="space-y-3 hidden">
-          <div class="space-y-1.5 p-3 rounded-xl bg-amber-50/60 border border-amber-200 text-xs">
-            <div class="flex justify-between text-slate-600">
-              <span>Fondo Inicial:</span>
-              <span id="cierreFondoInicial" class="font-mono font-bold">$0</span>
-            </div>
-            <div class="flex justify-between text-slate-600">
-              <span>Ventas Efectivo:</span>
-              <span id="cierreVentasEfectivo" class="font-mono font-bold">$0</span>
-            </div>
-            <div class="flex justify-between text-slate-600">
-              <span>Ventas Tarjeta / POS:</span>
-              <span id="cierreVentasTarjeta" class="font-mono font-bold">$0</span>
-            </div>
-            <div class="flex justify-between text-slate-600">
-              <span>Ventas Transferencia:</span>
-              <span id="cierreVentasTransfer" class="font-mono font-bold">$0</span>
-            </div>
-            <div class="flex justify-between border-t border-amber-200 pt-1.5 text-amber-950 font-black">
-              <span>Total en Caja:</span>
-              <span id="cierreTotalEsperado" class="font-mono text-sm">$0</span>
-            </div>
+        <!-- FECHA Y HORA DE APERTURA -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Fecha de Apertura</label>
+            <input id="inputAperturaFecha" type="date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-mono font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all">
           </div>
-          <button onclick="ejecutarCierreCaja()" class="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-black text-xs uppercase tracking-wider shadow-md shadow-red-600/20 cursor-pointer transition-all">
-            🔒 Cuadrar y Cerrar Turno
-          </button>
+          <div>
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Hora de Apertura</label>
+            <input id="inputAperturaHora" type="time" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-mono font-medium focus:outline-none focus:border-brand-600 focus:bg-white transition-all">
+          </div>
+        </div>
+
+        <!-- MONTO INICIAL DESTACADO -->
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-purple-50/60 to-indigo-50/40 border border-purple-100/90 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="text-[11px] font-extrabold text-purple-950 uppercase tracking-wider">Fondo Inicial en Efectivo</label>
+            <span class="text-[10px] font-bold text-purple-700 bg-purple-100/80 px-2 py-0.5 rounded-full">Gaveta de cambio</span>
+          </div>
+          <p class="text-[11px] text-slate-500">Monto físico en monedas y billetes para dar vuelto a comensales.</p>
+          
+          <div class="relative">
+            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-600 font-mono font-black text-sm">CLP $</span>
+            <input id="inputMontoInicialCaja" type="number" step="1000" min="0" placeholder="50000" value="50000" class="w-full bg-white border border-purple-200 rounded-xl pl-16 pr-3.5 py-3 text-base text-slate-900 font-mono font-black focus:outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-500/20 shadow-xs">
+          </div>
+
+          <!-- BOTONES DE INCREMENTO RÁPIDO -->
+          <div class="flex flex-wrap items-center gap-1.5 pt-1">
+            <button type="button" onclick="agregarMontoInicial(10000)" class="px-2.5 py-1 rounded-lg bg-white border border-purple-200 hover:border-brand-500 text-purple-900 text-[10px] font-bold font-mono shadow-xs hover:bg-purple-50 transition-all cursor-pointer">+ $10.000</button>
+            <button type="button" onclick="agregarMontoInicial(20000)" class="px-2.5 py-1 rounded-lg bg-white border border-purple-200 hover:border-brand-500 text-purple-900 text-[10px] font-bold font-mono shadow-xs hover:bg-purple-50 transition-all cursor-pointer">+ $20.000</button>
+            <button type="button" onclick="agregarMontoInicial(50000)" class="px-2.5 py-1 rounded-lg bg-white border border-purple-200 hover:border-brand-500 text-purple-900 text-[10px] font-bold font-mono shadow-xs hover:bg-purple-50 transition-all cursor-pointer">+ $50.000</button>
+            <button type="button" onclick="agregarMontoInicial(100000)" class="px-2.5 py-1 rounded-lg bg-white border border-purple-200 hover:border-brand-500 text-purple-900 text-[10px] font-bold font-mono shadow-xs hover:bg-purple-50 transition-all cursor-pointer">+ $100.000</button>
+            <button type="button" onclick="setMontoInicial(0)" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 hover:border-slate-400 text-slate-600 text-[10px] font-bold shadow-xs hover:bg-slate-50 transition-all cursor-pointer">Sin fondo ($0)</button>
+          </div>
         </div>
       </div>
+
+      <!-- ACCIONES DEL MODAL -->
+      <div class="flex items-center justify-end gap-2.5 pt-2 border-t border-borderLight">
+        <button type="button" onclick="cerrarModalAperturaCaja()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+          Cancelar
+        </button>
+        <button type="button" onclick="ejecutarAperturaCaja()" class="px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs uppercase tracking-wider shadow-md shadow-brand-600/25 cursor-pointer transition-all active:scale-[0.98]">
+          ✓ Iniciar Turno de Caja
+        </button>
+      </div>
+
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- MODAL 2: ARQUEO CIEGO COMPARATIVO Y CIERRE DE CAJA (CORTE Z 80mm) -->
+  <!-- ========================================================================= -->
+  <div id="modalCierreCaja" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-2xl rounded-3xl p-5 sm:p-7 shadow-2xl border border-slate-100 space-y-4 my-auto max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- HEADER MODAL CIERRE -->
+      <div class="flex items-center justify-between border-b border-borderLight pb-3 shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-purple-50 border border-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold shadow-xs">
+            🔒
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-black text-sm text-slate-900">Arqueo y Cierre de Caja</h3>
+              <span id="cierreModalTurnoBadge" class="px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-emerald-100 text-emerald-800">TURNO ACTIVO</span>
+            </div>
+            <p id="cierreModalSubInfo" class="text-[11px] text-slate-500 mt-0.5">Auditoría comparativa y generación de Ticket de Corte Z</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalCierreCaja()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 text-base transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- CONTENIDO CON SCROLL INTERNO SI ES NECESARIO -->
+      <div class="space-y-4 overflow-y-auto pr-1">
+
+        <!-- RESUMEN KPI EN 3 BLOQUES -->
+        <div class="grid grid-cols-3 gap-2.5">
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Fondo Inicial</span>
+            <span id="cierreKpiFondo" class="text-xs sm:text-sm font-black font-mono text-slate-800 block mt-0.5">$0</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Ventas Turno</span>
+            <span id="cierreKpiVentas" class="text-xs sm:text-sm font-black font-mono text-slate-800 block mt-0.5">$0</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-purple-50/70 border border-purple-200">
+            <span class="text-[10px] font-bold text-purple-700 uppercase tracking-wider block">Total Esperado</span>
+            <span id="cierreKpiTotalEsperado" class="text-xs sm:text-sm font-black font-mono text-purple-900 block mt-0.5">$0</span>
+          </div>
+        </div>
+
+        <!-- TABLA DE AUDITORÍA COMPARATIVA (COMO SOLICITÓ EL USUARIO) -->
+        <div class="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-xs">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 text-[10px] font-extrabold text-slate-500 uppercase tracking-wider border-b border-slate-200">
+                <th class="py-2.5 px-3">Método de cobro</th>
+                <th class="py-2.5 px-3 text-right">Cálculos del sistema</th>
+                <th class="py-2.5 px-3 text-center w-36 sm:w-44">Conteo manual</th>
+                <th class="py-2.5 px-3 text-right">Diferencia</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              
+              <!-- FILA 1: EFECTIVO (FONDO + VENTAS) -->
+              <tr class="hover:bg-purple-50/20 transition-colors">
+                <td class="py-3 px-3 font-semibold text-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">💵</span>
+                    <div>
+                      <div class="font-bold text-slate-900">Efectivo en Gaveta</div>
+                      <div class="text-[10px] text-slate-400 font-normal">Fondo inicial + ventas en efectivo</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-bold text-slate-800" id="cierreSistemaEfectivo">
+                  $0
+                </td>
+                <td class="py-3 px-3 text-center">
+                  <div class="relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-[10px]">CLP $</span>
+                    <input id="cierreConteoEfectivo" type="number" step="100" min="0" placeholder="0" oninput="calcularDiferenciasCaja()" class="w-full bg-slate-50 focus:bg-white border border-slate-300 rounded-xl pl-12 pr-2.5 py-1.5 text-xs font-mono font-black text-slate-900 focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-500 transition-all text-right">
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-bold" id="cierreDiffEfectivo">
+                  $0
+                </td>
+              </tr>
+
+              <!-- FILA 2: TARJETAS / POS FÍSICO -->
+              <tr id="rowOtrosMetodosTarjetas" class="hover:bg-purple-50/20 transition-colors">
+                <td class="py-3 px-3 font-semibold text-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">💳</span>
+                    <div>
+                      <div class="font-bold text-slate-900">Tarjetas / POS</div>
+                      <div class="text-[10px] text-slate-400 font-normal">Vouchers y tickets de terminales POS</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-bold text-slate-800" id="cierreSistemaTarjetas">
+                  $0
+                </td>
+                <td class="py-3 px-3 text-center">
+                  <div class="relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-[10px]">CLP $</span>
+                    <input id="cierreConteoTarjetas" type="number" step="100" min="0" placeholder="0" oninput="calcularDiferenciasCaja()" class="w-full bg-slate-50 focus:bg-white border border-slate-300 rounded-xl pl-12 pr-2.5 py-1.5 text-xs font-mono font-black text-slate-900 focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-500 transition-all text-right">
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-bold" id="cierreDiffTarjetas">
+                  $0
+                </td>
+              </tr>
+
+              <!-- FILA 3: TRANSFERENCIAS BANCARIAS -->
+              <tr id="rowOtrosMetodosTransfer" class="hover:bg-purple-50/20 transition-colors">
+                <td class="py-3 px-3 font-semibold text-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="text-base">📲</span>
+                    <div>
+                      <div class="font-bold text-slate-900">Transferencias</div>
+                      <div class="text-[10px] text-slate-400 font-normal">Comprobantes bancarios verificados</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-bold text-slate-800" id="cierreSistemaTransfer">
+                  $0
+                </td>
+                <td class="py-3 px-3 text-center">
+                  <div class="relative">
+                    <span class="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 font-mono text-[10px]">CLP $</span>
+                    <input id="cierreConteoTransfer" type="number" step="100" min="0" placeholder="0" oninput="calcularDiferenciasCaja()" class="w-full bg-slate-50 focus:bg-white border border-slate-300 rounded-xl pl-12 pr-2.5 py-1.5 text-xs font-mono font-black text-slate-900 focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-500 transition-all text-right">
+                  </div>
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-bold" id="cierreDiffTransfer">
+                  $0
+                </td>
+              </tr>
+
+              <!-- FILA TOTAL AUDITORÍA -->
+              <tr class="bg-slate-100/80 font-black text-xs text-slate-900 border-t-2 border-slate-200">
+                <td class="py-3 px-3 uppercase tracking-wider font-extrabold text-[11px]">
+                  Total General
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-black text-sm" id="cierreTotalSistema">
+                  $0
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-black text-sm text-slate-900" id="cierreTotalConteo">
+                  $0
+                </td>
+                <td class="py-3 px-3 text-right font-mono font-black text-sm" id="cierreTotalDiferencia">
+                  $0
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- CONTROLES AUXILIARES: TOGGLE OTROS MÉTODOS Y AUTOCOMPLETAR -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <button type="button" onclick="toggleOtrosMetodosCierre()" id="btnToggleOtrosMetodos" class="text-brand-600 font-bold hover:underline flex items-center gap-1 cursor-pointer">
+            <span>^ Ocultar otros métodos de pago</span>
+          </button>
+          <button type="button" onclick="autocompletarConteoSegunSistema()" class="text-slate-500 hover:text-brand-600 font-bold flex items-center gap-1 cursor-pointer transition-colors">
+            <span>🪄 Cuadrar según sistema</span>
+          </button>
+        </div>
+
+        <!-- BANNER DE ESTADO DEL CUADRE (VERDE, ROJO O AZUL EN VIVO) -->
+        <div id="cierreAlertaDiferencia" class="p-3.5 rounded-2xl border text-xs font-bold flex items-center gap-2.5 bg-emerald-50 border-emerald-200 text-emerald-900">
+          <span class="text-lg">🟢</span>
+          <div>
+            <div class="font-extrabold">Cuadre de caja exacto</div>
+            <div class="text-[11px] font-normal opacity-90">El dinero contado coincide al 100% con los cálculos del sistema.</div>
+          </div>
+        </div>
+
+        <!-- OBSERVACIONES O NOTAS DEL CIERRE -->
+        <div>
+          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Notas u observaciones del cierre (opcional)</label>
+          <textarea id="cierreObservaciones" rows="2" placeholder="Ej: Justificación de diferencias, billetes deteriorados o ajuste de propinas..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-brand-600 focus:bg-white transition-all"></textarea>
+        </div>
+
+      </div>
+
+      <!-- FOOTER CON BOTONES DE ACCIÓN: IMPRIMIR CORTE Z O SOLO CERRAR -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-borderLight shrink-0">
+        <button type="button" onclick="cerrarModalCierreCaja()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+          Cancelar
+        </button>
+
+        <div class="flex items-center gap-2">
+          <!-- BOTÓN BLANCO CON BORDE VIOLETA: CERRAR CAJA E IMPRIMIR (COMO OLACLICK PERO CON MARCA ZOKIFY) -->
+          <button type="button" onclick="ejecutarCierreCaja(true)" class="px-4.5 py-2.5 rounded-xl border border-brand-300 hover:border-brand-500 bg-white hover:bg-brand-50 text-brand-700 font-black text-xs shadow-xs flex items-center gap-1.5 cursor-pointer transition-all active:scale-[0.98]">
+            <span>🖨️</span>
+            <span>Cerrar caja e imprimir</span>
+          </button>
+          
+          <!-- BOTÓN PRINCIPAL VIOLETA ZOKIFY: CERRAR CAJA -->
+          <button type="button" onclick="ejecutarCierreCaja(false)" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-black text-xs shadow-md shadow-brand-600/25 cursor-pointer transition-all active:scale-[0.98]">
+            Cerrar caja
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL 3: HISTORIAL DE CAJAS, TURNOS Y RE-IMPRESIÓN DE CORTES Z (80mm) -->
+  <!-- ========================================================================= -->
+  <div id="modalHistorialCajas" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-4xl rounded-3xl p-5 sm:p-7 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] flex flex-col animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- HEADER HISTORIAL -->
+      <div class="flex items-center justify-between border-b border-borderLight pb-3 shrink-0">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-purple-50 border border-purple-100 text-purple-700 flex items-center justify-center text-xl font-bold shadow-xs">
+            📜
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-black text-sm text-slate-900">Historial de Cajas & Cortes Z</h3>
+              <span id="historialCajasCountBadge" class="px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-slate-100 text-slate-700">0 TURNOS</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-0.5">Auditoría cronológica de todos los arqueos y turnos cerrados</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalHistorialCajas()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-xl hover:bg-slate-100 text-base transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- CUERPO TABLA CON SCROLL -->
+      <div class="overflow-y-auto flex-1 border border-slate-200 rounded-2xl">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="sticky top-0 bg-slate-50 text-[10px] font-extrabold text-slate-500 uppercase tracking-wider border-b border-slate-200 z-10">
+            <tr>
+              <th class="py-2.5 px-3"># Turno</th>
+              <th class="py-2.5 px-3">Caja / Cajero</th>
+              <th class="py-2.5 px-3">Horario</th>
+              <th class="py-2.5 px-3 text-right">Fondo</th>
+              <th class="py-2.5 px-3 text-right">Ventas Totales</th>
+              <th class="py-2.5 px-3 text-right">Conteo Físico</th>
+              <th class="py-2.5 px-3 text-center">Diferencia</th>
+              <th class="py-2.5 px-3 text-center">Ticket 80mm</th>
+            </tr>
+          </thead>
+          <tbody id="historialCajasTableBody" class="divide-y divide-slate-100">
+            <!-- RENDERIZADO DINÁMICO EN JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="flex items-center justify-between pt-2 border-t border-borderLight shrink-0">
+        <p class="text-[11px] text-slate-400">Puedes re-imprimir cualquier comprobante de Corte Z en papel térmico de 80mm.</p>
+        <button type="button" onclick="cerrarModalHistorialCajas()" class="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+          Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+  
+  <!-- CONTENEDOR COMPATIBILIDAD MODAL CAJA (HIDDEN) -->
+  <div id="modalCaja" class="hidden"></div>
   <!-- ========================================================================= -->
   <!-- MODAL: NUEVO REGISTRO FINANCIERO (GASTO / INGRESO TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
@@ -8164,6 +8453,58 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       <div class="flex items-center gap-2 pt-2">
         <button type="button" onclick="cerrarModalAgregarMetodoPago()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
         <button type="button" onclick="guardarNuevoMetodoPago()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer">Agregar Método</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: GESTIONAR MÉTODO DE PAGO EXISTENTE -->
+  <!-- ========================================================================= -->
+  <div id="modalGestionarMetodoPago" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <span class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">💳</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Gestionar <span id="gestionarMetodoPagoNombre">método</span></h3>
+            <p class="text-[11px] text-slate-400">Canales habilitados, recargo y estado</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalGestionarMetodoPago()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <input type="hidden" id="gestionarMetodoPagoKey" value="" />
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1.5">Canales donde se acepta</label>
+          <div class="flex flex-wrap gap-3">
+            <label class="flex items-center gap-1.5 cursor-pointer font-semibold text-slate-700">
+              <input id="chkGestionDomicilio" type="checkbox" class="w-3.5 h-3.5" /> A domicilio
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer font-semibold text-slate-700">
+              <input id="chkGestionLlevar" type="checkbox" class="w-3.5 h-3.5" /> Para llevar
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer font-semibold text-slate-700">
+              <input id="chkGestionLocal" type="checkbox" class="w-3.5 h-3.5" /> En el local
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Recargo o Comisión (%)</label>
+          <input id="inputGestionRecargo" type="number" min="0" max="100" placeholder="0 = sin recargo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+        </div>
+
+        <label class="flex items-center gap-1.5 cursor-pointer font-bold text-slate-700">
+          <input id="chkGestionActivo" type="checkbox" class="w-3.5 h-3.5" /> Método activo (visible para comensales)
+        </label>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button type="button" id="btnEliminarMetodoPersonalizado" onclick="eliminarMetodoPagoPersonalizado()" class="hidden py-2.5 px-3 rounded-xl border border-red-200 text-red-600 font-bold text-xs hover:bg-red-50 transition-colors cursor-pointer">Eliminar</button>
+        <button type="button" onclick="cerrarModalGestionarMetodoPago()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
+        <button type="button" onclick="guardarGestionMetodoPago()" class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer">Guardar cambios</button>
       </div>
     </div>
   </div>
@@ -10723,7 +11064,9 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (!subscribed) {
           subscribed = true;
           await window.seedIfEmpty();
-          subscribeAll();
+          cargarEstadoCaja();
+        actualizarModalCajaInfo();
+        subscribeAll();
         }
       } else {
         gate.classList.remove('hidden');
@@ -10983,6 +11326,87 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       local: true,
       domicilio: true
     };
+
+    // --- MÉTODOS DE PAGO: configuración real persistida en Firestore (restRef) ---
+    let metodosPagoConfig = {
+      efectivo: { activo: true, recargo: 0, domicilio: true, llevar: true, local: true },
+      credito: { activo: true, recargo: 0, domicilio: true, llevar: true, local: true },
+      debito: { activo: true, recargo: 0, domicilio: true, llevar: true, local: true },
+      transferencia: { activo: true, recargo: 0, domicilio: true, llevar: true, local: true },
+      personalizados: []
+    };
+
+    function cargarMetodosPagoConfig() {
+      if (!window.restRef) return;
+      window.restRef().get().then(snap => {
+        const data = snap.data() || {};
+        if (data.metodosPago) {
+          metodosPagoConfig = Object.assign({}, metodosPagoConfig, data.metodosPago, {
+            personalizados: Array.isArray(data.metodosPago.personalizados) ? data.metodosPago.personalizados : []
+          });
+        }
+        renderTablaMetodosPago();
+      }).catch(err => console.warn('Error cargando métodos de pago:', err));
+    }
+
+    function guardarMetodosPagoConfig() {
+      if (!window.restRef) return Promise.resolve();
+      return window.restRef().set({ metodosPago: metodosPagoConfig }, { merge: true });
+    }
+
+    function badgesCanales(cfg) {
+      const items = [
+        cfg.domicilio ? '<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold">✓ A domicilio</span>' : '',
+        cfg.llevar ? '<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold">✓ Para llevar</span>' : '',
+        cfg.local ? '<span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold">✓ En el local</span>' : ''
+      ].filter(Boolean).join('');
+      return items || '<span class="text-slate-400 font-bold">Sin canales</span>';
+    }
+
+    const NOMBRES_METODOS_PAGO_BASE = {
+      efectivo: 'Efectivo',
+      credito: 'Tarjeta de crédito',
+      debito: 'Tarjeta de débito',
+      transferencia: 'Transferencia'
+    };
+
+    function renderTablaMetodosPago() {
+      const tbody = document.getElementById('tablaMetodosPagoCfgBody');
+      if (!tbody) return;
+
+      const filasBase = Object.keys(NOMBRES_METODOS_PAGO_BASE).map(tipo => {
+        const cfg = metodosPagoConfig[tipo] || {};
+        return `
+          <tr class="hover:bg-slate-50/70 transition-colors${cfg.activo === false ? ' opacity-50' : ''}">
+            <td class="py-3.5 px-4 font-bold text-slate-900">${NOMBRES_METODOS_PAGO_BASE[tipo]}</td>
+            <td class="py-3.5 px-4 text-center">
+              <div class="inline-flex flex-wrap items-center justify-center gap-1.5 text-[10px]">${badgesCanales(cfg)}</div>
+            </td>
+            <td class="py-3.5 px-4 text-center font-bold ${cfg.activo === false ? 'text-slate-400' : 'text-emerald-600'}">${cfg.activo === false ? '✕' : '✓'}</td>
+            <td class="py-3.5 px-4 text-center text-slate-700 font-bold">${cfg.recargo > 0 ? cfg.recargo + '%' : '--'}</td>
+            <td class="py-3.5 px-4 text-center">
+              <button onclick="gestionarMetodoPago('${tipo}')" class="text-blue-600 hover:underline font-bold text-xs cursor-pointer">Gestionar</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      const filasPersonalizadas = (metodosPagoConfig.personalizados || []).map(m => `
+        <tr class="hover:bg-slate-50/70 transition-colors${m.activo === false ? ' opacity-50' : ''}">
+          <td class="py-3.5 px-4 font-bold text-slate-900">${m.nombre}</td>
+          <td class="py-3.5 px-4 text-center">
+            <div class="inline-flex flex-wrap items-center justify-center gap-1.5 text-[10px]">${badgesCanales(m)}</div>
+          </td>
+          <td class="py-3.5 px-4 text-center font-bold ${m.activo === false ? 'text-slate-400' : 'text-emerald-600'}">${m.activo === false ? '✕' : '✓'}</td>
+          <td class="py-3.5 px-4 text-center text-slate-700 font-bold">${m.recargo > 0 ? m.recargo + '%' : '--'}</td>
+          <td class="py-3.5 px-4 text-center">
+            <button onclick="gestionarMetodoPago('custom:${m.id}')" class="text-blue-600 hover:underline font-bold text-xs cursor-pointer">Gestionar</button>
+          </td>
+        </tr>
+      `).join('');
+
+      tbody.innerHTML = filasBase + filasPersonalizadas;
+    }
 
     function abrirModalHorariosMenuDigital() {
       // Calcular fecha de hoy localizada en español
@@ -11424,110 +11848,735 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (modal) modal.classList.add('hidden');
     }
 
+    // =========================================================================
+    // SISTEMA DE CONTROL DE CAJA, ARQUEO CIEGO Y CORTE Z (ZOKIFY POS)
+    // =========================================================================
+    let cajaNombre = 'Caja Principal';
+    let cajaCajero = 'Administrador';
+    let cajaTurnoId = null;
+    let cajaHistorial = [];
+    let otrosMetodosCierreVisibles = true;
+
+    // Cargar estado persistido
+    function cargarEstadoCaja() {
+      try {
+        const guardado = localStorage.getItem('sokify_caja_estado');
+        if (guardado) {
+          const data = JSON.parse(guardado);
+          cajaAbierta = !!data.cajaAbierta;
+          cajaMontoInicial = Number(data.cajaMontoInicial) || 0;
+          cajaAbiertaEn = data.cajaAbiertaEn ? new Date(data.cajaAbiertaEn) : null;
+          cajaNombre = data.cajaNombre || 'Caja Principal';
+          cajaCajero = data.cajaCajero || 'Administrador';
+          cajaTurnoId = data.cajaTurnoId || null;
+        }
+        const hist = localStorage.getItem('sokify_caja_historial');
+        if (hist) {
+          cajaHistorial = JSON.parse(hist) || [];
+        }
+      } catch (e) {
+        console.warn('Error al cargar estado de caja:', e);
+      }
+    }
+
+    function guardarEstadoCaja() {
+      try {
+        const data = {
+          cajaAbierta,
+          cajaMontoInicial,
+          cajaAbiertaEn: cajaAbiertaEn ? cajaAbiertaEn.toISOString() : null,
+          cajaNombre,
+          cajaCajero,
+          cajaTurnoId
+        };
+        localStorage.setItem('sokify_caja_estado', JSON.stringify(data));
+      } catch (e) {
+        console.warn('Error al guardar estado de caja:', e);
+      }
+    }
+
+    function guardarHistorialCaja() {
+      try {
+        localStorage.setItem('sokify_caja_historial', JSON.stringify(cajaHistorial));
+      } catch (e) {
+        console.warn('Error al guardar historial de cajas:', e);
+      }
+    }
+
+    // Smart dispatcher para mantener compatibilidad 100% con botones antiguos
     function abrirModalCaja() {
-      const modal = document.getElementById('modalCaja');
-      if (modal) modal.classList.remove('hidden');
-      actualizarModalCajaInfo();
+      if (cajaAbierta) {
+        abrirModalCierreCaja();
+      } else {
+        abrirModalAperturaCaja();
+      }
     }
 
     function cerrarModalCaja() {
-      const modal = document.getElementById('modalCaja');
+      cerrarModalAperturaCaja();
+      cerrarModalCierreCaja();
+    }
+
+    // --- APERTURA DE CAJA ---
+    function abrirModalAperturaCaja() {
+      const modal = document.getElementById('modalAperturaCaja');
+      if (!modal) return;
+      
+      const now = new Date();
+      const fechaInput = document.getElementById('inputAperturaFecha');
+      const horaInput = document.getElementById('inputAperturaHora');
+      const nombreInput = document.getElementById('inputAperturaCajaNombre');
+      const cajeroInput = document.getElementById('inputAperturaCajero');
+      const montoInput = document.getElementById('inputMontoInicialCaja');
+
+      if (fechaInput) fechaInput.value = now.toISOString().slice(0, 10);
+      if (horaInput) horaInput.value = now.toTimeString().slice(0, 5);
+      if (nombreInput) nombreInput.value = cajaNombre || 'Caja Principal';
+      
+      const userEmail = document.getElementById('dropdownProfileEmail')?.textContent?.trim();
+      if (cajeroInput) cajeroInput.value = userEmail ? userEmail.split('@')[0] : 'Administrador';
+      if (montoInput && !montoInput.value) montoInput.value = '50000';
+
+      modal.classList.remove('hidden');
+    }
+
+    function cerrarModalAperturaCaja() {
+      const modal = document.getElementById('modalAperturaCaja');
       if (modal) modal.classList.add('hidden');
     }
 
+    function agregarMontoInicial(delta) {
+      const input = document.getElementById('inputMontoInicialCaja');
+      if (!input) return;
+      const actual = Number(input.value) || 0;
+      input.value = Math.max(0, actual + delta);
+    }
+
+    function setMontoInicial(val) {
+      const input = document.getElementById('inputMontoInicialCaja');
+      if (input) input.value = val;
+    }
+
+    function ejecutarAperturaCaja() {
+      const montoInput = document.getElementById('inputMontoInicialCaja');
+      const nombreInput = document.getElementById('inputAperturaCajaNombre');
+      const cajeroInput = document.getElementById('inputAperturaCajero');
+
+      const monto = Number(montoInput?.value) || 0;
+      cajaMontoInicial = monto;
+      cajaNombre = nombreInput?.value?.trim() || 'Caja Principal';
+      cajaCajero = cajeroInput?.value?.trim() || 'Administrador';
+      cajaAbierta = true;
+      cajaAbiertaEn = new Date();
+      cajaTurnoId = 'TURNO-' + Date.now().toString().slice(-6);
+
+      guardarEstadoCaja();
+      actualizarModalCajaInfo();
+      renderVentas();
+      cerrarModalAperturaCaja();
+      mostrarNotificacion('✅ Caja abierta con éxito. Fondo inicial: ' + fmt(cajaMontoInicial));
+    }
+
+    // --- ARQUEO Y CIERRE DE CAJA ---
+    function getVentasTurnoActual() {
+      let vEfectivo = 0, vTarjetas = 0, vTransfer = 0;
+      let count = 0;
+      const inicioTurno = cajaAbiertaEn ? new Date(cajaAbiertaEn).getTime() : 0;
+
+      pedidos.forEach(p => {
+        if (p.status === 'anulado') return;
+        const pTime = p.createdAt ? new Date(p.createdAt).getTime() : 0;
+        if (inicioTurno > 0 && pTime < inicioTurno) return;
+
+        count++;
+        const pay = (p.payment || '').toLowerCase();
+        const tot = Number(p.total) || 0;
+        if (pay.includes('efectivo')) {
+          vEfectivo += tot;
+        } else if (pay.includes('transferencia')) {
+          vTransfer += tot;
+        } else {
+          vTarjetas += tot;
+        }
+      });
+
+      const vTotales = vEfectivo + vTarjetas + vTransfer;
+      const efectivoEsperado = cajaMontoInicial + vEfectivo;
+      const totalEsperado = cajaMontoInicial + vTotales;
+
+      return {
+        vEfectivo,
+        vTarjetas,
+        vTransfer,
+        vTotales,
+        efectivoEsperado,
+        totalEsperado,
+        numPedidos: count
+      };
+    }
+
+    function abrirModalCierreCaja() {
+      const modal = document.getElementById('modalCierreCaja');
+      if (!modal) return;
+
+      const subInfo = document.getElementById('cierreModalSubInfo');
+      const horasDiff = cajaAbiertaEn ? Math.max(0, Math.floor((Date.now() - new Date(cajaAbiertaEn).getTime()) / (1000 * 60))) : 0;
+      const hStr = Math.floor(horasDiff / 60) + 'h ' + (horasDiff % 60) + 'm';
+      const fStr = cajaAbiertaEn ? new Date(cajaAbiertaEn).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' }) : '-';
+
+      if (subInfo) {
+        subInfo.textContent = `${cajaNombre} · Turno iniciado a las ${fStr} (${hStr} de actividad) · Cajero: ${cajaCajero}`;
+      }
+
+      const resumen = getVentasTurnoActual();
+
+      const kFondo = document.getElementById('cierreKpiFondo');
+      const kVentas = document.getElementById('cierreKpiVentas');
+      const kTotalEsp = document.getElementById('cierreKpiTotalEsperado');
+      if (kFondo) kFondo.textContent = fmt(cajaMontoInicial);
+      if (kVentas) kVentas.textContent = `${fmt(resumen.vTotales)} (${resumen.numPedidos} pedidos)`;
+      if (kTotalEsp) kTotalEsp.textContent = fmt(resumen.totalEsperado);
+
+      const sEfec = document.getElementById('cierreSistemaEfectivo');
+      const sTarj = document.getElementById('cierreSistemaTarjetas');
+      const sTrans = document.getElementById('cierreSistemaTransfer');
+      const sTotal = document.getElementById('cierreTotalSistema');
+
+      if (sEfec) sEfec.textContent = fmt(resumen.efectivoEsperado);
+      if (sTarj) sTarj.textContent = fmt(resumen.vTarjetas);
+      if (sTrans) sTrans.textContent = fmt(resumen.vTransfer);
+      if (sTotal) sTotal.textContent = fmt(resumen.totalEsperado);
+
+      // Limpiar inputs de conteo manual (arqueo ciego)
+      const cEfec = document.getElementById('cierreConteoEfectivo');
+      const cTarj = document.getElementById('cierreConteoTarjetas');
+      const cTrans = document.getElementById('cierreConteoTransfer');
+      const cObs = document.getElementById('cierreObservaciones');
+
+      if (cEfec) cEfec.value = '';
+      if (cTarj) cTarj.value = '';
+      if (cTrans) cTrans.value = '';
+      if (cObs) cObs.value = '';
+
+      calcularDiferenciasCaja();
+      modal.classList.remove('hidden');
+    }
+
+    function cerrarModalCierreCaja() {
+      const modal = document.getElementById('modalCierreCaja');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function toggleOtrosMetodosCierre() {
+      otrosMetodosCierreVisibles = !otrosMetodosCierreVisibles;
+      const rTarj = document.getElementById('rowOtrosMetodosTarjetas');
+      const rTrans = document.getElementById('rowOtrosMetodosTransfer');
+      const btn = document.getElementById('btnToggleOtrosMetodos');
+
+      if (rTarj) rTarj.classList.toggle('hidden', !otrosMetodosCierreVisibles);
+      if (rTrans) rTrans.classList.toggle('hidden', !otrosMetodosCierreVisibles);
+      if (btn) {
+        btn.innerHTML = otrosMetodosCierreVisibles 
+          ? '<span>^ Ocultar otros métodos de pago</span>' 
+          : '<span>v Mostrar otros métodos de pago</span>';
+      }
+    }
+
+    function autocompletarConteoSegunSistema() {
+      const resumen = getVentasTurnoActual();
+      const cEfec = document.getElementById('cierreConteoEfectivo');
+      const cTarj = document.getElementById('cierreConteoTarjetas');
+      const cTrans = document.getElementById('cierreConteoTransfer');
+
+      if (cEfec) cEfec.value = resumen.efectivoEsperado;
+      if (cTarj) cTarj.value = resumen.vTarjetas;
+      if (cTrans) cTrans.value = resumen.vTransfer;
+
+      calcularDiferenciasCaja();
+      mostrarNotificacion('🪄 Conteo completado según cálculos de Zokify');
+    }
+
+    function calcularDiferenciasCaja() {
+      const resumen = getVentasTurnoActual();
+
+      const cEfecInput = document.getElementById('cierreConteoEfectivo');
+      const cTarjInput = document.getElementById('cierreConteoTarjetas');
+      const cTransInput = document.getElementById('cierreConteoTransfer');
+
+      const conteoEfec = Number(cEfecInput?.value) || 0;
+      const conteoTarj = Number(cTarjInput?.value) || 0;
+      const conteoTrans = Number(cTransInput?.value) || 0;
+
+      const diffEfec = conteoEfec - resumen.efectivoEsperado;
+      const diffTarj = conteoTarj - resumen.vTarjetas;
+      const diffTrans = conteoTrans - resumen.vTransfer;
+
+      const totalConteo = conteoEfec + conteoTarj + conteoTrans;
+      const diffTotal = totalConteo - resumen.totalEsperado;
+
+      // Render fila Efectivo
+      renderBadgeDiferencia('cierreDiffEfectivo', diffEfec);
+      renderBadgeDiferencia('cierreDiffTarjetas', diffTarj);
+      renderBadgeDiferencia('cierreDiffTransfer', diffTrans);
+
+      // Render fila Total
+      const totConteoEl = document.getElementById('cierreTotalConteo');
+      if (totConteoEl) totConteoEl.textContent = fmt(totalConteo);
+
+      renderBadgeDiferencia('cierreTotalDiferencia', diffTotal, true);
+
+      // Render banner de alerta
+      const alerta = document.getElementById('cierreAlertaDiferencia');
+      if (alerta) {
+        if (diffTotal === 0 && (conteoEfec > 0 || totalConteo === resumen.totalEsperado)) {
+          alerta.className = 'p-3.5 rounded-2xl border text-xs font-bold flex items-center gap-2.5 bg-emerald-50 border-emerald-200 text-emerald-900';
+          alerta.innerHTML = `
+            <span class="text-lg">🟢</span>
+            <div>
+              <div class="font-extrabold">Cuadre de caja exacto</div>
+              <div class="text-[11px] font-normal opacity-90">El dinero contado coincide al 100% con los cálculos del sistema ($0 de diferencia).</div>
+            </div>
+          `;
+        } else if (diffTotal < 0) {
+          alerta.className = 'p-3.5 rounded-2xl border text-xs font-bold flex items-center gap-2.5 bg-rose-50 border-rose-200 text-rose-900';
+          alerta.innerHTML = `
+            <span class="text-lg">🔴</span>
+            <div>
+              <div class="font-extrabold">Faltante de Caja: -${fmt(Math.abs(diffTotal))}</div>
+              <div class="text-[11px] font-normal opacity-90">El dinero físico contado es menor a lo registrado en el sistema. Puedes justificarlo en observaciones.</div>
+            </div>
+          `;
+        } else if (diffTotal > 0) {
+          alerta.className = 'p-3.5 rounded-2xl border text-xs font-bold flex items-center gap-2.5 bg-sky-50 border-sky-200 text-sky-900';
+          alerta.innerHTML = `
+            <span class="text-lg">🔵</span>
+            <div>
+              <div class="font-extrabold">Sobrante de Caja: +${fmt(diffTotal)}</div>
+              <div class="text-[11px] font-normal opacity-90">Existe un excedente de dinero físico sobre el cálculo esperado del sistema.</div>
+            </div>
+          `;
+        } else {
+          alerta.className = 'p-3.5 rounded-2xl border text-xs font-bold flex items-center gap-2.5 bg-slate-50 border-slate-200 text-slate-700';
+          alerta.innerHTML = `
+            <span class="text-lg">ℹ️</span>
+            <div>
+              <div class="font-extrabold">Ingresa el conteo físico de gaveta</div>
+              <div class="text-[11px] font-normal text-slate-500">Compara el total en monedas y billetes con el cálculo del sistema.</div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    function renderBadgeDiferencia(elementId, diff, isTotal) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+
+      if (diff === 0) {
+        el.textContent = '$0';
+        el.className = isTotal 
+          ? 'py-3 px-3 text-right font-mono font-black text-sm text-emerald-700' 
+          : 'py-3 px-3 text-right font-mono font-bold text-emerald-700';
+      } else if (diff < 0) {
+        el.textContent = '-' + fmt(Math.abs(diff));
+        el.className = isTotal 
+          ? 'py-3 px-3 text-right font-mono font-black text-sm text-rose-700' 
+          : 'py-3 px-3 text-right font-mono font-bold text-rose-700';
+      } else {
+        el.textContent = '+' + fmt(diff);
+        el.className = isTotal 
+          ? 'py-3 px-3 text-right font-mono font-black text-sm text-sky-700' 
+          : 'py-3 px-3 text-right font-mono font-bold text-sky-700';
+      }
+    }
+
+    function ejecutarCierreCaja(imprimir) {
+      const resumen = getVentasTurnoActual();
+
+      const cEfec = Number(document.getElementById('cierreConteoEfectivo')?.value) || 0;
+      const cTarj = Number(document.getElementById('cierreConteoTarjetas')?.value) || 0;
+      const cTrans = Number(document.getElementById('cierreConteoTransfer')?.value) || 0;
+      const obs = document.getElementById('cierreObservaciones')?.value?.trim() || '';
+
+      const totalConteo = cEfec + cTarj + cTrans;
+      const diferencia = totalConteo - resumen.totalEsperado;
+
+      const confirmMsg = diferencia === 0 
+        ? '¿Confirmas el cierre del turno con CUADRE EXACTO?' 
+        : `Atención: Hay una diferencia de ${diferencia < 0 ? '-' : '+'}${fmt(Math.abs(diferencia))}.\n¿Deseas cerrar el turno de todos modos?`;
+
+      if (!confirm(confirmMsg)) return;
+
+      const cierreRecord = {
+        id: cajaTurnoId || ('TURNO-' + Date.now().toString().slice(-6)),
+        nombre: cajaNombre || 'Caja Principal',
+        cajero: cajaCajero || 'Administrador',
+        aperturaEn: cajaAbiertaEn ? cajaAbiertaEn.toISOString() : new Date().toISOString(),
+        cierreEn: new Date().toISOString(),
+        montoInicial: cajaMontoInicial,
+        ventasEfectivo: resumen.vEfectivo,
+        ventasTarjetas: resumen.vTarjetas,
+        ventasTransferencias: resumen.vTransfer,
+        ventasTotales: resumen.vTotales,
+        totalEsperado: resumen.totalEsperado,
+        conteoEfectivo: cEfec,
+        conteoTarjetas: cTarj,
+        conteoTransfer: cTrans,
+        conteoTotal: totalConteo,
+        diferencia: diferencia,
+        numPedidos: resumen.numPedidos,
+        observaciones: obs
+      };
+
+      // Guardar en historial
+      cajaHistorial.unshift(cierreRecord);
+      guardarHistorialCaja();
+
+      // Intentar guardar en Firestore de forma transparente
+      try {
+        if (typeof db !== 'undefined' && db && db.collection) {
+          const restId = window.RESTAURANT_ID || localStorage.getItem('sokify_restaurant_id') || 'restaurante_demo';
+          db.collection('cajas_historial').add({
+            restaurantId: restId,
+            ...cierreRecord,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }).catch(e => console.warn('Sync Firestore caja historial:', e));
+        }
+      } catch (err) {
+        console.warn('Sync offline caja:', err);
+      }
+
+      // Cerrar caja
+      cajaAbierta = false;
+      cajaAbiertaEn = null;
+      cajaTurnoId = null;
+      guardarEstadoCaja();
+
+      actualizarModalCajaInfo();
+      renderVentas();
+      cerrarModalCierreCaja();
+
+      mostrarNotificacion('🔒 Turno de caja cerrado correctamente');
+
+      if (imprimir) {
+        imprimirTicketCorteZ(cierreRecord);
+      }
+    }
+
+    // --- IMPRESIÓN CORTE Z Y CORTE X (80mm) ---
+    function imprimirTicketCorteZ(cierre) {
+      const pArea = document.getElementById('printArea');
+      if (!pArea) return;
+
+      const restName = document.getElementById('topProfileRestName')?.textContent?.trim() || 'ZOKIFY RESTAURANT';
+      const fechaApertura = cierre.aperturaEn ? new Date(cierre.aperturaEn).toLocaleString('es-CL') : '-';
+      const fechaCierre = cierre.cierreEn ? new Date(cierre.cierreEn).toLocaleString('es-CL') : new Date().toLocaleString('es-CL');
+
+      let diffBadge = 'CUADRE EXACTO ($0)';
+      if (cierre.diferencia < 0) {
+        diffBadge = 'FALTANTE EN CAJA: -' + fmt(Math.abs(cierre.diferencia));
+      } else if (cierre.diferencia > 0) {
+        diffBadge = 'SOBRANTE EN CAJA: +' + fmt(cierre.diferencia);
+      }
+
+      pArea.innerHTML = `
+        <div style="width: 72mm; margin: 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #000; padding: 2mm 0;">
+          <div style="text-align: center; border-bottom: 2px dashed #000; padding-bottom: 8px; margin-bottom: 8px;">
+            <div style="font-size: 15px; font-weight: 900; letter-spacing: -0.5px;">${restName.toUpperCase()}</div>
+            <div style="font-size: 13px; font-weight: 900; margin: 4px 0; padding: 2px 6px; background: #000; color: #fff; display: inline-block; border-radius: 3px;">
+              *** CORTE Z - CIERRE DE CAJA ***
+            </div>
+            <div style="font-size: 10px; margin-top: 2px;">TURNO #${cierre.id || 'Z-001'}</div>
+          </div>
+          
+          <div style="font-size: 10px; margin-bottom: 8px; line-height: 1.4;">
+            <div><strong>CAJA:</strong> ${cierre.nombre || 'Caja Principal'}</div>
+            <div><strong>RESPONSABLE:</strong> ${cierre.cajero || 'Administrador'}</div>
+            <div><strong>APERTURA:</strong> ${fechaApertura}</div>
+            <div><strong>CIERRE:</strong> ${fechaCierre}</div>
+            <div><strong>TOTAL PEDIDOS:</strong> ${cierre.numPedidos || 0}</div>
+          </div>
+          
+          <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin-bottom: 8px; font-size: 11px; line-height: 1.5;">
+            <div style="font-weight: 900; margin-bottom: 4px; text-decoration: underline;">VENTAS DEL SISTEMA</div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>FONDO INICIAL:</span>
+              <strong>${fmt(cierre.montoInicial || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>VENTAS EFECTIVO:</span>
+              <strong>${fmt(cierre.ventasEfectivo || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>VENTAS TARJETAS / POS:</span>
+              <strong>${fmt(cierre.ventasTarjetas || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>VENTAS TRANSFERENCIA:</span>
+              <strong>${fmt(cierre.ventasTransferencias || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-top: 1px dotted #000; margin-top: 4px; padding-top: 4px; font-weight: 900; font-size: 12px;">
+              <span>TOTAL VENTAS:</span>
+              <span>${fmt(cierre.ventasTotales || 0)}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 11px; color: #333;">
+              <span>EFECTIVO ESPERADO:</span>
+              <span>${fmt((cierre.montoInicial || 0) + (cierre.ventasEfectivo || 0))}</span>
+            </div>
+          </div>
+          
+          <div style="border-bottom: 1px dashed #000; padding-bottom: 6px; margin-bottom: 8px; font-size: 11px; line-height: 1.5;">
+            <div style="font-weight: 900; margin-bottom: 4px; text-decoration: underline;">ARQUEO / CONTEO FÍSICO REAL</div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>EFECTIVO CONTADO:</span>
+              <strong>${fmt(cierre.conteoEfectivo || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>TARJETAS DECLARADAS:</span>
+              <strong>${fmt(cierre.conteoTarjetas || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>TRANSFERENCIAS:</span>
+              <strong>${fmt(cierre.conteoTransfer || 0)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-top: 1px dotted #000; margin-top: 4px; padding-top: 4px; font-weight: 900; font-size: 12px;">
+              <span>TOTAL ARQUEADO:</span>
+              <span>${fmt(cierre.conteoTotal || 0)}</span>
+            </div>
+          </div>
+          
+          <div style="text-align: center; padding: 6px 0; margin-bottom: 8px; border: 1.5px solid #000; border-radius: 4px;">
+            <div style="font-size: 10px; font-weight: bold;">RESULTADO DE AUDITORÍA:</div>
+            <div style="font-size: 13px; font-weight: 900; margin-top: 2px;">${diffBadge}</div>
+          </div>
+          
+          ${cierre.observaciones ? `
+            <div style="font-size: 10px; margin-bottom: 10px; padding: 4px; background: #eee; border-radius: 3px;">
+              <strong>OBSERVACIONES:</strong> ${cierre.observaciones}
+            </div>
+          ` : ''}
+          
+          <div style="margin-top: 25px; text-align: center;">
+            <div style="border-top: 1px solid #000; width: 80%; margin: 0 auto; padding-top: 4px;">
+              <div style="font-size: 10px; font-weight: bold;">FIRMA RESPONSABLE DE CAJA</div>
+              <div style="font-size: 9px; color: #555;">${cierre.cajero || 'Administrador'}</div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; font-size: 9px; color: #555; margin-top: 15px; border-top: 1px dotted #888; padding-top: 4px;">
+            Software de Gestión Zokify POS · zokify.app
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        window.print();
+      }, 150);
+    }
+
+    function imprimirCorteParcialX() {
+      if (!cajaAbierta) {
+        mostrarNotificacion('⚠️ La caja está cerrada. Abre un turno primero.');
+        return;
+      }
+      const resumen = getVentasTurnoActual();
+      const pArea = document.getElementById('printArea');
+      if (!pArea) return;
+
+      const restName = document.getElementById('topProfileRestName')?.textContent?.trim() || 'ZOKIFY RESTAURANT';
+      const fechaApertura = cajaAbiertaEn ? new Date(cajaAbiertaEn).toLocaleString('es-CL') : '-';
+      const fechaActual = new Date().toLocaleString('es-CL');
+
+      pArea.innerHTML = `
+        <div style="width: 72mm; margin: 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #000; padding: 2mm 0;">
+          <div style="text-align: center; border-bottom: 2px dashed #000; padding-bottom: 8px; margin-bottom: 8px;">
+            <div style="font-size: 15px; font-weight: 900; letter-spacing: -0.5px;">${restName.toUpperCase()}</div>
+            <div style="font-size: 13px; font-weight: 900; margin: 4px 0; padding: 2px 6px; background: #000; color: #fff; display: inline-block; border-radius: 3px;">
+              *** CORTE X - PARCIAL DE TURNO ***
+            </div>
+            <div style="font-size: 10px; margin-top: 2px;">TURNO EN CURSO #${cajaTurnoId || 'X-001'}</div>
+          </div>
+          
+          <div style="font-size: 10px; margin-bottom: 8px; line-height: 1.4;">
+            <div><strong>CAJA:</strong> ${cajaNombre || 'Caja Principal'}</div>
+            <div><strong>RESPONSABLE:</strong> ${cajaCajero || 'Administrador'}</div>
+            <div><strong>APERTURA:</strong> ${fechaApertura}</div>
+            <div><strong>EMISIÓN CORTE X:</strong> ${fechaActual}</div>
+            <div><strong>PEDIDOS COBRADOS:</strong> ${resumen.numPedidos}</div>
+          </div>
+          
+          <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin-bottom: 8px; font-size: 11px; line-height: 1.5;">
+            <div style="font-weight: 900; margin-bottom: 4px; text-decoration: underline;">ACUMULADO DEL TURNO HASTA AHORA</div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>FONDO INICIAL:</span>
+              <strong>${fmt(cajaMontoInicial)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>VENTAS EFECTIVO:</span>
+              <strong>${fmt(resumen.vEfectivo)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>VENTAS TARJETAS / POS:</span>
+              <strong>${fmt(resumen.vTarjetas)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>VENTAS TRANSFERENCIA:</span>
+              <strong>${fmt(resumen.vTransfer)}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-top: 1px dotted #000; margin-top: 4px; padding-top: 4px; font-weight: 900; font-size: 12px;">
+              <span>TOTAL VENTAS:</span>
+              <span>${fmt(resumen.vTotales)}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 900; font-size: 11px; color: #333;">
+              <span>EFECTIVO ESPERADO EN CAJA:</span>
+              <span>${fmt(resumen.efectivoEsperado)}</span>
+            </div>
+          </div>
+          
+          <div style="text-align: center; font-size: 9px; color: #555; margin-top: 15px; border-top: 1px dotted #888; padding-top: 4px;">
+            Este corte es informativo y NO cierra el turno.<br>
+            Software de Gestión Zokify POS · zokify.app
+          </div>
+        </div>
+      `;
+
+      setTimeout(() => {
+        window.print();
+      }, 150);
+    }
+
+    // --- HISTORIAL DE CAJAS ---
+    function abrirModalHistorialCajas() {
+      const modal = document.getElementById('modalHistorialCajas');
+      if (!modal) return;
+      renderHistorialCajas();
+      modal.classList.remove('hidden');
+    }
+
+    function cerrarModalHistorialCajas() {
+      const modal = document.getElementById('modalHistorialCajas');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderHistorialCajas() {
+      const tbody = document.getElementById('historialCajasTableBody');
+      const badge = document.getElementById('historialCajasCountBadge');
+      if (!tbody) return;
+
+      if (badge) badge.textContent = `${cajaHistorial.length} TURNOS`;
+
+      if (cajaHistorial.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-12 text-center text-slate-400">
+              <span class="text-3xl block mb-2">📜</span>
+              <p class="font-bold text-slate-600 text-xs">No hay turnos de caja cerrados aún</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Los cierres que realices y sus auditorías quedarán registrados aquí.</p>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = cajaHistorial.map(c => {
+        const fApertura = c.aperturaEn ? new Date(c.aperturaEn).toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit' }) + ' ' + new Date(c.aperturaEn).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' }) : '-';
+        const fCierre = c.cierreEn ? new Date(c.cierreEn).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' }) : '-';
+
+        let diffBadge = `<span class="px-2 py-0.5 rounded-full font-mono text-[10px] font-bold bg-emerald-100 text-emerald-800">Cuadre exacto ($0)</span>`;
+        if (c.diferencia < 0) {
+          diffBadge = `<span class="px-2 py-0.5 rounded-full font-mono text-[10px] font-bold bg-rose-100 text-rose-800">-${fmt(Math.abs(c.diferencia))}</span>`;
+        } else if (c.diferencia > 0) {
+          diffBadge = `<span class="px-2 py-0.5 rounded-full font-mono text-[10px] font-bold bg-sky-100 text-sky-800">+${fmt(c.diferencia)}</span>`;
+        }
+
+        return `
+          <tr class="hover:bg-slate-50 transition-colors">
+            <td class="py-3 px-3 font-mono font-bold text-slate-900">
+              #${c.id || 'Z-001'}
+            </td>
+            <td class="py-3 px-3">
+              <div class="font-bold text-slate-800">${c.nombre || 'Caja Principal'}</div>
+              <div class="text-[10px] text-slate-400">👤 ${c.cajero || 'Administrador'}</div>
+            </td>
+            <td class="py-3 px-3 font-mono text-[11px] text-slate-600">
+              <div>${fApertura}</div>
+              <div class="text-[10px] text-slate-400">Hasta: ${fCierre}</div>
+            </td>
+            <td class="py-3 px-3 text-right font-mono text-slate-600">
+              ${fmt(c.montoInicial || 0)}
+            </td>
+            <td class="py-3 px-3 text-right font-mono font-bold text-slate-900">
+              ${fmt(c.ventasTotales || 0)}
+            </td>
+            <td class="py-3 px-3 text-right font-mono font-bold text-slate-800">
+              ${fmt(c.conteoTotal || 0)}
+            </td>
+            <td class="py-3 px-3 text-center">
+              ${diffBadge}
+            </td>
+            <td class="py-3 px-3 text-center">
+              <button onclick="reimprimirCorteZDesdeHistorial('${c.id}')" class="px-2.5 py-1 rounded-lg border border-purple-200 hover:border-brand-500 bg-white hover:bg-purple-50 text-purple-700 font-bold text-[10px] flex items-center justify-center gap-1 mx-auto transition-all cursor-pointer shadow-xs">
+                <span>🖨️</span>
+                <span>Corte Z</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function reimprimirCorteZDesdeHistorial(corteId) {
+      const cierre = cajaHistorial.find(c => c.id === corteId);
+      if (cierre) {
+        imprimirTicketCorteZ(cierre);
+      } else {
+        mostrarNotificacion('⚠️ No se encontró el registro del turno');
+      }
+    }
+
+    // --- ACTUALIZACIÓN DE UI Y BANNERS ---
     function actualizarModalCajaInfo() {
-      const statePill = document.getElementById('modalCajaStatePill');
-      const dot = document.getElementById('cajaQuickDot');
-      const detalle = document.getElementById('modalCajaAperturaDetalle');
-      const formAbrir = document.getElementById('formAbrirCaja');
-      const formCerrar = document.getElementById('formCerrarCaja');
       const banner = document.getElementById('cajaBanner');
       const bannerTitle = document.getElementById('cajaBannerTitle');
       const bannerSub = document.getElementById('cajaBannerSub');
       const bannerBtn = document.getElementById('btnCajaBannerAction');
-
-      if (!statePill) return;
+      const dot = document.getElementById('cajaQuickDot');
 
       if (cajaAbierta) {
-        statePill.textContent = 'ABIERTA';
-        statePill.className = 'px-2 py-0.5 rounded-full font-mono text-[10px] font-black bg-emerald-100 text-emerald-700';
         if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
-        if (detalle) detalle.classList.remove('hidden');
-        const lbl = document.getElementById('modalCajaMontoInicialLabel');
-        if (lbl) lbl.textContent = fmt(cajaMontoInicial);
-        if (formAbrir) formAbrir.classList.add('hidden');
-        if (formCerrar) formCerrar.classList.remove('hidden');
-
         if (banner) {
           banner.className = 'bg-emerald-50/90 border border-emerald-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs transition-all';
         }
         if (bannerTitle) {
-          bannerTitle.textContent = 'Tu caja está abierta · Turno en curso';
+          bannerTitle.textContent = `${cajaNombre} · Turno en Curso`;
           bannerTitle.className = 'text-xs font-black text-emerald-950';
         }
         if (bannerSub) {
-          bannerSub.innerHTML = `Apertura registrada con ${fmt(cajaMontoInicial)} de fondo inicial. Registrando ventas de hoy. <a href="javascript:void(0)" onclick="abrirModalCaja()" class="underline font-bold hover:text-emerald-950 ml-1">Cuadrar caja</a>`;
+          bannerSub.innerHTML = `Caja abierta con fondo de <strong>${fmt(cajaMontoInicial)}</strong>. Registrando ventas de comensales. <a href="javascript:void(0)" onclick="abrirModalCierreCaja()" class="underline font-bold hover:text-emerald-950 ml-1">Arqueo y Cierre</a>`;
           bannerSub.className = 'text-[11px] text-emerald-800 mt-0.5';
         }
-        if (bannerBtn) bannerBtn.textContent = 'Cuadre de caja';
-
-        let vEfectivo = 0, vTarjeta = 0, vTransfer = 0;
-        pedidos.forEach(p => {
-          const pay = (p.payment || '').toLowerCase();
-          const tot = (p.total || 0);
-          if (pay.includes('efectivo')) vEfectivo += tot;
-          else if (pay.includes('transferencia')) vTransfer += tot;
-          else vTarjeta += tot;
-        });
-        const cFondo = document.getElementById('cierreFondoInicial');
-        const cEfec = document.getElementById('cierreVentasEfectivo');
-        const cTarj = document.getElementById('cierreVentasTarjeta');
-        const cTrans = document.getElementById('cierreVentasTransfer');
-        const cTot = document.getElementById('cierreTotalEsperado');
-        if (cFondo) cFondo.textContent = fmt(cajaMontoInicial);
-        if (cEfec) cEfec.textContent = fmt(vEfectivo);
-        if (cTarj) cTarj.textContent = fmt(vTarjeta);
-        if (cTrans) cTrans.textContent = fmt(vTransfer);
-        if (cTot) cTot.textContent = fmt(cajaMontoInicial + vEfectivo + vTarjeta + vTransfer);
-
+        if (bannerBtn) {
+          bannerBtn.textContent = 'Cuadre de caja';
+          bannerBtn.className = 'px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-sm cursor-pointer transition-all';
+        }
       } else {
-        statePill.textContent = 'CERRADA';
-        statePill.className = 'px-2 py-0.5 rounded-full font-mono text-[10px] font-black bg-red-100 text-red-700';
         if (dot) dot.className = 'w-2 h-2 rounded-full bg-red-500';
-        if (detalle) detalle.classList.add('hidden');
-        if (formAbrir) formAbrir.classList.remove('hidden');
-        if (formCerrar) formCerrar.classList.add('hidden');
-
         if (banner) {
-          banner.className = 'bg-amber-50/90 border border-amber-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs transition-all';
+          banner.className = 'bg-purple-50/90 border border-purple-200 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3 shadow-xs transition-all';
         }
         if (bannerTitle) {
-          bannerTitle.textContent = 'Tu caja está cerrada y ya empezaste tu turno';
-          bannerTitle.className = 'text-xs font-black text-amber-950';
+          bannerTitle.textContent = 'Tu caja está cerrada para este turno';
+          bannerTitle.className = 'text-xs font-black text-purple-950';
         }
         if (bannerSub) {
-          bannerSub.innerHTML = `Para empezar a registrar pedidos y llevar un control exacto de tus ventas de hoy, necesitas abrir tu caja. <a href="javascript:void(0)" onclick="abrirModalCaja()" class="underline font-bold hover:text-amber-950 ml-1">Abrir o cuadrar caja</a>`;
-          bannerSub.className = 'text-[11px] text-amber-800 mt-0.5';
+          bannerSub.innerHTML = `Abre tu caja con un monto inicial para registrar cobros y cuadrar tus ventas al final del día. <a href="javascript:void(0)" onclick="abrirModalAperturaCaja()" class="underline font-bold text-purple-950 hover:text-black ml-1">Abrir caja</a>`;
+          bannerSub.className = 'text-[11px] text-purple-900 mt-0.5';
         }
-        if (bannerBtn) bannerBtn.textContent = 'Abrir caja';
+        if (bannerBtn) {
+          bannerBtn.textContent = 'Abrir caja';
+          bannerBtn.className = 'px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold shadow-sm shadow-brand-500/25 cursor-pointer transition-all';
+        }
       }
-    }
-
-    function ejecutarAperturaCaja() {
-      const monto = Number(document.getElementById('inputMontoInicialCaja').value) || 0;
-      cajaAbierta = true;
-      cajaMontoInicial = monto;
-      cajaAbiertaEn = new Date();
-      actualizarModalCajaInfo();
-      cerrarModalCaja();
-    }
-
-    function ejecutarCierreCaja() {
-      if (!confirm('¿Confirmas el arqueo y cierre del turno de caja?')) return;
-      cajaAbierta = false;
-      cajaAbiertaEn = null;
-      actualizarModalCajaInfo();
-      cerrarModalCaja();
     }
 
     function isOrderInChannel(o, channel) {
@@ -12900,22 +13949,23 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (cDot) cDot.className = 'w-3 h-3 rounded-full bg-emerald-500 animate-pulse';
         if (cSubDot) cSubDot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
 
-        let vEfec = 0, vTarj = 0;
-        enRango.forEach(p => {
-          const pay = (p.payment || '').toLowerCase();
-          const tot = (p.total || 0);
-          if (pay.includes('efectivo')) vEfec += tot;
-          else vTarj += tot;
-        });
+        const resumen = getVentasTurnoActual();
 
         const kFondo = document.getElementById('cajaKpiFondo');
         const kEfec = document.getElementById('cajaKpiEfectivo');
         const kTarj = document.getElementById('cajaKpiTarjetas');
         const kTotal = document.getElementById('cajaKpiTotalGaveta');
+        const kTurnoDetail = document.getElementById('cajaTurnoOpenDetail');
+
         if (kFondo) kFondo.textContent = fmt(cajaMontoInicial);
-        if (kEfec) kEfec.textContent = fmt(vEfec);
-        if (kTarj) kTarj.textContent = fmt(vTarj);
-        if (kTotal) kTotal.textContent = fmt(cajaMontoInicial + vEfec);
+        if (kEfec) kEfec.textContent = fmt(resumen.vEfectivo);
+        if (kTarj) kTarj.textContent = fmt(resumen.vTarjetas + resumen.vTransfer);
+        if (kTotal) kTotal.textContent = fmt(resumen.efectivoEsperado);
+
+        if (kTurnoDetail && cajaAbiertaEn) {
+          const inicio = new Date(cajaAbiertaEn).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+          kTurnoDetail.textContent = `Iniciado a las ${inicio} · ${resumen.numPedidos} pedidos cobrados · Cajero: ${cajaCajero}`;
+        }
       } else {
         if (cClosed) cClosed.classList.remove('hidden');
         if (cOpen) cOpen.classList.add('hidden');
@@ -16996,6 +18046,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         // Estado general
       } else if (configSubtab === 'pagos') {
         setPagosCfgSubtab(pagosCfgSubtab);
+        cargarMetodosPagoConfig();
       } else if (configSubtab === 'negocio') {
         // Horario y datos
       } else if (configSubtab === 'equipo') {
@@ -17961,8 +19012,73 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (boxC) boxC.classList.toggle('hidden', pagosCfgSubtab !== 'contraentrega');
     }
 
-    function gestionarMetodoPago(tipo) {
-      mostrarNotificacion(`Configurando canal y comisiones para: ${tipo}`);
+    function gestionarMetodoPago(key) {
+      const esPersonalizado = key.startsWith('custom:');
+      const id = esPersonalizado ? key.slice(7) : null;
+      const cfg = esPersonalizado
+        ? (metodosPagoConfig.personalizados || []).find(m => m.id === id)
+        : metodosPagoConfig[key];
+
+      if (!cfg) {
+        mostrarNotificacion('⚠️ No se encontró ese método de pago.', 'warning');
+        return;
+      }
+
+      document.getElementById('gestionarMetodoPagoKey').value = key;
+      document.getElementById('gestionarMetodoPagoNombre').textContent = esPersonalizado ? cfg.nombre : NOMBRES_METODOS_PAGO_BASE[key];
+      document.getElementById('chkGestionDomicilio').checked = cfg.domicilio !== false;
+      document.getElementById('chkGestionLlevar').checked = cfg.llevar !== false;
+      document.getElementById('chkGestionLocal').checked = cfg.local !== false;
+      document.getElementById('inputGestionRecargo').value = cfg.recargo || 0;
+      document.getElementById('chkGestionActivo').checked = cfg.activo !== false;
+      document.getElementById('btnEliminarMetodoPersonalizado').classList.toggle('hidden', !esPersonalizado);
+
+      document.getElementById('modalGestionarMetodoPago')?.classList.remove('hidden');
+    }
+
+    function cerrarModalGestionarMetodoPago() {
+      document.getElementById('modalGestionarMetodoPago')?.classList.add('hidden');
+    }
+
+    function guardarGestionMetodoPago() {
+      const key = document.getElementById('gestionarMetodoPagoKey').value;
+      const esPersonalizado = key.startsWith('custom:');
+      const id = esPersonalizado ? key.slice(7) : null;
+
+      const cambios = {
+        domicilio: document.getElementById('chkGestionDomicilio').checked,
+        llevar: document.getElementById('chkGestionLlevar').checked,
+        local: document.getElementById('chkGestionLocal').checked,
+        recargo: Number(document.getElementById('inputGestionRecargo').value) || 0,
+        activo: document.getElementById('chkGestionActivo').checked
+      };
+
+      if (esPersonalizado) {
+        const m = (metodosPagoConfig.personalizados || []).find(m => m.id === id);
+        if (m) Object.assign(m, cambios);
+      } else {
+        metodosPagoConfig[key] = Object.assign({}, metodosPagoConfig[key], cambios);
+      }
+
+      guardarMetodosPagoConfig().then(() => {
+        renderTablaMetodosPago();
+        cerrarModalGestionarMetodoPago();
+        mostrarNotificacion('✅ Método de pago actualizado correctamente');
+      }).catch(err => mostrarNotificacion('⚠️ No se pudo guardar: ' + (err.message || err), 'warning'));
+    }
+
+    function eliminarMetodoPagoPersonalizado() {
+      const key = document.getElementById('gestionarMetodoPagoKey').value;
+      if (!key.startsWith('custom:')) return;
+      const id = key.slice(7);
+      if (!confirm('¿Eliminar este método de pago personalizado?')) return;
+
+      metodosPagoConfig.personalizados = (metodosPagoConfig.personalizados || []).filter(m => m.id !== id);
+      guardarMetodosPagoConfig().then(() => {
+        renderTablaMetodosPago();
+        cerrarModalGestionarMetodoPago();
+        mostrarNotificacion('🗑️ Método de pago eliminado');
+      }).catch(err => mostrarNotificacion('⚠️ No se pudo eliminar: ' + (err.message || err), 'warning'));
     }
 
     function abrirModalAgregarMetodoPago() {
@@ -17981,31 +19097,26 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         return;
       }
 
-      const tbody = document.getElementById('tablaMetodosPagoCfgBody');
-      if (tbody) {
-        const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50/70 transition-colors';
-        tr.innerHTML = `
-          <td class="py-3.5 px-4 font-bold text-slate-900">${nombre}</td>
-          <td class="py-3.5 px-4 text-center">
-            <div class="inline-flex flex-wrap items-center justify-center gap-1.5 text-[10px]">
-              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold">✓ A domicilio</span>
-              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold">✓ Para llevar</span>
-              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-bold">✓ En el local</span>
-            </div>
-          </td>
-          <td class="py-3.5 px-4 text-center font-bold text-emerald-600">✓</td>
-          <td class="py-3.5 px-4 text-center text-slate-700 font-bold">${recargo > 0 ? recargo + '%' : '--'}</td>
-          <td class="py-3.5 px-4 text-center">
-            <button onclick="gestionarMetodoPago('${nombre}')" class="text-blue-600 hover:underline font-bold text-xs cursor-pointer">Gestionar</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      }
+      const nuevo = {
+        id: 'cm-' + Date.now().toString(36),
+        nombre,
+        recargo,
+        activo: true,
+        domicilio: true,
+        llevar: true,
+        local: true
+      };
 
-      cerrarModalAgregarMetodoPago();
-      document.getElementById('inputNuevoMetodoPagoNombre').value = '';
-      mostrarNotificacion(`✅ Método "${nombre}" agregado correctamente`);
+      if (!Array.isArray(metodosPagoConfig.personalizados)) metodosPagoConfig.personalizados = [];
+      metodosPagoConfig.personalizados.push(nuevo);
+
+      guardarMetodosPagoConfig().then(() => {
+        renderTablaMetodosPago();
+        cerrarModalAgregarMetodoPago();
+        document.getElementById('inputNuevoMetodoPagoNombre').value = '';
+        document.getElementById('inputNuevoMetodoPagoRecargo').value = '0';
+        mostrarNotificacion(`✅ Método "${nombre}" agregado correctamente`);
+      }).catch(err => mostrarNotificacion('⚠️ No se pudo guardar: ' + (err.message || err), 'warning'));
     }
 
     // --- INFORMACIÓN DEL NEGOCIO ---
@@ -18672,14 +19783,18 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
     function activarTrialTresMeses() {
       cerrarModalPlanes();
-      try {
-        if (typeof db !== 'undefined' && typeof currentRestaurantId !== 'undefined' && currentRestaurantId) {
-          db.collection('restaurants').doc(currentRestaurantId).set({
-            plan: 'Trial 90 Días Premium (Activo)',
-            trialActivadoEn: new Date().toISOString()
-          }, { merge: true }).catch(console.warn);
-        }
-      } catch (err) {}
+      const planTrial = 'Trial 90 Días Premium (Activo)';
+
+      if (window.restRef) {
+        window.restRef().set({
+          plan: planTrial,
+          trialActivadoEn: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true }).catch(err => console.warn('Error activando trial en Firestore:', err));
+      }
+
+      localStorage.setItem('sokify_plan', planTrial);
+      syncUserProfileAndRestaurantUI(null, null, planTrial);
+
       mostrarNotificacion('🎉 ¡Tu periodo de 3 meses gratis está 100% activo!', 'success');
     }
 
@@ -19941,11 +21056,12 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       let totalFinal = subtotal;
 
       if (planSeleccionado.cupon) {
-        if (planSeleccionado.cupon === '1MESADVCL' || planSeleccionado.cupon === '1MESPRECL') {
+        if (planSeleccionado.cuponTipo === 'primerMesFijo') {
           totalFinal = 1499;
           planSeleccionado.descuento = subtotal - 1499;
-        } else {
-          planSeleccionado.descuento = Math.round(subtotal * 0.20);
+        } else if (planSeleccionado.cuponTipo === 'porcentaje') {
+          const pct = planSeleccionado.cuponDescuentoPct || 20;
+          planSeleccionado.descuento = Math.round(subtotal * (pct / 100));
           totalFinal = subtotal - planSeleccionado.descuento;
         }
       }
@@ -19972,22 +21088,65 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
     }
 
-    function aplicarCuponPlanes() {
+    async function aplicarCuponPlanes() {
       const input = document.getElementById('inputCodigoCupon');
       const msg = document.getElementById('msgCuponPlanes');
       if (!input) return;
       const codigo = input.value.trim().toUpperCase();
-      
-      if (codigo === '1MESADVCL' || codigo === '1MESPRECL') {
-        planSeleccionado.cupon = codigo;
+
+      if (!codigo) {
+        alert('Ingresa un código de cupón.');
+        return;
+      }
+
+      const codigoYaAplicado = planSeleccionado.cupon === codigo;
+      if (msg) msg.innerHTML = '<span class="text-slate-500">Validando cupón...</span>';
+
+      let cuponValido = null;
+      try {
+        if (codigo === '1MESADVCL' || codigo === '1MESPRECL') {
+          cuponValido = { tipo: 'primerMesFijo' };
+        } else if (window.db) {
+          const snap = await window.db.collection('cuponesPlanes').doc(codigo).get();
+          if (snap.exists) {
+            const data = snap.data() || {};
+            const usosMax = typeof data.usosMax === 'number' ? data.usosMax : null;
+            const usos = data.usos || 0;
+            if (data.activo && (usosMax === null || usos < usosMax)) {
+              cuponValido = { tipo: 'porcentaje', descuentoPct: data.descuentoPct || 20 };
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Error validando cupón en Firestore:', err);
+        if (msg) msg.innerHTML = '<span class="text-red-600 font-bold">No se pudo validar el cupón. Intenta nuevamente.</span>';
+        return;
+      }
+
+      if (!cuponValido) {
+        planSeleccionado.cupon = null;
+        planSeleccionado.cuponTipo = null;
+        planSeleccionado.cuponDescuentoPct = null;
         actualizarCalculoPeriodo();
+        if (msg) msg.innerHTML = '<span class="text-red-600 font-bold">Cupón inválido, vencido o ya utilizado.</span>';
+        return;
+      }
+
+      planSeleccionado.cupon = codigo;
+      planSeleccionado.cuponTipo = cuponValido.tipo;
+      planSeleccionado.cuponDescuentoPct = cuponValido.descuentoPct || null;
+      actualizarCalculoPeriodo();
+
+      if (cuponValido.tipo === 'primerMesFijo') {
         if (msg) msg.innerHTML = `<span class="text-emerald-600 font-bold">¡Cupón ${codigo} activado! Tu primer mes queda a solo $1.499.</span>`;
-      } else if (codigo.length >= 3) {
-        planSeleccionado.cupon = codigo;
-        actualizarCalculoPeriodo();
-        if (msg) msg.innerHTML = `<span class="text-emerald-600 font-bold">¡Cupón ${codigo} aplicado con éxito (20% OFF)!</span>`;
       } else {
-        alert('Ingresa un cupón válido (ej: 1MESADVCL o 1MESPRECL)');
+        if (msg) msg.innerHTML = `<span class="text-emerald-600 font-bold">¡Cupón ${codigo} aplicado con éxito (${cuponValido.descuentoPct}% OFF)!</span>`;
+      }
+
+      if (cuponValido.tipo === 'porcentaje' && !codigoYaAplicado && window.db) {
+        window.db.collection('cuponesPlanes').doc(codigo).update({
+          usos: firebase.firestore.FieldValue.increment(1)
+        }).catch(() => {});
       }
     }
 
