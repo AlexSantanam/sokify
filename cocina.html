@@ -108,6 +108,19 @@
       </div>
 
       <!-- BOTÓN DE ACCESO RÁPIDO PARA COCINEROS / STAFF -->
+      <!-- CONECTAR ESTA PANTALLA (TABLET O TV) DIRECTAMENTE A UN LOCAL -->
+      <div class="p-3.5 bg-slate-950/80 border border-slate-800 rounded-2xl text-left space-y-2 mb-3">
+        <div class="flex items-center gap-1.5 text-xs font-bold text-slate-200">
+          <span>📺</span>
+          <span>¿Abriendo en Tablet o Smart TV?</span>
+        </div>
+        <p class="text-[11px] text-slate-400">Ingresa el identificador o nombre de tu local para sincronizar los pedidos en vivo sin clave:</p>
+        <div class="flex gap-2">
+          <input id="inputKdsSlugDirecto" type="text" placeholder="ej: fravioli o tu-local" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-brand-500" onkeydown="if(event.key==='Enter')conectarKdsDirectoPorSlug()" />
+          <button type="button" onclick="conectarKdsDirectoPorSlug()" class="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-black text-xs transition cursor-pointer shadow-xs">Conectar</button>
+        </div>
+      </div>
+
       <button type="button" onclick="desbloquearKdsDirecto()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-xs shadow-lg shadow-brand-500/25 transition-all cursor-pointer flex items-center justify-center gap-2">
         <span>🔥</span>
         <span id="btnAccesoRapidoLabel">Ingresar a Pantalla de Cocina</span>
@@ -380,7 +393,32 @@
       });
     });
 
-    const isUrlParamPresent = !!new URLSearchParams(window.location.search).get('r');
+    function conectarKdsDirectoPorSlug() {
+      const inp = document.getElementById('inputKdsSlugDirecto');
+      const val = inp ? inp.value.trim() : '';
+      if (!val) {
+        alert('Por favor escribe el identificador o nombre de tu restaurante.');
+        return;
+      }
+      const cleanSlug = val.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9-]+/g, '-').replace(/(^-|-$)/g, '');
+      localStorage.setItem('sokify_restaurant_id', cleanSlug);
+      window.location.search = '?r=' + encodeURIComponent(cleanSlug);
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let urlParamRest = urlParams.get('r');
+    const storedRest = localStorage.getItem('sokify_restaurant_id');
+
+    // Si no viene ?r= en la URL pero este dispositivo ya tiene un local guardado, completarlo automáticamente
+    if (!urlParamRest && storedRest) {
+      urlParams.set('r', storedRest);
+      const newUrl = window.location.pathname + '?' + urlParams.toString();
+      window.history.replaceState({}, '', newUrl);
+      urlParamRest = storedRest;
+      window.RESTAURANT_ID = storedRest;
+    }
+
+    const isUrlParamPresent = !!urlParamRest;
     const isSubdomainPresent = !!window.SUBDOMAIN_RESTAURANT;
     const isSessionUnlocked = sessionStorage.getItem('kds_unlocked_' + window.RESTAURANT_ID) === 'true';
 
@@ -494,7 +532,7 @@
       });
     }
 
-    let currentStationFilter = 'cocina'; // 'cocina', 'barra', 'todas'
+    let currentStationFilter = new URLSearchParams(window.location.search).get('station') || 'cocina'; // 'cocina', 'barra', 'todas'
 
     function setStationFilter(station) {
       currentStationFilter = station;
@@ -508,6 +546,11 @@
         activeBtn.classList.remove('text-slate-500');
       }
       renderBoard();
+    }
+
+    // Inicializar estación según parámetro en URL si viene especificado
+    if (currentStationFilter) {
+      setStationFilter(currentStationFilter);
     }
 
     function isBeverageItem(item) {

@@ -730,7 +730,7 @@
             <button onclick="toggleFullscreen()" class="p-1.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 cursor-pointer transition-colors" title="Pantalla Completa">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
             </button>
-            <a id="topKdsLink" href="cocina.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 font-extrabold flex items-center gap-1.5 transition-all shadow-xs" title="Abrir KDS de cocina">
+            <a id="topKdsLink" href="cocina.html" target="_blank" onclick="abrirKdsExterno(event)" class="px-3 py-1.5 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 font-extrabold flex items-center gap-1.5 transition-all shadow-xs" title="Abrir KDS de cocina">
               <svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" x2="18" y1="17" y2="17"/></svg>
               <span class="hidden md:inline text-[11px]">KDS Cocina ↗</span>
             </a>
@@ -978,6 +978,14 @@
 
             <!-- BOTONES DE ACCIÓN MASIVA (MARCAR TODAS, SIMULAR, FULLSCREEN, GESTIONAR COCINAS) -->
             <div class="flex items-center gap-2">
+              <button type="button" onclick="abrirKdsExterno(event, kdsStationFilter)" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer" title="Abrir pantalla de cocina en pestaña externa o segundo monitor">
+                <svg class="w-3.5 h-3.5 text-brand-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                <span>Abrir en Otra Pantalla</span>
+              </button>
+              <button type="button" onclick="abrirModalCompartirKds()" class="px-3.5 py-2 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 border border-brand-200 font-extrabold text-xs flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer" title="Compartir enlace o código QR de Pantalla de Cocina para Tablets o Smart TV">
+                <svg class="w-3.5 h-3.5 text-brand-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                <span>Compartir / QR KDS</span>
+              </button>
               <button onclick="marcarTodasListas()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 <span>Marcar todas</span>
@@ -7722,6 +7730,78 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
   <!-- ========================================================================= -->
   <!-- MODAL: CONFIGURACIÓN DE COCINAS & IMPRESORAS TÉRMICAS 80MM (TIPO ZOKIFY) -->
   <!-- ========================================================================= -->
+  <!-- ========================================================================= -->
+  <!-- MODAL: COMPARTIR PANTALLA DE COCINA & KDS (MULTI-PANTALLA TABLET / TV)    -->
+  <!-- ========================================================================= -->
+  <div id="modalCompartirKds" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-5 my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- CABECERA MODAL -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-2xl bg-brand-50 text-brand-700 border border-brand-200 flex items-center justify-center text-xl shadow-sm">📺</span>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Pantalla de Cocina KDS Multi-Pantalla</h3>
+            <p class="text-[11px] text-slate-400">Transmite comandas en vivo a tablets, iPads o Smart TV sin clave</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalCompartirKds()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- SELECTOR DE ESTACIÓN A COMPARTIR -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-slate-700">Estación o Área de Preparación:</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="cambiarEstacionCompartirKds('todas')" id="shareStationBtn_todas" class="share-kds-station-pill p-2 rounded-xl border border-brand-500 bg-brand-50 text-brand-700 font-black text-xs text-center transition cursor-pointer shadow-xs">
+            ⚡ Todas
+          </button>
+          <button type="button" onclick="cambiarEstacionCompartirKds('cocina')" id="shareStationBtn_cocina" class="share-kds-station-pill p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-bold text-xs text-center transition cursor-pointer">
+            🍳 Cocina
+          </button>
+          <button type="button" onclick="cambiarEstacionCompartirKds('barra')" id="shareStationBtn_barra" class="share-kds-station-pill p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 font-bold text-xs text-center transition cursor-pointer">
+            🍸 Barra
+          </button>
+        </div>
+      </div>
+
+      <!-- PREVIEW QR -->
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col items-center justify-center text-center space-y-3">
+        <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-200">
+          <img id="imgQrKdsModal" src="" alt="QR Pantalla de Cocina" class="w-48 h-48 rounded-xl object-contain mx-auto" />
+        </div>
+        <div>
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-700">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            Escanea con cualquier tablet, iPad o TV
+          </span>
+          <p class="text-[11px] text-slate-400 max-w-xs mt-0.5">Abre la cámara de tu tablet o celular para abrir la pantalla de cocina lista para operar.</p>
+        </div>
+      </div>
+
+      <!-- ENLACE DIRECTO COPIABLE -->
+      <div class="space-y-1.5">
+        <label class="text-xs font-bold text-slate-700">Enlace directo para el navegador de la cocina:</label>
+        <div class="flex items-center gap-2">
+          <input id="inputUrlKdsModal" type="text" readonly class="flex-1 bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-700 select-all focus:outline-none" />
+          <button type="button" onclick="copiarUrlKdsModal()" id="btnCopiarUrlKds" class="px-3.5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition cursor-pointer whitespace-nowrap shadow-xs">
+            📋 Copiar
+          </button>
+        </div>
+      </div>
+
+      <!-- ACCIONES FINALES -->
+      <div class="pt-2 flex items-center justify-between gap-3 border-t border-slate-100">
+        <button type="button" onclick="cerrarModalCompartirKds()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer transition">
+          Cerrar
+        </button>
+        <button type="button" onclick="abrirKdsDesdeModal()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-1.5 cursor-pointer shadow-sm transition">
+          <span>🚀 Probar en Nueva Pestaña</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <div id="modalConfigCocinasImpresoras" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white w-full max-w-2xl rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-5 my-auto max-h-[92vh] overflow-y-auto">
       
