@@ -8707,114 +8707,143 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <!-- MODAL: AYUDA Y SOPORTE (TIPO ZOKIFY CAPTURA 2) -->
+  <!-- MODAL: AYUDA Y SOPORTE (MESA DE AYUDA ZOKIFY) -->
   <!-- ========================================================================= -->
   <div id="modalAyudaSoporte" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 hidden">
     <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[92vh]">
       
-      <!-- HEADER AZUL CON TÍTULO Y BOTÓN X -->
-      <div class="px-6 py-4 bg-blue-600 text-white flex items-center justify-between">
-        <h3 class="font-black text-base">Ayuda y soporte</h3>
-        <button type="button" onclick="cerrarModalSoporte()" class="text-white hover:text-slate-200 text-lg font-bold cursor-pointer">✕</button>
+      <!-- HEADER CON GRADIENTE BRAND VIOLETA -->
+      <div class="px-6 py-4 bg-gradient-to-r from-brand-600 via-brand-700 to-purple-700 text-white flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center text-base">
+            🎧
+          </div>
+          <div>
+            <h3 class="font-black text-sm text-white">Centro de Ayuda & Soporte Zokify</h3>
+            <p class="text-[10px] text-purple-200">Mesa de ayuda técnica oficial para tu restaurante</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalSoporte()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white text-base font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
       </div>
 
       <!-- CONTENIDO SCROLLABLE DE SOPORTE -->
       <div class="p-6 overflow-y-auto space-y-6 text-xs divide-y divide-slate-100">
         
-        <!-- BLOQUE 1: WHATSAPP SOPORTE -->
+        <!-- BLOQUE 1: CORREO OFICIAL DE SOPORTE Y MESA DE AYUDA -->
         <div class="space-y-3 pt-1">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl">💬</span>
-            <div>
-              <h4 class="font-extrabold text-slate-900 text-xs">Renueva tu plan y accede al Soporte</h4>
-              <p class="text-[11px] text-slate-500">Soporte disponible todos los días, de 9:00 a 21:30 (GMT-3)</p>
+          <div class="p-4 rounded-2xl bg-gradient-to-br from-violet-50 to-purple-50/60 border border-purple-200/80 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full">
+                📧 Correo Oficial de Soporte
+              </span>
+              <span class="text-[10px] text-emerald-700 font-bold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                Atención Activa
+              </span>
+            </div>
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <a href="mailto:soporte@zokify.app" class="font-mono text-sm font-black text-slate-900 hover:text-brand-600 transition-colors">
+                  soporte@zokify.app
+                </a>
+                <p class="text-[11px] text-slate-500">Mesa de ayuda y resolución de incidencias en menos de 2h.</p>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="copiarCorreoSoporte()" class="px-2.5 py-1.5 rounded-lg bg-white border border-purple-200 text-purple-700 font-bold text-[11px] hover:bg-purple-50 transition-colors shadow-xs flex items-center gap-1 cursor-pointer">
+                  <span>📋</span> Copiar
+                </button>
+                <a href="mailto:soporte@zokify.app?subject=Consulta%20Soporte%20Zokify" class="px-2.5 py-1.5 rounded-lg bg-brand-600 text-white font-bold text-[11px] hover:bg-brand-700 transition-colors shadow-xs flex items-center gap-1">
+                  <span>✉️</span> Escribir
+                </a>
+              </div>
             </div>
           </div>
 
-          <div class="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/80 space-y-3">
-            <p class="text-xs text-amber-900 leading-relaxed font-medium">
-              Contrata uno de nuestros planes y consigue Soporte Directo junto con decenas de funcionalidades clave para tu negocio.
-            </p>
-            <a href="https://wa.me/56912345678?text=Hola,%20deseo%20renovar%20mi%20plan%20en%20Zokify" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all">
-              <span>💬</span>
-              <span>Renovar mi Plan ↗</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- BLOQUE 2: CENTRO DE AYUDA -->
-        <div class="space-y-3 pt-5">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl">📘</span>
-            <div>
-              <h4 class="font-extrabold text-slate-900 text-xs">Centro de ayuda</h4>
-              <p class="text-[11px] text-slate-500">Encuentra la información detallada sobre cada funcionalidad.</p>
+          <!-- BOTÓN DIRECTO A MIS TICKETS REGISTRADOS -->
+          <div class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-brand-300 transition-colors">
+            <div class="flex items-center gap-3">
+              <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold">🎟️</span>
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-xs">Mis Tickets de Soporte</h4>
+                <p class="text-[11px] text-slate-500">Historial y estado de tus problemas reportados</p>
+              </div>
             </div>
-          </div>
-          <div>
-            <button type="button" onclick="abrirModalCentroAyuda()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
-              <span>Abrir ayuda</span>
-              <span>↗</span>
+            <button type="button" onclick="abrirModalMisTickets()" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-brand-600 text-white font-black text-xs transition-colors flex items-center gap-1.5 shadow-xs cursor-pointer">
+              <span>Ver Tickets</span>
+              <span id="badgeMisTicketsCount" class="bg-brand-500 text-white text-[10px] px-1.5 py-0.2 rounded-full font-mono">0</span>
             </button>
           </div>
         </div>
 
-        <!-- BLOQUE 3: NOTIFICA UN ERROR -->
+        <!-- BLOQUE 2: WHATSAPP DE SOPORTE DIRECTO -->
+        <div class="space-y-3 pt-5">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">💬</span>
+            <div>
+              <h4 class="font-extrabold text-slate-900 text-xs">Atención por WhatsApp</h4>
+              <p class="text-[11px] text-slate-500">Atención técnica de Lunes a Domingo, de 9:00 a 22:00 hrs</p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-2">
+            <p class="text-xs text-emerald-900 leading-relaxed font-medium">
+              Chatea directamente con nuestro equipo de soporte técnico para resolver dudas operativas o urgencias con tu local.
+            </p>
+            <a href="https://wa.me/56990387414?text=Hola,%20necesito%20asistencia%20con%20mi%20cuenta%20de%20Zokify" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition-all">
+              <span>💬</span>
+              <span>Abrir WhatsApp Soporte ↗</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- BLOQUE 3: NOTIFICA UN ERROR (CREA TICKET) -->
         <div class="space-y-3 pt-5">
           <div class="flex items-center gap-3">
             <span class="text-2xl">🛠️</span>
             <div>
-              <h4 class="font-extrabold text-slate-900 text-xs">Notifica un error</h4>
-              <p class="text-[11px] text-slate-500">Informa algún error que tú o tus clientes encontraron usando Zokify.</p>
+              <h4 class="font-extrabold text-slate-900 text-xs">Notifica un error o falla técnica</h4>
+              <p class="text-[11px] text-slate-500">Genera un Ticket oficial para que nuestro equipo de ingeniería lo investigue y corrija.</p>
             </div>
           </div>
           <div>
-            <button type="button" onclick="abrirModalSugerirIdea('error')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
-              <span>Llenar el formulario</span>
+            <button type="button" onclick="abrirModalSugerirIdea('error')" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
+              <span>🎫 Crear Ticket de Incidencia</span>
               <span>↗</span>
             </button>
           </div>
         </div>
 
-        <!-- BLOQUE 4: ENVÍA UNA SUGERENCIA -->
+        <!-- BLOQUE 4: ENVÍA UNA SUGERENCIA (CREA TICKET) -->
         <div class="space-y-3 pt-5">
           <div class="flex items-center gap-3">
             <span class="text-2xl">💡</span>
             <div>
-              <h4 class="font-extrabold text-slate-900 text-xs">Envía una sugerencia</h4>
-              <p class="text-[11px] text-slate-500">Envíanos una sugerencia de mejora o novedad que te gustaría ver implementada.</p>
+              <h4 class="font-extrabold text-slate-900 text-xs">Envía una sugerencia o idea</h4>
+              <p class="text-[11px] text-slate-500">Proponnos mejoras o funciones nuevas para incluirlas en las próximas versiones de Zokify.</p>
             </div>
           </div>
           <div>
-            <button type="button" onclick="abrirModalSugerirIdea('sugerencia')" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
-              <span>Envía una sugerencia</span>
+            <button type="button" onclick="abrirModalSugerirIdea('sugerencia')" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
+              <span>💡 Crear Ticket de Mejora</span>
               <span>↗</span>
             </button>
           </div>
         </div>
 
-        <!-- BLOQUE 5: RED DE CONSEJOS Y ASESORÍA -->
+        <!-- BLOQUE 5: CENTRO DE AYUDA & COMUNIDAD -->
         <div class="space-y-3 pt-5">
           <div class="flex items-center gap-3">
-            <span class="text-2xl">👥</span>
+            <span class="text-2xl">📘</span>
             <div>
-              <h4 class="font-extrabold text-slate-900 text-xs">Red de consejos y asesoría</h4>
-              <p class="text-[11px] text-slate-500">Sé parte de la comunidad Zokify en tus redes favoritas.</p>
+              <h4 class="font-extrabold text-slate-900 text-xs">Centro de ayuda y guías</h4>
+              <p class="text-[11px] text-slate-500">Aprende a configurar impresoras térmicas, KDS, mesas y delivery.</p>
             </div>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <a href="#" onclick="mostrarNotificacion('👥 Uniéndote a la comunidad WhatsApp...'); return false;" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-center text-[11px] transition-colors">
-              💬 Grupos WhatsApp
-            </a>
-            <a href="#" onclick="mostrarNotificacion('📘 Abriendo Facebook...'); return false;" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-center text-[11px] transition-colors">
-              Facebook
-            </a>
-            <a href="#" onclick="mostrarNotificacion('📷 Abriendo Instagram...'); return false;" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-center text-[11px] transition-colors">
-              Instagram
-            </a>
-            <a href="#" onclick="mostrarNotificacion('▶️ Abriendo canal YouTube...'); return false;" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-center text-[11px] transition-colors">
-              YouTube
-            </a>
+          <div>
+            <button type="button" onclick="abrirModalCentroAyuda()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
+              <span>Abrir Guía Rápida</span>
+              <span>↗</span>
+            </button>
           </div>
         </div>
 
@@ -9496,26 +9525,197 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
   </div>
 
   <!-- ========================================================================= -->
-  <div id="modalSugerirIdea" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200">
+  <!-- MODAL: CREAR TICKET DE SOPORTE / MESA DE AYUDA ZOKIFY -->
+  <!-- ========================================================================= -->
+  <div id="modalSugerirIdea" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200 my-auto">
+      
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 id="tituloModalSugerencia" class="font-black text-slate-900 text-base">Envía una sugerencia</h3>
+        <div class="flex items-center gap-2.5">
+          <span id="iconoModalSugerencia" class="w-9 h-9 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold">🎫</span>
+          <div>
+            <h3 id="tituloModalSugerencia" class="font-black text-slate-900 text-sm">Crear Ticket de Soporte</h3>
+            <p id="subtituloModalSugerencia" class="text-[11px] text-slate-400">Atención técnica y mesa de ayuda oficial Zokify</p>
+          </div>
+        </div>
         <button type="button" onclick="cerrarModalSugerirIdea()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
       </div>
+
+      <!-- BANNER DE CORREO OFICIAL -->
+      <div class="p-3 bg-violet-50/70 rounded-2xl border border-violet-100 flex items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="text-base">📧</span>
+          <div>
+            <span class="text-[10px] text-slate-500 uppercase font-black block">Mesa de ayuda:</span>
+            <span class="font-mono font-extrabold text-brand-700">soporte@zokify.app</span>
+          </div>
+        </div>
+        <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Respuesta &lt; 2h</span>
+      </div>
+
+      <!-- SELECTOR DE TIPO: ERROR VS SUGERENCIA -->
+      <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-2xl">
+        <button type="button" id="btnTipoError" onclick="setTipoTicket('error')" class="py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900">
+          <span>🛠️</span>
+          <span>Problema / Error</span>
+        </button>
+        <button type="button" id="btnTipoSugerencia" onclick="setTipoTicket('sugerencia')" class="py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-xs">
+          <span>💡</span>
+          <span>Sugerencia / Idea</span>
+        </button>
+      </div>
+
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Título de tu idea o reporte *</label>
-          <input id="inputIdeaTitulo" type="text" placeholder="Ej: Agregar sonido personalizado para delivery..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-blue-600">
+          <label class="block font-bold text-slate-700 mb-1">Título del Ticket o Asunto *</label>
+          <input id="inputIdeaTitulo" type="text" placeholder="Ej: Error al conectar impresora térmica en cocina..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600">
         </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Nivel de Prioridad *</label>
+            <select id="selectIdeaPrioridad" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600">
+              <option value="normal">🟡 Normal (Consulta o mejora)</option>
+              <option value="alta" selected>🟠 Alta (Dificulta la operación)</option>
+              <option value="urgente">🔴 Urgente (Bloquea ventas o caja)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Correo para recibir respuesta *</label>
+            <input id="inputIdeaEmail" type="email" placeholder="tu-correo@ejemplo.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600">
+          </div>
+        </div>
+
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Detalle de tu comentario *</label>
-          <textarea id="inputIdeaDetalle" rows="4" placeholder="Explícanos con detalle cómo te gustaría que funcione..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-blue-600"></textarea>
+          <label class="block font-bold text-slate-700 mb-1">Detalle del problema o propuesta *</label>
+          <textarea id="inputIdeaDetalle" rows="4" placeholder="Explícanos con detalle qué ocurrió, qué esperabas que pasara o qué función necesitas..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 focus:outline-none focus:border-brand-600"></textarea>
         </div>
       </div>
-      <div class="flex items-center gap-2 pt-2">
-        <button type="button" onclick="cerrarModalSugerirIdea()" class="flex-1 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
-        <button type="button" onclick="enviarSugerenciaIdea()" class="flex-1 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition-all cursor-pointer">Enviar comentario</button>
+
+      <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+        <button type="button" onclick="cerrarModalSugerirIdea()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
+        <button type="button" onclick="enviarSugerenciaIdea()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-extrabold text-xs shadow-md shadow-brand-500/25 transition-all cursor-pointer flex items-center justify-center gap-1.5">
+          <span>🎫</span>
+          <span>Crear Ticket de Soporte</span>
+        </button>
       </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: TICKET CREADO EXITOSAMENTE (CONFIRMACIÓN & SEGUIMIENTO) -->
+  <!-- ========================================================================= -->
+  <div id="modalTicketCreado" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 animate-in fade-in zoom-in duration-200 my-auto text-center">
+      
+      <div class="w-16 h-16 mx-auto rounded-3xl bg-gradient-to-br from-purple-100 to-violet-100 text-brand-600 flex items-center justify-center text-3xl shadow-inner">
+        🎟️
+      </div>
+
+      <div class="space-y-1">
+        <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full inline-block">
+          Mesa de Ayuda Zokify
+        </span>
+        <h3 class="font-black text-slate-900 text-lg">¡Ticket de Soporte Creado!</h3>
+        <p class="text-xs text-slate-500">Se ha registrado tu solicitud y el equipo técnico ya fue notificado.</p>
+      </div>
+
+      <!-- CAJA DEL TICKET -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] text-slate-500 font-bold">Número de Ticket:</span>
+          <div class="flex items-center gap-1.5">
+            <span id="ticketCreadoNumero" class="font-mono font-black text-sm text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-lg border border-brand-200">#TCK-0000</span>
+            <button type="button" onclick="copiarNumeroTicket()" class="text-slate-400 hover:text-slate-700 text-xs p-1 cursor-pointer" title="Copiar código">📋</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-500 font-bold">Estado:</span>
+          <span id="ticketCreadoEstado" class="bg-amber-100 text-amber-800 border border-amber-200 text-[10px] font-black px-2 py-0.5 rounded-full">🟡 Abierto · En cola</span>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-500 font-bold">Prioridad:</span>
+          <span id="ticketCreadoPrioridad" class="text-slate-800 font-extrabold text-[11px]">Normal</span>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-slate-500 font-bold">Correo de contacto:</span>
+          <span id="ticketCreadoEmail" class="font-mono text-slate-700 text-[11px] truncate max-w-[180px]">usuario@mail.cl</span>
+        </div>
+        <div class="pt-1 border-t border-slate-200 text-xs">
+          <span class="text-slate-500 font-bold block mb-0.5">Asunto:</span>
+          <p id="ticketCreadoAsunto" class="font-bold text-slate-900 truncate">Título del ticket</p>
+        </div>
+      </div>
+
+      <!-- INSTRUCCIONES DE CONTACTO -->
+      <div class="p-3 bg-purple-50/60 rounded-xl border border-purple-100 text-[11px] text-slate-600 text-left space-y-1">
+        <p><strong>¿Qué pasará ahora?</strong></p>
+        <p>Un especialista revisará tu caso y te responderá directamente a tu correo. También puedes enviar una copia de respaldo a <a href="mailto:soporte@zokify.app" class="font-bold text-brand-700 underline">soporte@zokify.app</a> citando este número.</p>
+      </div>
+
+      <!-- ACCIONES DEL TICKET -->
+      <div class="space-y-2 pt-1">
+        <a id="btnEnviarCopiaMail" href="#" target="_blank" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs transition-all flex items-center justify-center gap-2 shadow-xs">
+          <span>📧</span>
+          <span>Enviar copia por Email a soporte@zokify.app</span>
+        </a>
+
+        <a id="btnEnviarCopiaWa" href="#" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition-all flex items-center justify-center gap-2 shadow-xs">
+          <span>💬</span>
+          <span>Seguimiento rápido por WhatsApp</span>
+        </a>
+
+        <div class="flex items-center gap-2 pt-1">
+          <button type="button" onclick="cerrarModalTicketCreado(); abrirModalMisTickets();" class="flex-1 py-2 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">
+            📋 Ver mis tickets
+          </button>
+          <button type="button" onclick="cerrarModalTicketCreado()" class="flex-1 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-colors cursor-pointer">
+            Listo, cerrar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: MIS TICKETS DE SOPORTE (LISTADO & HISTORIAL) -->
+  <!-- ========================================================================= -->
+  <div id="modalMisTickets" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh] my-auto">
+      
+      <!-- HEADER -->
+      <div class="px-6 py-4 bg-gradient-to-r from-brand-600 to-purple-700 text-white flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="text-xl">🎟️</span>
+          <div>
+            <h3 class="font-black text-sm text-white">Mis Tickets de Soporte</h3>
+            <p class="text-[10px] text-purple-200">Historial de incidencias, errores reportados y sugerencias</p>
+          </div>
+        </div>
+        <button type="button" onclick="cerrarModalMisTickets()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- BARRA DE ACCIÓN: NUEVO TICKET -->
+      <div class="px-6 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between gap-3 text-xs">
+        <span class="text-slate-500 font-bold">Mesa de Ayuda: <strong class="text-brand-700">soporte@zokify.app</strong></span>
+        <button type="button" onclick="cerrarModalMisTickets(); abrirModalSugerirIdea('error');" class="px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-[11px] shadow-xs flex items-center gap-1 transition-colors cursor-pointer">
+          <span>＋</span> Nuevo Ticket
+        </button>
+      </div>
+
+      <!-- LISTA DE TICKETS -->
+      <div id="listaMisTicketsContainer" class="p-6 overflow-y-auto space-y-3 divide-y divide-slate-100 text-xs">
+        <!-- Render dinámico con renderMisTickets() -->
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button type="button" onclick="cerrarModalMisTickets()" class="px-5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-100 transition-colors cursor-pointer">
+          Cerrar
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -19790,14 +19990,63 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }, 400);
     }
 
-    let tipoSugerenciaActual = 'sugerencia';
+    // =========================================================================
+    // SISTEMA DE TICKETS DE SOPORTE & MESA DE AYUDA (soporte@zokify.app)
+    // =========================================================================
+    let tipoSugerenciaActual = 'error';
+    let ultimoTicketGeneradoId = '';
+
+    function setTipoTicket(tipo) {
+      tipoSugerenciaActual = tipo || 'error';
+      const btnError = document.getElementById('btnTipoError');
+      const btnSug = document.getElementById('btnTipoSugerencia');
+      const ico = document.getElementById('iconoModalSugerencia');
+      const tit = document.getElementById('tituloModalSugerencia');
+      const sub = document.getElementById('subtituloModalSugerencia');
+      const selPrio = document.getElementById('selectIdeaPrioridad');
+
+      if (tipoSugerenciaActual === 'error') {
+        if (btnError) {
+          btnError.className = 'py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-white text-rose-700 shadow-xs border border-rose-200';
+        }
+        if (btnSug) {
+          btnSug.className = 'py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900';
+        }
+        if (ico) {
+          ico.textContent = '🛠️';
+          ico.className = 'w-9 h-9 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center text-lg font-bold';
+        }
+        if (tit) tit.textContent = 'Reportar un Problema / Error Técnico';
+        if (sub) sub.textContent = 'Genera un Ticket oficial para revisión técnica urgente';
+        if (selPrio) selPrio.value = 'alta';
+      } else {
+        if (btnError) {
+          btnError.className = 'py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer text-slate-600 hover:text-slate-900';
+        }
+        if (btnSug) {
+          btnSug.className = 'py-2 px-3 rounded-xl font-extrabold text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer bg-white text-brand-700 shadow-xs border border-brand-200';
+        }
+        if (ico) {
+          ico.textContent = '💡';
+          ico.className = 'w-9 h-9 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-lg font-bold';
+        }
+        if (tit) tit.textContent = 'Enviar una Sugerencia o Idea';
+        if (sub) sub.textContent = 'Proponnos mejoras y nuevas funciones para Zokify';
+        if (selPrio) selPrio.value = 'normal';
+      }
+    }
 
     function abrirModalSugerirIdea(tipo) {
-      tipoSugerenciaActual = tipo || 'sugerencia';
       toggleDropdownPerfil(false);
       cerrarModalSoporte();
-      const tit = document.getElementById('tituloModalSugerencia');
-      if (tit) tit.textContent = (tipo === 'error') ? 'Notifica un error' : 'Envía una sugerencia';
+      setTipoTicket(tipo || 'error');
+
+      const emailInput = document.getElementById('inputIdeaEmail');
+      if (emailInput && !emailInput.value) {
+        const userEmail = (firebase.auth().currentUser && firebase.auth().currentUser.email) || localStorage.getItem('sokify_owner_email') || '';
+        emailInput.value = userEmail;
+      }
+
       document.getElementById('modalSugerirIdea')?.classList.remove('hidden');
     }
 
@@ -19805,36 +20054,81 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       document.getElementById('modalSugerirIdea')?.classList.add('hidden');
     }
 
+    function copiarCorreoSoporte() {
+      navigator.clipboard.writeText('soporte@zokify.app').then(() => {
+        mostrarNotificacion('📋 Correo copiado: soporte@zokify.app', 'info');
+      }).catch(() => {
+        prompt('Copia nuestro correo de soporte:', 'soporte@zokify.app');
+      });
+    }
+
+    function copiarNumeroTicket() {
+      if (!ultimoTicketGeneradoId) return;
+      navigator.clipboard.writeText(ultimoTicketGeneradoId).then(() => {
+        mostrarNotificacion('📋 Número de ticket copiado: ' + ultimoTicketGeneradoId, 'info');
+      }).catch(() => {
+        prompt('Copia tu código de ticket:', ultimoTicketGeneradoId);
+      });
+    }
+
     function enviarSugerenciaIdea() {
       const titulo = document.getElementById('inputIdeaTitulo')?.value.trim();
       const detalle = document.getElementById('inputIdeaDetalle')?.value.trim();
-      if (!titulo || !detalle) {
-        alert('Por favor completa el título y detalle de tu comentario.');
+      const email = document.getElementById('inputIdeaEmail')?.value.trim();
+      const prioridad = document.getElementById('selectIdeaPrioridad')?.value || 'normal';
+
+      if (!titulo) {
+        alert('Por favor indica un título o asunto para el ticket.');
+        document.getElementById('inputIdeaTitulo')?.focus();
+        return;
+      }
+      if (!detalle) {
+        alert('Por favor escribe el detalle de tu problema o sugerencia.');
+        document.getElementById('inputIdeaDetalle')?.focus();
+        return;
+      }
+      if (!email || !email.includes('@')) {
+        alert('Por favor ingresa un correo electrónico válido para recibir respuesta.');
+        document.getElementById('inputIdeaEmail')?.focus();
         return;
       }
 
       const restName = localStorage.getItem('sokify_restaurant_name') || (typeof CFG !== 'undefined' ? CFG.nombre : null) || window.RESTAURANT_ID || 'Local';
-      const userEmail = (firebase.auth().currentUser && firebase.auth().currentUser.email) || localStorage.getItem('sokify_owner_email') || 'admin';
-      const tipo = tipoSugerenciaActual || 'sugerencia';
+      const prefix = tipoSugerenciaActual === 'error' ? '#INC-' : '#TCK-';
+      const ticketId = prefix + Math.floor(1000 + Math.random() * 9000);
+      ultimoTicketGeneradoId = ticketId;
 
-      const payload = {
-        tipo: tipo,
+      const ticketPayload = {
+        id: ticketId,
+        ticketId: ticketId,
+        tipo: tipoSugerenciaActual,
         titulo: titulo,
         detalle: detalle,
+        prioridad: prioridad,
+        estado: 'abierto', // abierto, en_revision, resuelto
+        usuarioEmail: email,
         restauranteId: window.RESTAURANT_ID || 'general',
         restauranteNombre: restName,
-        usuarioEmail: userEmail,
-        fecha: new Date().toISOString(),
+        correoSoporte: 'soporte@zokify.app',
+        fechaIso: new Date().toISOString(),
+        fechaFormateada: new Date().toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' }),
         leido: false
       };
 
-      // 1. Guardar en Firestore en la subcolección del restaurante
+      // 1. Guardar en Firestore en subcolección de tickets del restaurante
       try {
         if (typeof window.restRef === 'function') {
-          window.restRef().collection('sugerencias').add({
-            ...payload,
+          const docKey = ticketId.replace(/[^a-zA-Z0-9-]/g, '');
+          window.restRef().collection('tickets').doc(docKey).set({
+            ...ticketPayload,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          }).catch(e => console.warn('Error guardando en Firestore:', e));
+          }).catch(e => console.warn('Error guardando ticket en Firestore:', e));
+
+          // Guardar también en sugerencias para compatibilidad
+          window.restRef().collection('sugerencias').doc(docKey).set({
+            ...ticketPayload,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }).catch(() => {});
         }
       } catch (e) {
         console.warn('Firestore omitido:', e);
@@ -19842,20 +20136,173 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       // 2. Guardar en el historial local del navegador
       try {
-        const hist = JSON.parse(localStorage.getItem('sokify_sugerencias_historial') || '[]');
-        hist.unshift(payload);
-        localStorage.setItem('sokify_sugerencias_historial', JSON.stringify(hist.slice(0, 50)));
+        const hist = JSON.parse(localStorage.getItem('sokify_tickets_historial') || '[]');
+        hist.unshift(ticketPayload);
+        localStorage.setItem('sokify_tickets_historial', JSON.stringify(hist.slice(0, 50)));
       } catch (e) {}
 
-      // Limpiar campos y cerrar modal
+      // Limpiar formulario y cerrar modal de captura
       const inTit = document.getElementById('inputIdeaTitulo');
       if (inTit) inTit.value = '';
       const inDet = document.getElementById('inputIdeaDetalle');
       if (inDet) inDet.value = '';
 
       cerrarModalSugerirIdea();
-      mostrarNotificacion('🚀 ¡Gracias por tu aporte! Tu comentario fue guardado y enviado al equipo de producto.', 'success');
+
+      // Configurar Modal de Confirmación de Ticket
+      const numEl = document.getElementById('ticketCreadoNumero');
+      if (numEl) numEl.textContent = ticketId;
+      const asuntoEl = document.getElementById('ticketCreadoAsunto');
+      if (asuntoEl) asuntoEl.textContent = titulo;
+      const emailEl = document.getElementById('ticketCreadoEmail');
+      if (emailEl) emailEl.textContent = email;
+      const prioEl = document.getElementById('ticketCreadoPrioridad');
+      if (prioEl) {
+        prioEl.textContent = prioridad === 'urgente' ? '🔴 Urgente' : prioridad === 'alta' ? '🟠 Alta' : '🟡 Normal';
+      }
+
+      // Enlace para enviar respaldo oficial por correo a soporte@zokify.app
+      const mailBtn = document.getElementById('btnEnviarCopiaMail');
+      if (mailBtn) {
+        const subject = encodeURIComponent(`[${ticketId}] ${titulo} · ${restName}`);
+        const body = encodeURIComponent(
+          `Hola equipo de Soporte Zokify,\n\n` +
+          `He generado el siguiente ticket de soporte:\n\n` +
+          `• Ticket ID: ${ticketId}\n` +
+          `• Tipo: ${tipoSugerenciaActual === 'error' ? 'Problema / Incidencia' : 'Sugerencia de Mejora'}\n` +
+          `• Restaurante: ${restName} (${window.RESTAURANT_ID || 'general'})\n` +
+          `• Contacto: ${email}\n` +
+          `• Prioridad: ${prioridad.toUpperCase()}\n` +
+          `• Asunto: ${titulo}\n\n` +
+          `Detalle:\n${detalle}\n\n` +
+          `Quedo atento a la confirmación y resolución técnica.\n\n` +
+          `Saludos cordiales,\n${restName}`
+        );
+        mailBtn.href = `mailto:soporte@zokify.app?subject=${subject}&body=${body}`;
+      }
+
+      // Enlace de WhatsApp rápido citando el ticket
+      const waBtn = document.getElementById('btnEnviarCopiaWa');
+      if (waBtn) {
+        const waText = encodeURIComponent(
+          `🎫 *TICKET ZOKIFY ${ticketId}*\n` +
+          `*Local:* ${restName}\n` +
+          `*Contacto:* ${email}\n` +
+          `*Prioridad:* ${prioridad.toUpperCase()}\n` +
+          `*Asunto:* ${titulo}\n\n` +
+          `*Detalle:* ${detalle}\n\n` +
+          `_Mesa de ayuda: soporte@zokify.app_`
+        );
+        waBtn.href = `https://wa.me/56990387414?text=${waText}`;
+      }
+
+      abrirModalTicketCreado();
+      actualizarContadorTickets();
+      mostrarNotificacion(`🎫 Ticket ${ticketId} creado. Notificación enviada a soporte@zokify.app`, 'success');
     }
+
+    function abrirModalTicketCreado() {
+      document.getElementById('modalTicketCreado')?.classList.remove('hidden');
+    }
+
+    function cerrarModalTicketCreado() {
+      document.getElementById('modalTicketCreado')?.classList.add('hidden');
+    }
+
+    function abrirModalMisTickets() {
+      cerrarModalSoporte();
+      renderMisTickets();
+      document.getElementById('modalMisTickets')?.classList.remove('hidden');
+    }
+
+    function cerrarModalMisTickets() {
+      document.getElementById('modalMisTickets')?.classList.add('hidden');
+    }
+
+    function actualizarContadorTickets() {
+      try {
+        const tickets = JSON.parse(localStorage.getItem('sokify_tickets_historial') || '[]');
+        const badge = document.getElementById('badgeMisTicketsCount');
+        if (badge) badge.textContent = tickets.length;
+      } catch (e) {}
+    }
+
+    function renderMisTickets() {
+      const cont = document.getElementById('listaMisTicketsContainer');
+      if (!cont) return;
+
+      let tickets = [];
+      try {
+        tickets = JSON.parse(localStorage.getItem('sokify_tickets_historial') || '[]');
+      } catch (e) {}
+
+      actualizarContadorTickets();
+
+      if (tickets.length === 0) {
+        cont.innerHTML = `
+          <div class="py-12 text-center space-y-3">
+            <span class="text-4xl block opacity-60">🎫</span>
+            <h4 class="font-extrabold text-slate-800 text-sm">No tienes tickets de soporte activos</h4>
+            <p class="text-xs text-slate-400 max-w-sm mx-auto">
+              Si encuentras algún problema o tienes una sugerencia, pulsa en "Nuevo Ticket" arriba para recibir atención de nuestro equipo.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      cont.innerHTML = tickets.map(t => {
+        const isError = t.tipo === 'error';
+        const badgeColor = t.estado === 'resuelto' ? 'bg-emerald-100 text-emerald-800 border-emerald-300' :
+                           t.estado === 'en_revision' ? 'bg-blue-100 text-blue-800 border-blue-300' :
+                           'bg-amber-100 text-amber-800 border-amber-300';
+        const labelEstado = t.estado === 'resuelto' ? '🟢 Resuelto' :
+                            t.estado === 'en_revision' ? '🔵 En revisión' :
+                            '🟡 Abierto';
+
+        const subjectMail = encodeURIComponent(`Consulta estado Ticket ${t.ticketId || t.id}`);
+        const mailHref = `mailto:soporte@zokify.app?subject=${subjectMail}`;
+        const waText = encodeURIComponent(`Hola equipo Zokify, consulto por el estado de mi ticket ${t.ticketId || t.id}: "${t.titulo}"`);
+        const waHref = `https://wa.me/56990387414?text=${waText}`;
+
+        return `
+          <div class="py-3.5 space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="font-mono font-black text-xs text-brand-700 bg-brand-50 px-2 py-0.5 rounded-lg border border-brand-200">
+                  ${t.ticketId || t.id}
+                </span>
+                <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border ${badgeColor}">
+                  ${labelEstado}
+                </span>
+                <span class="text-[10px] text-slate-400">
+                  ${isError ? '🛠️ Error' : '💡 Sugerencia'}
+                </span>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">${t.fechaFormateada || ''}</span>
+            </div>
+
+            <h5 class="font-black text-slate-900 text-xs">${t.titulo || 'Sin asunto'}</h5>
+            <p class="text-slate-600 text-xs leading-relaxed bg-slate-50 p-2.5 rounded-xl border border-slate-100 whitespace-pre-wrap">${t.detalle || ''}</p>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+              <span class="text-[10px] text-slate-400">Canal: <strong>soporte@zokify.app</strong></span>
+              <div class="flex items-center gap-2">
+                <a href="${mailHref}" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[10px] transition-colors flex items-center gap-1">
+                  <span>✉️</span> Consultar por Email
+                </a>
+                <a href="${waHref}" target="_blank" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-[10px] transition-colors flex items-center gap-1">
+                  <span>💬</span> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Inicializar contador al cargar
+    setTimeout(actualizarContadorTickets, 1000);
 
     function abrirModalMiCuenta() {
       toggleDropdownPerfil(false);
