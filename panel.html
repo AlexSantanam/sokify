@@ -5185,7 +5185,7 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-slate-100 text-slate-700">
-                    <tr onclick="seleccionarPedidoPdv('${o.docId}')" data-doc-id="${o.docId}" class="cursor-pointer hover:bg-brand-50/40 transition-colors ${selectedOrderDocId === o.docId ? 'bg-brand-50/80 border-l-4 border-l-brand-600 font-bold' : ''}">
+                    <tr class="hover:bg-slate-50/80 transition-colors">
                       <td class="py-3 px-5 font-mono text-blue-600 font-bold text-xs">menu:read</td>
                       <td class="py-3 px-5 text-slate-600">Read menu categories and products</td>
                     </tr>
@@ -13235,23 +13235,29 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
               <span class="text-[9px] text-slate-300 font-mono">Alt + Enter</span>
             </button>
           ` : `
-            <div class="flex-1 text-center py-2 text-xs font-bold text-slate-400 bg-slate-100 rounded-xl">
-              ✓ Pedido Despachado
+            <div class="flex-1 flex items-center gap-2">
+              <div class="flex-1 text-center py-2 text-xs font-bold text-slate-400 bg-slate-100 rounded-xl">
+                ✓ Pedido Cerrado
+              </div>
+              <button type="button" onclick="eliminarPedidoPdv('${o.docId}')" class="px-3 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-xs active:scale-95" title="Eliminar este pedido permanentemente">
+                <span>🗑️</span>
+                <span>Eliminar pedido</span>
+              </button>
             </div>
           `}
 
-          <!-- Menú Más Opciones (⋮) -->
+          <!-- Menú Más Opciones (⋮) EXACTO A OLACLICK -->
           <div class="relative inline-block text-left">
-            <button onclick="toggleMenuMasOpcionesDrawer(event)" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition cursor-pointer" title="Más opciones">
+            <button type="button" onclick="toggleMenuMasOpcionesDrawer(event)" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-base font-bold transition cursor-pointer" title="Más opciones">
               ⋮
             </button>
-            <div id="menuMasOpcionesDrawer" class="hidden absolute right-0 bottom-full mb-2 w-44 rounded-2xl bg-white shadow-2xl border border-slate-200 p-1.5 z-50 text-xs">
-              <button onclick="cancelarPedidoPdv('${o.docId}')" class="w-full text-left px-3 py-2 rounded-xl text-slate-700 hover:bg-slate-100 flex items-center gap-2 cursor-pointer font-medium">
-                <span>⨂</span>
-                <span>Cancelar pedido</span>
+            <div id="menuMasOpcionesDrawer" class="hidden absolute right-0 bottom-full mb-2 w-48 rounded-2xl bg-white shadow-2xl border border-slate-200 p-1.5 z-50 text-xs">
+              <button type="button" onclick="cancelarPedidoPdv('${o.docId}')" class="w-full text-left px-3.5 py-2.5 rounded-xl text-slate-700 hover:bg-slate-100 flex items-center gap-2.5 cursor-pointer font-medium">
+                <span class="text-sm">⨂</span>
+                <span>Cancelar</span>
               </button>
-              <button onclick="eliminarPedidoPdv('${o.docId}')" class="w-full text-left px-3 py-2 rounded-xl text-red-600 hover:bg-red-50 flex items-center gap-2 cursor-pointer font-bold border-t border-slate-100 mt-1">
-                <span>🗑️</span>
+              <button type="button" onclick="eliminarPedidoPdv('${o.docId}')" class="w-full text-left px-3.5 py-2.5 rounded-xl text-red-600 hover:bg-red-50 flex items-center gap-2.5 cursor-pointer font-bold border-t border-slate-100 mt-1">
+                <span class="text-sm">🗑️</span>
                 <span>Eliminar</span>
               </button>
             </div>
@@ -13395,6 +13401,25 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }).catch(e => alert(e.message));
     }
 
+    function cancelarPedidoPdv(docId) {
+      if (!confirm('¿Deseas cancelar esta orden? Quedará registrada como cancelada.')) return;
+      changeOrderStatus(docId, 'cancelado');
+      mostrarNotificacion('⨂ Pedido cancelado');
+    }
+
+    function eliminarPedidoPdv(docId) {
+      if (!docId) return;
+      if (!confirm('⚠️ ¿Estás seguro de ELIMINAR permanentemente esta orden del sistema?\n\nEsta acción quitará el pedido de la bandeja y de las métricas.')) return;
+      window.pedidosRef().doc(docId).delete().then(() => {
+        if (typeof selectedOrderDocId !== 'undefined' && selectedOrderDocId === docId) {
+          cerrarDetallePedidoPdv();
+        }
+        if (typeof mostrarNotificacion === 'function') {
+          mostrarNotificacion('🗑️ Pedido eliminado permanentemente');
+        }
+      }).catch(err => alert('Error al eliminar pedido: ' + err.message));
+    }
+
     function limpiarPedidosDePrueba() {
       if (!Array.isArray(pedidos) || pedidos.length === 0) {
         alert('No hay pedidos registrados para eliminar.');
@@ -13418,25 +13443,11 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       batch.commit().then(() => {
         if (typeof cerrarDetallePedidoPdv === 'function') cerrarDetallePedidoPdv();
         if (typeof mostrarNotificacion === 'function') {
-          mostrarNotificacion(`🗑️ ${targetPedidos.length} pedidos de prueba eliminados correctamente.`);
+          mostrarNotificacion(`🗑️ ${targetPedidos.length} pedidos eliminados correctamente.`);
         }
       }).catch(err => {
         alert('No se pudieron eliminar los pedidos: ' + err.message);
       });
-    }
-
-    function cancelarPedidoPdv(docId) {
-      if (!confirm('¿Deseas cancelar esta orden? Quedará registrada como cancelada.')) return;
-      changeOrderStatus(docId, 'cancelado');
-      mostrarNotificacion('⨂ Pedido cancelado');
-    }
-
-    function eliminarPedidoPdv(docId) {
-      if (!confirm('⚠️ ¿Estás seguro de ELIMINAR permanentemente esta orden del sistema? Esta acción no se puede deshacer.')) return;
-      window.pedidosRef().doc(docId).delete().then(() => {
-        cerrarDetallePedidoPdv();
-        mostrarNotificacion('🗑️ Pedido eliminado permanentemente');
-      }).catch(err => alert(err.message));
     }
 
     // Modal para Agregar Productos a la orden
@@ -13664,7 +13675,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         const itemsSummary = (o.items || []).map(i => `${i.qty}x ${i.name}`).join(', ');
 
         return `
-          <tr class="hover:bg-slate-50/80 transition-colors">
+          <tr onclick="seleccionarPedidoPdv('${o.docId}')" data-doc-id="${o.docId}" class="cursor-pointer hover:bg-brand-50/40 transition-colors ${selectedOrderDocId === o.docId ? 'bg-brand-50/80 border-l-4 border-l-brand-600 font-bold' : ''}">
             <td class="py-3 px-4 font-mono">
               <div class="font-black text-slate-900">${timeStr}</div>
               <div class="text-[10px] text-slate-400 font-normal">⏱️ ${diffMin}m · ${o.id}</div>
@@ -13685,18 +13696,19 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
             </td>
             <td class="py-3 px-4 text-right">
               <div class="flex items-center justify-end gap-1.5">
-                <button onclick="event.stopPropagation(); printTicket('${o.docId}')" class="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 cursor-pointer" title="Imprimir comanda térmica">🖨️</button>
+                <button type="button" onclick="event.stopPropagation(); printTicket('${o.docId}')" class="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 text-slate-600 cursor-pointer" title="Imprimir comanda térmica">🖨️</button>
                 ${isNew ? `
-                  <button onclick="event.stopPropagation(); changeOrderStatus('${o.docId}', 'cocina'); playKitchenChime();" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] cursor-pointer">Aceptar</button>
+                  <button type="button" onclick="event.stopPropagation(); changeOrderStatus('${o.docId}', 'cocina'); playKitchenChime();" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] cursor-pointer">Aceptar</button>
                 ` : isCocina ? `
-                  <button onclick="event.stopPropagation(); changeOrderStatus('${o.docId}', 'listo'); playKitchenChime();" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] cursor-pointer">Listo</button>
+                  <button type="button" onclick="event.stopPropagation(); changeOrderStatus('${o.docId}', 'listo'); playKitchenChime();" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] cursor-pointer">Listo</button>
                 ` : isListo ? `
-                  <button onclick="event.stopPropagation(); changeOrderStatus('${o.docId}', 'despachado')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-bold text-[10px] cursor-pointer">Entregar</button>
+                  <button type="button" onclick="event.stopPropagation(); changeOrderStatus('${o.docId}', 'despachado')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-900 text-white font-bold text-[10px] cursor-pointer">Entregar</button>
                 ` : `
                   <span class="text-[10px] text-slate-400 font-mono">Cerrado</span>
                 `}
-                <button onclick="event.stopPropagation(); eliminarPedidoPdv('${o.docId}')" class="p-1.5 rounded-lg border border-slate-200 hover:bg-red-50 hover:border-red-200 text-slate-400 hover:text-red-600 transition cursor-pointer" title="Eliminar este pedido">
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                <button type="button" onclick="event.stopPropagation(); eliminarPedidoPdv('${o.docId}')" class="px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-bold flex items-center gap-1 transition cursor-pointer shadow-xs active:scale-95" title="Eliminar este pedido permanentemente">
+                  <span>🗑️</span>
+                  <span>Eliminar</span>
                 </button>
               </div>
             </td>
