@@ -6283,10 +6283,15 @@
         <!-- COLUMNA IZQUIERDA: CATÁLOGO TÁCTIL (7 COLS) -->
         <div class="lg:col-span-7 space-y-3">
           
-          <!-- BUSCADOR RÁPIDO -->
-          <div class="relative">
-            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
-            <input id="pedidoBuscar" type="text" placeholder="Buscar plato, trago o extra..." oninput="renderPedidoCatalogo()" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-brand-600 focus:bg-white transition-all font-medium">
+          <!-- BUSCADOR RÁPIDO Y LECTOR DE CÓDIGO DE BARRAS -->
+          <div class="flex items-center gap-2">
+            <div class="relative flex-1">
+              <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+              <input id="pedidoBuscar" type="text" placeholder="Buscar por nombre, código de barra EAN o escanear..." oninput="renderPedidoCatalogo()" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-brand-600 focus:bg-white transition-all font-medium">
+            </div>
+            <button type="button" onclick="abrirEscanerCamaraModal('pdv')" title="Escanear con la cámara del celular o tablet" class="p-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-700 text-sm flex items-center justify-center shrink-0 cursor-pointer shadow-xs transition-all">
+              📷
+            </button>
           </div>
 
           <!-- CHIPS DE CATEGORÍAS DESLIZABLES -->
@@ -7472,12 +7477,38 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         </div>
 
         <!-- Plantilla 5: Bar & Schopería -->
-        <div onclick="aplicarPlantillaMenu('bar')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50/40 transition-all cursor-pointer flex items-start gap-3 sm:col-span-2">
+        <div onclick="aplicarPlantillaMenu('bar')" class="group p-4 rounded-2xl border-2 border-slate-200 hover:border-purple-500 hover:bg-purple-50/40 transition-all cursor-pointer flex items-start gap-3">
           <span class="text-3xl p-2 rounded-xl bg-slate-100 group-hover:bg-purple-100 transition-colors">🍺</span>
           <div>
-            <h4 class="font-black text-sm text-slate-900 group-hover:text-purple-800">Bar, Cervecería & Schopería</h4>
-            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Chorrillana tradicional, tablas para compartir, schops artesanales IPA y Pisco Sour Catedral.</p>
-            <span class="inline-block mt-2 text-[10px] font-bold text-purple-700 bg-purple-100/80 px-2 py-0.5 rounded-md">5 platos de bar y tragos</span>
+            <h4 class="font-black text-sm text-slate-900 group-hover:text-purple-800">Bar & Schopería</h4>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Chorrillana tradicional, tablas para compartir, schops artesanales IPA y Pisco Sour.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-purple-700 bg-purple-100/80 px-2 py-0.5 rounded-md">5 platos y tragos</span>
+          </div>
+        </div>
+
+        <!-- Plantilla 6: Botillería & Licorería (NUEVO ESPACIO ZOKIFY) -->
+        <div onclick="aplicarPlantillaMenu('botilleria')" class="group p-4 rounded-2xl border-2 border-purple-200 bg-purple-50/30 hover:border-purple-600 hover:bg-purple-50/70 transition-all cursor-pointer flex items-start gap-3">
+          <span class="text-3xl p-2 rounded-xl bg-purple-100 text-purple-700 group-hover:bg-purple-200 transition-colors">🍾</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h4 class="font-black text-sm text-slate-900 group-hover:text-purple-900">Botillería & Licorería</h4>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-purple-600 text-white uppercase">EAN-13</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Cervezas, Piscos chilenos, Whiskies, Vinos, Hielo y Snacks con códigos de barra oficiales y fotos HD.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-purple-700 bg-purple-100 px-2 py-0.5 rounded-md">14 productos con Códigos de Barra</span>
+          </div>
+        </div>
+
+        <!-- Plantilla 7: Minimarket & Almacén de Barrio (NUEVO ESPACIO ZOKIFY) -->
+        <div onclick="aplicarPlantillaMenu('minimarket')" class="group p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/30 hover:border-emerald-600 hover:bg-emerald-50/70 transition-all cursor-pointer flex items-start gap-3 sm:col-span-2">
+          <span class="text-3xl p-2 rounded-xl bg-emerald-100 text-emerald-700 group-hover:bg-emerald-200 transition-colors">🛒</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h4 class="font-black text-sm text-slate-900 group-hover:text-emerald-900">Minimarket, Almacén & Autoservicio</h4>
+              <span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-600 text-white uppercase">EAN-13</span>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-0.5 leading-snug">Panadería, Lácteos Colun, Fideos, Arroz, Huevos, Bebidas, Aseo y Golosinas listos para escanear y cobrar.</p>
+            <span class="inline-block mt-2 text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">14 productos esenciales con Códigos de Barra</span>
           </div>
         </div>
       </div>
@@ -7612,6 +7643,31 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
             <label class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Etiqueta opcional</label>
             <input id="inputProdBadge" type="text" placeholder="Ej: 🔥 Más Pedido, 2x1, Nuevo" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600">
           </div>
+        </div>
+
+        <!-- CÓDIGO DE BARRAS / EAN-13 / SKU (BOTILLERÍAS, MINIMARKETS Y RETAIL) -->
+        <div class="p-3 rounded-2xl bg-purple-50/60 border border-purple-200/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-[10px] font-extrabold text-purple-950 uppercase tracking-wider flex items-center gap-1.5">
+              <span>🏷️ Código de Barras / EAN-13 / SKU</span>
+            </label>
+            <span class="text-[9px] font-bold text-purple-700 bg-purple-100/90 px-2 py-0.5 rounded-full">Botillería & Minimarket</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="relative flex-1">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400 font-mono text-xs">#</span>
+              <input id="inputProdBarcode" type="text" placeholder="Ej: 7801610001011 o escanea con pistola..." oninput="onBarcodeInputChange(this.value)" class="w-full bg-white border border-purple-200 rounded-xl pl-7 pr-3 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600 focus:ring-1 focus:ring-brand-500">
+            </div>
+            <button type="button" onclick="abrirEscanerCamaraModal('crearProducto')" title="Escanear con cámara del celular o tablet" class="px-3 py-2 rounded-xl bg-white hover:bg-purple-100 border border-purple-200 text-purple-700 text-xs font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer">
+              <span>📷 Escanear</span>
+            </button>
+            <button type="button" onclick="generarBarcodeInternoModal()" title="Generar código interno de 13 dígitos" class="px-3 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer">
+              <span>🪄 Generar</span>
+            </button>
+          </div>
+          <p id="barcodeSugerenciaTxt" class="text-[10px] text-purple-800 hidden font-medium">
+            💡 Sugerencia encontrada en el catálogo maestro chileno. Haz clic para autocompletar.
+          </p>
         </div>
 
         <div>
@@ -11591,7 +11647,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (p.disponible === false) return false;
         if (p.controlStock && (p.stock || 0) <= 0) return false;
         const matchesCategory = currentCatFilter === 'todas' || p.cat === currentCatFilter;
-        const matchesQuery = !q || p.name.toLowerCase().includes(q) || (p.desc || '').toLowerCase().includes(q);
+        const matchesQuery = !q || p.name.toLowerCase().includes(q) || (p.desc || '').toLowerCase().includes(q) || (p.barcode && p.barcode.toLowerCase().includes(q));
         return matchesCategory && matchesQuery;
       });
 
@@ -14680,7 +14736,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       // Filtrar platos por query de búsqueda
       const query = menuFiltroQuery.toLowerCase().trim();
-      const platosFiltrados = query ? productos.filter(p => (p.name || '').toLowerCase().includes(query) || (p.desc || '').toLowerCase().includes(query)) : productos;
+      const platosFiltrados = query ? productos.filter(p => (p.name || '').toLowerCase().includes(query) || (p.desc || '').toLowerCase().includes(query) || (p.barcode && p.barcode.toLowerCase().includes(query))) : productos;
 
       containerGrupos.innerHTML = categorias.map(c => {
         const prodsDeCat = platosFiltrados.filter(p => p.cat === c.id);
@@ -14698,6 +14754,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
                   <div class="flex items-center gap-2">
                     <span class="font-bold text-slate-900 truncate ${isOculto ? 'opacity-40 line-through' : ''}">${p.name}</span>
                     ${p.badge ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-700 border border-amber-200">${p.badge}</span>` : ''}
+                    ${p.barcode ? `<span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold bg-purple-50 text-purple-700 border border-purple-200" title="Código de barras EAN-13">🏷️ ${p.barcode}</span>` : ''}
                   </div>
                   <p class="text-[11px] text-slate-400 truncate max-w-sm mt-0.5">${p.desc || 'Sin descripción'}</p>
                 </div>
@@ -15167,6 +15224,404 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
             orden: 5
           }
         ]
+      },
+      botilleria: {
+        nombre: 'Botillería & Licorería',
+        categorias: [
+          { id: 'cervezas', nombre: '🍺 Cervezas & Schops', orden: 1 },
+          { id: 'piscos', nombre: '🍇 Piscos Chilenos', orden: 2 },
+          { id: 'destilados', nombre: '🥃 Whiskies & Destilados', orden: 3 },
+          { id: 'vinos', nombre: '🍷 Vinos & Espumantes', orden: 4 },
+          { id: 'bebidas-hielo', nombre: '🧊 Bebidas, Energéticas & Hielo', orden: 5 },
+          { id: 'snacks', nombre: '🥜 Snacks & Piqueos', orden: 6 }
+        ],
+        platos: [
+          {
+            name: 'Pack Corona Extra 355cc (6 Unidades)',
+            cat: 'cervezas',
+            price: 7990,
+            badge: 'PROMO PACK',
+            barcode: '7501064191307',
+            desc: 'Pack de 6 botellas 355cc heladas. Cerveza clara tipo Pilsner de origen mexicano.',
+            img: 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 24,
+            orden: 1
+          },
+          {
+            name: 'Cerveza Heineken Long Neck 330cc',
+            cat: 'cervezas',
+            price: 1500,
+            barcode: '8712000025345',
+            desc: 'Cerveza rubia Premium Lager 5.0°, servida bien helada.',
+            img: 'https://images.unsplash.com/photo-1618886614638-80e3c15cd819?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 48,
+            orden: 2
+          },
+          {
+            name: 'Cerveza Austral Calafate 330cc',
+            cat: 'cervezas',
+            price: 2100,
+            badge: 'PATAGONIA',
+            barcode: '7802110001083',
+            desc: 'Cerveza artesanal de la Patagonia chilena con toques de fruto calafate silvestre.',
+            img: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 36,
+            orden: 3
+          },
+          {
+            name: 'Pisco Mistral 35° Especial 750cc',
+            cat: 'piscos',
+            price: 8990,
+            badge: 'TOP VENTAS',
+            barcode: '7804300000049',
+            desc: 'Pisco chileno añejado en barricas de roble americano.',
+            img: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 20,
+            orden: 4
+          },
+          {
+            name: 'Pisco Alto del Carmen 35° Especial 750cc',
+            cat: 'piscos',
+            price: 8490,
+            barcode: '7804332000031',
+            desc: 'Pisco elaborado 100% con uvas Moscatel del Valle del Huasco.',
+            img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 18,
+            orden: 5
+          },
+          {
+            name: 'Pisco Mistral Nobel 40° Gran Reserva 750cc',
+            cat: 'piscos',
+            price: 14990,
+            badge: 'PREMIUM',
+            barcode: '7804300000308',
+            desc: 'Pisco de guarda prolongada en barricas de roble virgen, notas a vainilla y caramelo.',
+            img: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 10,
+            orden: 6
+          },
+          {
+            name: 'Whisky Johnnie Walker Red Label 750cc',
+            cat: 'destilados',
+            price: 16990,
+            barcode: '5000267014005',
+            desc: 'Blended Scotch Whisky con carácter especiado y ahumado.',
+            img: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 12,
+            orden: 7
+          },
+          {
+            name: 'Gin Tanqueray London Dry 750cc',
+            cat: 'destilados',
+            price: 19990,
+            barcode: '5000281005409',
+            desc: 'Gin británico cuatro veces destilado con enebro, cilantro y regaliz.',
+            img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 8,
+            orden: 8
+          },
+          {
+            name: 'Casillero del Diablo Cabernet Sauvignon 750cc',
+            cat: 'vinos',
+            price: 5990,
+            barcode: '7804320142019',
+            desc: 'Vino tinto chileno Reserva del Valle Central, notas a ciruelas y cassis.',
+            img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 24,
+            orden: 9
+          },
+          {
+            name: 'Bebida Coca-Cola Original 1.5 Litros',
+            cat: 'bebidas-hielo',
+            price: 1800,
+            barcode: '7801610001011',
+            desc: 'Botella 1.5L bien helada, el acompañamiento ideal.',
+            img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 30,
+            orden: 10
+          },
+          {
+            name: 'Bebida Energética Red Bull Original 250cc',
+            cat: 'bebidas-hielo',
+            price: 1900,
+            barcode: '9002490100070',
+            desc: 'Lata 250cc helada con taurina y cafeína.',
+            img: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 40,
+            orden: 11
+          },
+          {
+            name: 'Bolsa de Hielo Purificado en Cubos 2.5 Kg',
+            cat: 'bebidas-hielo',
+            price: 2000,
+            badge: 'ESENCIAL',
+            barcode: '7804612340015',
+            desc: 'Cubos de hielo purificado y filtrado en bolsa de 2.5 kilos.',
+            img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 50,
+            orden: 12
+          },
+          {
+            name: 'Papas Fritas Lay\'s Corte Americano 220g',
+            cat: 'snacks',
+            price: 2290,
+            barcode: '7802800001227',
+            desc: 'Papas fritas crujientes con sal, formato familiar para compartir.',
+            img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 25,
+            orden: 13
+          },
+          {
+            name: 'Maní Salado Tostado Marco Polo 150g',
+            cat: 'snacks',
+            price: 1290,
+            barcode: '7802800005416',
+            desc: 'Maní seleccionado tostado y con sal de mar.',
+            img: 'https://images.unsplash.com/photo-1525253086316-d0c936c8146c?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 30,
+            orden: 14
+          }
+        ]
+      },
+      minimarket: {
+        nombre: 'Minimarket & Almacén de Barrio',
+        categorias: [
+          { id: 'pan-lacteos', nombre: '🥖 Panadería & Lácteos', orden: 1 },
+          { id: 'abarrotes', nombre: '🥫 Abarrotes & Despensa', orden: 2 },
+          { id: 'bebidas-aguas', nombre: '🥤 Bebidas & Aguas', orden: 3 },
+          { id: 'snacks-dulces', nombre: '🍫 Galletas & Snacks', orden: 4 },
+          { id: 'limpieza-aseo', nombre: '🧼 Limpieza & Cuidado del Hogar', orden: 5 }
+        ],
+        platos: [
+          {
+            name: 'Leche Colun Entera Caja Tetra 1 Litro',
+            cat: 'pan-lacteos',
+            price: 1190,
+            badge: 'BÁSICO',
+            barcode: '7802920001015',
+            desc: 'Leche natural 100% pura del sur de Chile en envase UHT 1L.',
+            img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 60,
+            orden: 1
+          },
+          {
+            name: 'Mantequilla Colun con Sal Pan 250g',
+            cat: 'pan-lacteos',
+            price: 2490,
+            barcode: '7802920003057',
+            desc: 'Mantequilla tradicional de crema fresca con sal.',
+            img: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 20,
+            orden: 2
+          },
+          {
+            name: 'Queso Gauda Colun Laminado 250g',
+            cat: 'pan-lacteos',
+            price: 2790,
+            barcode: '7802920002142',
+            desc: 'Láminas de queso madurado suave, ideal para sándwiches.',
+            img: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 25,
+            orden: 3
+          },
+          {
+            name: 'Pan Batido / Marraqueta Fresca 1 Kg',
+            cat: 'pan-lacteos',
+            price: 2190,
+            badge: 'DEL DÍA',
+            barcode: '7800000001012',
+            desc: 'Pan crujiente y caliente horneado en el día.',
+            img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 30,
+            orden: 4
+          },
+          {
+            name: 'Arroz Tucapel Grado 1 Selección 1 Kg',
+            cat: 'abarrotes',
+            price: 1690,
+            barcode: '7801505000112',
+            desc: 'Arroz grano largo y ancho seleccionado, graneado perfecto.',
+            img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 40,
+            orden: 5
+          },
+          {
+            name: 'Fideos Lucchetti Spaghetti N° 5 400g',
+            cat: 'abarrotes',
+            price: 1090,
+            barcode: '7801810001057',
+            desc: 'Pastas tradicionales de sémola de trigo candeal.',
+            img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 50,
+            orden: 6
+          },
+          {
+            name: 'Salsa de Tomates Carozzi Tuco Carne 200g',
+            cat: 'abarrotes',
+            price: 890,
+            barcode: '7801810012015',
+            desc: 'Salsa sazonada lista para servir con fideos o arroz.',
+            img: 'https://images.unsplash.com/photo-1572441713132-c542fc4fe282?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 45,
+            orden: 7
+          },
+          {
+            name: 'Aceite Vegetal Belmont Botella 900ml',
+            cat: 'abarrotes',
+            price: 2490,
+            barcode: '7801505001232',
+            desc: 'Aceite 100% puro para freír y aliñar ensaladas.',
+            img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 30,
+            orden: 8
+          },
+          {
+            name: 'Huevos de Gallina Extra Blancos Bandeja x12',
+            cat: 'abarrotes',
+            price: 3690,
+            badge: 'FRESCOS',
+            barcode: '7804610012014',
+            desc: 'Docena de huevos frescos clasificados tamaño extra.',
+            img: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=800&q=80',
+            destacado: true,
+            disponible: true,
+            controlStock: true,
+            stock: 25,
+            orden: 9
+          },
+          {
+            name: 'Café Nescafé Tradición Frasco 100g',
+            cat: 'abarrotes',
+            price: 3990,
+            barcode: '7613035345678',
+            desc: 'Café instantáneo granulado 100% puro y tostado fuerte.',
+            img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 15,
+            orden: 10
+          },
+          {
+            name: 'Azúcar Blanca Iansa Bolsa 1 Kg',
+            cat: 'abarrotes',
+            price: 1390,
+            barcode: '7801310000018',
+            desc: 'Azúcar refinada tradicional de remolacha chilena.',
+            img: 'https://images.unsplash.com/photo-1622484212850-cab3c7d60918?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 40,
+            orden: 11
+          },
+          {
+            name: 'Agua Mineral Cachantun Sin Gas 1.6 Litros',
+            cat: 'bebidas-aguas',
+            price: 1190,
+            barcode: '7801610008409',
+            desc: 'Agua pura de vertiente natural en botella familiar 1.6L.',
+            img: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 35,
+            orden: 12
+          },
+          {
+            name: 'Galletas Tritón Crema Chocolate 126g',
+            cat: 'snacks-dulces',
+            price: 790,
+            barcode: '7801620001223',
+            desc: 'Galletas de cacao rellenas con rica crema sabor chocolate.',
+            img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 50,
+            orden: 13
+          },
+          {
+            name: 'Detergente Líquido OMO Multiacción 1 Litro',
+            cat: 'limpieza-aseo',
+            price: 4990,
+            badge: 'HOGAR',
+            barcode: '7802230001154',
+            desc: 'Detergente concentrado para lavado de ropa blanca y de color.',
+            img: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=800&q=80',
+            destacado: false,
+            disponible: true,
+            controlStock: true,
+            stock: 12,
+            orden: 14
+          }
+        ]
       }
     };
 
@@ -15354,7 +15809,13 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         template.platos.forEach((p, idx) => {
           const docId = 'plato-' + tipo + '-' + (idx + 1);
           const docRef = window.platosRef().doc(docId);
-          batch.set(docRef, { ...p, id: Date.now() + idx, controlStock: false }, { merge: true });
+          batch.set(docRef, {
+            ...p,
+            id: Date.now() + idx,
+            barcode: p.barcode || '',
+            controlStock: p.controlStock !== undefined ? p.controlStock : false,
+            stock: p.stock !== undefined ? p.stock : 0
+          }, { merge: true });
         });
 
         await batch.commit();
@@ -15372,6 +15833,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       document.getElementById('inputProdNombre').value = '';
       document.getElementById('inputProdPrecio').value = '';
       document.getElementById('inputProdBadge').value = '';
+      const barcodeInput = document.getElementById('inputProdBarcode');
+      if (barcodeInput) barcodeInput.value = '';
+      const barcodeSug = document.getElementById('barcodeSugerenciaTxt');
+      if (barcodeSug) barcodeSug.classList.add('hidden');
       document.getElementById('inputProdDesc').value = '';
       document.getElementById('inputProdImgUrl').value = '';
       document.getElementById('modalProdImgPreview').innerHTML = '📷';
@@ -15413,6 +15878,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const cat = document.getElementById('selectProdCategoria').value;
       const price = Number(document.getElementById('inputProdPrecio').value) || 0;
       const badge = document.getElementById('inputProdBadge').value.trim();
+      const barcode = (document.getElementById('inputProdBarcode')?.value || '').trim();
       const desc = document.getElementById('inputProdDesc').value.trim();
       const img = imagenNuevaDataUrl || document.getElementById('inputProdImgUrl').value.trim() || 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80';
       const destacado = document.getElementById('checkProdDestacado').checked;
@@ -15426,13 +15892,13 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (editId) {
         // Modo Edición
         window.platosRef().doc(editId).update({
-          name, cat, price, badge, desc, img, destacado, disponible
+          name, cat, price, badge, barcode, desc, img, destacado, disponible
         });
       } else {
         // Modo Creación
         window.platosRef().doc('plato-' + Date.now()).set({
           id: Date.now(),
-          name, cat, price, badge, desc, img, destacado, disponible,
+          name, cat, price, badge, barcode, desc, img, destacado, disponible,
           orden: productos.length
         });
       }
@@ -15451,6 +15917,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       document.getElementById('inputProdNombre').value = p.name || '';
       document.getElementById('inputProdPrecio').value = p.price || '';
       document.getElementById('inputProdBadge').value = p.badge || '';
+      const barcodeInp = document.getElementById('inputProdBarcode');
+      if (barcodeInp) barcodeInp.value = p.barcode || '';
+      const barcodeSugEd = document.getElementById('barcodeSugerenciaTxt');
+      if (barcodeSugEd) barcodeSugEd.classList.add('hidden');
       document.getElementById('inputProdDesc').value = p.desc || '';
       document.getElementById('inputProdImgUrl').value = (p.img && !p.img.startsWith('data:')) ? p.img : '';
       document.getElementById('checkProdDestacado').checked = !!p.destacado;
@@ -19730,7 +20200,148 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
                 <img src="${qrApiUrl}" onload="window.print(); window.close();">
                 <div class="footer">¡Pide a tu ritmo desde tu teléfono!</div>
               </div>
-            </body>
+            
+  <!-- ========================================================================= -->
+  <!-- MODAL: ESCÁNER DE CÓDIGO DE BARRAS & QR CON CÁMARA (MÓVIL / TABLET / PC) -->
+  <!-- ========================================================================= -->
+  <div id="modalEscanerCamara" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-5 sm:p-6 shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- CABECERA DEL ESCÁNER -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center text-lg font-bold">
+            📷
+          </div>
+          <div>
+            <h3 class="font-black text-sm text-slate-900" id="escanerCamaraTitulo">Lector de Código de Barras</h3>
+            <p class="text-[11px] text-slate-500" id="escanerCamaraSubtitulo">Apunta la cámara al código EAN-13 o QR</p>
+          </div>
+        </div>
+        <button onclick="cerrarEscanerCamaraModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- VISOR DE VÍDEO CON GUÍA DE APUNTADO -->
+      <div class="relative bg-slate-900 rounded-2xl overflow-hidden aspect-video sm:aspect-square flex items-center justify-center shadow-inner">
+        <video id="videoEscanerCamara" class="w-full h-full object-cover" playsinline autoplay muted></video>
+        
+        <!-- MIRA VISUAL DE ESCANEO LÁSER -->
+        <div class="absolute inset-x-8 inset-y-12 sm:inset-16 border-2 border-purple-400/90 rounded-2xl pointer-events-none flex flex-col items-center justify-center">
+          <div class="w-full h-0.5 bg-red-500 shadow-[0_0_8px_#ef4444] animate-pulse"></div>
+          <span class="text-[10px] font-mono font-bold text-white/90 bg-black/60 px-2 py-0.5 rounded-full mt-auto mb-2">EAN-13 / QR / CODE-128</span>
+        </div>
+
+        <!-- INDICADOR DE ESTADO -->
+        <div id="escanerCamaraFeedback" class="absolute top-3 inset-x-3 text-center">
+          <span class="inline-block text-[11px] font-bold text-white bg-black/70 backdrop-blur-xs px-3 py-1 rounded-full">
+            🔍 Buscando código de barra...
+          </span>
+        </div>
+      </div>
+
+      <!-- CONTROLES AUXILIARES -->
+      <div class="flex items-center justify-between gap-2 text-xs">
+        <button type="button" onclick="toggleFlashCamara()" id="btnFlashCamara" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center gap-1.5 transition-colors cursor-pointer">
+          <span>💡 Linterna</span>
+        </button>
+        <span class="text-[11px] text-slate-400 font-medium">Compatible con cualquier cámara</span>
+      </div>
+
+      <!-- ENTRADA MANUAL DE EMERGENCIA -->
+      <div class="pt-2 border-t border-slate-100 space-y-1.5">
+        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">¿No enfoca bien? Digita el código manual:</label>
+        <div class="flex gap-2">
+          <input id="inputCodigoManualEscaner" type="text" placeholder="Ej: 7801610001011" onkeydown="if(event.key==='Enter') procesarCodigoManualModal()" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+          <button type="button" onclick="procesarCodigoManualModal()" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs cursor-pointer transition-all">
+            Ingresar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: PRODUCTO NO ENCONTRADO / ALTA RÁPIDA DESDE MAESTRO CHILENO -->
+  <!-- ========================================================================= -->
+  <div id="modalBarcodeNoEncontrado" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-7 shadow-2xl border border-slate-100 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+      
+      <!-- HEADER -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center text-xl font-bold">
+            🏷️
+          </div>
+          <div>
+            <h3 class="font-black text-sm text-slate-900">Código de Barras Escaneado</h3>
+            <p class="text-[11px] text-slate-500 font-mono font-bold" id="badgeCodigoEscaneadoTxt">EAN: -</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalBarcodeNoEncontrado()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- SUGERENCIA DEL CATÁLOGO MAESTRO CHILENO -->
+      <div id="seccionSugerenciaMaestro" class="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-200 space-y-2 hidden">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-extrabold text-purple-900 uppercase tracking-wider">🎉 Coincidencia en Catálogo Maestro Chileno</span>
+          <span class="text-[9px] font-black text-purple-700 bg-purple-100 px-2 py-0.5 rounded-full">AUTOCOMPLETADO</span>
+        </div>
+        <div class="flex items-center gap-3 bg-white p-2.5 rounded-xl border border-purple-100">
+          <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 overflow-hidden shrink-0 flex items-center justify-center" id="maestroImgBox">
+            📦
+          </div>
+          <div class="min-w-0 flex-1">
+            <h4 class="font-bold text-xs text-slate-900 truncate" id="maestroNombreTxt">-</h4>
+            <p class="text-[10px] text-slate-500 mt-0.5" id="maestroDescTxt">-</p>
+            <span class="text-[11px] font-mono font-black text-purple-900" id="maestroPrecioRefTxt">$0</span>
+          </div>
+        </div>
+        <button type="button" onclick="aplicarSugerenciaMaestro()" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-black text-xs shadow-md shadow-purple-600/20 cursor-pointer transition-all">
+          ✓ Cargar datos de este producto en el formulario
+        </button>
+      </div>
+
+      <!-- FORMULARIO RÁPIDO DE ALTA -->
+      <div class="space-y-3">
+        <p class="text-xs text-slate-600 font-medium">Este producto aún no está en tu catálogo. Créalo en 3 segundos para sumarlo de inmediato a la venta:</p>
+        
+        <div>
+          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre del Producto *</label>
+          <input id="altaRapidaNombre" type="text" placeholder="Ej: Cerveza Heineken 330cc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Precio Venta ($ CLP) *</label>
+            <input id="altaRapidaPrecio" type="number" step="100" placeholder="Ej: 1500" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+          </div>
+          <div>
+            <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Categoría</label>
+            <select id="altaRapidaCategoria" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600"></select>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Stock Inicial (opcional)</label>
+          <input id="altaRapidaStock" type="number" step="1" placeholder="Ej: 24" value="24" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+        </div>
+      </div>
+
+      <!-- ACCIONES -->
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+        <button type="button" onclick="cerrarModalBarcodeNoEncontrado()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+          Cancelar
+        </button>
+        <button type="button" onclick="guardarProductoAltaRapida()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-black text-xs uppercase tracking-wider shadow-md shadow-brand-600/20 cursor-pointer transition-all active:scale-[0.98]">
+          ✓ Guardar y Sumar a la Venta
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</body>
           </html>
         `);
         printWin.document.close();
@@ -21713,6 +22324,438 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
     // Inicialización del primer tab
     switchTab('pedidos');
+      // =========================================================================
+    // MÓDULO: CÓDIGOS DE BARRA (EAN-13, PISTOLA USB/BT, CÁMARA Y CATÁLOGO CHILENO)
+    // =========================================================================
+
+    // 1. DICCIONARIO MAESTRO CHILENO DE CÓDIGOS DE BARRA EAN-13 MÁS VENDIDOS
+    const CATALOGO_MAESTRO_BARCODES = {
+      // Botillería & Cervezas
+      '7501064191307': { name: 'Pack Corona Extra 355cc (6 Unidades)', price: 7990, cat: 'cervezas', desc: 'Pack 6 botellas 355cc heladas', img: 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80' },
+      '8712000025345': { name: 'Cerveza Heineken Long Neck 330cc', price: 1500, cat: 'cervezas', desc: 'Lager holandesa premium 5.0°', img: 'https://images.unsplash.com/photo-1618886614638-80e3c15cd819?auto=format&fit=crop&w=800&q=80' },
+      '7802110001083': { name: 'Cerveza Austral Calafate 330cc', price: 2100, cat: 'cervezas', desc: 'Artesanal patagónica con fruto de calafate', img: 'https://images.unsplash.com/photo-1566633806327-68e152aaf26d?auto=format&fit=crop&w=800&q=80' },
+      '7802100002014': { name: 'Cerveza Stella Artois 330cc', price: 1600, cat: 'cervezas', desc: 'Lager belga prémium de tradición', img: 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80' },
+      '7802100001017': { name: 'Cerveza Cristal 350cc Lata', price: 1000, cat: 'cervezas', desc: 'Cerveza rubia chilena tradicional', img: 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80' },
+      '7802100003011': { name: 'Cerveza Escudo 350cc Lata', price: 1000, cat: 'cervezas', desc: 'Cerveza con más cuerpo y carácter', img: 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80' },
+      '7804300000049': { name: 'Pisco Mistral 35° Especial 750cc', price: 8990, cat: 'piscos', desc: 'Añejado en barricas de roble americano', img: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=800&q=80' },
+      '7804332000031': { name: 'Pisco Alto del Carmen 35° 750cc', price: 8490, cat: 'piscos', desc: '100% uva moscatel del Valle del Huasco', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80' },
+      '7804300000308': { name: 'Pisco Mistral Nobel 40° 750cc', price: 14990, cat: 'piscos', desc: 'Gran reserva prolongada en roble virgen', img: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=800&q=80' },
+      '7804300000056': { name: 'Pisco Campanario 35° 750cc', price: 6990, cat: 'piscos', desc: 'Pisco tradicional chileno', img: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?auto=format&fit=crop&w=800&q=80' },
+      '5000267014005': { name: 'Whisky Johnnie Walker Red Label 750cc', price: 16990, cat: 'destilados', desc: 'Blended Scotch Whisky de fama mundial', img: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?auto=format&fit=crop&w=800&q=80' },
+      '5000281005409': { name: 'Gin Tanqueray London Dry 750cc', price: 19990, cat: 'destilados', desc: 'Gin británico cuatro veces destilado', img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80' },
+      '7804320142019': { name: 'Vino Casillero del Diablo Cabernet Sauvignon 750cc', price: 5990, cat: 'vinos', desc: 'Reserva Valle Central con toques de ciruela', img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80' },
+      '7804320142026': { name: 'Vino Casillero del Diablo Carmenere 750cc', price: 5990, cat: 'vinos', desc: 'Cepa emblema de Chile con taninos redondos', img: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80' },
+      '7804612340015': { name: 'Bolsa Hielo Purificado en Cubos 2.5 Kg', price: 2000, cat: 'bebidas-hielo', desc: 'Cubos sólidos purificados y filtrados', img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80' },
+      '7801610001011': { name: 'Coca-Cola Original 1.5 Litros', price: 1800, cat: 'bebidas-hielo', desc: 'Bebida gaseosa helada botella 1.5L', img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80' },
+      '7801610001035': { name: 'Coca-Cola Sin Azúcar 1.5 Litros', price: 1800, cat: 'bebidas-hielo', desc: 'Sabor original sin calorías', img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80' },
+      '7801610002018': { name: 'Sprite Original 1.5 Litros', price: 1800, cat: 'bebidas-hielo', desc: 'Bebida lima-limón refrescante', img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80' },
+      '9002490100070': { name: 'Bebida Energética Red Bull 250cc', price: 1900, cat: 'bebidas-hielo', desc: 'Energizante con cafeína y taurina', img: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=800&q=80' },
+      '7802800001227': { name: 'Papas Fritas Lays Clásicas 220g', price: 2290, cat: 'snacks', desc: 'Papas corte americano con sal de mar', img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=800&q=80' },
+      '7802800005416': { name: 'Maní Salado Tostado Marco Polo 150g', price: 1290, cat: 'snacks', desc: 'Maní tostado y salado para picar', img: 'https://images.unsplash.com/photo-1525253086316-d0c936c8146c?auto=format&fit=crop&w=800&q=80' },
+
+      // Minimarket & Almacén
+      '7802920001015': { name: 'Leche Colun Entera Tetra 1 Litro', price: 1190, cat: 'pan-lacteos', desc: 'Leche natural UHT 100% de vaca del sur', img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80' },
+      '7802920001022': { name: 'Leche Colun Semidescremada Tetra 1L', price: 1190, cat: 'pan-lacteos', desc: 'Leche semidescremada natural', img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=800&q=80' },
+      '7802920003057': { name: 'Mantequilla Colun con Sal Pan 250g', price: 2490, cat: 'pan-lacteos', desc: 'Mantequilla de crema fresca pura con sal', img: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=800&q=80' },
+      '7802920002142': { name: 'Queso Gauda Colun Laminado 250g', price: 2790, cat: 'pan-lacteos', desc: 'Queso gauda laminado tradicional', img: 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=800&q=80' },
+      '7800000001012': { name: 'Pan Batido / Marraqueta 1 Kg', price: 2190, cat: 'pan-lacteos', desc: 'Pan fresco horneado crujiente', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80' },
+      '7801505000112': { name: 'Arroz Tucapel Grado 1 1 Kg', price: 1690, cat: 'abarrotes', desc: 'Arroz grano largo y ancho seleccionado', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80' },
+      '7801810001057': { name: 'Fideos Lucchetti Spaghetti N° 5 400g', price: 1090, cat: 'abarrotes', desc: 'Pastas tradicionales de trigo candeal', img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=800&q=80' },
+      '7801810012015': { name: 'Salsa Carozzi Tuco Carne 200g', price: 890, cat: 'abarrotes', desc: 'Salsa de tomates lista condimentada', img: 'https://images.unsplash.com/photo-1572441713132-c542fc4fe282?auto=format&fit=crop&w=800&q=80' },
+      '7801505001232': { name: 'Aceite Vegetal Belmont Botella 900ml', price: 2490, cat: 'abarrotes', desc: 'Aceite 100% puro para freír y cocinar', img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=800&q=80' },
+      '7804610012014': { name: 'Huevos Extra Blancos Bandeja x12', price: 3690, cat: 'abarrotes', desc: 'Docena de huevos frescos clasificados', img: 'https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=800&q=80' },
+      '7613035345678': { name: 'Café Nescafé Tradición 100g', price: 3990, cat: 'abarrotes', desc: 'Café instantáneo puro granulado', img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=800&q=80' },
+      '7801310000018': { name: 'Azúcar Blanca Iansa 1 Kg', price: 1390, cat: 'abarrotes', desc: 'Azúcar refinada 100% de remolacha', img: 'https://images.unsplash.com/photo-1622484212850-cab3c7d60918?auto=format&fit=crop&w=800&q=80' },
+      '7801610008409': { name: 'Agua Cachantun Sin Gas 1.6 Litros', price: 1190, cat: 'bebidas-aguas', desc: 'Agua mineral de manantial natural', img: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=800&q=80' },
+      '7801620001223': { name: 'Galletas Tritón Chocolate 126g', price: 790, cat: 'snacks-dulces', desc: 'Galletas de cacao rellenas de crema', img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80' },
+      '7802230001154': { name: 'Detergente OMO Multiacción 1 Litro', price: 4990, cat: 'limpieza-aseo', desc: 'Detergente líquido concentrado multiacción', img: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=800&q=80' }
+    };
+
+    // 2. SONIDO BEEP DE CAJA REGISTRADORA POS (WEB AUDIO API)
+    function playBarcodeBeep() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1760, ctx.currentTime);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch (e) {
+        console.warn('Audio beep error:', e);
+      }
+    }
+
+    // 3. DETECTOR GLOBAL DE PISTOLA DE CÓDIGO DE BARRAS (USB / BLUETOOTH)
+    let _barcodeBuffer = '';
+    let _barcodeLastKeyTime = 0;
+
+    window.addEventListener('keydown', function(e) {
+      if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock'].includes(e.key)) return;
+
+      const now = Date.now();
+      const diff = now - _barcodeLastKeyTime;
+      _barcodeLastKeyTime = now;
+
+      if (diff > 120) {
+        _barcodeBuffer = '';
+      }
+
+      if (e.key === 'Enter') {
+        if (_barcodeBuffer.length >= 4) {
+          const scannedCode = _barcodeBuffer.trim();
+          _barcodeBuffer = '';
+          e.preventDefault();
+          e.stopPropagation();
+          procesarCodigoEscaneado(scannedCode);
+        } else {
+          _barcodeBuffer = '';
+        }
+        return;
+      }
+
+      if (e.key.length === 1) {
+        _barcodeBuffer += e.key;
+      }
+    }, true);
+
+    // 4. PROCESAR CÓDIGO ESCANEADO (DESDE PISTOLA O CÁMARA)
+    function procesarCodigoEscaneado(code) {
+      if (!code) return;
+      code = String(code).trim();
+      playBarcodeBeep();
+
+      const modalCrear = document.getElementById('modalCrearProducto');
+      if (modalCrear && !modalCrear.classList.contains('hidden')) {
+        const inp = document.getElementById('inputProdBarcode');
+        if (inp) {
+          inp.value = code;
+          onBarcodeInputChange(code);
+        }
+        mostrarNotificacion('🏷️ Código asignado al producto: ' + code);
+        return;
+      }
+
+      const prodLocal = productos.find(p => p.barcode && p.barcode.trim() === code);
+
+      if (prodLocal) {
+        const modalNuevoPed = document.getElementById('modalNuevoPedido');
+        const modalEstaAbierto = modalNuevoPed && !modalNuevoPed.classList.contains('hidden');
+
+        if (!modalEstaAbierto && typeof abrirModalNuevoPedido === 'function') {
+          abrirModalNuevoPedido();
+        }
+
+        if (typeof agregarAlPedido === 'function') {
+          agregarAlPedido(prodLocal.docId);
+          mostrarNotificacion('🛒 +1 ' + prodLocal.name + ' (' + fmt(prodLocal.price || 0) + ')');
+        }
+      } else {
+        abrirModalBarcodeNoEncontrado(code);
+      }
+    }
+
+    // 5. AUTOCOMPLETADO DESDE MAESTRO EN modalCrearProducto
+    function onBarcodeInputChange(val) {
+      val = (val || '').trim();
+      const sug = document.getElementById('barcodeSugerenciaTxt');
+      if (!sug) return;
+
+      const maestro = CATALOGO_MAESTRO_BARCODES[val];
+      if (maestro) {
+        sug.classList.remove('hidden');
+        sug.innerHTML = '✨ <strong>' + maestro.name + '</strong> en Catálogo Maestro. <button type="button" onclick="autocompletarDesdeMaestroBarcode(\\x27' + val + '\\x27)" class="underline font-bold ml-1 text-purple-900 hover:text-black">Autocompletar formulario</button>';
+      } else {
+        sug.classList.add('hidden');
+      }
+    }
+
+    function autocompletarDesdeMaestroBarcode(code) {
+      const m = CATALOGO_MAESTRO_BARCODES[code];
+      if (!m) return;
+
+      const inpNom = document.getElementById('inputProdNombre');
+      const inpPre = document.getElementById('inputProdPrecio');
+      const inpDesc = document.getElementById('inputProdDesc');
+      const inpImg = document.getElementById('inputProdImgUrl');
+      const prevImg = document.getElementById('modalProdImgPreview');
+
+      if (inpNom && !inpNom.value) inpNom.value = m.name;
+      if (inpPre && (!inpPre.value || inpPre.value === '0')) inpPre.value = m.price;
+      if (inpDesc && !inpDesc.value) inpDesc.value = m.desc || '';
+      if (inpImg && m.img) {
+        inpImg.value = m.img;
+        if (prevImg) prevImg.innerHTML = '<img src="' + m.img + '" class="w-full h-full object-cover">';
+      }
+
+      const selCat = document.getElementById('selectProdCategoria');
+      if (selCat && m.cat) {
+        const opt = Array.from(selCat.options).find(o => o.value.includes(m.cat) || o.text.toLowerCase().includes(m.cat));
+        if (opt) opt.selected = true;
+      }
+
+      mostrarNotificacion('🪄 Datos cargados desde Catálogo Maestro Chileno');
+    }
+
+    // 6. GENERADOR DE CÓDIGO INTERNO (EAN-13 FORMATO 200...)
+    function generarBarcodeInternoModal() {
+      const rand = Math.floor(100000000 + Math.random() * 900000000);
+      const base12 = '200' + rand;
+      
+      let sum = 0;
+      for (let i = 0; i < 12; i++) {
+        const digit = parseInt(base12[i], 10);
+        sum += (i % 2 === 0) ? digit : digit * 3;
+      }
+      const checkDigit = (10 - (sum % 10)) % 10;
+      const code13 = base12 + checkDigit;
+
+      const inp = document.getElementById('inputProdBarcode');
+      if (inp) {
+        inp.value = code13;
+        onBarcodeInputChange(code13);
+      }
+      mostrarNotificacion('🪄 Código interno generado: ' + code13);
+    }
+
+    // 7. MODAL DE ALTA RÁPIDA (PRODUCTO NO ENCONTRADO)
+    let _codigoAltaPendiente = '';
+
+    function abrirModalBarcodeNoEncontrado(code) {
+      _codigoAltaPendiente = code;
+      const modal = document.getElementById('modalBarcodeNoEncontrado');
+      const badge = document.getElementById('badgeCodigoEscaneadoTxt');
+      const secMaestro = document.getElementById('seccionSugerenciaMaestro');
+      
+      if (badge) badge.textContent = 'Código EAN: ' + code;
+
+      const selCat = document.getElementById('altaRapidaCategoria');
+      if (selCat) {
+        selCat.innerHTML = categorias.map(c => '<option value="' + c.id + '">' + (c.icono || '') + ' ' + c.nombre + '</option>').join('');
+      }
+
+      const maestro = CATALOGO_MAESTRO_BARCODES[code];
+      if (maestro && secMaestro) {
+        secMaestro.classList.remove('hidden');
+        document.getElementById('maestroNombreTxt').textContent = maestro.name;
+        document.getElementById('maestroDescTxt').textContent = maestro.desc || '';
+        document.getElementById('maestroPrecioRefTxt').textContent = 'Precio referencial: ' + fmt(maestro.price);
+        document.getElementById('altaRapidaNombre').value = maestro.name;
+        document.getElementById('altaRapidaPrecio').value = maestro.price;
+        if (maestro.img) {
+          document.getElementById('maestroImgBox').innerHTML = '<img src="' + maestro.img + '" class="w-full h-full object-cover">';
+        }
+      } else if (secMaestro) {
+        secMaestro.classList.add('hidden');
+        document.getElementById('altaRapidaNombre').value = '';
+        document.getElementById('altaRapidaPrecio').value = '';
+      }
+
+      if (modal) modal.classList.remove('hidden');
+      setTimeout(() => {
+        const nomInp = document.getElementById('altaRapidaNombre');
+        if (nomInp) nomInp.focus();
+      }, 150);
+    }
+
+    function cerrarModalBarcodeNoEncontrado() {
+      const modal = document.getElementById('modalBarcodeNoEncontrado');
+      if (modal) modal.classList.add('hidden');
+      _codigoAltaPendiente = '';
+    }
+
+    function aplicarSugerenciaMaestro() {
+      const m = CATALOGO_MAESTRO_BARCODES[_codigoAltaPendiente];
+      if (!m) return;
+      document.getElementById('altaRapidaNombre').value = m.name;
+      document.getElementById('altaRapidaPrecio').value = m.price;
+    }
+
+    async function guardarProductoAltaRapida() {
+      const name = document.getElementById('altaRapidaNombre').value.trim();
+      const price = Number(document.getElementById('altaRapidaPrecio').value) || 0;
+      const cat = document.getElementById('altaRapidaCategoria').value || (categorias[0] ? categorias[0].id : 'general');
+      const stock = Number(document.getElementById('altaRapidaStock').value) || 24;
+      const barcode = _codigoAltaPendiente;
+
+      if (!name || !price) {
+        alert('Por favor ingresa nombre y precio de venta del producto.');
+        return;
+      }
+
+      const maestro = CATALOGO_MAESTRO_BARCODES[barcode] || {};
+      const img = maestro.img || 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80';
+      const docId = 'plato-' + Date.now();
+
+      try {
+        if (!window.db || typeof window.platosRef !== 'function') {
+          throw new Error('Base de datos no disponible');
+        }
+
+        await window.platosRef().doc(docId).set({
+          id: Date.now(),
+          name,
+          price,
+          cat,
+          barcode,
+          img,
+          desc: maestro.desc || '',
+          controlStock: true,
+          stock,
+          disponible: true,
+          destacado: false,
+          orden: productos.length
+        });
+
+        cerrarModalBarcodeNoEncontrado();
+        mostrarNotificacion('✅ Producto creado y registrado con código de barras');
+
+        if (typeof agregarAlPedido === 'function') {
+          agregarAlPedido(docId);
+        }
+      } catch (err) {
+        console.error('Error guardando alta rápida:', err);
+        alert('No se pudo guardar el producto: ' + err.message);
+      }
+    }
+
+    // 8. ESCÁNER DE CÓDIGOS CON CÁMARA (MÓVIL / TABLET / WEBCAM)
+    let _mediaStreamCamara = null;
+    let _animFrameCamara = null;
+    let _modoEscanerCamara = 'pdv';
+    let _torchEncendida = false;
+
+    function abrirEscanerCamaraModal(modo) {
+      _modoEscanerCamara = modo || 'pdv';
+      const modal = document.getElementById('modalEscanerCamara');
+      const sub = document.getElementById('escanerCamaraSubtitulo');
+      if (sub) {
+        sub.textContent = modo === 'crearProducto' ? 'Apunta la cámara para asignar el código al producto' : 'Apunta la cámara para sumar el producto a la venta';
+      }
+      if (modal) modal.classList.remove('hidden');
+      iniciarCamaraEscaner();
+    }
+
+    function cerrarEscanerCamaraModal() {
+      detenerCamaraEscaner();
+      const modal = document.getElementById('modalEscanerCamara');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function iniciarCamaraEscaner() {
+      const video = document.getElementById('videoEscanerCamara');
+      const feedback = document.getElementById('escanerCamaraFeedback');
+
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('Tu dispositivo no soporta cámara web.');
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: 'environment' },
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          },
+          audio: false
+        });
+
+        _mediaStreamCamara = stream;
+        if (video) {
+          video.srcObject = stream;
+          await video.play();
+        }
+
+        if (feedback) {
+          feedback.innerHTML = '<span class="inline-block text-[11px] font-bold text-white bg-emerald-600/90 backdrop-blur-xs px-3 py-1 rounded-full">🟢 Cámara lista. Apunta el código...</span>';
+        }
+
+        if ('BarcodeDetector' in window) {
+          const barcodeDetector = new BarcodeDetector({
+            formats: ['ean_13', 'ean_8', 'qr_code', 'code_128', 'upc_a', 'upc_e']
+          });
+
+          const scanLoop = async () => {
+            if (!_mediaStreamCamara) return;
+            try {
+              if (video && video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+                const barcodes = await barcodeDetector.detect(video);
+                if (barcodes && barcodes.length > 0) {
+                  const detected = barcodes[0].rawValue;
+                  if (detected) {
+                    cerrarEscanerCamaraModal();
+                    procesarCodigoEscaneado(detected);
+                    return;
+                  }
+                }
+              }
+            } catch (err) {
+              // frame drop
+            }
+            _animFrameCamara = requestAnimationFrame(scanLoop);
+          };
+
+          _animFrameCamara = requestAnimationFrame(scanLoop);
+        } else {
+          if (feedback) {
+            feedback.innerHTML = '<span class="inline-block text-[10px] font-bold text-amber-200 bg-black/80 px-3 py-1 rounded-full">⚠️ Para lectura instantánea usa Chrome/Edge o digita el código manual</span>';
+          }
+        }
+
+      } catch (err) {
+        console.error('Error iniciando cámara:', err);
+        if (feedback) {
+          feedback.innerHTML = '<span class="inline-block text-[11px] font-bold text-red-300 bg-red-950/80 px-3 py-1 rounded-full">❌ Sin acceso a cámara: ' + err.message + '</span>';
+        }
+      }
+    }
+
+    function detenerCamaraEscaner() {
+      if (_animFrameCamara) {
+        cancelAnimationFrame(_animFrameCamara);
+        _animFrameCamara = null;
+      }
+      if (_mediaStreamCamara) {
+        _mediaStreamCamara.getTracks().forEach(track => track.stop());
+        _mediaStreamCamara = null;
+      }
+      const video = document.getElementById('videoEscanerCamara');
+      if (video) video.srcObject = null;
+      _torchEncendida = false;
+    }
+
+    async function toggleFlashCamara() {
+      if (!_mediaStreamCamara) return;
+      const track = _mediaStreamCamara.getVideoTracks()[0];
+      if (!track) return;
+      try {
+        _torchEncendida = !_torchEncendida;
+        await track.applyConstraints({
+          advanced: [{ torch: _torchEncendida }]
+        });
+      } catch (e) {
+        alert('La linterna no está disponible en este dispositivo.');
+      }
+    }
+
+    function procesarCodigoManualModal() {
+      const inp = document.getElementById('inputCodigoManualEscaner');
+      const val = (inp ? inp.value : '').trim();
+      if (!val) {
+        alert('Por favor ingresa un código de barras.');
+        return;
+      }
+      cerrarEscanerCamaraModal();
+      procesarCodigoEscaneado(val);
+      if (inp) inp.value = '';
+    }
+
   </script>
 </body>
 </html>
