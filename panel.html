@@ -306,7 +306,7 @@
           <button onclick="switchTab('chatbot')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="chatbot">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
-              <span>Chatbot IA</span>
+              <span>Chatbot WhatsApp</span>
             </div>
             <span id="badgeChatbotStatus" class="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">Auto</span>
           </button>
@@ -2209,7 +2209,7 @@
                   </div>
                   <div class="flex items-center gap-2.5">
                     <span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-black text-xs shrink-0">✓</span>
-                    <span>Respuestas instantáneas e inteligentes impulsadas con IA.</span>
+                    <span>Respuestas instantáneas por palabras clave, configurables por ti.</span>
                   </div>
                   <div class="flex items-center gap-2.5">
                     <span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-black text-xs shrink-0">✓</span>
@@ -2356,22 +2356,22 @@
                 <textarea id="chatbotTextoCerrado" rows="3" oninput="onCambioTextoChatbot()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600 focus:bg-white transition-all resize-none"></textarea>
               </div>
 
-              <!-- CARD 4: RESPUESTAS INTELIGENTES CON IA -->
+              <!-- CARD 4: RESPUESTA DE RESPALDO (sin IA real conectada aún) -->
               <div class="bg-white rounded-2xl border border-borderLight p-5 space-y-3.5 shadow-soft">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
-                    <span class="text-base">🧠</span>
-                    <h3 class="font-bold text-xs text-slate-900">Respuestas Inteligentes con IA (Gemini)</h3>
+                    <span class="text-base">💬</span>
+                    <h3 class="font-bold text-xs text-slate-900">Mensaje de respaldo (preguntas libres)</h3>
                   </div>
                   <label class="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" id="chatbotSwitchIA" onchange="actualizarChatbotConfig()" class="sr-only peer" checked>
                     <div class="w-8 h-4.5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-emerald-600"></div>
                   </label>
                 </div>
-                <p class="text-[11px] text-slate-400">Responde preguntas libres de clientes sobre dirección, formas de pago, tiempo de preparación y recomendaciones del menú.</p>
+                <p class="text-[11px] text-slate-400">Si el cliente escribe algo que no coincide con saludo, carta, ubicación, pago u horario, el bot responde con este mensaje fijo. (Aún no está conectado a un modelo de IA real para responder libremente.)</p>
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">Tono y Personalidad del Bot:</label>
-                  <input id="chatbotPromptIA" type="text" oninput="actualizarChatbotConfig()" placeholder="Ej: Eres un asistente gastronómico amable, rápido y alegre de Fravioli Street Food..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600">
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Mensaje de respaldo:</label>
+                  <input id="chatbotPromptIA" type="text" oninput="actualizarChatbotConfig()" placeholder="Ej: ¡Gracias por tu mensaje! Puedes ver toda la carta y hacer tu pedido en {link_menu}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 font-medium focus:outline-none focus:border-blue-600">
                 </div>
               </div>
 
@@ -3096,7 +3096,7 @@
                       <span>Activar mi perfil en Google ahora</span>
                     </button>
                     <button onclick="toggleVerDemoResenasGoogle()" class="px-5 py-3.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
-                      👁️ Ver Reseñas en Vivo
+                      👁️ Ver vista previa (datos de ejemplo)
                     </button>
                   </div>
 
@@ -3198,7 +3198,7 @@
                     <p class="text-xs text-slate-600">"El pedido #1042 llegó rapidísimo y los completos estaban perfectos. Excelente servicio!"</p>
                     <div class="flex items-center justify-between pt-1 text-[11px] text-slate-400">
                       <span>Hace 2 horas · Pedido Delivery</span>
-                      <button onclick="enviarCuponAgradecimiento('+56 944123890')" class="text-blue-600 hover:underline font-bold cursor-pointer">Enviar cupón de regalo</button>
+                      <button onclick="enviarCuponAgradecimiento('+56 944123890', 'Carlos')" class="text-blue-600 hover:underline font-bold cursor-pointer">Enviar cupón de regalo</button>
                     </div>
                   </div>
 
@@ -3210,7 +3210,7 @@
                     <p class="text-xs text-slate-600">"Amamos la tabla de papas cheddar. Muy bien empaquetado todo."</p>
                     <div class="flex items-center justify-between pt-1 text-[11px] text-slate-400">
                       <span>Hace 5 horas · Mostrador</span>
-                      <button onclick="enviarCuponAgradecimiento('+56 988231002')" class="text-blue-600 hover:underline font-bold cursor-pointer">Enviar cupón de regalo</button>
+                      <button onclick="enviarCuponAgradecimiento('+56 988231002', 'Francisca')" class="text-blue-600 hover:underline font-bold cursor-pointer">Enviar cupón de regalo</button>
                     </div>
                   </div>
                 </div>
@@ -8272,8 +8272,23 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       <div class="flex items-center gap-2 pt-2">
         <button type="button" onclick="cerrarModalCampanaManual()" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50 transition-colors cursor-pointer">Cancelar</button>
-        <button type="button" onclick="ejecutarEnvioCampana()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all cursor-pointer">Lanzar Campaña</button>
+        <button type="button" onclick="ejecutarEnvioCampana()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition-all cursor-pointer">Generar enlaces de envío</button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LISTA REAL DE ENVÍOS POR WHATSAPP (wa.me, uno por uno) -->
+  <div id="modalEnviosWhatsappReal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h3 id="tituloEnviosWhatsapp" class="font-black text-sm text-slate-900">Enviar por WhatsApp</h3>
+          <p id="descEnviosWhatsapp" class="text-[11px] text-slate-400 mt-0.5"></p>
+        </div>
+        <button onclick="cerrarModalEnviosWhatsapp()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer shrink-0">✕</button>
+      </div>
+      <div id="listaEnviosWhatsapp" class="max-h-80 overflow-y-auto space-y-1.5"></div>
+      <p class="text-[10px] text-slate-400 leading-relaxed">WhatsApp no permite enviar mensajes masivos automáticos sin su API de negocios. Cada botón abre WhatsApp con el mensaje ya escrito al número real del cliente — solo debes presionar enviar.</p>
     </div>
   </div>
 
@@ -8284,8 +8299,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         <div class="flex items-center gap-2.5">
           <span class="w-10 h-10 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl font-bold">✨</span>
           <div>
-            <h3 class="font-black text-sm text-slate-900">Responder Reseña con IA</h3>
-            <p class="text-[11px] text-slate-400">Genera una respuesta gastronómica empática y profesional</p>
+            <h3 class="font-black text-sm text-slate-900">Responder Reseña</h3>
+            <p class="text-[11px] text-slate-400">Elige una plantilla de respuesta empática y profesional, o escribe la tuya</p>
           </div>
         </div>
         <button onclick="cerrarModalResponderResena()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
@@ -8301,7 +8316,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         </div>
 
         <div>
-          <label class="block font-bold text-slate-700 mb-1.5">Sugerencias generadas por IA:</label>
+          <label class="block font-bold text-slate-700 mb-1.5">Plantillas sugeridas:</label>
           <div class="grid grid-cols-1 gap-2" id="boxSugerenciasIA">
             <!-- Sugerencias dinámicas -->
           </div>
@@ -10510,7 +10525,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       productos: { title: 'Página de Productos & Carta', sub: 'Estructuración de categorías, precios, fotos y stock' },
       bienvenida: { title: 'Página de Bienvenida', sub: 'Editor de landing page móvil, enlaces rápidos y WiFi' },
       inventario: { title: 'Inventario', sub: 'Control de stock y alertas de agotados en tiempo real' },
-      chatbot: { title: 'Chatbot WhatsApp & IA', sub: 'Automatización inteligente de ventas y atención 24/7' },
+      chatbot: { title: 'Chatbot WhatsApp', sub: 'Respuestas automáticas configurables por palabras clave, 24/7' },
       categorias: { title: 'Categorías', sub: 'Organización del catálogo gastronómico' },
       clientes: { title: 'Clientes (CRM)', sub: 'Historial de compras y fidelización WhatsApp' },
       descuentos: { title: 'Marketing & Descuentos', sub: 'Promociones para la carta online y fidelización' },
@@ -16295,7 +16310,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       cerradoActivo: true,
       textoCerrado: '¡Hola! En este momento nos encontramos descansando 🌙. Nuestro horario es {horario}. Revisa nuestra carta para tu próximo pedido: {link_menu}',
       iaActiva: true,
-      promptIA: 'Asistente gastronómico amable, rápido y alegre. Recomienda hamburguesas smash, combos familiares, informa tiempos de entrega (35-45 min) y formas de pago.'
+      promptIA: '¡Gracias por tu mensaje! Puedes ver toda la carta y hacer tu pedido en {link_menu}. Si necesitas ayuda, un miembro del equipo te responderá en breve.'
     };
 
     try {
@@ -16465,7 +16480,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       guardarChatbotConfig();
       cerrarModalVincularChatbot();
-      alert(`✅ ¡WhatsApp vinculado con éxito al número ${numCompleto}!\nEl chatbot ya está respondiendo a tus clientes.`);
+      alert(`✅ Configuración guardada para el número ${numCompleto}.\n\n⚠️ Esto aún NO conecta con WhatsApp de verdad: falta vincular una cuenta de WhatsApp Business API (requiere verificación de Meta Business). Mientras tanto, puedes probar las respuestas configuradas en el Simulador de este panel.`);
     }
 
     // SIMULADOR DE WHATSAPP
@@ -16576,9 +16591,12 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         return `⏰ Nuestro horario de atención es:\n${horarioStr}.\n¡Estamos listos para recibir tus pedidos!`;
       }
 
-      // 7. IA Gastronómica (Gemini RAG fallback)
-      if (chatbotConfig.iaActiva) {
-        return `🍔 ¡Gracias por tu mensaje! Como asistente virtual de ${rName}, te recomiendo probar nuestras hamburguesas smash más pedidas y promociones duo. Si tienes consultas sobre ingredientes o alérgenos, puedes ver los detalles de cada plato en ${menuUrl} o pedir para que el equipo de cocina te asista.`;
+      // 7. Mensaje de respaldo configurado por el dueño (sin IA real conectada)
+      if (chatbotConfig.iaActiva && chatbotConfig.promptIA) {
+        return chatbotConfig.promptIA
+          .replace(/{nombre_local}/g, rName)
+          .replace(/{link_menu}/g, menuUrl)
+          .replace(/{horario}/g, horarioStr);
       }
 
       return `¡Mensaje recibido! Puedes explorar nuestra carta digital en ${menuUrl} o esperar a que uno de nuestros operadores te atienda en unos momentos.`;
@@ -17564,13 +17582,60 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     // --- ENVÍO MASIVO CON IA & WHATSAPP ---
+    // Devuelve los clientes reales (con teléfono registrado) de un segmento de campaña.
+    function obtenerClientesPorSegmentoCampana(seg) {
+      const base = (clientes || []).filter(c => c.telefono);
+      if (seg === 'inactivos') return base.filter(c => (c.diasInactivo || 0) >= 30);
+      if (seg === 'top') return base.filter(c => (c.totalPedidos || 0) >= 5);
+      return base;
+    }
+
+    // Abre un modal con un enlace wa.me real por destinatario (nombre, telefono, mensaje ya redactado).
+    // No existe envío masivo automático sin la API de WhatsApp Business: cada botón abre
+    // WhatsApp con el mensaje precargado al número real del cliente, uno por uno.
+    function abrirModalEnviosWhatsapp(titulo, descripcion, destinatarios) {
+      document.getElementById('tituloEnviosWhatsapp').textContent = titulo;
+      document.getElementById('descEnviosWhatsapp').textContent = descripcion;
+      const cont = document.getElementById('listaEnviosWhatsapp');
+      if (!cont) return;
+
+      if (!destinatarios.length) {
+        cont.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">No encontramos clientes con teléfono registrado para esta acción.</p>';
+      } else {
+        cont.innerHTML = destinatarios.map(d => {
+          const tel = window.normalizarTelefono ? window.normalizarTelefono(d.telefono) : d.telefono.replace(/\D/g, '');
+          const href = `https://wa.me/${tel}?text=${encodeURIComponent(d.mensaje)}`;
+          return `
+            <div class="flex items-center justify-between gap-3 p-2.5 rounded-xl border border-slate-100 bg-slate-50">
+              <div class="text-xs min-w-0">
+                <div class="font-bold text-slate-900 truncate">${d.nombre}</div>
+                <div class="text-slate-400 font-mono">${d.telefono}</div>
+              </div>
+              <a href="${href}" target="_blank" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] shrink-0 cursor-pointer">Enviar</a>
+            </div>
+          `;
+        }).join('');
+      }
+
+      document.getElementById('modalEnviosWhatsappReal')?.classList.remove('hidden');
+    }
+
+    function cerrarModalEnviosWhatsapp() {
+      document.getElementById('modalEnviosWhatsappReal')?.classList.add('hidden');
+    }
+
     function lanzarCampanaMasivaIA() {
-      const countInactivos = (clientes || []).filter(c => (c.diasInactivo || 0) >= 30).length || 8;
-      if (confirm(`🤖 Campaña IA detectó ${countInactivos} clientes frecuentes inactivos.\n\n¿Deseas generar y enviar la promoción automática con cupón por WhatsApp ahora?`)) {
-        mostrarNotificacion(`🚀 Enviando campaña con IA a ${countInactivos} clientes inactivos...`);
-        setTimeout(() => {
-          mostrarNotificacion(`✅ ¡Campaña masiva enviada exitosamente por WhatsApp!`);
-        }, 1200);
+      const inactivos = obtenerClientesPorSegmentoCampana('inactivos');
+      if (!inactivos.length) {
+        mostrarNotificacion('⚠️ No encontramos clientes inactivos (+30 días) con teléfono registrado.', 'warning');
+        return;
+      }
+      if (confirm(`🤖 Detectamos ${inactivos.length} cliente(s) frecuentes inactivos.\n\n¿Abrir la campaña con un mensaje sugerido para enviarles por WhatsApp (uno por uno)?`)) {
+        abrirModalCampanaManual();
+        const sel = document.getElementById('selectCampanaSegmento');
+        if (sel) sel.value = 'inactivos';
+        actualizarDestinatariosCampana();
+        generarTextoCampanaIA();
       }
     }
 
@@ -17594,12 +17659,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const label = document.getElementById('labelDestinatariosCount');
       if (!label) return;
 
-      const total = (clientes && clientes.length > 0) ? clientes.length : 226;
-      let count = total;
-      if (seg === 'inactivos') count = Math.round(total * 0.42);
-      else if (seg === 'top') count = Math.round(total * 0.18);
-
-      label.textContent = `Se enviará a ~${count} clientes vía WhatsApp`;
+      const count = obtenerClientesPorSegmentoCampana(seg).length;
+      label.textContent = count > 0
+        ? `Se generarán ${count} enlace(s) de WhatsApp para enviar manualmente`
+        : 'No hay clientes con teléfono registrado en este segmento';
     }
 
     function generarTextoCampanaIA() {
@@ -17623,11 +17686,19 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         alert('Por favor redacta el mensaje de la campaña.');
         return;
       }
+      const seg = document.getElementById('selectCampanaSegmento')?.value || 'inactivos';
+      const destinatarios = obtenerClientesPorSegmentoCampana(seg).map(c => ({
+        nombre: c.nombre || 'Cliente',
+        telefono: c.telefono,
+        mensaje: txt.replace(/\{nombre\}/gi, c.nombre || 'Cliente')
+      }));
+
       cerrarModalCampanaManual();
-      mostrarNotificacion('📲 Despachando campaña segmentada por WhatsApp...');
-      setTimeout(() => {
-        mostrarNotificacion('✅ ¡Campaña masiva WhatsApp enviada exitosamente!');
-      }, 1000);
+      abrirModalEnviosWhatsapp(
+        'Enviar campaña por WhatsApp',
+        'Un enlace por cliente, con el mensaje ya personalizado.',
+        destinatarios
+      );
     }
 
     // --- GOOGLE FOR RESTAURANTS, RESEÑAS & RASTREO ---
@@ -17709,13 +17780,21 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     function solicitarResenasUltimosClientes() {
-      const count = Math.min((pedidos || []).length || 5, 12);
-      if (confirm(`¿Enviar invitación de calificación de Google por WhatsApp a los últimos ${count} clientes que ordenaron hoy?`)) {
-        mostrarNotificacion(`⭐ Enviando solicitud de reseñas a ${count} clientes...`);
-        setTimeout(() => {
-          mostrarNotificacion('✅ Invitaciones de reseña enviadas con éxito por WhatsApp');
-        }, 1000);
-      }
+      const urlResena = document.getElementById('inputGoogleMapsReviewUrl')?.value.trim();
+      const destinatarios = (clientes || [])
+        .filter(c => c.telefono)
+        .slice(0, 12)
+        .map(c => ({
+          nombre: c.nombre || 'Cliente',
+          telefono: c.telefono,
+          mensaje: `¡Hola ${c.nombre || ''}! Gracias por tu compra en ${CFG.nombre || 'nuestro local'} 🙌 ¿Nos ayudas calificándonos en Google?${urlResena ? ' ' + urlResena : ' (aún no has guardado el enlace de tu perfil de Google Maps en Configuraciones)'}`
+        }));
+
+      abrirModalEnviosWhatsapp(
+        'Solicitar reseñas por WhatsApp',
+        'Un enlace por cliente, listo para enviar.',
+        destinatarios
+      );
     }
 
     // --- GESTIÓN DE RESEÑAS (GOOGLE + WHATSAPP) ---
@@ -17747,10 +17826,10 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       
       if (perfilGoogleConectado) {
         if (btn) {
-          btn.innerHTML = `<span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs">✓</span><span>Perfil de Google Conectado</span>`;
-          btn.className = 'px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-600/25 flex items-center gap-3 transition-all cursor-pointer';
+          btn.innerHTML = `<span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-black text-xs">👁️</span><span>Viendo vista previa (demo)</span>`;
+          btn.className = 'px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs sm:text-sm shadow-lg shadow-amber-500/25 flex items-center gap-3 transition-all cursor-pointer';
         }
-        mostrarNotificacion('✅ Perfil de Google conectado con éxito');
+        mostrarNotificacion('👁️ Mostrando vista previa con datos de ejemplo (la conexión real con Google Business llega próximamente)', 'warning');
         if (boxFeed) boxFeed.classList.remove('hidden');
       } else {
         if (btn) {
@@ -17803,7 +17882,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
               ${!r.respuesta ? `
                 <button onclick="abrirModalResponderResena('${r.id}')" class="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer">
                   <span>✨</span>
-                  <span>Responder con IA</span>
+                  <span>Usar plantilla de respuesta</span>
                 </button>
               ` : `
                 <span class="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded font-bold">
@@ -17890,12 +17969,14 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         currentReviewResponder.respuesta = txt;
       }
       cerrarModalResponderResena();
-      mostrarNotificacion('✅ ¡Respuesta publicada exitosamente en Google Maps!');
+      mostrarNotificacion('✅ Respuesta guardada en esta vista previa (aún no hay conexión real con Google Maps para publicarla).', 'warning');
       renderResenasGoogle();
     }
 
-    function enviarCuponAgradecimiento(telefono) {
-      mostrarNotificacion(`🎁 Cupón de fidelidad enviado por WhatsApp a ${telefono}`);
+    function enviarCuponAgradecimiento(telefono, nombre) {
+      const telLimpio = (window.normalizarTelefono ? window.normalizarTelefono(telefono) : telefono.replace(/\D/g, ''));
+      const mensaje = `¡Hola ${nombre || ''}! 🎁 Gracias por tu buena calificación. Te regalamos un cupón de fidelidad: usa el código GRACIAS10 para un 10% de descuento en tu próximo pedido en ${CFG.nombre || 'nuestro local'}. ¡Te esperamos pronto!`;
+      window.open(`https://wa.me/${telLimpio}?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 
     // --- HERRAMIENTAS DE RASTREO (META, GTM, GA4) ---
@@ -20412,15 +20493,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     }
 
     function conectarTiendaPartner(nombre) {
-      mostrarNotificacion('🛵 Vinculando cuenta con ' + nombre + ' Partners...');
-      setTimeout(() => {
-        mostrarNotificacion('✅ Tienda conectada exitosamente con ' + nombre);
-        const badge = document.getElementById('badgePartner' + nombre.replace(/\s+/g, ''));
-        if (badge) {
-          badge.className = 'text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full';
-          badge.textContent = 'Conectado';
-        }
-      }, 1200);
+      alert(`🛵 La conexión directa con ${nombre} Partners está en desarrollo.\n\nRequiere una cuenta de desarrollador aprobada por ${nombre} (proceso que ellos gestionan, no nosotros). Avísanos cuando quieras activarla y te guiamos en el registro.`);
     }
 
     // --- SUBTAB API KEYS ---
