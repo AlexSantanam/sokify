@@ -2018,6 +2018,16 @@
         </div>
 
         <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Tipo de Comercio / Especialidad *</label>
+          <select id="selectedRubro" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500 font-bold">
+            <option value="botilleria">🍾 Botillería & Licorería (Pistola de Códigos + Caja)</option>
+            <option value="minimarket">🛒 Minimarket & Almacén (Abarrotes + Códigos EAN-13)</option>
+            <option value="restaurante" selected>🍽️ Restaurante, Pizzería & Bar (Cocina KDS + Mesas QR)</option>
+            <option value="cafeteria">☕ Cafetería, Pastelería & Brunch (Salón + Retiro)</option>
+          </select>
+        </div>
+
+        <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Plan inicial (Todos incluyen 3 meses a costo $0)</label>
           <select id="selectedPlan" class="w-full bg-white border border-borderLight rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-brand-500 font-semibold">
             <option value="Plan Esencial (3 Meses Gratis)" selected>Plan Esencial — 3 Meses $0 (luego $5.900/mes o $39.900/año)</option>
@@ -2283,6 +2293,7 @@
       const email = document.getElementById('ownerEmail').value.trim();
       const pass = document.getElementById('ownerPass').value;
       const plan = document.getElementById('selectedPlan').value;
+      const rubro = document.getElementById('selectedRubro')?.value || 'restaurante';
 
       if (!restaurant || !owner || !email || !pass || !phone) {
         if (errEl) {
@@ -2329,6 +2340,7 @@
         localStorage.setItem('sokify_owner_email', email);
         localStorage.setItem('sokify_owner_phone', phone);
         localStorage.setItem('sokify_plan', plan);
+        localStorage.setItem('sokify_rubro', rubro);
 
         // Guardar documento del restaurante en Firestore
         try {
@@ -2339,6 +2351,7 @@
             email: email,
             telefono: phone,
             plan: plan,
+            rubroNegocio: rubro,
             estado: 'activo_prueba_3_meses',
             fechaCreacion: firebase.firestore.FieldValue.serverTimestamp(),
             ownerUids: uid ? [uid] : [],

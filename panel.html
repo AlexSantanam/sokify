@@ -174,6 +174,7 @@
             <div class="overflow-hidden">
               <h1 class="text-sm font-black text-slate-950 tracking-wide truncate">Zokify</h1>
               <p id="restNameSidebar" class="text-[11px] text-slate-500 truncate font-semibold">La Brasa & Leña</p>
+                <span id="restRubroBadge" class="inline-block mt-0.5 px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-purple-100 text-purple-700">BOTILLERÍA POS</span>
             </div>
           </div>
           <button onclick="toggleSidebar(false)" class="md:hidden text-slate-400 hover:text-slate-700 p-1">
@@ -208,7 +209,7 @@
           </button>
 
           <!-- COCINA KDS -->
-          <button onclick="switchTab('cocina')" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="cocina">
+          <button onclick="switchTab('cocina')" id="navBtnCocinaKds" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="cocina">
             <div class="flex items-center gap-3">
               <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" x2="18" y1="17" y2="17"/></svg>
               <span>Cocina (KDS)</span>
@@ -246,7 +247,7 @@
             <button onclick="toggleMenuSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="productos">
               <div class="flex items-center gap-3">
                 <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                <span>Menú</span>
+                <span id="sidebarMenuLabel">Menú</span>
               </div>
               <div class="flex items-center gap-2">
                 <span id="badgePlatosCount" class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono">0</span>
@@ -494,6 +495,13 @@
               <svg class="w-3.5 h-3.5 text-brand-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
               <span class="hidden md:inline">Instalar App PC</span>
             </button>
+
+            <!-- BADGE ESPACIO COMERCIAL ACTUAL + CAMBIAR -->
+            <button onclick="abrirModalOnboardingEspacios()" id="topBarEspacioBadge" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-800 text-xs font-bold transition-all cursor-pointer shadow-xs" title="Cambiar espacio comercial">
+              <span id="topBarEspacioIcono">🍾</span>
+              <span id="topBarEspacioTexto">Botillería</span>
+              <span class="text-[9px] text-purple-500 font-mono font-normal ml-0.5">· Cambiar</span>
+            </button>
           </div>
 
           <!-- DERECHA: CAMPANA + MENSAJES CON BADGE + SOPORTE + PERFIL -->
@@ -555,6 +563,10 @@
                   <button type="button" onclick="abrirModalPlanes()" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer group">
                     <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <span>Planes</span>
+                  </button>
+                  <button type="button" onclick="toggleDropdownPerfil(); abrirModalOnboardingEspacios();" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer group">
+                    <span class="text-sm">🏬</span>
+                    <span>Cambiar Espacio / Rubro</span>
                   </button>
                   <button type="button" onclick="switchTab('finanzas'); toggleDropdownPerfil(false);" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-100 flex items-center gap-2.5 transition-colors cursor-pointer group">
                     <svg class="w-4 h-4 text-slate-400 group-hover:text-brand-600 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m9 15 2 2 4-4"/></svg>
@@ -11263,6 +11275,14 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (data.rubroNegocio) {
           const rubroEl = document.getElementById('selectNegocioRubro');
           if (rubroEl) rubroEl.value = data.rubroNegocio;
+          if (typeof adaptarPanelSegunRubro === 'function') {
+            adaptarPanelSegunRubro(data.rubroNegocio);
+          }
+        } else {
+          const storedRubro = localStorage.getItem('sokify_rubro');
+          if (storedRubro && typeof adaptarPanelSegunRubro === 'function') {
+            adaptarPanelSegunRubro(storedRubro);
+          }
         }
 
         // Sincronizar Google Maps y Píxeles de Tracking guardados
@@ -11498,6 +11518,14 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         if (data.rubroNegocio) {
           const rubroEl = document.getElementById('selectNegocioRubro');
           if (rubroEl) rubroEl.value = data.rubroNegocio;
+          if (typeof adaptarPanelSegunRubro === 'function') {
+            adaptarPanelSegunRubro(data.rubroNegocio);
+          }
+        } else {
+          const storedRubro = localStorage.getItem('sokify_rubro');
+          if (storedRubro && typeof adaptarPanelSegunRubro === 'function') {
+            adaptarPanelSegunRubro(storedRubro);
+          }
         }
 
         // Sincronizar Google Maps y Píxeles de Tracking guardados
@@ -20341,6 +20369,124 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     </div>
   </div>
 
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: PERSONALIZA TU ESPACIO ZOKIFY (ONBOARDING & ESPECIALIZACIÓN) -->
+  <!-- ========================================================================= -->
+  <div id="modalOnboardingEspacios" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 space-y-5 my-auto animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- CABECERA -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center text-2xl font-black shadow-xs">
+            🏬
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-black text-base text-slate-900">Personaliza tu Espacio Zokify</h3>
+              <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-purple-100 text-purple-700">CONFIGURACIÓN</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Elige tu rubro para precargar tus productos y optimizar tus pantallas de cobro:</p>
+          </div>
+        </div>
+        <button onclick="cerrarModalOnboardingEspacios()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center transition-colors cursor-pointer">✕</button>
+      </div>
+
+      <!-- CUADRÍCULA DE ESPACIOS COMERCIALES -->
+      <div class="grid sm:grid-cols-2 gap-3.5">
+        
+        <!-- ESPACIO 1: BOTILLERÍA & LICORERÍA -->
+        <div onclick="seleccionarEspacioComercial('botilleria')" class="group p-4 rounded-2xl border-2 border-purple-200 bg-purple-50/30 hover:border-purple-600 hover:bg-purple-50/80 transition-all cursor-pointer flex flex-col justify-between space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl p-2.5 rounded-xl bg-purple-100 text-purple-700 group-hover:bg-purple-200 transition-colors shrink-0">🍾</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-black text-sm text-slate-900 group-hover:text-purple-900">Botillería & Licorería</h4>
+                <span class="px-1.5 py-0.5 rounded text-[8px] font-black bg-purple-600 text-white uppercase">RETAIL</span>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                Punto de Venta con pistola de códigos de barra, arqueo de caja y catálogo con 14 licores y cervezas chilenas (EAN-13).
+              </p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-purple-100/80 flex items-center justify-between text-[10px] font-bold text-purple-700">
+            <span>✓ Oculta Cocina KDS</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr; Elegir espacio</span>
+          </div>
+        </div>
+
+        <!-- ESPACIO 2: MINIMARKET & ALMACÉN -->
+        <div onclick="seleccionarEspacioComercial('minimarket')" class="group p-4 rounded-2xl border-2 border-emerald-200 bg-emerald-50/30 hover:border-emerald-600 hover:bg-emerald-50/80 transition-all cursor-pointer flex flex-col justify-between space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl p-2.5 rounded-xl bg-emerald-100 text-emerald-700 group-hover:bg-emerald-200 transition-colors shrink-0">🛒</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-black text-sm text-slate-900 group-hover:text-emerald-900">Minimarket & Almacén</h4>
+                <span class="px-1.5 py-0.5 rounded text-[8px] font-black bg-emerald-600 text-white uppercase">RETAIL</span>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                Lácteos, panadería, abarrotes y aseo con códigos de barra. Ventas rápidas de mostrador y control de inventario.
+              </p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-emerald-100/80 flex items-center justify-between text-[10px] font-bold text-emerald-700">
+            <span>✓ Oculta Cocina KDS</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr; Elegir espacio</span>
+          </div>
+        </div>
+
+        <!-- ESPACIO 3: RESTAURANTE, BAR & FAST FOOD -->
+        <div onclick="seleccionarEspacioComercial('restaurante')" class="group p-4 rounded-2xl border-2 border-amber-200 bg-amber-50/30 hover:border-amber-600 hover:bg-amber-50/80 transition-all cursor-pointer flex flex-col justify-between space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl p-2.5 rounded-xl bg-amber-100 text-amber-700 group-hover:bg-amber-200 transition-colors shrink-0">🍽️</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-black text-sm text-slate-900 group-hover:text-amber-900">Restaurante & Bar</h4>
+                <span class="px-1.5 py-0.5 rounded text-[8px] font-black bg-amber-600 text-white uppercase">GASTRO</span>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                Pantalla de Cocina (KDS) en vivo, comandas de mesas, garzones, propinas y carta QR interactiva.
+              </p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-amber-100/80 flex items-center justify-between text-[10px] font-bold text-amber-700">
+            <span>✓ Cocina KDS + Mesas QR</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr; Elegir espacio</span>
+          </div>
+        </div>
+
+        <!-- ESPACIO 4: CAFETERÍA, BRUNCH & PASTELERÍA -->
+        <div onclick="seleccionarEspacioComercial('cafeteria')" class="group p-4 rounded-2xl border-2 border-orange-200 bg-orange-50/30 hover:border-orange-600 hover:bg-orange-50/80 transition-all cursor-pointer flex flex-col justify-between space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-3xl p-2.5 rounded-xl bg-orange-100 text-orange-700 group-hover:bg-orange-200 transition-colors shrink-0">☕</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <h4 class="font-black text-sm text-slate-900 group-hover:text-orange-900">Cafetería & Pastelería</h4>
+                <span class="px-1.5 py-0.5 rounded text-[8px] font-black bg-orange-600 text-white uppercase">GASTRO</span>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-1 leading-snug">
+                Bebidas calientes, pastelería y brunch. Comandas para salón, retiro express o delivery.
+              </p>
+            </div>
+          </div>
+          <div class="pt-2 border-t border-orange-100/80 flex items-center justify-between text-[10px] font-bold text-orange-700">
+            <span>✓ Cocina KDS + Retiro</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr; Elegir espacio</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FOOTER DEL MODAL -->
+      <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between text-xs text-slate-600">
+        <span class="font-medium">💡 Puedes cambiar o volver a ajustar tu espacio comercial en cualquier momento.</span>
+        <button onclick="cerrarModalOnboardingEspacios()" class="font-bold text-slate-500 hover:text-slate-800 cursor-pointer">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+
 </body>
           </html>
         `);
@@ -22754,6 +22900,122 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       cerrarEscanerCamaraModal();
       procesarCodigoEscaneado(val);
       if (inp) inp.value = '';
+    }
+
+  
+    // =========================================================================
+    // LÓGICA DE ESPACIOS COMERCIALES (ADAPTACIÓN DINÁMICA DE ZOKIFY)
+    // =========================================================================
+    let _espacioActual = 'restaurante';
+
+    function adaptarPanelSegunRubro(rubro) {
+      if (!rubro) rubro = 'restaurante';
+      rubro = rubro.toLowerCase().trim();
+      _espacioActual = rubro;
+
+      const isRetail = (rubro === 'botilleria' || rubro === 'licoreria' || rubro === 'almacen' || rubro === 'minimarket' || rubro === 'darkstore' || rubro === 'comercio');
+      const isBotilleria = (rubro === 'botilleria' || rubro === 'licoreria');
+      const isMinimarket = (rubro === 'almacen' || rubro === 'minimarket');
+
+      // 1. Botón de Cocina KDS en el sidebar
+      const navKds = document.getElementById('navBtnCocinaKds');
+      if (navKds) {
+        if (isRetail) {
+          navKds.classList.add('hidden'); // Ocultar cocina KDS
+        } else {
+          navKds.classList.remove('hidden'); // Mostrar para restaurantes y cafeterías
+        }
+      }
+
+      // 2. Etiqueta del menú en el sidebar
+      const menuLbl = document.getElementById('sidebarMenuLabel');
+      if (menuLbl) {
+        if (isBotilleria) menuLbl.textContent = 'Licores & Barcodes';
+        else if (isMinimarket) menuLbl.textContent = 'Abarrotes & Barcodes';
+        else menuLbl.textContent = 'Menú & Carta';
+      }
+
+      // 3. Badges del Topbar y Sidebar
+      const badgeIcon = document.getElementById('topBarEspacioIcono');
+      const badgeTxt = document.getElementById('topBarEspacioTexto');
+      const restBadge = document.getElementById('restRubroBadge');
+
+      let nombreEspacio = 'Restaurante';
+      let iconoEspacio = '🍽️';
+
+      if (isBotilleria) {
+        nombreEspacio = 'Botillería';
+        iconoEspacio = '🍾';
+      } else if (isMinimarket) {
+        nombreEspacio = 'Minimarket';
+        iconoEspacio = '🛒';
+      } else if (rubro === 'cafeteria') {
+        nombreEspacio = 'Cafetería';
+        iconoEspacio = '☕';
+      }
+
+      if (badgeIcon) badgeIcon.textContent = iconoEspacio;
+      if (badgeTxt) badgeTxt.textContent = nombreEspacio;
+      if (restBadge) {
+        restBadge.textContent = nombreEspacio.toUpperCase() + ' POS';
+        restBadge.className = isRetail ? 'inline-block mt-0.5 px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-purple-100 text-purple-700' : 'inline-block mt-0.5 px-2 py-0.5 rounded-full font-mono text-[9px] font-black bg-amber-100 text-amber-800';
+      }
+
+      // 4. Selector en Configuración -> Negocio
+      const rubroSelect = document.getElementById('selectNegocioRubro');
+      if (rubroSelect) {
+        rubroSelect.value = rubro;
+      }
+    }
+
+    function abrirModalOnboardingEspacios() {
+      const modal = document.getElementById('modalOnboardingEspacios');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function cerrarModalOnboardingEspacios() {
+      const modal = document.getElementById('modalOnboardingEspacios');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function seleccionarEspacioComercial(rubro) {
+      if (!rubro) return;
+      cerrarModalOnboardingEspacios();
+      
+      // Guardar en Firestore y LocalStorage
+      if (window.restRef) {
+        await window.restRef().set({
+          rubroNegocio: rubro,
+          espacioConfigurado: true
+        }, { merge: true }).catch(() => {});
+      }
+      localStorage.setItem('sokify_rubro', rubro);
+
+      // Adaptar la interfaz inmediatamente
+      adaptarPanelSegunRubro(rubro);
+
+      // Si no tiene productos o se quiere precargar el catálogo
+      const tieneProductos = (typeof productos !== 'undefined' && productos.length > 0);
+      if (!tieneProductos) {
+        const plantillaTipo = (rubro === 'botilleria' || rubro === 'licoreria') ? 'botilleria' :
+                              (rubro === 'minimarket' || rubro === 'almacen') ? 'minimarket' :
+                              (rubro === 'cafeteria') ? 'cafeteria' : 'hamburgueseria';
+        await aplicarPlantillaMenu(plantillaTipo);
+      } else {
+        if (confirm('¿Deseas precargar el catálogo recomendado para ' + rubro + '?\nEsto agregará los productos estrella y códigos de barra oficiales.')) {
+          const plantillaTipo = (rubro === 'botilleria' || rubro === 'licoreria') ? 'botilleria' :
+                                (rubro === 'minimarket' || rubro === 'almacen') ? 'minimarket' :
+                                (rubro === 'cafeteria') ? 'cafeteria' : 'hamburgueseria';
+          await aplicarPlantillaMenu(plantillaTipo);
+        }
+      }
+
+      // Redirigir a la vista de pedidos/caja para retail
+      if (rubro === 'botilleria' || rubro === 'licoreria' || rubro === 'minimarket' || rubro === 'almacen') {
+        switchTab('pedidos');
+      }
+
+      mostrarNotificacion('🎉 ¡Espacio ' + rubro + ' configurado con éxito!');
     }
 
   </script>
