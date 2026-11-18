@@ -2507,6 +2507,23 @@
         <!-- =================================================================== -->
         <section id="tab-categorias" class="panel-pane space-y-5 hidden">
           
+          <!-- BANNER MIGRACIÓN BOTILLERÍA EN CATEGORÍAS -->
+          <div id="bannerCategoriasBotilleria" class="hidden p-4 rounded-2xl bg-gradient-to-r from-purple-900 via-indigo-950 to-purple-950 text-white border border-purple-500/40 shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-in fade-in duration-200">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-2xl shrink-0">
+                🍾
+              </div>
+              <div>
+                <h4 class="font-black text-sm text-white">Catálogo de Botillería & Licorería</h4>
+                <p class="text-xs text-purple-200">Reemplaza las categorías de comida por Cervezas, Piscos, Destilados, Vinos, Bebidas & Hielo con 14 licores y stock real.</p>
+              </div>
+            </div>
+            <button type="button" onclick="cargarCatalogoOficialBotilleria(true)" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400 text-white font-black text-xs shrink-0 transition cursor-pointer shadow-md shadow-purple-500/30 active:scale-95 flex items-center gap-1.5">
+              <span>🍾</span>
+              <span>Cargar Catálogo de Alcohol Ahora</span>
+            </button>
+          </div>
+
           <div class="bg-white rounded-2xl border border-borderLight p-5 space-y-3 shadow-soft">
             <h3 class="font-extrabold text-sm text-slate-900">➕ Nueva Categoría</h3>
             <div class="grid grid-cols-[60px_1fr_auto] gap-2">
@@ -11632,6 +11649,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         renderCategoriasList();
         renderCatSelect();
         renderPdvCategoryChips();
+        verificarAutoMigracionBotilleria();
       });
 
       // Platos / Catálogo
@@ -11642,6 +11660,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         renderPedidoCatalogo();
         renderInventario();
         actualizarGuia();
+        verificarAutoMigracionBotilleria();
       });
 
       // Clientes CRM
@@ -24005,6 +24024,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
         const bannerBoti = document.getElementById('bannerAlertaBotilleriaSinStock');
         if (bannerBoti) bannerBoti.classList.add('hidden');
+        const bannerCat = document.getElementById('bannerCategoriasBotilleria');
+        if (bannerCat) bannerCat.classList.add('hidden');
 
         if (typeof mostrarNotificacion === 'function') {
           mostrarNotificacion('🎉 ¡Catálogo de Botillería cargado con 14 licores y stock real!', 'success');
@@ -24012,6 +24033,38 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       } catch (err) {
         console.error('Error cargando catalogo botilleria:', err);
         alert('No se pudo cargar el catálogo de botillería: ' + err.message);
+      }
+    }
+
+    let _yaMigroBotilleria = false;
+    async function verificarAutoMigracionBotilleria() {
+      const rubro = (localStorage.getItem('sokify_rubro') || _espacioActual || '').toLowerCase().trim();
+      const esBotilleria = (rubro === 'botilleria' || rubro === 'licoreria');
+
+      const bannerCat = document.getElementById('bannerCategoriasBotilleria');
+      const bannerProd = document.getElementById('bannerAlertaBotilleriaSinStock');
+      const tieneCategoriasComida = (typeof categorias !== 'undefined' && Array.isArray(categorias)) && categorias.some(c => c.id === 'cortes' || c.id === 'hamburguesas' || c.id === 'para_compartir' || c.id === 'postres');
+
+      if (bannerCat) {
+        if (esBotilleria && (tieneCategoriasComida || (typeof categorias !== 'undefined' && categorias.length === 0))) {
+          bannerCat.classList.remove('hidden');
+        } else {
+          bannerCat.classList.add('hidden');
+        }
+      }
+
+      if (bannerProd) {
+        if (esBotilleria && (tieneCategoriasComida || (typeof productos !== 'undefined' && productos.length === 0))) {
+          bannerProd.classList.remove('hidden');
+        } else {
+          bannerProd.classList.add('hidden');
+        }
+      }
+
+      if (esBotilleria && tieneCategoriasComida && !_yaMigroBotilleria) {
+        _yaMigroBotilleria = true;
+        console.log('Detectadas categorías de comida en Botillería. Auto-migrando al catálogo oficial de licores...');
+        await cargarCatalogoOficialBotilleria(true);
       }
     }
 
@@ -24041,20 +24094,13 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       // Adaptar la interfaz inmediatamente
       adaptarPanelSegunRubro(rubro);
 
-      // Si no tiene productos o se quiere precargar el catálogo
-      const tieneProductos = (typeof productos !== 'undefined' && productos.length > 0);
-      if (!tieneProductos) {
-        const plantillaTipo = (rubro === 'botilleria' || rubro === 'licoreria') ? 'botilleria' :
-                              (rubro === 'minimarket' || rubro === 'almacen') ? 'minimarket' :
+      // Si es botillería, cargar inmediatamente el catálogo de alcohol oficial
+      if (rubro === 'botilleria' || rubro === 'licoreria') {
+        await cargarCatalogoOficialBotilleria(true);
+      } else {
+        const plantillaTipo = (rubro === 'minimarket' || rubro === 'almacen') ? 'minimarket' :
                               (rubro === 'cafeteria') ? 'cafeteria' : 'hamburgueseria';
         await aplicarPlantillaMenu(plantillaTipo);
-      } else {
-        if (confirm('¿Deseas precargar el catálogo recomendado para ' + rubro + '?\nEsto agregará los productos estrella y códigos de barra oficiales.')) {
-          const plantillaTipo = (rubro === 'botilleria' || rubro === 'licoreria') ? 'botilleria' :
-                                (rubro === 'minimarket' || rubro === 'almacen') ? 'minimarket' :
-                                (rubro === 'cafeteria') ? 'cafeteria' : 'hamburgueseria';
-          await aplicarPlantillaMenu(plantillaTipo);
-        }
       }
 
       // Redirigir a la vista de pedidos/caja para retail
