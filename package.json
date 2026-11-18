@@ -18,5 +18,8 @@
     "sokify"
   ],
   "author": "UNIVERSO693",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^12.7.0"
+  }
 }
