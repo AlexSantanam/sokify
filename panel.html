@@ -21323,17 +21323,18 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       <!-- FORMULARIO RÁPIDO DE ALTA -->
       <div class="space-y-3">
-        <p class="text-xs text-slate-600 font-medium">Este producto aún no está en tu catálogo. Créalo en 3 segundos para sumarlo de inmediato a la venta:</p>
+        <p class="text-xs text-slate-600 font-medium">Este producto aún no está en tu catálogo. El sistema busca su información global y lo agrega de inmediato:</p>
+        <input type="hidden" id="altaRapidaImgUrl" value="">
         
         <div>
           <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre del Producto *</label>
-          <input id="altaRapidaNombre" type="text" placeholder="Ej: Cerveza Heineken 330cc" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600">
+          <input id="altaRapidaNombre" type="text" placeholder="Ej: Cerveza Heineken 330cc" onkeydown="if(event.key === 'Enter') { event.preventDefault(); document.getElementById('altaRapidaPrecio').focus(); }" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-900 font-bold focus:outline-none focus:border-brand-600">
         </div>
 
         <div class="grid grid-cols-2 gap-2.5">
           <div>
             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Precio Venta ($ CLP) *</label>
-            <input id="altaRapidaPrecio" type="number" step="100" placeholder="Ej: 1500" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+            <input id="altaRapidaPrecio" type="number" step="100" placeholder="Ej: 1500" onkeydown="if(event.key === 'Enter') { event.preventDefault(); guardarProductoAltaRapida(); }" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
           </div>
           <div>
             <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Categoría</label>
@@ -21343,18 +21344,21 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
         <div>
           <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">Stock Inicial (opcional)</label>
-          <input id="altaRapidaStock" type="number" step="1" placeholder="Ej: 24" value="24" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
+          <input id="altaRapidaStock" type="number" step="1" placeholder="Ej: 24" value="24" onkeydown="if(event.key === 'Enter') { event.preventDefault(); guardarProductoAltaRapida(); }" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-mono font-bold text-slate-900 focus:outline-none focus:border-brand-600">
         </div>
       </div>
 
       <!-- ACCIONES -->
-      <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
-        <button type="button" onclick="cerrarModalBarcodeNoEncontrado()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
-          Cancelar
-        </button>
-        <button type="button" onclick="guardarProductoAltaRapida()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-black text-xs uppercase tracking-wider shadow-md shadow-brand-600/20 cursor-pointer transition-all active:scale-[0.98]">
-          ✓ Guardar y Sumar a la Venta
-        </button>
+      <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+        <span class="text-[10px] text-slate-400 font-mono hidden sm:inline">Presiona [Enter] en precio para guardar</span>
+        <div class="flex items-center gap-2 ml-auto">
+          <button type="button" onclick="cerrarModalBarcodeNoEncontrado()" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 font-bold text-xs transition-colors cursor-pointer">
+            Cancelar
+          </button>
+          <button type="button" id="btnGuardarAltaRapida" onclick="guardarProductoAltaRapida()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-black text-xs uppercase tracking-wider shadow-md shadow-brand-600/20 cursor-pointer transition-all active:scale-[0.98]">
+            ✓ Guardar y Sumar a la Venta
+          </button>
+        </div>
       </div>
 
     </div>
@@ -23598,24 +23602,166 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
     }
 
-    // 5. AUTOCOMPLETADO DESDE MAESTRO EN modalCrearProducto
+    // 5. MOTOR DE BÚSQUEDA GLOBAL DE CÓDIGOS DE BARRA (MULTI-CAPA)
+    // Capa 1: Catálogo Maestro Chileno (In-Memory, 0ms)
+    // Capa 2: Base Comunitaria Zokify en Firestore (catalogo_maestro_global)
+    // Capa 3: API Global Open Food Facts (Millones de códigos mundiales EAN-13 / UPC)
+    async function buscarProductoEnBasesGlobales(rawCode) {
+      if (!rawCode) return null;
+      const code = String(rawCode).trim();
+      if (!code || code.length < 4) return null;
+
+      // --- CAPA 1: Catálogo Maestro Chileno ---
+      if (typeof CATALOGO_MAESTRO_BARCODES !== 'undefined' && CATALOGO_MAESTRO_BARCODES[code]) {
+        const m = CATALOGO_MAESTRO_BARCODES[code];
+        return {
+          found: true,
+          barcode: code,
+          name: m.name,
+          price: m.price || 0,
+          desc: m.desc || '',
+          cat: m.cat || 'licores',
+          img: m.img || '',
+          brand: 'Chile',
+          origen: 'maestro_chileno'
+        };
+      }
+
+      // --- CAPA 2: Base Comunitaria Zokify en Firestore ---
+      try {
+        if (window.db) {
+          const docSnap = await window.db.collection('catalogo_maestro_global').doc(code).get();
+          if (docSnap && docSnap.exists) {
+            const d = docSnap.data();
+            return {
+              found: true,
+              barcode: code,
+              name: d.name || d.nombre || '',
+              price: d.price || d.precio || 0,
+              desc: d.desc || d.descripcion || '',
+              cat: d.cat || d.categoria || 'licores',
+              img: d.img || d.foto || '',
+              brand: d.brand || d.marca || '',
+              origen: 'comunidad_zokify'
+            };
+          }
+        }
+      } catch (errDb) {
+        console.warn('Error consultando red comunitaria Zokify:', errDb);
+      }
+
+      // --- CAPA 3: API Global Open Food Facts ---
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        const url = 'https://world.openfoodfacts.org/api/v2/product/' + encodeURIComponent(code) + '.json?fields=product_name,product_name_es,brands,image_front_url,image_url,categories_tags,quantity,generic_name_es';
+        
+        const res = await fetch(url, {
+          signal: controller.signal,
+          headers: { 'Accept': 'application/json' }
+        });
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.status === 1 && data.product) {
+            const p = data.product;
+            const marca = (p.brands || '').trim();
+            const nombreBase = (p.product_name_es || p.product_name || '').trim();
+            const cantidad = (p.quantity || '').trim();
+
+            let nombreCompleto = '';
+            if (marca && nombreBase && !nombreBase.toLowerCase().includes(marca.toLowerCase())) {
+              nombreCompleto = marca + ' ' + nombreBase;
+            } else {
+              nombreCompleto = nombreBase || marca || ('Producto ' + code);
+            }
+            if (cantidad && !nombreCompleto.toLowerCase().includes(cantidad.toLowerCase())) {
+              nombreCompleto += ' ' + cantidad;
+            }
+
+            const img = p.image_front_url || p.image_url || '';
+            const tags = (p.categories_tags || []).join(' ').toLowerCase();
+
+            let catSugerida = 'licores';
+            if (tags.includes('beer') || tags.includes('biere') || tags.includes('cerveza')) {
+              catSugerida = 'cervezas';
+            } else if (tags.includes('wine') || tags.includes('vin') || tags.includes('vino')) {
+              catSugerida = 'vinos';
+            } else if (tags.includes('whisky') || tags.includes('vodka') || tags.includes('rum') || tags.includes('ron') || tags.includes('pisco') || tags.includes('gin') || tags.includes('liquor') || tags.includes('spirit')) {
+              catSugerida = 'destilados';
+            } else if (tags.includes('beverage') || tags.includes('soda') || tags.includes('soft-drink') || tags.includes('juice') || tags.includes('bebida') || tags.includes('refresco')) {
+              catSugerida = 'bebidas-hielo';
+            } else if (tags.includes('snack') || tags.includes('chip') || tags.includes('biscuit') || tags.includes('chocolate') || tags.includes('cookie') || tags.includes('peanut')) {
+              catSugerida = 'snacks';
+            }
+
+            const resultado = {
+              found: true,
+              barcode: code,
+              name: nombreCompleto.trim(),
+              brand: marca,
+              desc: (p.generic_name_es || (marca ? marca + ' ' + cantidad : '')).trim(),
+              cat: catSugerida,
+              img: img,
+              price: 0,
+              origen: 'open_food_facts'
+            };
+
+            // Indexar en Firestore para que otros comercios se beneficien al instante
+            if (window.db) {
+              window.db.collection('catalogo_maestro_global').doc(code).set({
+                name: resultado.name,
+                brand: marca,
+                desc: resultado.desc,
+                cat: catSugerida,
+                img: img,
+                barcode: code,
+                fuente: 'open_food_facts',
+                fechaRegistro: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true }).catch(() => {});
+            }
+
+            return resultado;
+          }
+        }
+      } catch (errApi) {
+        console.warn('Open Food Facts API no disponible o timeout:', errApi);
+      }
+
+      return null;
+    }
+
+    // 6. AUTOCOMPLETADO DESDE BASE GLOBAL EN modalCrearProducto
+    let _debounceBarcodeLookup = null;
     function onBarcodeInputChange(val) {
       val = (val || '').trim();
       const sug = document.getElementById('barcodeSugerenciaTxt');
       if (!sug) return;
 
-      const maestro = CATALOGO_MAESTRO_BARCODES[val];
-      if (maestro) {
-        sug.classList.remove('hidden');
-        sug.innerHTML = '✨ <strong>' + maestro.name + '</strong> en Catálogo Maestro. <button type="button" onclick="autocompletarDesdeMaestroBarcode(\\x27' + val + '\\x27)" class="underline font-bold ml-1 text-purple-900 hover:text-black">Autocompletar formulario</button>';
-      } else {
+      if (!val || val.length < 5) {
         sug.classList.add('hidden');
+        return;
       }
+
+      if (_debounceBarcodeLookup) clearTimeout(_debounceBarcodeLookup);
+      _debounceBarcodeLookup = setTimeout(async () => {
+        const prod = await buscarProductoEnBasesGlobales(val);
+        if (prod && prod.found) {
+          sug.classList.remove('hidden');
+          const fuenteTxt = prod.origen === 'open_food_facts' ? 'Base Global Open Food Facts 🌐'
+                          : prod.origen === 'comunidad_zokify' ? 'Red Comunitaria Zokify 👥'
+                          : 'Catálogo Maestro Chileno 🇨🇱';
+          sug.innerHTML = '✨ <strong>' + prod.name + '</strong> detectado en ' + fuenteTxt + '. <button type="button" onclick="autocompletarDesdeMaestroBarcode(\\x27' + val + '\\x27)" class="underline font-bold ml-1 text-purple-900 hover:text-black">Autocompletar formulario</button>';
+        } else {
+          sug.classList.add('hidden');
+        }
+      }, 350);
     }
 
-    function autocompletarDesdeMaestroBarcode(code) {
-      const m = CATALOGO_MAESTRO_BARCODES[code];
-      if (!m) return;
+    async function autocompletarDesdeMaestroBarcode(code) {
+      const m = await buscarProductoEnBasesGlobales(code);
+      if (!m || !m.found) return;
 
       const inpNom = document.getElementById('inputProdNombre');
       const inpPre = document.getElementById('inputProdPrecio');
@@ -23623,8 +23769,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const inpImg = document.getElementById('inputProdImgUrl');
       const prevImg = document.getElementById('modalProdImgPreview');
 
-      if (inpNom && !inpNom.value) inpNom.value = m.name;
-      if (inpPre && (!inpPre.value || inpPre.value === '0')) inpPre.value = m.price;
+      if (inpNom && (!inpNom.value || inpNom.value === '')) inpNom.value = m.name;
+      if (inpPre && (!inpPre.value || inpPre.value === '0') && m.price) inpPre.value = m.price;
       if (inpDesc && !inpDesc.value) inpDesc.value = m.desc || '';
       if (inpImg && m.img) {
         inpImg.value = m.img;
@@ -23633,14 +23779,14 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
       const selCat = document.getElementById('selectProdCategoria');
       if (selCat && m.cat) {
-        const opt = Array.from(selCat.options).find(o => o.value.includes(m.cat) || o.text.toLowerCase().includes(m.cat));
+        const opt = Array.from(selCat.options).find(o => o.value.toLowerCase().includes(m.cat.toLowerCase()) || o.text.toLowerCase().includes(m.cat.toLowerCase()));
         if (opt) opt.selected = true;
       }
 
-      mostrarNotificacion('🪄 Datos cargados desde Catálogo Maestro Chileno');
+      mostrarNotificacion('🪄 Datos cargados desde base de datos global de códigos');
     }
 
-    // 6. GENERADOR DE CÓDIGO INTERNO (EAN-13 FORMATO 200...)
+    // 7. GENERADOR DE CÓDIGO INTERNO (EAN-13 FORMATO 200...)
     function generarBarcodeInternoModal() {
       const rand = Math.floor(100000000 + Math.random() * 900000000);
       const base12 = '200' + rand;
@@ -23661,44 +23807,86 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       mostrarNotificacion('🪄 Código interno generado: ' + code13);
     }
 
-    // 7. MODAL DE ALTA RÁPIDA (PRODUCTO NO ENCONTRADO)
+    // 8. MODAL DE ALTA RÁPIDA (PRODUCTO NO ENCONTRADO CON BÚSQUEDA GLOBAL)
     let _codigoAltaPendiente = '';
 
-    function abrirModalBarcodeNoEncontrado(code) {
+    async function abrirModalBarcodeNoEncontrado(code) {
       _codigoAltaPendiente = code;
       const modal = document.getElementById('modalBarcodeNoEncontrado');
       const badge = document.getElementById('badgeCodigoEscaneadoTxt');
       const secMaestro = document.getElementById('seccionSugerenciaMaestro');
       
-      if (badge) badge.textContent = 'Código EAN: ' + code;
+      if (modal) modal.classList.remove('hidden');
+
+      if (badge) {
+        badge.innerHTML = '<span class="inline-flex items-center gap-1.5"><span class="animate-spin inline-block w-2.5 h-2.5 border-2 border-brand-600 border-t-transparent rounded-full"></span> Consultando bases globales de códigos de barra (' + code + ')...</span>';
+      }
 
       const selCat = document.getElementById('altaRapidaCategoria');
       if (selCat) {
-        selCat.innerHTML = categorias.map(c => '<option value="' + c.id + '">' + (c.icono || '') + ' ' + c.nombre + '</option>').join('');
+        selCat.innerHTML = categorias.map(c => '<option value="' + (c.id || c.docId) + '">' + (c.icono || '') + ' ' + c.nombre + '</option>').join('');
       }
 
-      const maestro = CATALOGO_MAESTRO_BARCODES[code];
-      if (maestro && secMaestro) {
-        secMaestro.classList.remove('hidden');
-        document.getElementById('maestroNombreTxt').textContent = maestro.name;
-        document.getElementById('maestroDescTxt').textContent = maestro.desc || '';
-        document.getElementById('maestroPrecioRefTxt').textContent = 'Precio referencial: ' + fmt(maestro.price);
-        document.getElementById('altaRapidaNombre').value = maestro.name;
-        document.getElementById('altaRapidaPrecio').value = maestro.price;
-        if (maestro.img) {
-          document.getElementById('maestroImgBox').innerHTML = '<img src="' + maestro.img + '" class="w-full h-full object-cover">';
+      // Limpiar campos mientras se realiza la consulta
+      document.getElementById('altaRapidaNombre').value = '';
+      document.getElementById('altaRapidaPrecio').value = '';
+      const hiddenImg = document.getElementById('altaRapidaImgUrl');
+      if (hiddenImg) hiddenImg.value = '';
+      if (secMaestro) secMaestro.classList.add('hidden');
+
+      // Buscar en las 3 capas globales
+      const prodGlobal = await buscarProductoEnBasesGlobales(code);
+
+      if (prodGlobal && prodGlobal.found) {
+        if (badge) {
+          const origenTxt = prodGlobal.origen === 'open_food_facts' ? 'Base Global Open Food Facts 🌐'
+                          : prodGlobal.origen === 'comunidad_zokify' ? 'Red Comunitaria Zokify 👥'
+                          : 'Catálogo Maestro Chileno 🇨🇱';
+          badge.innerHTML = 'EAN: <strong>' + code + '</strong> · <span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">✅ Detectado en ' + origenTxt + '</span>';
         }
-      } else if (secMaestro) {
-        secMaestro.classList.add('hidden');
-        document.getElementById('altaRapidaNombre').value = '';
-        document.getElementById('altaRapidaPrecio').value = '';
-      }
 
-      if (modal) modal.classList.remove('hidden');
-      setTimeout(() => {
-        const nomInp = document.getElementById('altaRapidaNombre');
-        if (nomInp) nomInp.focus();
-      }, 150);
+        document.getElementById('altaRapidaNombre').value = prodGlobal.name;
+        if (prodGlobal.price) {
+          document.getElementById('altaRapidaPrecio').value = prodGlobal.price;
+        }
+        if (hiddenImg && prodGlobal.img) {
+          hiddenImg.value = prodGlobal.img;
+        }
+
+        if (selCat && prodGlobal.cat) {
+          const opt = Array.from(selCat.options).find(o => o.value.toLowerCase().includes(prodGlobal.cat.toLowerCase()) || o.text.toLowerCase().includes(prodGlobal.cat.toLowerCase()));
+          if (opt) opt.selected = true;
+        }
+
+        if (secMaestro) {
+          secMaestro.classList.remove('hidden');
+          document.getElementById('maestroNombreTxt').textContent = prodGlobal.name;
+          document.getElementById('maestroDescTxt').textContent = prodGlobal.desc || prodGlobal.brand || 'Identificado automáticamente';
+          document.getElementById('maestroPrecioRefTxt').textContent = prodGlobal.price ? ('Precio ref: ' + fmt(prodGlobal.price)) : 'Ingresa tu precio de venta abajo';
+          if (prodGlobal.img) {
+            document.getElementById('maestroImgBox').innerHTML = '<img src="' + prodGlobal.img + '" class="w-full h-full object-cover" onerror="this.parentElement.textContent=\'📦\'">';
+          } else {
+            document.getElementById('maestroImgBox').innerHTML = '📦';
+          }
+        }
+
+        // Foco inmediato al precio para alta en 1 segundo con Enter
+        setTimeout(() => {
+          const preInp = document.getElementById('altaRapidaPrecio');
+          if (preInp) preInp.focus();
+        }, 100);
+
+      } else {
+        if (badge) {
+          badge.innerHTML = 'EAN: <strong>' + code + '</strong> · <span class="text-slate-500 font-normal">Producto nuevo no indexado (completa los datos)</span>';
+        }
+        if (secMaestro) secMaestro.classList.add('hidden');
+        
+        setTimeout(() => {
+          const nomInp = document.getElementById('altaRapidaNombre');
+          if (nomInp) nomInp.focus();
+        }, 100);
+      }
     }
 
     function cerrarModalBarcodeNoEncontrado() {
@@ -23717,7 +23905,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     async function guardarProductoAltaRapida() {
       const name = document.getElementById('altaRapidaNombre').value.trim();
       const price = Number(document.getElementById('altaRapidaPrecio').value) || 0;
-      const cat = document.getElementById('altaRapidaCategoria').value || (categorias[0] ? categorias[0].id : 'general');
+      const cat = document.getElementById('altaRapidaCategoria').value || (categorias[0] ? (categorias[0].id || categorias[0].docId) : 'general');
       const stock = Number(document.getElementById('altaRapidaStock').value) || 24;
       const barcode = _codigoAltaPendiente;
 
@@ -23726,8 +23914,21 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         return;
       }
 
-      const maestro = CATALOGO_MAESTRO_BARCODES[barcode] || {};
-      const img = maestro.img || 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80';
+      // Resolver imagen: desde el hidden input, preview o catálogo maestro
+      let img = '';
+      const hiddenImg = document.getElementById('altaRapidaImgUrl');
+      if (hiddenImg && hiddenImg.value) img = hiddenImg.value;
+      if (!img) {
+        const mBoxImg = document.querySelector('#maestroImgBox img');
+        if (mBoxImg && mBoxImg.src) img = mBoxImg.src;
+      }
+      if (!img && CATALOGO_MAESTRO_BARCODES[barcode]) {
+        img = CATALOGO_MAESTRO_BARCODES[barcode].img;
+      }
+      if (!img) {
+        img = 'https://images.unsplash.com/photo-1608270116666-3d233479b18f?auto=format&fit=crop&w=800&q=80';
+      }
+
       const docId = 'plato-' + Date.now();
 
       try {
@@ -23735,6 +23936,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           throw new Error('Base de datos no disponible');
         }
 
+        // 1. Guardar en el catálogo propio del negocio
         await window.platosRef().doc(docId).set({
           id: Date.now(),
           name,
@@ -23742,7 +23944,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           cat,
           barcode,
           img,
-          desc: maestro.desc || '',
+          desc: '',
           controlStock: true,
           stock,
           disponible: true,
@@ -23750,9 +23952,24 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           orden: productos.length
         });
 
-        cerrarModalBarcodeNoEncontrado();
-        mostrarNotificacion('✅ Producto creado y registrado con código de barras');
+        // 2. Crowdsourcing a la base global de Zokify
+        if (barcode && window.db) {
+          window.db.collection('catalogo_maestro_global').doc(barcode).set({
+            name,
+            price,
+            cat,
+            img,
+            barcode,
+            origen: 'comunidad_zokify',
+            actualizado: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true }).catch(() => {});
+        }
 
+        cerrarModalBarcodeNoEncontrado();
+        playBarcodeBeep();
+        mostrarNotificacion('✅ ' + name + ' registrado e integrado al inventario');
+
+        // 3. Sumar de inmediato a la venta activa
         if (typeof agregarAlPedido === 'function') {
           agregarAlPedido(docId);
         }
@@ -24038,15 +24255,35 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
 
     let _yaMigroBotilleria = false;
     async function verificarAutoMigracionBotilleria() {
-      const rubro = (localStorage.getItem('sokify_rubro') || _espacioActual || '').toLowerCase().trim();
-      const esBotilleria = (rubro === 'botilleria' || rubro === 'licoreria');
+      const storedRubro = (localStorage.getItem('sokify_rubro') || '').toLowerCase().trim();
+      const activeRubro = (_espacioActual || '').toLowerCase().trim();
+      const restId = (window.RESTAURANT_ID || '').toLowerCase();
+      const topBarTxt = (document.getElementById('topBarEspacioTexto')?.textContent || '').toLowerCase().trim();
+      
+      const esBotilleria = (storedRubro === 'botilleria' || storedRubro === 'licoreria' ||
+                            activeRubro === 'botilleria' || activeRubro === 'licoreria' ||
+                            topBarTxt.includes('botiller') ||
+                            restId.includes('botilleria') || restId.includes('licoreria') || restId.includes('boti'));
 
       const bannerCat = document.getElementById('bannerCategoriasBotilleria');
       const bannerProd = document.getElementById('bannerAlertaBotilleriaSinStock');
-      const tieneCategoriasComida = (typeof categorias !== 'undefined' && Array.isArray(categorias)) && categorias.some(c => c.id === 'cortes' || c.id === 'hamburguesas' || c.id === 'para_compartir' || c.id === 'postres');
+
+      const tieneCategoriasComida = (typeof categorias !== 'undefined' && Array.isArray(categorias)) && categorias.some(c => {
+        const id = (c.id || c.docId || '').toLowerCase();
+        const nom = (c.nombre || '').toLowerCase();
+        return id.includes('cortes') || id.includes('hamburguesa') || id.includes('compartir') || id.includes('postres') ||
+               nom.includes('cortes') || nom.includes('burger') || nom.includes('hamburguesa') || nom.includes('compartir') || nom.includes('postres') || nom.includes('leña');
+      });
+
+      const tienePlatosComida = (typeof productos !== 'undefined' && Array.isArray(productos)) && productos.some(p => {
+        const n = (p.name || '').toLowerCase();
+        return n.includes('burger') || n.includes('tabla') || n.includes('provoleta') || n.includes('chorizo') || n.includes('entraña') || n.includes('angus') || n.includes('bife');
+      });
+
+      const debeMostrarAlerta = tieneCategoriasComida || tienePlatosComida || ((typeof productos !== 'undefined') && productos.length === 0);
 
       if (bannerCat) {
-        if (esBotilleria && (tieneCategoriasComida || (typeof categorias !== 'undefined' && categorias.length === 0))) {
+        if (debeMostrarAlerta) {
           bannerCat.classList.remove('hidden');
         } else {
           bannerCat.classList.add('hidden');
@@ -24054,16 +24291,16 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
 
       if (bannerProd) {
-        if (esBotilleria && (tieneCategoriasComida || (typeof productos !== 'undefined' && productos.length === 0))) {
+        if (debeMostrarAlerta) {
           bannerProd.classList.remove('hidden');
         } else {
           bannerProd.classList.add('hidden');
         }
       }
 
-      if (esBotilleria && tieneCategoriasComida && !_yaMigroBotilleria) {
+      if (esBotilleria && (tieneCategoriasComida || tienePlatosComida) && !_yaMigroBotilleria) {
         _yaMigroBotilleria = true;
-        console.log('Detectadas categorías de comida en Botillería. Auto-migrando al catálogo oficial de licores...');
+        console.log('Detectadas categorías/platos de restaurante en Botillería. Auto-migrando al catálogo oficial de licores...');
         await cargarCatalogoOficialBotilleria(true);
       }
     }
