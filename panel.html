@@ -531,7 +531,10 @@
                 <span id="topProfileAvatarInitials" class="w-7 h-7 rounded-full bg-brand-50 border border-brand-200 text-brand-700 flex items-center justify-center text-xs font-black shrink-0">
                   SK
                 </span>
-                <span id="topProfileRestName" class="font-bold text-xs text-slate-900 hidden md:inline truncate max-w-[130px]">Mi Restaurante</span>
+                <div class="hidden md:flex flex-col text-left leading-tight">
+                  <span id="topProfileRestName" class="font-bold text-xs text-slate-900 truncate max-w-[130px]">Mi Restaurante</span>
+                  <span id="topProfileRestSlug" class="text-[9px] text-slate-400 font-mono truncate max-w-[130px]">@negocio</span>
+                </div>
                 <span id="perfilArrow" class="text-[10px] text-slate-400 transition-transform">▼</span>
               </button>
 
@@ -548,9 +551,9 @@
                     </div>
                     <span id="dropdownProfileAvatarInitials" class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold shrink-0">SK</span>
                   </div>
-                  <div class="pt-1.5 border-t border-slate-200/60 text-[10px] text-slate-400 font-medium flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>Conectado 10 Mbps(4g) / 0ms</span>
+                  <div class="pt-1.5 border-t border-slate-200/60 text-[10px] text-slate-500 font-mono flex items-center justify-between gap-1">
+                    <span id="dropdownProfileRestSlug" class="truncate">panel.html?r=...</span>
+                    <button type="button" onclick="navigator.clipboard.writeText(window.location.href); mostrarNotificacion('📋 Link de tu panel copiado');" class="text-brand-600 hover:text-brand-800 font-bold font-sans cursor-pointer text-[10px] shrink-0">Copiar</button>
                   </div>
                 </div>
 
@@ -1746,6 +1749,23 @@
                 </button>
               </div>
             </div>
+          </div>
+
+          <!-- BANNER ALERTA CATÁLOGO DE BOTILLERÍA CON 1-CLIC -->
+          <div id="bannerAlertaBotilleriaSinStock" class="hidden p-4 rounded-2xl bg-gradient-to-r from-purple-900 via-indigo-950 to-purple-950 text-white border border-purple-500/40 shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-in fade-in duration-200">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-2xl shrink-0">
+                🍾
+              </div>
+              <div>
+                <h4 class="font-black text-sm text-white">¿Tienes platos de comida en tu Botillería?</h4>
+                <p class="text-xs text-purple-200">Reemplázalos en 1 clic por el catálogo oficial de alcohol: cervezas, piscos, whiskies, vinos, hielo y bebidas con códigos de barra EAN-13 y stock real.</p>
+              </div>
+            </div>
+            <button type="button" onclick="cargarCatalogoOficialBotilleria()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-400 hover:to-indigo-400 text-white font-black text-xs shrink-0 transition cursor-pointer shadow-md shadow-purple-500/30 active:scale-95 flex items-center gap-1.5">
+              <span>🍾</span>
+              <span>Cargar Catálogo de Alcohol Ahora</span>
+            </button>
           </div>
 
           <!-- BARRA HORIZONTAL DE CATEGORÍAS (CARRUSEL TIPO ZOKIFY) -->
@@ -11152,6 +11172,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (topInit) topInit.textContent = initials;
       const topName = document.getElementById('topProfileRestName');
       if (topName) topName.textContent = name;
+      const topSlug = document.getElementById('topProfileRestSlug');
+      if (topSlug) topSlug.textContent = '@' + restSlug;
 
       // 3. Dropdown de usuario y Mi Cuenta
       const dropName = document.getElementById('dropdownProfileRestName');
@@ -11165,6 +11187,8 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       }
       const dropInit = document.getElementById('dropdownProfileAvatarInitials');
       if (dropInit) dropInit.textContent = initials;
+      const dropSlug = document.getElementById('dropdownProfileRestSlug');
+      if (dropSlug) dropSlug.textContent = `panel.html?r=${restSlug}`;
 
       const mcNeg = document.getElementById('miCuentaNegocio');
       if (mcNeg) mcNeg.value = name;
@@ -11372,7 +11396,9 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         gate.classList.add('hidden');
         app.classList.remove('hidden');
 
-        let storedRestId = localStorage.getItem('sokify_restaurant_id');
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlParamSlug = urlParams.get('r') || urlParams.get('restaurante');
+        let storedRestId = urlParamSlug || localStorage.getItem('sokify_restaurant_id') || window.RESTAURANT_ID;
         let currentRestName = sanitizeRestaurantName(localStorage.getItem('sokify_restaurant_name')) || getDefaultRestaurantName();
         let currentEmail = user.email || localStorage.getItem('sokify_owner_email') || '';
         let currentPlan = localStorage.getItem('sokify_plan') || 'Free';
@@ -11389,6 +11415,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
               currentPlan = rData.plan || currentPlan;
               localStorage.setItem('sokify_restaurant_id', storedRestId);
               localStorage.setItem('sokify_restaurant_name', currentRestName);
+              if (rData.rubroNegocio) localStorage.setItem('sokify_rubro', rData.rubroNegocio);
               window.RESTAURANT_ID = storedRestId;
             } else {
               const qByEmail = await window.db.collection('restaurantes').where('email', '==', user.email).limit(1).get();
@@ -11400,6 +11427,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
                 currentPlan = rData.plan || currentPlan;
                 localStorage.setItem('sokify_restaurant_id', storedRestId);
                 localStorage.setItem('sokify_restaurant_name', currentRestName);
+                if (rData.rubroNegocio) localStorage.setItem('sokify_rubro', rData.rubroNegocio);
                 window.RESTAURANT_ID = storedRestId;
               }
             }
@@ -11408,7 +11436,19 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
           console.warn('Error resolviendo restaurante del usuario:', authLookupErr);
         }
 
+        if (storedRestId) {
+          window.RESTAURANT_ID = storedRestId;
+          localStorage.setItem('sokify_restaurant_id', storedRestId);
+        }
+
         syncUserProfileAndRestaurantUI(currentRestName, currentEmail, currentPlan);
+
+        // Actualizar URL del navegador de forma transparente para que refleje el identificador único del restaurante
+        const activeSlug = window.RESTAURANT_ID || storedRestId;
+        if (activeSlug && history.replaceState && (!window.location.search || !window.location.search.includes('r='))) {
+          const cleanUrl = `${window.location.pathname}?r=${encodeURIComponent(activeSlug)}${window.location.hash || ''}`;
+          window.history.replaceState({ restId: activeSlug }, '', cleanUrl);
+        }
 
         if (!subscribed) {
           subscribed = true;
@@ -23897,6 +23937,81 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       const rubroSelect = document.getElementById('selectNegocioRubro');
       if (rubroSelect) {
         rubroSelect.value = rubro;
+      }
+
+      // 5. Banner de stock base para botillería si hay platos de comida
+      const bannerBoti = document.getElementById('bannerAlertaBotilleriaSinStock');
+      if (bannerBoti) {
+        const tienePlatosComida = (typeof productos !== 'undefined' && Array.isArray(productos)) && productos.some(p => {
+          const n = (p.name || '').toLowerCase();
+          return n.includes('burger') || n.includes('tabla') || n.includes('provoleta') || n.includes('chorizo') || n.includes('entraña');
+        });
+        if (isBotilleria && (tienePlatosComida || (typeof productos !== 'undefined' && productos.length === 0))) {
+          bannerBoti.classList.remove('hidden');
+        } else {
+          bannerBoti.classList.add('hidden');
+        }
+      }
+    }
+
+    async function cargarCatalogoOficialBotilleria(forzar = false) {
+      if (!forzar && !confirm('¿Deseas cargar el catálogo oficial de Botillería & Licorería?\n\nEsto reemplazará los platos de comida por 14 productos reales de botillería (cervezas, piscos, whiskies, vinos, bebidas y hielo) con códigos de barra oficiales y stock real.')) {
+        return;
+      }
+      try {
+        if (typeof mostrarNotificacion === 'function') {
+          mostrarNotificacion('⏳ Reemplazando platos por stock oficial de Botillería...', 'info');
+        }
+        
+        // 1. Eliminar platos anteriores de muestra
+        const [oldPlatos, oldCats] = await Promise.all([
+          window.platosRef().get(),
+          window.categoriasRef().get()
+        ]);
+        
+        const deleteBatch = window.db.batch();
+        oldPlatos.docs.forEach(d => deleteBatch.delete(d.ref));
+        oldCats.docs.forEach(d => deleteBatch.delete(d.ref));
+        await deleteBatch.commit();
+
+        // 2. Sembrar categorías y productos de Botillería desde PLANTILLAS_MENU.botilleria
+        const template = PLANTILLAS_MENU.botilleria;
+        const insertBatch = window.db.batch();
+        
+        template.categorias.forEach((c) => {
+          insertBatch.set(window.categoriasRef().doc(c.id), c);
+        });
+
+        template.platos.forEach((p, idx) => {
+          const docId = 'plato-botilleria-' + (idx + 1);
+          insertBatch.set(window.platosRef().doc(docId), {
+            ...p,
+            id: Date.now() + idx,
+            barcode: p.barcode || '',
+            controlStock: true,
+            stock: p.stock !== undefined ? p.stock : 24,
+            disponible: true
+          });
+        });
+
+        await insertBatch.commit();
+        
+        // 3. Marcar rubro en restaurante
+        if (window.restRef) {
+          await window.restRef().set({ rubroNegocio: 'botilleria', espacioConfigurado: true }, { merge: true }).catch(() => {});
+        }
+        localStorage.setItem('sokify_rubro', 'botilleria');
+        adaptarPanelSegunRubro('botilleria');
+
+        const bannerBoti = document.getElementById('bannerAlertaBotilleriaSinStock');
+        if (bannerBoti) bannerBoti.classList.add('hidden');
+
+        if (typeof mostrarNotificacion === 'function') {
+          mostrarNotificacion('🎉 ¡Catálogo de Botillería cargado con 14 licores y stock real!', 'success');
+        }
+      } catch (err) {
+        console.error('Error cargando catalogo botilleria:', err);
+        alert('No se pudo cargar el catálogo de botillería: ' + err.message);
       }
     }
 
