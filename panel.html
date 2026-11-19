@@ -13512,14 +13512,45 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
     function eliminarPedidoPdv(docId) {
       if (!docId) return;
       if (!confirm('⚠️ ¿Estás seguro de ELIMINAR permanentemente esta orden del sistema?\n\nEsta acción quitará el pedido de la bandeja y de las métricas.')) return;
-      window.pedidosRef().doc(docId).delete().then(() => {
-        if (typeof selectedOrderDocId !== 'undefined' && selectedOrderDocId === docId) {
-          cerrarDetallePedidoPdv();
-        }
-        if (typeof mostrarNotificacion === 'function') {
-          mostrarNotificacion('🗑️ Pedido eliminado permanentemente');
-        }
-      }).catch(err => alert('Error al eliminar pedido: ' + err.message));
+
+      // 1. ELIMINACIÓN OPTIMISTA INMEDIATA (0ms en pantalla)
+      const pedidoEliminado = pedidos.find(p => p.docId === docId);
+      pedidos = pedidos.filter(p => p.docId !== docId);
+
+      // Quitar la fila de la tabla de forma instantánea en el DOM
+      const row = document.querySelector(`tr[data-doc-id="${docId}"]`);
+      if (row) row.remove();
+
+      if (typeof selectedOrderDocId !== 'undefined' && selectedOrderDocId === docId) {
+        cerrarDetallePedidoPdv();
+      }
+
+      // Re-renderizar métricas y contadores de la bandeja
+      if (typeof renderPdvOrders === 'function') renderPdvOrders();
+      if (typeof renderVentas === 'function') renderVentas();
+      if (typeof renderKdsBoard === 'function') renderKdsBoard();
+      if (typeof actualizarGuia === 'function') actualizarGuia();
+
+      if (typeof mostrarNotificacion === 'function') {
+        mostrarNotificacion('🗑️ Pedido eliminado');
+      }
+
+      // 2. Eliminar de Firestore
+      try {
+        const ref = (typeof window.pedidosRef === 'function') ? window.pedidosRef().doc(docId) : window.db.collection('restaurantes').doc(window.RESTAURANT_ID).collection('pedidos').doc(docId);
+        ref.delete().catch(err => {
+          console.error('Error eliminando pedido en Firestore:', err);
+          alert('⚠️ No se pudo eliminar el pedido en la base de datos: ' + err.message);
+          // Si falló en la base de datos, restaurar el pedido en pantalla
+          if (pedidoEliminado) {
+            pedidos.unshift(pedidoEliminado);
+            if (typeof renderPdvOrders === 'function') renderPdvOrders();
+            if (typeof renderVentas === 'function') renderVentas();
+          }
+        });
+      } catch (e) {
+        console.error('Error al intentar invocar delete en Firestore:', e);
+      }
     }
 
     function limpiarPedidosDePrueba() {
@@ -13528,28 +13559,58 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
         return;
       }
 
-      const cerrados = pedidos.filter(p => p.status === 'despachado' || p.status === 'cancelado' || (p.customer && p.customer.includes('Demo')) || (p.customer && p.customer.includes('Garzón')));
+      // Detectar pedidos de prueba, entregados, cerrados o cancelados
+      const cerrados = pedidos.filter(p => {
+        const s = (p.status || '').toLowerCase();
+        const c = (p.customer || '').toLowerCase();
+        const items = p.items || [];
+        const tieneComidaPrueba = items.some(i => {
+          const n = (i.name || '').toLowerCase();
+          return n.includes('angus') || n.includes('bife') || n.includes('entraña') || n.includes('burger') || n.includes('tabla') || n.includes('provoleta');
+        });
+        return s === 'despachado' || s === 'entregado' || s === 'cerrado' || s === 'cancelado' || c.includes('demo') || c.includes('garzón') || c.includes('comensal') || tieneComidaPrueba;
+      });
       
       const mensaje = cerrados.length > 0
-        ? `¿Deseas eliminar los ${cerrados.length} pedidos de prueba / cerrados para limpiar tus ventas a $0?\n\n(Los pedidos pendientes se mantendrán intactos)`
+        ? `¿Deseas eliminar los ${cerrados.length} pedidos de prueba / entregados para limpiar tu pantalla y reiniciar ventas a $0?\n\n(Esta acción es permanente)`
         : `¿Deseas eliminar todos los ${pedidos.length} pedidos para reiniciar la bandeja en cero ($0)?`;
 
       if (!confirm(mensaje)) return;
 
       const targetPedidos = cerrados.length > 0 ? cerrados : pedidos;
-      const batch = firebase.firestore().batch();
-      targetPedidos.forEach(p => {
-        batch.delete(window.pedidosRef().doc(p.docId));
-      });
+      const targetIds = new Set(targetPedidos.map(p => p.docId));
+      const backupPedidos = [...pedidos];
 
-      batch.commit().then(() => {
-        if (typeof cerrarDetallePedidoPdv === 'function') cerrarDetallePedidoPdv();
-        if (typeof mostrarNotificacion === 'function') {
-          mostrarNotificacion(`🗑️ ${targetPedidos.length} pedidos eliminados correctamente.`);
-        }
-      }).catch(err => {
-        alert('No se pudieron eliminar los pedidos: ' + err.message);
-      });
+      // 1. ELIMINACIÓN OPTIMISTA INMEDIATA (0ms en pantalla)
+      pedidos = pedidos.filter(p => !targetIds.has(p.docId));
+      if (typeof cerrarDetallePedidoPdv === 'function') cerrarDetallePedidoPdv();
+      if (typeof renderPdvOrders === 'function') renderPdvOrders();
+      if (typeof renderVentas === 'function') renderVentas();
+      if (typeof renderKdsBoard === 'function') renderKdsBoard();
+      if (typeof actualizarGuia === 'function') actualizarGuia();
+
+      if (typeof mostrarNotificacion === 'function') {
+        mostrarNotificacion(`🗑️ ${targetPedidos.length} pedidos eliminados de la pantalla.`);
+      }
+
+      // 2. Borrado masivo en Firestore (batch)
+      try {
+        const batch = window.db.batch();
+        targetPedidos.forEach(p => {
+          const ref = (typeof window.pedidosRef === 'function') ? window.pedidosRef().doc(p.docId) : window.db.collection('restaurantes').doc(window.RESTAURANT_ID).collection('pedidos').doc(p.docId);
+          batch.delete(ref);
+        });
+
+        batch.commit().catch(err => {
+          console.error('Error al borrar en batch:', err);
+          alert('Error al borrar pedidos en Firestore: ' + err.message);
+          pedidos = backupPedidos;
+          if (typeof renderPdvOrders === 'function') renderPdvOrders();
+          if (typeof renderVentas === 'function') renderVentas();
+        });
+      } catch (e) {
+        console.error('Error batch delete:', e);
+      }
     }
 
     // Modal para Agregar Productos a la orden
