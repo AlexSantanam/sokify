@@ -4,11 +4,11 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>La Brasa & Leña · Bienvenido</title>
+  <title>Bienvenido · Menú Digital</title>
 
-  <meta name="theme-color" content="#181310" />
+  <meta name="theme-color" content="#0B0908" />
 
-  <!-- Aplica el tema guardado ANTES de pintar, para que no haya parpadeo -->
+  <!-- Aplica el tema guardado ANTES de pintar para evitar parpadeo -->
   <script>
     (function () {
       try {
@@ -24,7 +24,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -40,6 +40,10 @@
             darkwood: 'rgb(var(--c-darkwood) / <alpha-value>)',
             warmcard: 'rgb(var(--c-warmcard) / <alpha-value>)',
             gold: 'rgb(var(--c-gold) / <alpha-value>)'
+          },
+          boxShadow: {
+            'glow': '0 0 40px -10px rgb(var(--c-ember) / 0.35)',
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
           }
         }
       }
@@ -48,132 +52,465 @@
 
   <style>
     :root, [data-theme="dark"] {
-      --c-ember: 200 90 50;
-      --c-darkwood: 24 19 16;
-      --c-warmcard: 34 28 24;
-      --c-gold: 233 196 106;
+      --c-ember: 217 83 30;      /* #D9531E */
+      --c-darkwood: 11 9 8;      /* #0B0908 Obsidiana cálido */
+      --c-warmcard: 22 18 16;    /* #161210 */
+      --c-gold: 234 179 8;       /* #EAB308 */
     }
     [data-theme="light"] {
-      --c-ember: 200 90 50;
-      --c-darkwood: 250 246 240;
+      --c-ember: 217 83 30;
+      --c-darkwood: 248 245 240; /* Alabastro crema cálido */
       --c-warmcard: 255 255 255;
-      --c-gold: 165 110 20;
+      --c-gold: 180 115 15;
     }
     [data-palette="oceano"] { --c-ember: 14 116 144; --c-gold: 45 180 178; }
     [data-theme="light"][data-palette="oceano"] { --c-gold: 11 106 105; }
-    [data-palette="bosque"] { --c-ember: 63 107 56; --c-gold: 168 143 54; }
+    [data-palette="bosque"] { --c-ember: 46 117 89; --c-gold: 180 145 60; }
     [data-theme="light"][data-palette="bosque"] { --c-gold: 120 101 35; }
 
-    [data-theme="light"] .text-white { color: #221C18 !important; }
-    [data-theme="light"] .text-stone-300 { color: #5C5248 !important; }
-    [data-theme="light"] .text-stone-400 { color: #7A6F63 !important; }
-    [data-theme="light"] .border-white\/10 { border-color: rgba(0,0,0,0.10) !important; }
-    [data-theme="light"] .border-white\/15 { border-color: rgba(0,0,0,0.14) !important; }
-    [data-theme="light"] .bg-white\/5 { background-color: rgba(0,0,0,0.035) !important; }
-    [data-theme="light"] .bg-white\/10 { background-color: rgba(0,0,0,0.06) !important; }
+    /* Ajustes temáticos adaptativos */
+    [data-theme="light"] .text-white { color: #1C1917 !important; }
+    [data-theme="light"] .text-stone-300 { color: #44403C !important; }
+    [data-theme="light"] .text-stone-400 { color: #57534E !important; }
+    [data-theme="light"] .text-stone-500 { color: #78716C !important; }
+    [data-theme="light"] .bg-white\/\[0\.05\],
+    [data-theme="light"] .bg-white\/\[0\.06\],
+    [data-theme="light"] .bg-white\/\[0\.07\] { background-color: rgba(255, 255, 255, 0.85) !important; }
+    [data-theme="light"] .border-white\/10 { border-color: rgba(0, 0, 0, 0.08) !important; }
+    [data-theme="light"] .border-white\/15 { border-color: rgba(0, 0, 0, 0.12) !important; }
+    [data-theme="light"] .border-white\/20 { border-color: rgba(0, 0, 0, 0.15) !important; }
+    [data-theme="light"] .bg-black\/40 { background-color: #EDE8E1 !important; }
+    [data-theme="light"] .shadow-glass { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.04) !important; }
 
     #themeToggleBtn .icon-dark { display: inline; }
     #themeToggleBtn .icon-light { display: none; }
     [data-theme="light"] #themeToggleBtn .icon-dark { display: none; }
     [data-theme="light"] #themeToggleBtn .icon-light { display: inline; }
+
+    /* Animación de destello suave */
+    @keyframes subtleSweep {
+      0% { transform: translateX(-100%); }
+      50%, 100% { transform: translateX(100%); }
+    }
+    .btn-sweep::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+      transform: translateX(-100%);
+      animation: subtleSweep 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Ocultar scrollbar en carruseles */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 
   <script src="config.js"></script>
 
-  <!-- Firebase: solo para reflejar en vivo la paleta de color que el dueño elija en panel.html -->
+  <!-- Firebase: para sincronización en tiempo real con panel.html -->
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
   <script src="firebase-config.js"></script>
   <script src="firebase-init.js"></script>
 </head>
-<body class="bg-darkwood text-[#F4EFEA] antialiased min-h-screen font-sans flex items-center justify-center p-5">
+<body class="bg-darkwood text-[#F4EFEA] antialiased min-h-screen font-sans flex flex-col items-center justify-center p-4 sm:p-6 relative selection:bg-ember selection:text-white">
 
-  <button id="themeToggleBtn" onclick="toggleTheme()" class="fixed top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer" title="Cambiar tema claro/oscuro">
-    <span class="icon-dark">☀️</span>
-    <span class="icon-light">🌙</span>
+  <!-- FONDO CON LUCES AMBIENTALES Y MALLA DECORATIVA -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <div class="absolute -top-[15%] left-1/2 -translate-x-1/2 w-[550px] sm:w-[700px] h-[550px] sm:h-[700px] rounded-full bg-gradient-to-b from-ember/30 via-gold/15 to-transparent blur-3xl opacity-60"></div>
+    <div class="absolute top-[35%] -left-[20%] w-[350px] h-[350px] rounded-full bg-ember/20 blur-3xl opacity-40"></div>
+    <div class="absolute bottom-[5%] -right-[15%] w-[400px] h-[400px] rounded-full bg-gold/15 blur-3xl opacity-35"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:24px_24px] opacity-50"></div>
+  </div>
+
+  <!-- BOTÓN CAMBIO DE TEMA FLOTANTE -->
+  <button id="themeToggleBtn" onclick="toggleTheme()" class="fixed top-4 right-4 w-10 h-10 rounded-2xl bg-white/[0.08] hover:bg-white/[0.16] border border-white/10 backdrop-blur-xl flex items-center justify-center cursor-pointer shadow-lg transition-all active:scale-95 z-40" title="Cambiar tema claro/oscuro">
+    <span class="icon-dark text-amber-300 text-sm">☀️</span>
+    <span class="icon-light text-slate-700 text-sm">🌙</span>
   </button>
 
-  <div class="w-full max-w-sm text-center space-y-5">
-    <div id="bienvenidaLogoContainer" class="w-24 h-24 mx-auto rounded-3xl bg-ember/20 border border-ember/40 flex items-center justify-center text-4xl shadow overflow-hidden">
-      <span id="bienvenidaLogoEmoji">🔥</span>
-    </div>
+  <!-- CONTENEDOR PRINCIPAL CON TARJETA DE CRISTAL -->
+  <main class="w-full max-w-[420px] text-center space-y-6 my-auto pt-6 pb-8 animate-in fade-in duration-500">
+    
+    <!-- HEADER: LOGO CON AURA LUMINOSA -->
+    <header class="space-y-4">
+      <div class="relative mx-auto w-24 h-24 sm:w-28 sm:h-28 group">
+        <!-- Aura resplandeciente -->
+        <div class="absolute -inset-2 bg-gradient-to-tr from-ember via-amber-500 to-gold rounded-[34px] blur-xl opacity-30 group-hover:opacity-60 transition duration-500"></div>
+        
+        <!-- Marco de cristal biselado -->
+        <div id="bienvenidaLogoContainer" class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-[28px] bg-gradient-to-b from-white/15 to-white/5 border border-white/20 backdrop-blur-2xl p-1 shadow-2xl flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-[1.03]">
+          <div class="w-full h-full rounded-[24px] bg-black/40 flex items-center justify-center overflow-hidden shadow-inner">
+            <span id="bienvenidaLogoEmoji" class="text-4xl sm:text-5xl filter drop-shadow">🔥</span>
+          </div>
+        </div>
+      </div>
 
-    <div>
-      <h1 id="brandName" class="font-serif text-2xl font-bold text-white">La Brasa & Leña</h1>
-      <p id="brandSlogan" class="text-sm text-stone-300 mt-1">Fuego & Tradición Porteña</p>
-      <p id="brandHorario" class="text-xs text-stone-400 mt-2"></p>
-    </div>
+      <!-- INSIGNIA DE ESTADO EN VIVO Y HORARIO -->
+      <div>
+        <div id="statusPillContainer" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-md text-[11px] font-bold text-stone-300 shadow-sm transition-all">
+          <span class="relative flex h-2 w-2">
+            <span id="statusPingDot" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span id="statusCoreDot" class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span id="brandStatusText" class="tracking-wide">Abierto ahora</span>
+          <span class="text-stone-500 text-[10px]">•</span>
+          <span id="brandHorarioText" class="text-stone-300 font-medium">12:30 a 23:30 hrs</span>
+        </div>
+      </div>
 
-    <div class="space-y-2.5 pt-2">
-      <a id="btnMenu" href="index.html" class="block w-full py-3.5 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow-lg transition-all">
-        📋 Ver Menú y Pedir
+      <!-- TÍTULO DEL LOCAL Y DESCRIPCIÓN ELEGANTE -->
+      <div class="space-y-1.5 px-2">
+        <h1 id="brandName" class="font-extrabold text-2xl sm:text-3xl text-white tracking-tight leading-snug drop-shadow-sm">
+          La Brasa & Leña
+        </h1>
+        <p id="brandSlogan" class="text-xs sm:text-sm text-stone-300 font-medium leading-relaxed max-w-xs mx-auto">
+          Fuego & Tradición Porteña
+        </p>
+
+        <!-- Dirección física / Mapa (si existe) -->
+        <div id="brandAddressBox" class="pt-1">
+          <a id="brandAddressLink" target="_blank" class="hidden inline-flex items-center gap-1.5 text-[11px] text-stone-400 font-medium hover:text-white transition-colors cursor-pointer bg-white/[0.04] px-2.5 py-1 rounded-lg border border-white/5">
+            <span>📍</span>
+            <span id="brandAddressText">Av. San Martín 693</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- LISTA PRINCIPAL DE ACCIONES (CARDS MODERNAS REIMAGINADAS) -->
+    <nav class="space-y-3 pt-1" id="bienvenidaBotonesContainer">
+      
+      <!-- HERO CTA: VER MENÚ DIGITAL Y PEDIR -->
+      <a id="btnMenu" href="index.html" class="btn-sweep group relative block w-full p-4 rounded-3xl bg-gradient-to-r from-ember via-amber-600 to-ember hover:brightness-110 text-white shadow-[0_12px_32px_-6px_rgba(217,83,30,0.5)] border-t border-white/30 transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] overflow-hidden">
+        <div class="relative flex items-center justify-between gap-3 z-10">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shrink-0 shadow-inner">
+              📖
+            </div>
+            <div class="text-left">
+              <div class="font-extrabold text-sm text-white tracking-wide flex items-center gap-1.5">
+                <span>Ver Menú Digital</span>
+                <span class="px-1.5 py-0.5 rounded-md bg-white/25 text-[9px] font-black uppercase tracking-wider text-white">Pedir</span>
+              </div>
+              <p class="text-[11px] text-white/80 font-medium mt-0.5">Explora la carta y pide en segundos</p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-black shrink-0 group-hover:translate-x-0.5 transition-transform">
+            →
+          </div>
+        </div>
       </a>
-      <a id="btnWhatsapp" target="_blank" class="block w-full py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm">
-        💬 Escribir por WhatsApp
-      </a>
-      <a id="btnInstagram" target="_blank" class="block w-full py-3 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-white font-bold text-sm">
-        📸 Seguir en Instagram
-      </a>
-    </div>
 
-    <div id="wifiCard" class="hidden pt-2">
-      <button onclick="copiarWifi()" class="w-full py-3 rounded-2xl bg-warmcard border border-white/10 text-left px-4 cursor-pointer">
-        <div class="text-[10px] font-bold text-stone-400 uppercase tracking-wider">📶 WiFi del local (toca para copiar la clave)</div>
-        <div class="text-sm font-semibold text-white mt-0.5" id="wifiNombreLabel"></div>
-        <div class="text-xs font-mono text-gold" id="wifiClaveLabel"></div>
-      </button>
-    </div>
+      <!-- SECUNDARIO: WHATSAPP -->
+      <a id="btnWhatsapp" target="_blank" class="group block w-full p-3.5 rounded-3xl bg-white/[0.05] hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] shadow-sm">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl shrink-0 text-emerald-400">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.588 1.961.94 2.796.94 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.077-2.144-.523-1.745-.724-2.883-2.502-2.969-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.109.005.253-.041.396.303.145.347.492 1.2.535 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.087-.178.181-.077.354.101.173.449.741.963 1.201.662.592 1.22.774 1.393.861.173.087.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="font-bold text-xs text-white tracking-wide">Escribir por WhatsApp</div>
+              <p class="text-[11px] text-stone-400 font-medium mt-0.5">Atención directa, reservas y consultas</p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-stone-400 group-hover:text-white text-xs font-bold shrink-0 group-hover:translate-x-0.5 transition-all">
+            →
+          </div>
+        </div>
+      </a>
 
-    <p class="text-[10px] text-stone-500 pt-4">Software por UNIVERSO693 SpA</p>
+      <!-- SECUNDARIO: INSTAGRAM -->
+      <a id="btnInstagram" target="_blank" class="group block w-full p-3.5 rounded-3xl bg-white/[0.05] hover:bg-pink-500/15 border border-white/10 hover:border-pink-500/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] shadow-sm">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3.5">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center text-xl shrink-0 text-white shadow-sm">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </div>
+            <div class="text-left">
+              <div class="font-bold text-xs text-white tracking-wide">Seguir en Instagram</div>
+              <p id="brandInstagramSub" class="text-[11px] text-stone-400 font-medium mt-0.5">Fotos, platos y promociones diarias</p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-stone-400 group-hover:text-white text-xs font-bold shrink-0 group-hover:translate-x-0.5 transition-all">
+            →
+          </div>
+        </div>
+      </a>
+
+    </nav>
+
+    <!-- TARJETA INTELIGENTE WIFI (ONE-TOUCH COPY) -->
+    <section id="wifiCard" class="hidden text-left animate-in fade-in duration-300">
+      <div class="group relative w-full p-4 rounded-3xl bg-gradient-to-b from-white/[0.07] to-white/[0.03] border border-white/10 backdrop-blur-xl shadow-glass transition-all duration-300 hover:border-gold/30">
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3.5 min-w-0">
+            <div class="w-11 h-11 rounded-2xl bg-gold/15 border border-gold/30 flex items-center justify-center text-gold text-lg shrink-0">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9.47 2.01-12.73 5.27l1.41 1.41c2.9-2.9 6.9-4.68 11.32-4.68s8.42 1.78 11.32 4.68l1.41-1.41c-3.26-3.26-7.76-5.27-12.73-5.27zm0 4c-3.87 0-7.37 1.57-9.9 4.1l1.41 1.41c2.18-2.18 5.18-3.51 8.49-3.51s6.31 1.33 8.49 3.51l1.41-1.41c-2.53-2.53-6.03-4.1-9.9-4.1zm0 4c-2.76 0-5.26 1.12-7.07 2.93l1.41 1.41c1.45-1.45 3.45-2.34 5.66-2.34s4.21.89 5.66 2.34l1.41-1.41c-1.81-1.81-4.31-2.93-7.07-2.93zm0 4c-1.66 0-3.16.67-4.24 1.76l4.24 4.24 4.24-4.24c-1.08-1.09-2.58-1.76-4.24-1.76z"/></svg>
+            </div>
+            <div class="min-w-0">
+              <div class="text-[10px] font-extrabold uppercase tracking-widest text-gold flex items-center gap-1.5">
+                <span>WiFi de Clientes</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-gold/60"></span>
+                <span class="text-[9px] font-bold text-stone-400">Gratis</span>
+              </div>
+              <div class="font-bold text-xs text-white mt-0.5 truncate" id="wifiNombreLabel">Red_Clientes</div>
+              <div class="text-[11px] font-mono text-stone-400 mt-0.5 truncate flex items-center gap-1">
+                <span class="text-[10px] opacity-75">Clave:</span>
+                <span id="wifiClaveLabel" class="text-stone-300 font-bold">••••••••</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="copiarWifi()" id="btnCopiarWifi" class="px-3 py-2 rounded-xl bg-gold/20 hover:bg-gold/30 text-gold border border-gold/30 text-xs font-bold transition-all cursor-pointer shrink-0 active:scale-95 flex items-center gap-1.5 shadow-sm">
+            <span id="btnCopiarWifiIcon">📋</span>
+            <span id="btnCopiarWifiTxt">Copiar</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA DE PLATOS DESTACADOS / ESPECIALIDADES (SI EXISTE) -->
+    <section id="galeriaFavoritosSec" class="hidden text-left space-y-2 pt-2 animate-in fade-in duration-300">
+      <div class="flex items-center justify-between px-1">
+        <h3 id="galeriaTituloTxt" class="text-xs font-extrabold text-stone-300 uppercase tracking-wider flex items-center gap-1.5">
+          <span>✨</span>
+          <span>Nuestros Favoritos</span>
+        </h3>
+        <span class="text-[10px] text-stone-500 font-medium">Desliza &rarr;</span>
+      </div>
+      <div id="galeriaFotosContainer" class="flex gap-2.5 overflow-x-auto no-scrollbar pb-2 snap-x">
+        <!-- Inyección dinámica de fotos -->
+      </div>
+    </section>
+
+    <!-- FOOTER ELEGANTE -->
+    <footer class="pt-4 space-y-2 text-center border-t border-white/5">
+      <div class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-stone-400">
+        <span class="text-emerald-400 text-xs">🔒</span>
+        <span>Menú Digital & Pedidos Oficiales</span>
+      </div>
+      <p class="text-[10px] text-stone-500 tracking-wide font-medium">
+        Potenciado por <strong class="text-stone-400 font-extrabold">Zokify</strong> · <span id="footerBrandYear">2026</span>
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- TOAST FLOTANTE DE NOTIFICACIÓN ELEGANTE -->
+  <div id="bienvenidaToast" class="fixed bottom-6 inset-x-0 mx-auto w-max max-w-[90vw] px-4 py-2.5 rounded-full bg-stone-900/95 text-white border border-white/20 shadow-2xl backdrop-blur-2xl text-xs font-bold transition-all duration-300 transform translate-y-16 opacity-0 pointer-events-none flex items-center gap-2 z-50">
+    <span id="toastIcon">✨</span>
+    <span id="toastMessage">Acción realizada</span>
   </div>
 
   <script>
-    const CFG = window.RESTAURANTE_CONFIG;
+    const CFG = window.RESTAURANTE_CONFIG || {};
     const _btnMenu = document.getElementById('btnMenu');
     if (_btnMenu && window.MENU_URL) _btnMenu.href = window.MENU_URL;
 
+    // Toast flotante estilo iOS / Dynamic Island
+    let _toastTimeout = null;
+    function mostrarToast(mensaje, icono = '✨') {
+      const toast = document.getElementById('bienvenidaToast');
+      const msg = document.getElementById('toastMessage');
+      const ic = document.getElementById('toastIcon');
+      if (!toast || !msg) return;
+
+      msg.textContent = mensaje;
+      if (ic) ic.textContent = icono;
+
+      toast.classList.remove('translate-y-16', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      if (_toastTimeout) clearTimeout(_toastTimeout);
+      _toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-16', 'opacity-0');
+      }, 2600);
+    }
+
     function aplicarConfigBienvenida(cfg) {
       if (!cfg) return;
-      if (cfg.titulo) document.getElementById('brandName').textContent = cfg.titulo.replace(/^[^\w\s]+/, '').trim() || CFG.nombre;
-      if (cfg.descripcion) document.getElementById('brandSlogan').textContent = cfg.descripcion;
-      
-      // Botones dinámicos si están configurados
+
+      // 1. Título y Slogan
+      if (cfg.titulo) {
+        const cleanTitle = cfg.titulo.replace(/^[^\w\s]+/, '').trim() || CFG.nombre;
+        document.getElementById('brandName').textContent = cleanTitle;
+        document.title = `${cleanTitle} · Bienvenido`;
+      }
+      if (cfg.descripcion) {
+        document.getElementById('brandSlogan').textContent = cfg.descripcion;
+      }
+
+      // 2. Estado Abierto / Cerrado
+      const statusPill = document.getElementById('statusPillContainer');
+      const pingDot = document.getElementById('statusPingDot');
+      const coreDot = document.getElementById('statusCoreDot');
+      const statusText = document.getElementById('brandStatusText');
+
+      if (cfg.estadoAbierto !== undefined) {
+        if (cfg.estadoAbierto) {
+          if (pingDot) pingDot.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75';
+          if (coreDot) coreDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-emerald-500';
+          if (statusText) statusText.textContent = 'Abierto ahora';
+        } else {
+          if (pingDot) pingDot.className = 'hidden';
+          if (coreDot) coreDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-rose-500';
+          if (statusText) statusText.textContent = 'Cerrado temporalmente';
+        }
+      }
+
+      // 3. Botones dinámicos si están configurados en el panel
       if (cfg.botones && cfg.botones.length > 0) {
-        const cont = document.querySelector('.space-y-2.5.pt-2');
+        const cont = document.getElementById('bienvenidaBotonesContainer');
         if (cont) {
           const activos = cfg.botones.filter(b => b.activo);
-          cont.innerHTML = activos.map(b => {
-            if (b.tipo === 'wifi') {
-              return `
-                <button onclick="copiarWifiDirecto('${b.clave || ''}')" class="block w-full py-3.5 rounded-2xl bg-amber-600/90 hover:bg-amber-600 text-white font-bold text-sm shadow transition-all cursor-pointer">
-                  📶 ${b.nombre} · ${b.red || 'WiFi'} (Toca para copiar clave)
-                </button>
-              `;
-            } else if (b.tipo === 'whatsapp') {
-              return `
-                <a href="https://wa.me/${(b.numero || '').replace(/[^0-9]/g, '')}" target="_blank" class="block w-full py-3.5 rounded-2xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm shadow transition-all">
-                  💬 ${b.nombre}
-                </a>
-              `;
-            } else {
-              return `
-                <a href="${(!b.enlace || /^(\/|index\.html|menu\.html)$/.test(b.enlace)) ? window.MENU_URL : b.enlace}" class="block w-full py-3.5 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow transition-all">
-                  📋 ${b.nombre}
-                </a>
-              `;
-            }
-          }).join('');
+          if (activos.length > 0) {
+            cont.innerHTML = activos.map((b, idx) => {
+              const isFirst = idx === 0;
+              if (b.tipo === 'wifi') {
+                return `
+                  <button type="button" onclick="copiarWifiDirecto('${b.clave || ''}')" class="group block w-full p-3.5 rounded-3xl bg-white/[0.05] hover:bg-gold/15 border border-white/10 hover:border-gold/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] text-left cursor-pointer shadow-sm">
+                    <div class="flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-2xl bg-gold/20 border border-gold/30 flex items-center justify-center text-lg shrink-0 text-gold">
+                          📶
+                        </div>
+                        <div class="text-left">
+                          <div class="font-bold text-xs text-white tracking-wide">${b.nombre || 'Código WiFi'}</div>
+                          <p class="text-[11px] text-stone-400 font-medium mt-0.5">${b.red || 'WiFi de Clientes'} · Toca para copiar clave</p>
+                        </div>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-stone-400 group-hover:text-gold text-xs font-bold shrink-0">
+                        📋
+                      </div>
+                    </div>
+                  </button>
+                `;
+              } else if (b.tipo === 'whatsapp') {
+                const num = (b.numero || '').replace(/[^0-9]/g, '');
+                return `
+                  <a href="https://wa.me/${num}" target="_blank" class="group block w-full p-3.5 rounded-3xl bg-white/[0.05] hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/30 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] shadow-sm">
+                    <div class="flex items-center justify-between gap-3">
+                      <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl shrink-0 text-emerald-400">
+                          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.588 1.961.94 2.796.94 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.077-2.144-.523-1.745-.724-2.883-2.502-2.969-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.109.005.253-.041.396.303.145.347.492 1.2.535 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.087-.178.181-.077.354.101.173.449.741.963 1.201.662.592 1.22.774 1.393.861.173.087.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/></svg>
+                        </div>
+                        <div class="text-left">
+                          <div class="font-bold text-xs text-white tracking-wide">${b.nombre || 'Escribir por WhatsApp'}</div>
+                          <p class="text-[11px] text-stone-400 font-medium mt-0.5">Atención en vivo y consultas</p>
+                        </div>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-stone-400 group-hover:text-white text-xs font-bold shrink-0 group-hover:translate-x-0.5 transition-all">
+                        →
+                      </div>
+                    </div>
+                  </a>
+                `;
+              } else {
+                const targetUrl = (!b.enlace || /^(\/|index\.html|menu\.html)$/.test(b.enlace)) ? (window.MENU_URL || 'menu.html') : b.enlace;
+                if (isFirst || b.tipo === 'menu') {
+                  return `
+                    <a href="${targetUrl}" class="btn-sweep group relative block w-full p-4 rounded-3xl bg-gradient-to-r from-ember via-amber-600 to-ember hover:brightness-110 text-white shadow-[0_12px_32px_-6px_rgba(217,83,30,0.5)] border-t border-white/30 transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] overflow-hidden">
+                      <div class="relative flex items-center justify-between gap-3 z-10">
+                        <div class="flex items-center gap-3.5">
+                          <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-xl shrink-0 shadow-inner">
+                            📖
+                          </div>
+                          <div class="text-left">
+                            <div class="font-extrabold text-sm text-white tracking-wide flex items-center gap-1.5">
+                              <span>${b.nombre || 'Ver Menú Digital'}</span>
+                              <span class="px-1.5 py-0.5 rounded-md bg-white/25 text-[9px] font-black uppercase tracking-wider text-white">Pedir</span>
+                            </div>
+                            <p class="text-[11px] text-white/80 font-medium mt-0.5">Explora la carta y pide en segundos</p>
+                          </div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs font-black shrink-0 group-hover:translate-x-0.5 transition-transform">
+                          →
+                        </div>
+                      </div>
+                    </a>
+                  `;
+                } else {
+                  return `
+                    <a href="${targetUrl}" target="_blank" class="group block w-full p-3.5 rounded-3xl bg-white/[0.05] hover:bg-white/[0.12] border border-white/10 hover:border-white/20 backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] shadow-sm">
+                      <div class="flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3.5">
+                          <div class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center text-lg shrink-0 text-white">
+                            🔗
+                          </div>
+                          <div class="text-left">
+                            <div class="font-bold text-xs text-white tracking-wide">${b.nombre}</div>
+                            <p class="text-[11px] text-stone-400 font-medium mt-0.5">Enlace recomendado</p>
+                          </div>
+                        </div>
+                        <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-stone-400 group-hover:text-white text-xs font-bold shrink-0 group-hover:translate-x-0.5 transition-all">
+                          →
+                        </div>
+                      </div>
+                    </a>
+                  `;
+                }
+              }
+            }).join('');
+          }
         }
+      }
+
+      // 4. Galería de platos favoritos
+      const secGal = document.getElementById('galeriaFavoritosSec');
+      const boxGal = document.getElementById('galeriaFotosContainer');
+      const titGal = document.getElementById('galeriaTituloTxt');
+      const fotos = (cfg.galeriaFotos || []).filter(Boolean);
+
+      if (cfg.galeriaActiva && fotos.length > 0 && secGal && boxGal) {
+        secGal.classList.remove('hidden');
+        if (titGal && cfg.galeriaTitulo) titGal.innerHTML = `<span>✨</span><span>${cfg.galeriaTitulo}</span>`;
+        boxGal.innerHTML = fotos.map((f, i) => `
+          <div class="snap-start shrink-0 w-32 h-32 rounded-2xl overflow-hidden border border-white/15 shadow-md relative group">
+            <img src="${f}" alt="Plato favorito ${i+1}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          </div>
+        `).join('');
+      } else if (secGal) {
+        secGal.classList.add('hidden');
       }
     }
 
-    // Carga inicial
-    document.getElementById('brandName').textContent = CFG.nombre;
-    document.getElementById('brandSlogan').textContent = CFG.slogan;
-    document.getElementById('brandHorario').textContent = CFG.horario;
-    document.getElementById('btnWhatsapp').href = `https://wa.me/${CFG.whatsapp}`;
-    document.getElementById('btnInstagram').href = `https://instagram.com/${(CFG.instagram || '').replace('@', '')}`;
+    // Carga inicial desde config.js
+    document.getElementById('brandName').textContent = CFG.nombre || 'Zokify';
+    document.getElementById('brandSlogan').textContent = CFG.slogan || 'La mejor experiencia gastronómica';
+    
+    if (CFG.horario) {
+      const hEl = document.getElementById('brandHorarioText');
+      if (hEl) hEl.textContent = CFG.horario;
+    }
+
+    if (CFG.whatsapp) {
+      const btnWa = document.getElementById('btnWhatsapp');
+      if (btnWa) btnWa.href = `https://wa.me/${String(CFG.whatsapp).replace(/[^0-9]/g, '')}`;
+    }
+
+    if (CFG.instagram) {
+      const btnIg = document.getElementById('btnInstagram');
+      const subIg = document.getElementById('brandInstagramSub');
+      const user = String(CFG.instagram).replace('@', '').trim();
+      if (btnIg) btnIg.href = `https://instagram.com/${user}`;
+      if (subIg) subIg.textContent = `@${user} · Fotos y promociones diarias`;
+    }
+
+    if (CFG.direccion) {
+      const addrBox = document.getElementById('brandAddressBox');
+      const addrLink = document.getElementById('brandAddressLink');
+      const addrTxt = document.getElementById('brandAddressText');
+      if (addrBox && addrLink && addrTxt) {
+        addrBox.classList.remove('hidden');
+        addrLink.classList.remove('hidden');
+        addrTxt.textContent = CFG.direccion;
+        addrLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CFG.direccion + ' ' + (CFG.nombre || ''))}`;
+      }
+    }
 
     if (CFG.wifiNombre && CFG.wifiClave) {
       document.getElementById('wifiCard').classList.remove('hidden');
@@ -186,14 +523,31 @@
       if (savedBienvenida) aplicarConfigBienvenida(JSON.parse(savedBienvenida));
     } catch (e) {}
 
+    // Funciones de copiado de WiFi con feedback táctil y visual
     function copiarWifi() {
       if (!CFG.wifiClave) return;
-      navigator.clipboard.writeText(CFG.wifiClave).then(() => alert('🔑 Clave WiFi copiada: ' + CFG.wifiClave));
+      navigator.clipboard.writeText(CFG.wifiClave).then(() => {
+        const btnTxt = document.getElementById('btnCopiarWifiTxt');
+        const btnIc = document.getElementById('btnCopiarWifiIcon');
+        if (btnTxt) btnTxt.textContent = '¡Copiada!';
+        if (btnIc) btnIc.textContent = '✓';
+        mostrarToast('🔑 Clave WiFi copiada al portapapeles', '📶');
+        setTimeout(() => {
+          if (btnTxt) btnTxt.textContent = 'Copiar';
+          if (btnIc) btnIc.textContent = '📋';
+        }, 2500);
+      }).catch(() => {
+        alert('🔑 Clave WiFi: ' + CFG.wifiClave);
+      });
     }
 
     function copiarWifiDirecto(clave) {
       if (!clave) return;
-      navigator.clipboard.writeText(clave).then(() => alert('🔑 Clave WiFi copiada: ' + clave));
+      navigator.clipboard.writeText(clave).then(() => {
+        mostrarToast('🔑 Clave WiFi copiada: ' + clave, '📶');
+      }).catch(() => {
+        alert('🔑 Clave WiFi: ' + clave);
+      });
     }
 
     function toggleTheme() {
@@ -203,40 +557,98 @@
       try { localStorage.setItem('universo693_theme', next); } catch (e) {}
     }
 
-    // Refleja en vivo la paleta de color elegida por el dueño en panel.html
-    window.restRef().onSnapshot(snap => {
-      const data = snap.data() || {};
-      document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
+    // Sincronización en vivo con Firestore
+    if (window.restRef) {
+      window.restRef().onSnapshot(snap => {
+        const data = snap.data() || {};
+        document.documentElement.setAttribute('data-palette', data.paleta || 'brasa');
 
-      const realName = data.nombreNegocio || data.nombre;
-      if (realName) {
-        CFG.nombre = realName;
-        document.getElementById('brandName').textContent = realName;
-        document.title = `${realName} · Bienvenido`;
-      }
-
-      const realSlogan = data.slogan || (data.bienvenida && data.bienvenida.descripcion);
-      if (realSlogan) {
-        CFG.slogan = realSlogan;
-        document.getElementById('brandSlogan').textContent = realSlogan;
-      }
-
-      if (data.direccion) CFG.direccion = data.direccion;
-      if (data.whatsappPedidos || data.telefono) {
-        CFG.whatsapp = (data.whatsappPedidos || data.telefono).replace(/[^0-9]/g, '');
-        const btnWa = document.getElementById('btnWhatsapp');
-        if (btnWa) btnWa.href = `https://wa.me/${CFG.whatsapp}`;
-      }
-
-      if (data.logoUrl) {
-        const logoBox = document.getElementById('bienvenidaLogoContainer');
-        if (logoBox) {
-          logoBox.innerHTML = `<img src="${data.logoUrl}" class="w-full h-full object-cover">`;
+        const realName = data.nombreNegocio || data.nombre;
+        if (realName) {
+          CFG.nombre = realName;
+          document.getElementById('brandName').textContent = realName;
+          document.title = `${realName} · Bienvenido`;
         }
-      }
 
-      if (data.bienvenida) aplicarConfigBienvenida(data.bienvenida);
-    });
+        const realSlogan = data.slogan || (data.bienvenida && data.bienvenida.descripcion);
+        if (realSlogan) {
+          CFG.slogan = realSlogan;
+          document.getElementById('brandSlogan').textContent = realSlogan;
+        }
+
+        if (data.horario) {
+          CFG.horario = data.horario;
+          const hEl = document.getElementById('brandHorarioText');
+          if (hEl) hEl.textContent = data.horario;
+        }
+
+        if (data.direccion) {
+          CFG.direccion = data.direccion;
+          const addrBox = document.getElementById('brandAddressBox');
+          const addrLink = document.getElementById('brandAddressLink');
+          const addrTxt = document.getElementById('brandAddressText');
+          if (addrBox && addrLink && addrTxt) {
+            addrBox.classList.remove('hidden');
+            addrLink.classList.remove('hidden');
+            addrTxt.textContent = data.direccion;
+            addrLink.href = data.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.direccion + ' ' + (realName || ''))}`;
+          }
+        }
+
+        if (data.whatsappPedidos || data.telefono) {
+          const rawNum = data.whatsappPedidos || data.telefono;
+          CFG.whatsapp = rawNum.replace(/[^0-9]/g, '');
+          const btnWa = document.getElementById('btnWhatsapp');
+          if (btnWa) btnWa.href = `https://wa.me/${CFG.whatsapp}`;
+        }
+
+        if (data.instagram) {
+          CFG.instagram = data.instagram;
+          const btnIg = document.getElementById('btnInstagram');
+          const subIg = document.getElementById('brandInstagramSub');
+          const user = String(data.instagram).replace('@', '').trim();
+          if (btnIg) btnIg.href = `https://instagram.com/${user}`;
+          if (subIg) subIg.textContent = `@${user} · Fotos y promociones diarias`;
+        }
+
+        if (data.wifiNombre && data.wifiClave) {
+          CFG.wifiNombre = data.wifiNombre;
+          CFG.wifiClave = data.wifiClave;
+          document.getElementById('wifiCard').classList.remove('hidden');
+          document.getElementById('wifiNombreLabel').textContent = data.wifiNombre;
+          document.getElementById('wifiClaveLabel').textContent = data.wifiClave;
+        }
+
+        if (data.logoUrl) {
+          const logoBox = document.getElementById('bienvenidaLogoContainer');
+          if (logoBox) {
+            logoBox.innerHTML = `
+              <div class="w-full h-full rounded-[24px] overflow-hidden bg-black/40 shadow-inner flex items-center justify-center">
+                <img src="${data.logoUrl}" alt="${realName || 'Logo'}" class="w-full h-full object-cover">
+              </div>
+            `;
+          }
+        }
+
+        // Estado del negocio abierto/cerrado
+        if (data.abierto !== undefined) {
+          const pingDot = document.getElementById('statusPingDot');
+          const coreDot = document.getElementById('statusCoreDot');
+          const statusText = document.getElementById('brandStatusText');
+          if (data.abierto) {
+            if (pingDot) pingDot.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75';
+            if (coreDot) coreDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-emerald-500';
+            if (statusText) statusText.textContent = 'Abierto ahora';
+          } else {
+            if (pingDot) pingDot.className = 'hidden';
+            if (coreDot) coreDot.className = 'relative inline-flex rounded-full h-2 w-2 bg-rose-500';
+            if (statusText) statusText.textContent = 'Cerrado';
+          }
+        }
+
+        if (data.bienvenida) aplicarConfigBienvenida(data.bienvenida);
+      });
+    }
   </script>
 </body>
 </html>

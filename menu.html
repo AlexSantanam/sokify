@@ -45,7 +45,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
-  
+
+  <!-- Leaflet (mapa gratuito OpenStreetMap, sin API key) para que el cliente ubique su dirección con un pin -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -205,11 +209,14 @@
 
       <!-- Selector de Modo: Mesa en Salón vs Delivery / Retiro (única acción destacada para el cliente) -->
       <div class="flex items-center bg-warmcard p-1 rounded-2xl border border-white/10 text-xs shrink-0">
-        <button id="btnModeMesa" onclick="setServiceMode('mesa')" class="px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow">
-          🍽️ Mesa
+        <button id="btnModeMesa" onclick="setServiceMode('mesa')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
+          🍽️ En el Local
         </button>
-        <button id="btnModeDelivery" onclick="setServiceMode('delivery')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
-          🛵 Delivery
+        <button id="btnModeRetiro" onclick="setServiceMode('delivery', 'retiro')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
+          🏃 Para Llevar
+        </button>
+        <button id="btnModeDelivery" onclick="setServiceMode('delivery', 'domicilio')" class="px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white">
+          🛵 A Domicilio
         </button>
       </div>
     </div>
@@ -418,7 +425,7 @@
       <!-- Datos de Despacho / Delivery (solo se muestra en modo delivery) -->
       <div id="deliveryFields" class="hidden bg-darkwood/70 rounded-2xl p-3.5 border border-white/10 space-y-2.5">
         <div class="flex items-center justify-between">
-          <span class="text-[11px] font-bold text-amber-300 uppercase tracking-wider">🛵 Datos de Entrega a Domicilio:</span>
+          <span id="deliveryFieldsTitle" class="text-[11px] font-bold text-amber-300 uppercase tracking-wider">🛵 Datos de Entrega a Domicilio:</span>
           <span class="text-[10px] text-emerald-400 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Rango Activo</span>
         </div>
         <div class="grid grid-cols-2 gap-2 text-xs">
@@ -431,18 +438,25 @@
             <input id="delivPhone" type="tel" placeholder="+56 9 ..." value="+56 9 9038 7414" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-white focus:outline-none focus:border-ember">
           </div>
         </div>
-        <div>
-          <label class="block text-[10px] text-stone-400 mb-0.5">Dirección y Depto:</label>
-          <input id="delivAddress" type="text" placeholder="Ej: 3 Norte 450, Depto 501" value="Av. San Martín 820, Viña del Mar" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
-        </div>
-        <div>
-          <label class="block text-[10px] text-stone-400 mb-0.5">Zona / Rango de Despacho:</label>
-          <select id="delivZone" onchange="updateModalTotals()" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
-            <option value="1500" data-zone="Viña Centro / Poniente">Viña Centro / Poniente (+$1.500 despacho)</option>
-            <option value="3000" data-zone="Reñaca / Jardín del Mar">Reñaca / Jardín del Mar (+$3.000 despacho)</option>
-            <option value="4500" data-zone="Concón Costa">Concón Costa (+$4.500 despacho)</option>
-            <option value="0" data-zone="Retiro en Local">Retiro en Local ($0 sin costo)</option>
-          </select>
+        <div id="deliveryAddressBlock" class="space-y-2.5">
+          <div>
+            <label class="block text-[10px] text-stone-400 mb-0.5">Dirección de entrega:</label>
+            <button type="button" onclick="openAddressMapModal()" id="btnPickAddress" class="w-full flex items-center justify-between gap-2 bg-warmcard border border-white/10 rounded-xl px-2.5 py-2 text-xs text-left text-stone-400 hover:border-ember transition-colors cursor-pointer">
+              <span id="delivAddressDisplay" class="truncate">📍 Toca para indicar tu dirección en el mapa</span>
+              <span class="text-ember font-bold shrink-0">Elegir ↗</span>
+            </button>
+            <input type="hidden" id="delivAddress" value="">
+            <input type="hidden" id="delivLat" value="">
+            <input type="hidden" id="delivLng" value="">
+          </div>
+          <div>
+            <label class="block text-[10px] text-stone-400 mb-0.5">Zona / Rango de Despacho:</label>
+            <select id="delivZone" onchange="updateModalTotals()" class="w-full bg-warmcard border border-white/10 rounded-xl px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-ember">
+              <option value="1500" data-zone="Viña Centro / Poniente">Viña Centro / Poniente (+$1.500 despacho)</option>
+              <option value="3000" data-zone="Reñaca / Jardín del Mar">Reñaca / Jardín del Mar (+$3.000 despacho)</option>
+              <option value="4500" data-zone="Concón Costa">Concón Costa (+$4.500 despacho)</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -525,6 +539,38 @@
     </div>
   </div>
 
+  <!-- MODAL DE SELECCIÓN DE DIRECCIÓN CON MAPA (EL CLIENTE INDICA SU CASA CON UN PIN) -->
+  <div id="addressMapModal" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-0 sm:p-4">
+    <div class="bg-warmcard border border-white/15 w-full sm:max-w-lg sm:rounded-3xl h-full sm:h-auto sm:max-h-[90vh] flex flex-col text-white">
+      <div class="flex items-center justify-between border-b border-white/10 p-4 shrink-0">
+        <h3 class="font-serif text-lg font-bold text-white">📍 Ubica tu dirección</h3>
+        <button onclick="closeAddressMapModal()" class="text-stone-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <div class="p-4 space-y-2 border-b border-white/10 shrink-0">
+        <p class="text-xs text-stone-300">Mueve el mapa hasta dejar el pin exactamente sobre tu casa o edificio.</p>
+        <button type="button" onclick="useMyLocation()" class="w-full py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer">
+          <span>🧭</span> Usar mi ubicación actual
+        </button>
+      </div>
+
+      <div class="relative flex-1 min-h-[260px]">
+        <div id="addressLeafletMap" class="absolute inset-0"></div>
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center" style="margin-top:-18px;">
+          <span class="text-4xl drop-shadow-lg">📍</span>
+        </div>
+      </div>
+
+      <div class="p-4 space-y-2.5 border-t border-white/10 shrink-0">
+        <p id="addressResolvedText" class="text-xs text-stone-300 min-h-[1.5em] leading-snug">Mueve el mapa para fijar tu ubicación...</p>
+        <input id="addressComplemento" type="text" placeholder="Depto / Casa / Referencia (opcional)" class="w-full bg-darkwood border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-ember">
+        <button type="button" onclick="confirmAddressFromMap()" class="w-full py-3 rounded-2xl bg-ember hover:bg-[#B04B25] text-white font-bold text-sm shadow-lg transition-all cursor-pointer">
+          Confirmar esta ubicación
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- ========================================================================= -->
   <!-- MODAL DE ÉXITO DE COMANDA & BOOSTER DE RESEÑAS EN GOOGLE MAPS -->
   <!-- ========================================================================= -->
@@ -551,6 +597,17 @@
           <span>Tiempo estimado:</span>
         </div>
         <span class="font-bold text-emerald-400 font-mono">15 a 20 min</span>
+      </div>
+
+      <!-- Acción Necesaria: reenviar la comanda al WhatsApp del local (respaldo ante cortes de red/Firestore) -->
+      <div id="whatsAppActionCard" class="hidden p-4 rounded-2xl bg-amber-950/40 border-2 border-amber-400/70 text-left space-y-2.5">
+        <p class="text-[11px] font-black text-amber-300 uppercase tracking-wide">⚠️ Acción Necesaria 👇</p>
+        <p class="text-xs text-stone-200 leading-snug">
+          Para asegurar que el local reciba tu pedido, envíanos este mismo detalle por WhatsApp.
+        </p>
+        <button onclick="sendOrderWhatsAppFromConfirmation()" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-sm shadow-md transition-all cursor-pointer">
+          <span>📲</span> Enviar confirmación vía WhatsApp
+        </button>
       </div>
 
       <!-- Tarjeta Booster de Reseñas en Google Maps -->
@@ -602,6 +659,7 @@
     // Estado de la Aplicación
     let currentCat = 'todos';
     let serviceMode = 'mesa';
+    let deliverySubMode = null; // 'retiro' | 'domicilio', solo aplica cuando serviceMode === 'delivery'
     let currentTable = CFG.mesaDefault;
     let cart = []; // Array de items con modificadores únicos: { dishId, name, basePrice, qty, selectedOptions, notes, itemTotal }
     let activeModDish = null;
@@ -624,6 +682,7 @@
       // 1. Detección automática de Mesa en la URL (?mesa=12 o ?mesa=Terraza%203)
       const urlParams = new URLSearchParams(window.location.search);
       const urlTable = urlParams.get('mesa');
+      const vieneDeQR = !!urlTable; // Solo si escaneó un QR de mesa física sabemos que ya está sentado ahí
       if (urlTable) {
         currentTable = 'Mesa #' + urlTable;
       }
@@ -644,7 +703,17 @@
       // 3. Renderizar Métodos de Pago
       renderPaymentMethods();
 
-      setServiceMode(urlParams.get('modo') === 'delivery' ? 'delivery' : 'mesa');
+      // Si viene de un QR de mesa, asumimos que ya está sentado ahí. Si entra
+      // desde el link general de la web del local, NO asumimos que está en el
+      // restaurante: debe elegir entre En el Local / Para Llevar / A Domicilio.
+      const modoParam = urlParams.get('modo');
+      if (vieneDeQR) {
+        setServiceMode('mesa');
+      } else if (modoParam === 'mesa' || modoParam === 'delivery' || modoParam === 'retiro') {
+        setServiceMode(modoParam === 'retiro' ? 'delivery' : modoParam, modoParam === 'retiro' ? 'retiro' : 'domicilio');
+      } else {
+        setServiceMode('delivery', 'retiro');
+      }
 
       // Cargar zonas de delivery configuradas desde el panel
       try {
@@ -653,9 +722,9 @@
           const cfg = JSON.parse(savedDeliv);
           const sel = document.getElementById('delivZone');
           if (sel && cfg.zones && cfg.zones.length > 0) {
-            sel.innerHTML = cfg.zones.map(z => 
+            sel.innerHTML = cfg.zones.map(z =>
               `<option value="${z.price}" data-zone="${z.name}">${z.name} (+$${z.price.toLocaleString('es-CL')} despacho)</option>`
-            ).join('') + '<option value="0" data-zone="Retiro en Local">Retiro en Local ($0 sin costo)</option>';
+            ).join('');
           }
         }
       } catch (e) {}
@@ -780,33 +849,46 @@
       });
     });
 
-    function setServiceMode(mode) {
+    function setServiceMode(mode, sub) {
       serviceMode = mode;
-      document.getElementById('btnModeMesa').className = mode === 'mesa'
-        ? 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow'
-        : 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
-      document.getElementById('btnModeDelivery').className = mode === 'delivery'
-        ? 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow'
-        : 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
+      deliverySubMode = mode === 'delivery' ? (sub || deliverySubMode || 'domicilio') : null;
+
+      const activeCls = 'px-3 py-1.5 rounded-xl font-bold transition-all bg-ember text-white shadow';
+      const inactiveCls = 'px-3 py-1.5 rounded-xl font-bold transition-all text-stone-300 hover:text-white';
+      document.getElementById('btnModeMesa').className = mode === 'mesa' ? activeCls : inactiveCls;
+      document.getElementById('btnModeRetiro').className = (mode === 'delivery' && deliverySubMode === 'retiro') ? activeCls : inactiveCls;
+      document.getElementById('btnModeDelivery').className = (mode === 'delivery' && deliverySubMode === 'domicilio') ? activeCls : inactiveCls;
 
       const banner = document.getElementById('tableBanner');
       const ctxLabel = document.getElementById('cartContextLabel');
       const sendBtnText = document.getElementById('btnSendOrderText');
       const destLabel = document.getElementById('modalDestinoLabel');
-
       const delivFields = document.getElementById('deliveryFields');
+      const delivAddressBlock = document.getElementById('deliveryAddressBlock');
+      const delivFieldsTitle = document.getElementById('deliveryFieldsTitle');
+
       if (mode === 'mesa') {
         banner.classList.remove('hidden');
         if (delivFields) delivFields.classList.add('hidden');
         ctxLabel.textContent = 'COMANDA ' + currentTable.toUpperCase();
         sendBtnText.textContent = 'Mandar Comanda a Cocina (' + currentTable + ')';
         destLabel.textContent = 'Destino: ' + currentTable;
+      } else if (deliverySubMode === 'retiro') {
+        banner.classList.add('hidden');
+        if (delivFields) delivFields.classList.remove('hidden');
+        if (delivAddressBlock) delivAddressBlock.classList.add('hidden');
+        if (delivFieldsTitle) delivFieldsTitle.textContent = '🏃 Datos de Retiro en Local:';
+        ctxLabel.textContent = 'PEDIDO PARA LLEVAR';
+        sendBtnText.textContent = 'Confirmar Pedido para Retirar en Local';
+        destLabel.textContent = 'Destino: Retiro en el Local (sin despacho)';
       } else {
         banner.classList.add('hidden');
         if (delivFields) delivFields.classList.remove('hidden');
-        ctxLabel.textContent = 'PEDIDO DELIVERY / RETIRO';
+        if (delivAddressBlock) delivAddressBlock.classList.remove('hidden');
+        if (delivFieldsTitle) delivFieldsTitle.textContent = '🛵 Datos de Entrega a Domicilio:';
+        ctxLabel.textContent = 'PEDIDO A DOMICILIO';
         sendBtnText.textContent = 'Confirmar y Enviar a Cocina / WhatsApp 📲';
-        destLabel.textContent = 'Destino: Reparto a Domicilio o Retiro en Local';
+        destLabel.textContent = 'Destino: Reparto a Domicilio';
       }
     }
 
@@ -852,6 +934,113 @@
       const modal = document.getElementById('infoModal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+    }
+
+    // --- SELECCIÓN DE DIRECCIÓN CON MAPA (PIN MANUAL, LEAFLET + OPENSTREETMAP, SIN API KEY) ---
+    let addressLeafletMapInstance = null;
+    let addressMapResolvedLat = null;
+    let addressMapResolvedLng = null;
+    let addressMapResolvedText = '';
+
+    function openAddressMapModal() {
+      const modal = document.getElementById('addressMapModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      // El mapa necesita medirse con el modal ya visible, si no calcula mal su tamaño.
+      setTimeout(initAddressLeafletMap, 50);
+    }
+
+    function closeAddressMapModal() {
+      const modal = document.getElementById('addressMapModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function initAddressLeafletMap() {
+      if (addressLeafletMapInstance) {
+        addressLeafletMapInstance.invalidateSize();
+        return;
+      }
+      const existingLat = parseFloat(document.getElementById('delivLat').value);
+      const existingLng = parseFloat(document.getElementById('delivLng').value);
+      const startLat = !isNaN(existingLat) ? existingLat : -33.0245;
+      const startLng = !isNaN(existingLng) ? existingLng : -71.5518;
+
+      addressLeafletMapInstance = L.map('addressLeafletMap', { zoomControl: true }).setView([startLat, startLng], 16);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      }).addTo(addressLeafletMapInstance);
+
+      addressLeafletMapInstance.on('moveend', resolveAddressFromMapCenter);
+      resolveAddressFromMapCenter();
+    }
+
+    function resolveAddressFromMapCenter() {
+      if (!addressLeafletMapInstance) return;
+      const center = addressLeafletMapInstance.getCenter();
+      addressMapResolvedLat = center.lat;
+      addressMapResolvedLng = center.lng;
+      const textEl = document.getElementById('addressResolvedText');
+      textEl.textContent = 'Buscando la dirección en este punto...';
+
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${center.lat}&lon=${center.lng}&zoom=18&addressdetails=1`)
+        .then(r => r.json())
+        .then(data => {
+          addressMapResolvedText = (data && data.display_name) ? data.display_name : `Ubicación (${center.lat.toFixed(5)}, ${center.lng.toFixed(5)})`;
+          textEl.textContent = '📍 ' + addressMapResolvedText;
+        })
+        .catch(() => {
+          addressMapResolvedText = `Ubicación (${center.lat.toFixed(5)}, ${center.lng.toFixed(5)})`;
+          textEl.textContent = '📍 ' + addressMapResolvedText;
+        });
+    }
+
+    function useMyLocation() {
+      if (!navigator.geolocation) {
+        alert('Tu navegador no permite obtener tu ubicación automáticamente. Mueve el mapa manualmente hasta tu dirección.');
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(pos => {
+        if (addressLeafletMapInstance) {
+          addressLeafletMapInstance.setView([pos.coords.latitude, pos.coords.longitude], 17);
+        }
+      }, () => {
+        alert('No pudimos acceder a tu ubicación. Mueve el mapa manualmente hasta tu dirección.');
+      });
+    }
+
+    function confirmAddressFromMap() {
+      if (addressMapResolvedLat == null || addressMapResolvedLng == null) {
+        alert('Espera un momento a que el mapa termine de ubicar tu dirección.');
+        return;
+      }
+      const complemento = document.getElementById('addressComplemento').value.trim();
+      const direccionFinal = addressMapResolvedText + (complemento ? ' · ' + complemento : '');
+
+      document.getElementById('delivAddress').value = direccionFinal;
+      document.getElementById('delivLat').value = addressMapResolvedLat;
+      document.getElementById('delivLng').value = addressMapResolvedLng;
+
+      const display = document.getElementById('delivAddressDisplay');
+      display.textContent = '📍 ' + direccionFinal;
+      display.classList.remove('text-stone-400');
+      display.classList.add('text-white', 'font-semibold');
+
+      closeAddressMapModal();
+    }
+
+    function resetAddressSelection() {
+      document.getElementById('delivAddress').value = '';
+      document.getElementById('delivLat').value = '';
+      document.getElementById('delivLng').value = '';
+      document.getElementById('addressComplemento').value = '';
+      const display = document.getElementById('delivAddressDisplay');
+      if (display) {
+        display.textContent = '📍 Toca para indicar tu dirección en el mapa';
+        display.classList.add('text-stone-400');
+        display.classList.remove('text-white', 'font-semibold');
+      }
     }
 
     function shareMenu() {
@@ -1133,7 +1322,7 @@
       const tip = isTipChecked ? Math.round(subtotal * (CFG.propinaSugeridaPct / 100)) : 0;
 
       let deliveryFee = 0;
-      if (serviceMode === 'delivery') {
+      if (serviceMode === 'delivery' && deliverySubMode !== 'retiro') {
         const zoneSelect = document.getElementById('delivZone');
         if (zoneSelect) deliveryFee = parseInt(zoneSelect.value) || 0;
       }
@@ -1215,35 +1404,69 @@
     }
 
     // --- ENVÍO DE ORDEN Y COMUNICACIÓN ---
-    function generateTicketText() {
-      const { subtotal, tip, discountAmount, total } = updateModalTotals();
+    function generateTicketText(ticketId) {
+      const { subtotal, tip, deliveryFee, discountAmount, total } = updateModalTotals();
       const payObj = CFG.metodosPago.find(m => m.id === selectedPayment);
       const payName = payObj ? payObj.nombre : 'Por definir';
+      const fmtPlain = n => Number(n || 0).toLocaleString('es-CL');
 
-      let text = `🔥 *NUEVA COMANDA - ${CFG.nombre.toUpperCase()}* 🔥\n`;
-      text += `📍 *Destino:* ${serviceMode === 'mesa' ? currentTable : 'Delivery / Retiro'}\n`;
-      text += `🕒 *Hora:* ${new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' })}\n`;
-      text += `----------------------------------------\n`;
+      const now = new Date();
+      const fecha = now.toLocaleDateString('es-CL');
+      const hora = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+      const menuLink = window.location.origin + window.location.pathname + (window.RESTAURANT_ID ? ('?r=' + window.RESTAURANT_ID) : '');
 
-      cart.forEach(item => {
-        text += `• *${item.qty}x ${item.name}* (${fmt(item.subtotal)})\n`;
-        if (item.selectedOptions.length > 0) {
-          item.selectedOptions.forEach(opt => {
-            text += `   - ${opt.nombre} ${opt.precio > 0 ? `(+${fmt(opt.precio)})` : ''}\n`;
-          });
+      let tipoServicio = 'En el Local';
+      if (serviceMode === 'delivery') tipoServicio = (deliverySubMode === 'retiro') ? 'Para Llevar' : 'Domicilio';
+
+      let text = `👋 Vengo de ${menuLink}\n`;
+      text += `${ticketId || ''}\n`;
+      text += `🗓️ ${fecha} ⏰ ${hora}\n\n`;
+      text += `Tipo de servicio: ${tipoServicio}\n\n`;
+
+      if (serviceMode === 'mesa') {
+        text += `Mesa: ${currentTable}\n\n`;
+      } else {
+        const nombre = document.getElementById('delivName').value || 'Cliente';
+        const telefono = document.getElementById('delivPhone').value || '';
+        text += `Nombre: ${nombre}\n`;
+        text += `Teléfono: ${telefono}\n`;
+        if (deliverySubMode === 'retiro') {
+          text += `Retiro en: ${CFG.direccion}\n`;
+        } else {
+          const direccion = document.getElementById('delivAddress').value || '';
+          const lat = document.getElementById('delivLat').value;
+          const lng = document.getElementById('delivLng').value;
+          const mapsLink = (lat && lng) ? ` (https://www.google.com/maps/search/?api=1&query=${lat},${lng})` : '';
+          text += `Dirección: ${direccion}${mapsLink}\n`;
         }
+        text += `\n`;
+      }
+
+      text += `📝 Productos\n`;
+      cart.forEach(item => {
+        text += `X${item.qty} ${item.name}  $ ${fmtPlain(item.subtotal)}\n`;
+        text += `    ${item.qty} Unidad(es)  $ ${fmtPlain(item.unitTotal)}\n`;
+        item.selectedOptions.forEach(opt => {
+          text += `    +${opt.nombre}${opt.precio > 0 ? ` ($ ${fmtPlain(opt.precio)})` : ''}\n`;
+        });
         if (item.notes) {
-          text += `   📝 *Nota:* ${item.notes}\n`;
+          text += `    📝 ${item.notes}\n`;
         }
       });
+      text += `\n`;
 
-      text += `----------------------------------------\n`;
-      text += `Subtotal consumo: ${fmt(subtotal)}\n`;
-      if (discountAmount > 0) text += `Descuento (${descuentoAplicado.codigo}): -${fmt(discountAmount)}\n`;
-      if (tip > 0) text += `Propina sugerida (${CFG.propinaSugeridaPct}%): ${fmt(tip)}\n`;
-      text += `*TOTAL A PAGAR: ${fmt(total)}*\n`;
-      text += `----------------------------------------\n`;
-      text += `💳 *Medio de Pago:* ${payName}\n`;
+      text += `Subtotal: $ ${fmtPlain(subtotal)}\n`;
+      if (discountAmount > 0) text += `Descuento (${descuentoAplicado.codigo}): -$ ${fmtPlain(discountAmount)}\n`;
+      if (deliveryFee > 0) text += `Entrega: $ ${fmtPlain(deliveryFee)}\n`;
+      if (tip > 0) text += `Propina: $ ${fmtPlain(tip)}\n`;
+      text += `Total: $ ${fmtPlain(total)}\n\n`;
+
+      text += `💲 Pago\n`;
+      text += `Estado del pago: No pagado\n`;
+      text += `Total a pagar: $ ${fmtPlain(total)}\n`;
+      text += `${payName} ${fmtPlain(total)}\n\n`;
+
+      text += `👆 Envíanos este mensaje ahora. En cuanto lo recibamos estaremos atendiéndole.`;
       return text;
     }
 
@@ -1253,8 +1476,21 @@
       window.open(url, '_blank');
     }
 
+    // Reenvío manual desde la pantalla de confirmación: usa el texto ya armado
+    // ANTES de limpiar el carrito, porque para ese momento `cart` ya está vacío.
+    function sendOrderWhatsAppFromConfirmation() {
+      if (!window.__pendingWhatsAppText) return;
+      const url = `https://wa.me/${CFG.whatsapp}?text=${encodeURIComponent(window.__pendingWhatsAppText)}`;
+      window.open(url, '_blank');
+    }
+
     function processOrder() {
       if (cart.length === 0) return;
+      if (serviceMode === 'delivery' && deliverySubMode !== 'retiro' && !document.getElementById('delivLat').value) {
+        alert('📍 Falta indicar tu dirección de entrega en el mapa.');
+        openAddressMapModal();
+        return;
+      }
       const ticketId = '#BRA-' + Math.floor(100 + Math.random() * 900);
       const { subtotal, tip, deliveryFee, discountAmount, total } = updateModalTotals();
       const payObj = CFG.metodosPago.find(m => m.id === selectedPayment);
@@ -1263,10 +1499,14 @@
       let customerName = 'Comensal Salón';
       let fullAddress = null; // Firestore no acepta "undefined" en los campos, por eso null y no dejarlo sin asignar
       if (serviceMode === 'delivery') {
-        customerName = (document.getElementById('delivName').value || 'Cliente Delivery') + ' (' + (document.getElementById('delivPhone').value || '') + ')';
-        const zoneSelect = document.getElementById('delivZone');
-        const zoneName = zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].getAttribute('data-zone') : '';
-        fullAddress = (document.getElementById('delivAddress').value || '') + ' · Zona: ' + zoneName;
+        customerName = (document.getElementById('delivName').value || 'Cliente') + ' (' + (document.getElementById('delivPhone').value || '') + ')';
+        if (deliverySubMode === 'retiro') {
+          fullAddress = 'Retiro en Local';
+        } else {
+          const zoneSelect = document.getElementById('delivZone');
+          const zoneName = zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].getAttribute('data-zone') : '';
+          fullAddress = (document.getElementById('delivAddress').value || '') + ' · Zona: ' + zoneName;
+        }
       }
 
       // Estructura completa del pedido sincronizado con KDS
@@ -1277,6 +1517,8 @@
         type: serviceMode,
         table: serviceMode === 'mesa' ? currentTable : null,
         address: fullAddress,
+        geoLat: (serviceMode === 'delivery' && deliverySubMode !== 'retiro') ? (parseFloat(document.getElementById('delivLat').value) || null) : null,
+        geoLng: (serviceMode === 'delivery' && deliverySubMode !== 'retiro') ? (parseFloat(document.getElementById('delivLng').value) || null) : null,
         customer: customerName,
         items: cart.map(i => ({
           name: i.name,
@@ -1291,7 +1533,7 @@
         discountAmount: discountAmount,
         total: total,
         payment: payName,
-        notes: cart.map(i => i.notes).filter(Boolean).join(', ')
+        notes: [deliverySubMode === 'retiro' ? '🏃 Para llevar (retiro en local)' : null, ...cart.map(i => i.notes)].filter(Boolean).join(', ')
       };
 
       // Guardar el pedido en Firestore: así llega en vivo a panel.html y
@@ -1317,15 +1559,19 @@
         document.getElementById('ticketIdLabel').textContent = ticketId;
         document.getElementById('orderSuccess').classList.remove('hidden');
 
+        // Armar el mensaje de WhatsApp AHORA, mientras el carrito y los datos
+        // de entrega todavía existen: se guarda para que el cliente lo reenvíe
+        // con un toque desde la pantalla de confirmación (setTimeout abajo
+        // limpia el carrito, así que después de eso ya no hay de dónde armarlo).
+        window.__pendingWhatsAppText = generateTicketText(ticketId);
+
         setTimeout(() => {
-          if (serviceMode === 'delivery') {
-            sendOrderWhatsApp();
-          }
           const prevTotal = total;
           cart = [];
           descuentoAplicado = null;
           document.getElementById('discountCodeInput').value = '';
           document.getElementById('discountFeedback').classList.add('hidden');
+          resetAddressSelection();
           updateCartBar();
           renderMenu();
           closeComandaModal();
@@ -1344,6 +1590,19 @@
       if (reviewLink && CFG.googleMapsUrl) {
         reviewLink.href = CFG.googleMapsUrl;
       }
+
+      // Pedidos de delivery/retiro necesitan ese respaldo por WhatsApp porque
+      // nadie los está viendo en persona (a diferencia de una mesa, con
+      // garzón físicamente ahí); por eso solo se pide esta acción en esos casos.
+      const whatsAppCard = document.getElementById('whatsAppActionCard');
+      if (whatsAppCard) {
+        if (serviceMode === 'delivery') {
+          whatsAppCard.classList.remove('hidden');
+        } else {
+          whatsAppCard.classList.add('hidden');
+        }
+      }
+
       const modal = document.getElementById('orderConfirmedModal');
       if (modal) {
         modal.classList.remove('hidden');
@@ -1400,7 +1659,7 @@
           <h3 style="margin: 4px 0 0; font-size: 13px; font-weight: 900;">*** COMANDA DE COCINA ***</h3>
           <p style="margin: 2px 0 0; font-size: 11px; font-weight: bold;">${ticketId} · ${new Date().toLocaleTimeString('es-CL')}</p>
           <p style="margin: 2px 0 0; font-size: 12px; font-weight: 900; background: #000; color: #fff; padding: 2px;">
-            ${serviceMode === 'mesa' ? currentTable.toUpperCase() : 'DELIVERY / RETIRO'}
+            ${serviceMode === 'mesa' ? currentTable.toUpperCase() : (deliverySubMode === 'retiro' ? 'PARA LLEVAR / RETIRO' : 'DELIVERY A DOMICILIO')}
           </p>
         </div>
 
@@ -1444,23 +1703,26 @@
     // =========================================================================
     const MENU_I18N = {
       es: {
-        mode_mesa: '🍽️ Mesa',
-        mode_delivery: '🛵 Delivery',
+        mode_mesa: '🍽️ En el Local',
+        mode_retiro: '🏃 Para Llevar',
+        mode_delivery: '🛵 A Domicilio',
         search_ph: 'Buscar en la carta...',
         btn_add: 'Agregar',
         btn_order: 'Confirmar Pedido',
         open_tag: '● Cocina Abierta'
       },
       en: {
-        mode_mesa: '🍽️ Table',
-        mode_delivery: '🛵 Takeout',
+        mode_mesa: '🍽️ Dine In',
+        mode_retiro: '🏃 Takeout',
+        mode_delivery: '🛵 Delivery',
         search_ph: 'Search menu...',
         btn_add: 'Add to cart',
         btn_order: 'Place Order',
         open_tag: '● Kitchen Open'
       },
       pt: {
-        mode_mesa: '🍽️ Mesa',
+        mode_mesa: '🍽️ No Local',
+        mode_retiro: '🏃 Para Levar',
         mode_delivery: '🛵 Entrega',
         search_ph: 'Buscar no cardápio...',
         btn_add: 'Adicionar',
@@ -1468,7 +1730,8 @@
         open_tag: '● Cozinha Aberta'
       },
       fr: {
-        mode_mesa: '🍽️ Table',
+        mode_mesa: '🍽️ Sur Place',
+        mode_retiro: '🏃 À Emporter',
         mode_delivery: '🛵 Livraison',
         search_ph: 'Rechercher un plat...',
         btn_add: 'Ajouter',
@@ -1491,8 +1754,10 @@
 
       const dict = MENU_I18N[lang];
       const btnMesa = document.getElementById('btnModeMesa');
+      const btnRetiro = document.getElementById('btnModeRetiro');
       const btnDelivery = document.getElementById('btnModeDelivery');
       if (btnMesa) btnMesa.textContent = dict.mode_mesa;
+      if (btnRetiro) btnRetiro.textContent = dict.mode_retiro;
       if (btnDelivery) btnDelivery.textContent = dict.mode_delivery;
 
       const menu = document.getElementById('menuLangMenu');

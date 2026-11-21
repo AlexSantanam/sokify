@@ -2007,52 +2007,61 @@
               </div>
 
               <!-- CHASSIS DEL SMARTPHONE -->
-              <div class="w-[300px] sm:w-[340px] mx-auto rounded-[44px] bg-slate-950 p-3.5 shadow-2xl border-4 border-slate-800 ring-1 ring-slate-700">
-                
+              <div class="relative w-[320px] sm:w-[350px] mx-auto rounded-[48px] bg-[#0d0d0f] p-3 shadow-2xl border-[5px] border-slate-800/90 ring-1 ring-white/10">
+                <!-- Luz ambiental sutil tras el chassis -->
+                <div class="absolute -inset-4 bg-gradient-to-b from-amber-500/10 via-orange-500/5 to-transparent blur-2xl -z-10 rounded-[50px] pointer-events-none"></div>
+
                 <!-- PANTALLA DEL TELÉFONO -->
-                <div class="rounded-[34px] bg-[#141210] text-white overflow-hidden border border-slate-800/80 min-h-[580px] max-h-[640px] overflow-y-auto no-scrollbar flex flex-col justify-between p-4 space-y-4">
+                <div class="rounded-[38px] bg-[#0B0908] text-white overflow-hidden border border-white/10 min-h-[590px] max-h-[640px] overflow-y-auto no-scrollbar flex flex-col justify-between p-4 space-y-4 relative">
                   
-                  <!-- NOTCH Y BARRA SUPERIOR -->
-                  <div class="space-y-3">
-                    <div class="w-24 h-4 bg-slate-900 mx-auto rounded-full"></div>
+                  <!-- Orbes luminosos sutiles de fondo -->
+                  <div class="absolute -top-12 -right-12 w-36 h-36 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                  <div class="absolute top-44 -left-12 w-36 h-36 bg-orange-600/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                  <!-- CONTENIDO SUPERIOR -->
+                  <div class="space-y-3 relative z-10">
+                    <!-- Dynamic Island / Notch -->
+                    <div class="w-24 h-4 bg-black/80 border border-white/10 mx-auto rounded-full flex items-center justify-end px-2">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500/80"></span>
+                    </div>
                     
                     <!-- HEADER DEL RESTAURANTE EN EL CELULAR -->
                     <div class="flex items-center justify-between pt-1 border-b border-white/10 pb-3">
-                      <div class="flex items-center gap-2">
-                        <div id="simLogo" class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-lg">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <div id="simLogo" class="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-lg shadow-inner overflow-hidden shrink-0">
                           🍔
                         </div>
-                        <span id="simNombreTop" class="font-bold text-xs text-white truncate max-w-[120px]">Fravioli</span>
+                        <span id="simNombreTop" class="font-bold text-xs text-white truncate max-w-[110px]">Fravioli</span>
                       </div>
 
-                      <div class="flex items-center gap-2">
-                        <span id="simStatusPill" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-red-950 text-red-400 border border-red-800/60 flex items-center gap-1">
-                          <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
-                          <span>Cerrado</span>
+                      <div class="flex items-center gap-1.5 shrink-0">
+                        <span id="simStatusPill" class="px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          <span>Abierto</span>
                         </span>
-                        <a href="index.html" id="simBtnPedirTop" class="px-3 py-1 rounded-lg bg-orange-600 text-white font-black text-[10px] shadow-sm">
+                        <a href="index.html" id="simBtnPedirTop" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 text-white font-black text-[10px] shadow-sm">
                           Pedir
                         </a>
                       </div>
                     </div>
 
                     <!-- TÍTULO DE BIENVENIDA Y DESCRIPCIÓN -->
-                    <div class="text-center pt-2 space-y-1">
-                      <h3 id="simTitulo" class="text-xl font-black text-white tracking-tight">😍 Bienvenid@s</h3>
-                      <p id="simDesc" class="text-[11px] text-stone-300 leading-relaxed">Las mejores hamburguesas y tragos de la ciudad.</p>
+                    <div class="text-center pt-1 space-y-1">
+                      <h3 id="simTitulo" class="text-lg font-black text-white tracking-tight">😍 Bienvenid@s</h3>
+                      <p id="simDesc" class="text-[11px] text-stone-300 leading-relaxed font-normal">Las mejores hamburguesas y tragos de la ciudad.</p>
                     </div>
 
                     <!-- MODALIDADES DE SERVICIO -->
-                    <div class="flex items-center justify-center gap-3 text-[10px] text-stone-400 font-semibold pt-1">
-                      <span class="flex items-center gap-1">🍽️ En el local</span>
+                    <div class="flex items-center justify-center gap-2 text-[10px] text-stone-400 font-medium py-1 px-2 rounded-full bg-white/5 border border-white/5">
+                      <span class="flex items-center gap-1">🍽️ En local</span>
                       <span>·</span>
-                      <span class="flex items-center gap-1">🥡 Para llevar</span>
+                      <span class="flex items-center gap-1">🏃 Retiro</span>
                       <span>·</span>
-                      <span class="flex items-center gap-1">🛵 A domicilio</span>
+                      <span class="flex items-center gap-1">🛵 Delivery</span>
                     </div>
 
-                    <!-- BOTONES VERTICALES LINKTREE -->
-                    <div id="simBotonesContainer" class="space-y-2 pt-2">
+                    <!-- BOTONES VERTICALES LINKTREE ELEGANTE -->
+                    <div id="simBotonesContainer" class="space-y-2 pt-1">
                       <!-- Inyección dinámica de botones interactivos -->
                     </div>
 
@@ -2065,17 +2074,13 @@
                     </div>
                   </div>
 
-                  <!-- REDES SOCIALES Y FOOTER -->
-                  <div class="pt-4 border-t border-white/10 text-center space-y-3">
-                    <div class="flex items-center justify-center gap-4 text-base text-stone-300">
-                      <a href="#" class="hover:text-emerald-400">💬</a>
-                      <a href="#" class="hover:text-pink-400">📸</a>
-                      <a href="#" class="hover:text-blue-400">📘</a>
-                    </div>
+                  <!-- FOOTER VERIFICADO DEL SIMULADOR -->
+                  <div class="pt-3 border-t border-white/10 text-center space-y-2 relative z-10">
                     <div class="text-[9px] text-stone-400 space-y-0.5">
-                      <p id="simFooterNombre">Menú Digital de Fravioli, Street Food</p>
-                      <p class="text-stone-400">Tipos de servicio y horarios</p>
-                      <p id="simMencionText" class="text-stone-400 pt-1">Software gastronómico por UNIVERSO693</p>
+                      <p id="simFooterNombre" class="font-medium">Menú Digital · Zokify</p>
+                      <p id="simMencionText" class="text-stone-500 text-[8px] flex items-center justify-center gap-1">
+                        <span>🔒 Menú Oficial Seguro</span> · <span>Potenciado por Zokify</span>
+                      </p>
                     </div>
                   </div>
 
@@ -17253,17 +17258,27 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       // 1. Cabecera móvil
       const sNom = document.getElementById('simNombreTop');
       const sFootNom = document.getElementById('simFooterNombre');
-      if (sNom) sNom.textContent = CFG.nombre || 'Fravioli';
-      if (sFootNom) sFootNom.textContent = `Menú Digital de ${CFG.nombre || 'Fravioli, Street Food'}`;
+      const realNom = (typeof CFG !== 'undefined' && CFG.nombre) ? CFG.nombre : 'Fravioli';
+      if (sNom) sNom.textContent = realNom;
+      if (sFootNom) sFootNom.textContent = `Menú Digital de ${realNom}`;
+
+      const sLogo = document.getElementById('simLogo');
+      if (sLogo) {
+        if (typeof CFG !== 'undefined' && CFG.logoUrl) {
+          sLogo.innerHTML = `<img src="${CFG.logoUrl}" alt="${realNom}" class="w-full h-full object-cover">`;
+        } else {
+          sLogo.innerHTML = `🍔`;
+        }
+      }
 
       const sStatus = document.getElementById('simStatusPill');
       if (sStatus) {
         sStatus.innerHTML = bienvenidaConfig.estadoAbierto
-          ? `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span><span>Abierto</span>`
+          ? `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span><span>Abierto</span>`
           : `<span class="w-1.5 h-1.5 rounded-full bg-red-500"></span><span>Cerrado</span>`;
         sStatus.className = bienvenidaConfig.estadoAbierto
-          ? 'px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60 flex items-center gap-1'
-          : 'px-2 py-0.5 rounded-full text-[9px] font-bold bg-red-950 text-red-400 border border-red-800/60 flex items-center gap-1';
+          ? 'px-2 py-0.5 rounded-full text-[9px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 shadow-xs'
+          : 'px-2 py-0.5 rounded-full text-[9px] font-bold bg-red-950/80 text-red-400 border border-red-500/30 flex items-center gap-1 shadow-xs';
       }
 
       const swPedir = document.getElementById('switchPedirAqui');
@@ -17278,16 +17293,75 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       if (sTit) sTit.textContent = bienvenidaConfig.titulo || 'Bienvenid@s';
       if (sDesc) sDesc.textContent = bienvenidaConfig.descripcion || '';
 
-      // 3. Botones verticales
+      // 3. Botones verticales con diseño elegante tipo App Móvil
       const contBotones = document.getElementById('simBotonesContainer');
       if (contBotones) {
-        const activos = bienvenidaConfig.botones.filter(b => b.activo);
+        const activos = (bienvenidaConfig.botones || []).filter(b => b.activo);
         contBotones.innerHTML = activos.map(b => {
-          let extra = '';
-          if (b.tipo === 'wifi') extra = `📡 (${b.red || 'WiFi'})`;
+          if (b.tipo === 'menu') {
+            return `
+              <a href="${b.enlace || 'index.html'}" class="group relative block w-full p-2.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-bold text-xs shadow-md transition-all active:scale-95 border border-amber-300/30">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs">📖</span>
+                    <div class="text-left">
+                      <div class="leading-tight font-black">${b.nombre || 'Ver Menú y Pedir'}</div>
+                      <div class="text-[9px] text-white/80 font-normal">Explora la carta digital</div>
+                    </div>
+                  </div>
+                  <span class="text-white/80 text-xs font-bold">→</span>
+                </div>
+              </a>
+            `;
+          }
+          if (b.tipo === 'whatsapp') {
+            const num = (b.numero || '').replace(/[^0-9]/g, '');
+            return `
+              <a href="https://wa.me/${num}" target="_blank" class="block w-full p-2.5 rounded-2xl bg-emerald-950/70 hover:bg-emerald-950/90 text-white font-semibold text-xs border border-emerald-500/30 shadow transition-all active:scale-95">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">💬</span>
+                    <div class="text-left">
+                      <div class="leading-tight font-bold text-emerald-100">${b.nombre || 'WhatsApp'}</div>
+                      <div class="text-[9px] text-emerald-400/80 font-normal">Pedidos & Consultas</div>
+                    </div>
+                  </div>
+                  <span class="text-emerald-400/80 text-xs font-bold">→</span>
+                </div>
+              </a>
+            `;
+          }
+          if (b.tipo === 'wifi') {
+            return `
+              <div class="block w-full p-2.5 rounded-2xl bg-white/[0.06] border border-white/10 text-white text-xs">
+                <div class="flex items-center justify-between mb-1">
+                  <div class="flex items-center gap-1.5 text-amber-400 font-bold text-[10px]">
+                    <span>📶</span>
+                    <span>WiFi del Local</span>
+                  </div>
+                  <span class="text-[9px] text-stone-400 font-normal">Toca para copiar clave</span>
+                </div>
+                <div class="flex items-center justify-between bg-black/40 px-2.5 py-1 rounded-lg border border-white/5">
+                  <span class="font-bold text-[11px] text-stone-200 truncate">${b.red || 'WiFi_Local'}</span>
+                  <span class="font-mono text-[10px] text-amber-300 font-bold ml-1">${b.clave || '••••••'}</span>
+                </div>
+              </div>
+            `;
+          }
+          // Enlace genérico / Instagram / otro
+          const isIg = (b.enlace && b.enlace.includes('instagram')) || (b.nombre && b.nombre.toLowerCase().includes('instagram'));
           return `
-            <a href="${b.enlace || '#'}" class="block w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold text-xs text-center shadow-md transition-transform active:scale-95">
-              ${b.nombre} ${extra}
+            <a href="${b.enlace || '#'}" target="_blank" class="block w-full p-2.5 rounded-2xl bg-white/[0.05] hover:bg-white/[0.1] text-white font-semibold text-xs border border-white/10 shadow transition-all active:scale-95">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-lg ${isIg ? 'bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white' : 'bg-white/10 text-stone-300'} flex items-center justify-center text-xs">${isIg ? '📸' : '🔗'}</span>
+                  <div class="text-left">
+                    <div class="leading-tight font-bold text-stone-200">${b.nombre}</div>
+                    <div class="text-[9px] text-stone-400 font-normal">${isIg ? 'Fotos & novedades' : 'Enlace directo'}</div>
+                  </div>
+                </div>
+                <span class="text-stone-400 text-xs font-bold">→</span>
+              </div>
             </a>
           `;
         }).join('');
@@ -17310,7 +17384,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
             simGalGrid.innerHTML = '<p class="col-span-2 text-[10px] text-stone-500 text-center py-2">Sin fotos cargadas todavía.</p>';
           } else {
             simGalGrid.innerHTML = fotosValidas.map(f => `
-              <div class="aspect-square rounded-xl overflow-hidden border border-white/10 shadow-sm">
+              <div class="aspect-square rounded-xl overflow-hidden border border-white/10 shadow-sm bg-black/40">
                 <img src="${f}" class="w-full h-full object-cover">
               </div>
             `).join('');
