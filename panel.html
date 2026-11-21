@@ -286,16 +286,16 @@
             <button onclick="toggleFinanzasSubmenu()" class="nav-btn group w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all text-slate-600 hover:bg-slate-100 hover:text-slate-950" data-tab="finanzas">
               <div class="flex items-center gap-3">
                 <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-                <span>Módulo Financiero</span>
+                <span>Caja & Finanzas</span>
               </div>
               <span id="finanzasArrow" class="text-slate-400 group-hover:text-slate-600 transition-transform duration-200 inline-flex items-center"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
             </button>
             <div id="finanzasSubmenu" class="pl-8 pr-2 space-y-0.5 py-1 hidden border-l border-slate-200 ml-4">
               <button onclick="switchTab('finanzas', 'registros')" class="finanzas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="registros">
-                Registros financieros
+                Movimientos de Caja
               </button>
               <button onclick="switchTab('finanzas', 'cuentas')" class="finanzas-sub-btn w-full text-left py-1.5 px-2.5 rounded-lg text-[11px] font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer" data-subtab="cuentas">
-                Cuentas
+                Mis Cuentas
               </button>
             </div>
           </div>
@@ -1487,11 +1487,11 @@
             <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl">
               <button onclick="setFinanzasSubtab('registros')" id="subtabBtnRegistros" class="finanzas-tab-pill px-4 py-2 rounded-lg text-xs font-black transition-all bg-white text-slate-900 shadow-sm cursor-pointer flex items-center gap-2">
                 <span>📋</span>
-                <span>Registros financieros</span>
+                <span>Movimientos de Caja</span>
               </button>
               <button onclick="setFinanzasSubtab('cuentas')" id="subtabBtnCuentas" class="finanzas-tab-pill px-4 py-2 rounded-lg text-xs font-black transition-all text-slate-500 hover:text-slate-800 cursor-pointer flex items-center gap-2">
                 <span>🏦</span>
-                <span>Cuentas y Métodos de Pago</span>
+                <span>Mis Cuentas y Cobros</span>
               </button>
             </div>
 
@@ -1511,7 +1511,7 @@
             <!-- ENCABEZADO Y ACCIONES PRINCIPALES -->
             <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
               <div class="flex items-center gap-2">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Registros financieros</h2>
+                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Movimientos de Caja</h2>
                 <span class="w-5 h-5 rounded-full border border-slate-300 text-slate-400 text-xs flex items-center justify-center font-bold cursor-help" title="Lleva un control detallado de tus gastos diarios (insumos, servicios, retiros) e ingresos manuales">ⓘ</span>
               </div>
               <div class="flex items-center gap-2">
@@ -1633,7 +1633,7 @@
             
             <!-- ENCABEZADO Y DESCRIPCIÓN -->
             <div class="space-y-1">
-              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Cuentas y Métodos de Pago</h2>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Mis Cuentas y Cobros</h2>
               <p class="text-xs sm:text-sm text-slate-500 font-medium">Gestiona tus cuentas, saldos y configura las comisiones de tus métodos de pago.</p>
             </div>
 
@@ -10767,7 +10767,7 @@ curl -X POST "https://api.zokify.app/v1/pedidos" \
       pedidos: { title: 'Punto de Venta (PDV)', sub: 'Toma de pedidos en mesa y mostrador' },
       cocina: { title: 'Pantalla de Cocina (KDS)', sub: 'Comandas en preparación, timers y barra' },
       ventas: { title: 'Ventas & Caja Diaria', sub: 'Métricas de facturación, pedidos y ticket promedio' },
-      finanzas: { title: 'Módulo Financiero', sub: 'Control de egresos, ingresos, cuentas bancarias y métodos de pago' },
+      finanzas: { title: 'Caja & Finanzas', sub: 'Control de egresos, ingresos, cuentas bancarias y métodos de pago' },
       productos: { title: 'Página de Productos & Carta', sub: 'Estructuración de categorías, precios, fotos y stock' },
       bienvenida: { title: 'Página de Bienvenida', sub: 'Editor de landing page móvil, enlaces rápidos y WiFi' },
       inventario: { title: 'Inventario', sub: 'Control de stock y alertas de agotados en tiempo real' },
